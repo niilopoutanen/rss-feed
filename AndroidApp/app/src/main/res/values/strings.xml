@@ -79,5 +79,6 @@
     <string name="error_host">No internet connection or bad host url.</string>
     <string name="reduced_glare">Reduced Glare</string>
     <string name="reduced_glare_desc">Sets the article background to dark grey instead of pure black</string>
+    <string name="articles_fullscreen">View articles in fullscreen</string>
 
 </resources>
