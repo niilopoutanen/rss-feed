@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/element_background"
+    android:paddingBottom="10dp"
+    android:id="@+id/feedcard_container"
+    android:padding="10dp">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/feedcard_image"
+        android:layout_marginBottom="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/feedcard_author"
+            android:textSize="13sp"
+            app:fontFamily="@font/inter_medium"
+            android:textColor="@color/textSecondary"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/feedcard_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            app:fontFamily="@font/inter_semibold"
+            android:textColor="@color/textPrimary"
+            android:maxLines="5"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/feedcard_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            app:fontFamily="@font/inter"
+            android:textColor="@color/textSecondary"
+            android:maxLines="2"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/feedcard_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textSecondary"
+            android:fontFamily="@font/inter"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

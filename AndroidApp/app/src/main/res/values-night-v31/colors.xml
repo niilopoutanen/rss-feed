@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="element">#1c1c1e</color>
+    <color name="element_pressed">#222224</color>
+    <color name="element_border">#313136</color>
+
+    <color name="surface">#292929</color>
+    <color name="surface_border">#121212</color>
+
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#7B8086</color>
+
+    <color name="windowBg">#000000</color>
+
+    <color name="accentBlue">#0075FF</color>
+    <color name="accentViolet">#a446a3</color>
+    <color name="accentPink">#f7409d</color>
+    <color name="accentRed">#f74958</color>
+    <color name="accentOrange">#f6801f</color>
+    <color name="accentYellow">#fcb82a</color>
+    <color name="accentGreen">#055c39</color>
+</resources>

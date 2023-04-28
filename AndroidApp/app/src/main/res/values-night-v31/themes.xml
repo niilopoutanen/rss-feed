@@ -1,0 +1,38 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="RSSFeedStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">?attr/colorAccent</item>
+
+        <item name="android:statusBarColor">@color/windowBg</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="android:windowBackground">@color/windowBg</item>
+        <item name="android:navigationBarColor">@color/windowBg</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:textColorLink">?attr/colorAccent</item>
+
+        <item name="colorAccent">@android:color/system_accent1_400</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/launch_anim</item>
+
+    </style>
+
+    <style name="BottomSheetStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialog</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@color/transparent</item>
+    </style>
+
+    <style name="RSSFeedStyle.EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="hintTextColor">@color/textSecondary</item>
+        <item name="paddingStart">10dp</item>
+        <item name="paddingEnd">10dp</item>
+        <item name="background">@null</item>
+    </style>
+</resources>

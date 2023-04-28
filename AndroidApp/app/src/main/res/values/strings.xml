@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">RSS-Feed</string>
+    <string name="app_version">Version: 0.5</string>
+    <string name="copyright">©2023 Niilo Poutanen</string>
+
+    <string name="feed_header">Feed</string>
+    <string name="settings_header">Settings</string>
+    <string name="feedsettings_header">Feed customization</string>
+    <string name="sources_header">Sources</string>
+
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="goback">Return</string>
+
+    <string name="addsource">Add source</string>
+    <string name="updatesource">Update source</string>
+    <string name="sourceremoved">Source removed</string>
+
+    <string name="feed_name">Feed name (Leave empty for autofill)</string>
+    <string name="feed_url">Feed url</string>
+
+    <string name="today">Today at</string>
+    <string name="nointernet">No internet connection available.</string>
+    <string name="nosources">No sources added.</string>
+
+    <plurals name="minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="hours_ago">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <string name="justnow">Just now</string>
+
+    <string name="settings_material_you">Material You</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_additional">The theme changes when restarting the app for the next time.</string>
+    <string name="settings_feedcardstyle">Feed card style</string>
+    <string name="accentcolor">Accent color</string>
+    <string name="settings_font">Font used in articles</string>
+    <string name="settings_launchwindow">Launch window</string>
+    <string name="view_in_browser">View in browser</string>
+    <string name="open_articles_in_browser">Open articles in browser</string>
+
+    <string name="author_visible">Author visible</string>
+    <string name="author_sourcedesc">Show post source</string>
+    <string name="title_visible">Title visible</string>
+    <string name="description_visible">Description visible</string>
+    <string name="date_visible">Date visible</string>
+    <string name="date_format">Date format</string>
+
+    <string-array name="theme_modes">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Follow system</item>
+    </string-array>
+    <string-array name="fonts">
+        <item>Inter</item>
+        <item>Roboto Serif</item>
+    </string-array>
+    <string-array name="launch_windows">
+        <item>Settings</item>
+        <item>Feed</item>
+        <item>Sources</item>
+    </string-array>
+    <string-array name="date_modes">
+        <item>Long</item>
+        <item>Short</item>
+        <item>Time since</item>
+        <item>Time only</item>
+    </string-array>
+
+
+    <string name="error_url">Error reading from url.</string>
+    <string name="error_host">No internet connection or bad host url.</string>
+
+</resources>

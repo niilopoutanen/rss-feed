@@ -1,0 +1,16 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="RSSFeedStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">?attr/colorAccent</item>
+
+        <item name="android:statusBarColor">@color/windowBg</item>
+        <item name="android:windowBackground">@color/windowBg</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:textColorLink">?attr/colorAccent</item>
+        <item name="colorAccent">?attr/colorAccent</item>
+    </style>
+</resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="500dp"
+    android:background="@drawable/element_background"
+    android:padding="15dp"
+    android:id="@+id/addsource_layout">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:id="@+id/sourcedialog_cancel"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:text="@string/cancel"
+            app:fontFamily="@font/inter"
+            android:textColor="?attr/colorAccent"/>
+        <TextView
+            android:id="@+id/sourcedialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addsource"
+            android:textSize="18sp"
+            android:textColor="@color/textPrimary"
+            app:fontFamily="@font/inter_semibold"
+            android:layout_centerInParent="true"/>
+
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true">
+            <TextView
+                android:id="@+id/sourcedialog_add"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:text="@string/add"
+                android:gravity="center|end"
+                app:fontFamily="@font/inter"
+                android:textColor="?attr/colorAccent" />
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/sourcedialog_progress"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:indeterminateTint="?attr/colorAccent"/>
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/input_background"
+        android:backgroundTint="@color/surface"
+        android:layout_marginBottom="20dp">
+        <EditText
+            android:id="@+id/sourcedialog_feedUrl"
+            android:autofillHints="url"
+            android:inputType="textUri"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="@string/feed_url"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/textPrimary"
+            android:background="@null"
+            android:textColorHint="@color/textSecondary"/>
+        <View
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/textSecondary"/>
+        <EditText
+            android:id="@+id/sourcedialog_feedName"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="@string/feed_name"
+            android:textColor="@color/textPrimary"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:background="@null"
+            android:textColorHint="@color/textSecondary"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
