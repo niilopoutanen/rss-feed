@@ -1,7 +1,9 @@
 package com.niilopoutanen.rss_feed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -57,6 +59,18 @@ public class SettingsFragment extends Fragment {
         return rootView;
     }
     private void initializeElements(View rootView) {
+        rootView.findViewById(R.id.copyright).setOnClickListener(v -> {
+            String url = "https://github.com/niilopoutanen";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        });
+        rootView.findViewById(R.id.settings_appicon).setOnClickListener(v -> {
+            String url = "https://github.com/niilopoutanen/RSS-Feed";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        });
+
+
         RelativeLayout feedSettings = rootView.findViewById(R.id.settings_openFeedSettings);
         feedSettings.setOnClickListener(new View.OnClickListener() {
             @Override
