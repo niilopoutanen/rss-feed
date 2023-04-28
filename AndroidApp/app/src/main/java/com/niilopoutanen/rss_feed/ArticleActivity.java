@@ -32,6 +32,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -97,12 +98,7 @@ public class ArticleActivity extends AppCompatActivity {
         });
 
 
-        if(preferences.s_reducedglare){
-            int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
-                findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
-            }
-        }
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels - PreferencesManager.dpToPx(200, this);
@@ -151,6 +147,17 @@ public class ArticleActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl.toString()));
             startActivity(intent);
         });
+
+        if(preferences.s_reducedglare){
+            int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+                findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
+            }
+        }
+        if(preferences.s_articlefullscreen){
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
     }
     private void initializeContent(String result){
         TextView titleView = findViewById(R.id.article_title);

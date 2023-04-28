@@ -35,6 +35,8 @@ public class SettingsFragment extends Fragment {
     TextView launchwindowSelected;
     SwitchCompat articlesInBrowser;
     SwitchCompat reducedGlare;
+    SwitchCompat articleFullScreen;
+
     List<RelativeLayout> colorAccentButtons;
     public SettingsFragment(Context context) {
         this.appContext = context;
@@ -88,6 +90,7 @@ public class SettingsFragment extends Fragment {
 
         articlesInBrowser = rootView.findViewById(R.id.switch_articleinbrowser);
         reducedGlare = rootView.findViewById(R.id.switch_darkbg);
+        articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
 
         themeSelected = rootView.findViewById(R.id.theme_selected);
         RelativeLayout themeSettings = rootView.findViewById(R.id.settings_themesettings);
@@ -125,6 +128,12 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, isChecked, appContext);
+            }
+        });
+        articleFullScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
             }
         });
 
@@ -174,6 +183,8 @@ public class SettingsFragment extends Fragment {
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
 
         reducedGlare.setChecked(PreferencesManager.getBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, SP_REDUCEDGLARE_DEFAULT, appContext));
+
+        articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, appContext));
 
     }
 
