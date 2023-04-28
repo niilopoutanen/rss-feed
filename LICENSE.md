@@ -1,4 +1,4 @@
-Creative Commons Attribution-NonCommercial 4.0 International Public License
+# Creative Commons Attribution-NonCommercial 4.0 International Public License
 
 By exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-NonCommercial 4.0 International Public License ("Public License"). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.
 
@@ -74,7 +74,7 @@ For the avoidance of doubt, this Section 6(b) does not affect any right the Lice
 
 c. For the avoidance of doubt, the Licensor may also offer the Licensed Material under separate terms or conditions or stop distributing the Licensed Material at any time; however, doing so will not terminate this Public License.
 d. Sections 1, 5, 6, 7, and 8 survive termination of this Public License.
-Section 7 – Other Terms and Conditions.
+### Section 7 – Other Terms and Conditions.
 
 a. The Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.
 b. Any arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent of the terms and conditions of this Public License.
