@@ -28,6 +28,8 @@ public class SourceValidator {
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/feed"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss"));
+        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/uutiset.xml"));
+        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/news.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/rss.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/atom"));
