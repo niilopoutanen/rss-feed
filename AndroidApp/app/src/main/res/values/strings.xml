@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RSS-Feed</string>
-    <string name="app_version">Version: 0.5</string>
+    <string name="app_version">Version: 1.0</string>
     <string name="copyright">©2023 Niilo Poutanen</string>
 
     <string name="feed_header">Feed</string>
@@ -77,5 +77,7 @@
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
+    <string name="reduced_glare">Reduced Glare</string>
+    <string name="reduced_glare_desc">Sets the article background to dark grey instead of pure black</string>
 
 </resources>

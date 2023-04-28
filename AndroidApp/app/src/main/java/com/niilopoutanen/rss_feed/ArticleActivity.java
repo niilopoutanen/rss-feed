@@ -11,8 +11,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -94,6 +96,13 @@ public class ArticleActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
+
+        if(preferences.s_reducedglare){
+            int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+                findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
+            }
+        }
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels - PreferencesManager.dpToPx(200, this);

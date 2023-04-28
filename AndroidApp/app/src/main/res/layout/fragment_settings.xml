@@ -73,8 +73,7 @@
                 android:text="@string/feedsettings_header"
                 android:textColor="@color/textPrimary"
                 android:textSize="15sp"
-                app:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="5dp"/>
+                app:fontFamily="@font/inter_semibold"/>
 
             <View
                 android:layout_centerVertical="true"
@@ -98,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
+
                 android:text="@string/settings_theme"
                 android:textColor="@color/textPrimary"
                 android:textSize="15sp"
@@ -238,7 +237,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
+
                 android:text="@string/settings_font"
                 android:textColor="@color/textPrimary"
                 android:textSize="15sp"
@@ -276,8 +275,7 @@
                 android:text="@string/open_articles_in_browser"
                 android:textColor="@color/textPrimary"
                 android:textSize="15sp"
-                app:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="5dp"/>
+                app:fontFamily="@font/inter_semibold"/>
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_articleinbrowser"
@@ -290,6 +288,40 @@
 
         </RelativeLayout>
         <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reduced_glare"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_darkbg"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:thumb="@drawable/switch_thumb"
+                app:track="@drawable/switch_track"/>
+
+
+        </RelativeLayout>
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/textSecondary"
+            app:fontFamily="@font/inter_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reduced_glare_desc"/>
+        <RelativeLayout
             android:id="@+id/settings_launchwindowsettings"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -301,7 +333,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
                 android:text="@string/settings_launchwindow"
                 android:textColor="@color/textPrimary"
                 android:textSize="15sp"

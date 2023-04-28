@@ -34,6 +34,7 @@ public class SettingsFragment extends Fragment {
     TextView fontSelected;
     TextView launchwindowSelected;
     SwitchCompat articlesInBrowser;
+    SwitchCompat reducedGlare;
     List<RelativeLayout> colorAccentButtons;
     public SettingsFragment(Context context) {
         this.appContext = context;
@@ -86,7 +87,7 @@ public class SettingsFragment extends Fragment {
         }
 
         articlesInBrowser = rootView.findViewById(R.id.switch_articleinbrowser);
-
+        reducedGlare = rootView.findViewById(R.id.switch_darkbg);
 
         themeSelected = rootView.findViewById(R.id.theme_selected);
         RelativeLayout themeSettings = rootView.findViewById(R.id.settings_themesettings);
@@ -127,6 +128,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+
+        reducedGlare.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                PreferencesManager.saveBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, isChecked, appContext);
+            }
+        });
+
         //material you
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.S){
             rootView.findViewById(R.id.settings_colortile).setVisibility(View.GONE);
@@ -163,6 +172,9 @@ public class SettingsFragment extends Fragment {
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
 
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
+
+        reducedGlare.setChecked(PreferencesManager.getBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, SP_REDUCEDGLARE_DEFAULT, appContext));
+
     }
 
     private void onColorAccentChange(RelativeLayout button, List<RelativeLayout> buttonCollection) {

@@ -15,6 +15,7 @@ public class Preferences implements Serializable {
     public boolean s_feedcard_titlevisible;
     public boolean s_feedcard_descvisible;
     public boolean s_feedcard_datevisible;
+    public boolean s_reducedglare;
 
     public DateStyle s_feedcard_datestyle;
     public static final String SP_SETTINGS = "Settings";
@@ -22,8 +23,10 @@ public class Preferences implements Serializable {
     public static final ThemeMode SP_THEME_DEFAULT = ThemeMode.DARK;
     public static final String SP_FONT = "font";
     public static final Font SP_FONT_DEFAULT = Font.Inter;
-    public static final String SP_ARTICLESINBROWSER= "articles_openinbrowser";
+    public static final String SP_ARTICLESINBROWSER = "articles_openinbrowser";
     public static final boolean SP_ARTICLESINBROWSER_DEFAULT = false;
+    public static final String SP_REDUCEDGLARE = "ui_reducedglare";
+    public static final boolean SP_REDUCEDGLARE_DEFAULT = false;
     public static final String SP_LAUNCHWINDOW= "launch_window";
     public static final LaunchWindow SP_LAUNCHWINDOW_DEFAULT = LaunchWindow.FEED;
     public static final String SP_FEEDCARD_STYLE = "feedcard_style";
