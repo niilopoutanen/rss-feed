@@ -60,7 +60,9 @@ public class ArticleActivity extends AppCompatActivity {
     private LinearLayout articleContainer;
     private String title;
     private ProgressBar articleLoader;
+    private int scrollPosition;
 
+    private String resultData;
     private String publisher;
     private Date publishTime;
     private URL postUrl;
@@ -75,6 +77,17 @@ public class ArticleActivity extends AppCompatActivity {
                 publisher = extras.getString("postPublisher");
                 publishTime = (Date)extras.get("postPublishTime");
                 preferences = (Preferences)extras.get("preferences");
+
+                if(savedInstanceState != null){
+                    resultData = null;
+                    resultData = savedInstanceState.getString("content");
+
+                    title = null;
+                    title = savedInstanceState.getString("title");
+
+                    scrollPosition = savedInstanceState.getInt("scroll_position");
+                }
+
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -106,30 +119,39 @@ public class ArticleActivity extends AppCompatActivity {
         articleContainer.setLayoutParams(layoutParams);
 
         initializeBase();
-        ReadabilityThread(postUrl, new WebCallBack<String>() {
-            @Override
-            public void onResult(String result) {
-                if(result.equals("404")){
-                    runOnUiThread(() -> {
-                        articleLoader.setVisibility(View.GONE);
-                        createTextView(new SpannedString(ArticleActivity.this.getString(R.string.error_url)));
-                    });
+        if(resultData == null || resultData.isEmpty()){
+            ReadabilityThread(postUrl, new WebCallBack<String>() {
+                @Override
+                public void onResult(String result) {
+                    if(result.equals("404")){
+                        runOnUiThread(() -> {
+                            articleLoader.setVisibility(View.GONE);
+                            createTextView(new SpannedString(ArticleActivity.this.getString(R.string.error_url)));
+                        });
+                    }
+                    else if(result.equals("408")){
+                        runOnUiThread(() -> {
+                            articleLoader.setVisibility(View.GONE);
+                            createTextView(new SpannedString(ArticleActivity.this.getString(R.string.error_host)));
+                        });
+                    }
+                    else{
+                        runOnUiThread(() -> {
+                            resultData = result;
+                            LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            articleContainer.setLayoutParams(restoreParams);
+                            initializeContent(result);
+                        });
+                    }
                 }
-                else if(result.equals("408")){
-                    runOnUiThread(() -> {
-                        articleLoader.setVisibility(View.GONE);
-                        createTextView(new SpannedString(ArticleActivity.this.getString(R.string.error_host)));
-                    });
-                }
-                else{
-                    runOnUiThread(() -> {
-                        LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        articleContainer.setLayoutParams(restoreParams);
-                        initializeContent(result);
-                    });
-                }
-            }
-        });
+            });
+        }
+        else{
+            LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            articleContainer.setLayoutParams(restoreParams);
+            initializeContent(resultData);
+        }
+
     }
     private void initializeBase(){
         TextView publishTimeView = findViewById(R.id.article_publishtime);
@@ -166,6 +188,15 @@ public class ArticleActivity extends AppCompatActivity {
         parseSpanned(HtmlCompat.fromHtml(result, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         articleLoader.setVisibility(View.GONE);
+
+        try{
+            findViewById(R.id.articleScrollView).post(() -> {
+                findViewById(R.id.articleScrollView).scrollTo(0, scrollPosition);
+            });
+        }
+        catch (Exception e){
+            //autoscroll failed
+        }
     }
     private void parseSpanned(Spanned spanned) {
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(spanned);
@@ -331,5 +362,13 @@ public class ArticleActivity extends AppCompatActivity {
             }
         });
         thread.start();
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("content", resultData);
+        outState.putString("title", title);
+        outState.putInt("scroll_position", findViewById(R.id.articleScrollView).getScrollY());
+
     }
 }
