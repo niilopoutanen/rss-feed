@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -46,6 +47,9 @@ import com.niilopoutanen.rss_feed.web.WebCallBack;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.Executor;
@@ -217,24 +221,10 @@ public class ArticleActivity extends AppCompatActivity {
 
 
         imageView.setOnClickListener(v -> {
-
             Intent imageIntent = new Intent(ArticleActivity.this, ImageViewActivity.class);
-
-            ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation(ArticleActivity.this, imageView, "img");
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            imageView.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
-            imageView.setDrawingCacheEnabled(false);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ArticleActivity.this, imageView, "img");
             imageIntent.putExtra("imageurl", span.getSource());
-            imageIntent.putExtra("image", byteArray);
-
             startActivity(imageIntent, options.toBundle());
-
         });
     }
 
