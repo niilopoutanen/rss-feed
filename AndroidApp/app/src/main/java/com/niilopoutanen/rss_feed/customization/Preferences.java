@@ -19,11 +19,10 @@ public class Preferences implements Serializable {
     public boolean s_articlefullscreen;
 
     public DateStyle s_feedcard_datestyle;
-    public static final String SP_SETTINGS = "Settings";
     public static final String SP_THEME = "theme";
     public static final ThemeMode SP_THEME_DEFAULT = ThemeMode.DARK;
     public static final String SP_FONT = "font";
-    public static final Font SP_FONT_DEFAULT = Font.Inter;
+    public static final Font SP_FONT_DEFAULT = Font.INTER;
     public static final String SP_ARTICLESINBROWSER = "articles_openinbrowser";
     public static final boolean SP_ARTICLESINBROWSER_DEFAULT = false;
 
@@ -64,7 +63,7 @@ public class Preferences implements Serializable {
         LIGHT, DARK, FOLLOWSYSTEM
     }
     public enum Font{
-        Inter, RobotoSans
+        INTER, ROBOTO_SANS, ROBOTO_MONO
     }
     public enum LaunchWindow{
         SETTINGS, FEED, SOURCES

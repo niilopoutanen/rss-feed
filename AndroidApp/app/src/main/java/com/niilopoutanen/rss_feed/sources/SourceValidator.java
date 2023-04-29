@@ -28,69 +28,58 @@ public class SourceValidator {
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/feed"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss"));
+        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/uutiset.xml"));
+        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/news.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/rss.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/atom"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/atom.xml"));
 
-
-        final URL[] finalUrl = new URL[1];
-        CompletableFuture<Boolean> urlCheckFuture = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture.supplyAsync(() -> {
             for (URL url : urlsToCheck) {
                 try {
                     boolean urlExists = urlExists(url);
                     boolean rssExists = rssExists(url);
                     if (rssExists && urlExists) {
-                        finalUrl[0] = url;
-                        return true;
+                        return url;
                     }
                 } catch (IOException e) {
                     // Ignore exceptions and try the next URL
                 }
             }
-            return false;
-        }, executor);
+            return null;
+        }, executor).thenComposeAsync(finalUrl -> {
+            if (finalUrl == null) {
+                return CompletableFuture.completedFuture(null);
+            } else {
+                CompletableFuture<String> faviconUrlFuture = CompletableFuture.supplyAsync(() -> {
+                    try {
+                        return WebHelper.getFaviconUrl(finalUrl);
+                    } catch (IOException e) {
+                        return null;
+                    }
+                }, executor);
 
-        Boolean validUrl = urlCheckFuture.join();
+                CompletableFuture<String> sourceNameFuture = CompletableFuture.supplyAsync(() -> {
+                    if (sourceName.isEmpty()) {
+                        return getSiteTitle(finalUrl);
+                    } else {
+                        return sourceName;
+                    }
+                }, executor);
 
-        if (validUrl) {
-            CompletableFuture<String> faviconUrlFuture = CompletableFuture.supplyAsync(() -> {
-                try {
-                    return WebHelper.getFaviconUrl(finalUrl[0]);
-                } catch (IOException e) {
-                    return null;
-                }
-            }, executor);
-
-            CompletableFuture<String> sourceNameFuture = CompletableFuture.supplyAsync(() -> {
-                if (sourceName.isEmpty()) {
-                    return getSiteTitle(finalUrl[0]);
-                } else {
-                    return sourceName;
-                }
-            }, executor);
-
-            CompletableFuture<Void> allFutures = CompletableFuture.allOf(faviconUrlFuture, sourceNameFuture);
-            allFutures.thenRunAsync(() -> {
-                String validatedIcon = faviconUrlFuture.join();
-                String validatedName = sourceNameFuture.join();
-                if (validatedName.isEmpty()) {
-                    sourceCallBack.onResult(null);
-                    executor.shutdown();
-                    return;
-                }
-                Source validatedSource = new Source(validatedName, finalUrl[0].toString(), validatedIcon);
-                sourceCallBack.onResult(validatedSource);
-                executor.shutdown();
-            }, executor);
-
-            allFutures.join();
-        } else {
-            sourceCallBack.onResult(null);
+                return faviconUrlFuture.thenCombineAsync(sourceNameFuture, (validatedIcon, validatedName) -> {
+                    if (validatedName.isEmpty()) {
+                        return null;
+                    } else {
+                        return new Source(validatedName, finalUrl.toString(), validatedIcon);
+                    }
+                }, executor);
+            }
+        }, executor).whenCompleteAsync((validatedSource, throwable) -> {
+            sourceCallBack.onResult(validatedSource);
             executor.shutdown();
-        }
-
-
+        }, executor);
     }
 
 

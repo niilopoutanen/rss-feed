@@ -14,6 +14,7 @@
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="goback">Return</string>
+    <string name="save">Save</string>
 
     <string name="addsource">Add source</string>
     <string name="updatesource">Update source</string>
@@ -35,6 +36,9 @@
         <item quantity="other">%d hours ago</item>
     </plurals>
     <string name="justnow">Just now</string>
+    <string name="imagefrom">Image from</string>
+    <string name="imagesaved">Image saved to gallery</string>
+    <string name="nowriteaccess">You have not granted write permissions to the app.</string>
 
     <string name="settings_material_you">Material You</string>
     <string name="settings_theme">Theme</string>
@@ -45,6 +49,9 @@
     <string name="settings_launchwindow">Launch window</string>
     <string name="view_in_browser">View in browser</string>
     <string name="open_articles_in_browser">Open articles in browser</string>
+    <string name="reduced_glare">Reduced Glare</string>
+    <string name="reduced_glare_desc">Sets the article background to dark grey instead of pure black</string>
+    <string name="articles_fullscreen">View articles in fullscreen</string>
 
     <string name="author_visible">Author visible</string>
     <string name="author_sourcedesc">Show post source</string>
@@ -61,6 +68,7 @@
     <string-array name="fonts">
         <item>Inter</item>
         <item>Roboto Serif</item>
+        <item>Roboto Mono</item>
     </string-array>
     <string-array name="launch_windows">
         <item>Settings</item>
@@ -77,8 +85,5 @@
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
-    <string name="reduced_glare">Reduced Glare</string>
-    <string name="reduced_glare_desc">Sets the article background to dark grey instead of pure black</string>
-    <string name="articles_fullscreen">View articles in fullscreen</string>
 
 </resources>

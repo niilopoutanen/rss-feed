@@ -1,50 +1,39 @@
 package com.niilopoutanen.rss_feed;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.text.HtmlCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
 import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.net.URL;
-import java.text.DateFormat;
-import java.util.Date;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.text.HtmlCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -56,33 +45,51 @@ import com.niilopoutanen.rss_feed.rss.Readability;
 import com.niilopoutanen.rss_feed.web.WebCallBack;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
+import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 public class ArticleActivity extends AppCompatActivity {
     private LinearLayout articleContainer;
     private String title;
     private ProgressBar articleLoader;
+    private int scrollPosition;
 
+    private String resultData;
     private String publisher;
     private Date publishTime;
     private URL postUrl;
     private Preferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            try{
-                postUrl = new URL(extras.getString("postUrl"));
-                publisher = extras.getString("postPublisher");
-                publishTime = (Date)extras.get("postPublishTime");
-                preferences = (Preferences)extras.get("preferences");
+        if (extras == null) {
+            return;
+        }
+
+        try {
+            postUrl = new URL(extras.getString("postUrl"));
+            publisher = extras.getString("postPublisher");
+            publishTime = (Date) extras.get("postPublishTime");
+            preferences = (Preferences) extras.get("preferences");
+
+            if (savedInstanceState != null) {
+                resultData = savedInstanceState.getString("content");
+                title = savedInstanceState.getString("title");
+                scrollPosition = savedInstanceState.getInt("scroll_position");
             }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
         setContentView(R.layout.activity_article);
+
         articleLoader = findViewById(R.id.article_load);
         articleContainer = findViewById(R.id.articleview);
 
@@ -97,8 +104,6 @@ public class ArticleActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-
-
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels - PreferencesManager.dpToPx(200, this);
@@ -106,107 +111,135 @@ public class ArticleActivity extends AppCompatActivity {
         articleContainer.setLayoutParams(layoutParams);
 
         initializeBase();
-        ReadabilityThread(postUrl, new WebCallBack<String>() {
-            @Override
-            public void onResult(String result) {
-                if(result.equals("404")){
-                    runOnUiThread(() -> {
-                        articleLoader.setVisibility(View.GONE);
-                        createTextView(new SpannedString(ArticleActivity.this.getString(R.string.error_url)));
-                    });
-                }
-                else if(result.equals("408")){
-                    runOnUiThread(() -> {
-                        articleLoader.setVisibility(View.GONE);
-                        createTextView(new SpannedString(ArticleActivity.this.getString(R.string.error_host)));
-                    });
-                }
-                else{
-                    runOnUiThread(() -> {
-                        LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        articleContainer.setLayoutParams(restoreParams);
-                        initializeContent(result);
-                    });
-                }
-            }
-        });
-    }
-    private void initializeBase(){
-        TextView publishTimeView = findViewById(R.id.article_publishtime);
-        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-        publishTimeView.setText(dateFormat.format(publishTime));
 
-        LinearLayout articleReturn = findViewById(R.id.article_return);
-        articleReturn.setOnClickListener(v -> finish());
+        if (resultData == null || resultData.isEmpty()) {
+            ReadabilityThread(postUrl, new WebCallBack<String>() {
+                @Override
+                public void onResult(String result) {
+                    runOnUiThread(() -> {
+                        articleLoader.setVisibility(View.GONE);
+
+                        if (result.equals("404")) {
+                            createTextView(new SpannedString(getString(R.string.error_url)));
+                        } else if (result.equals("408")) {
+                            createTextView(new SpannedString(getString(R.string.error_host)));
+                        } else {
+                            resultData = result;
+                            LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            articleContainer.setLayoutParams(restoreParams);
+                            initializeContent(result);
+                        }
+                    });
+                }
+            });
+        } else {
+            LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            articleContainer.setLayoutParams(restoreParams);
+            initializeContent(resultData);
+        }
+    }
+
+    private void initializeBase() {
+        TextView publishTimeView = findViewById(R.id.article_publishtime);
+        publishTimeView.setText(android.text.format.DateFormat.getDateFormat(getApplicationContext()).format(publishTime));
+
+        findViewById(R.id.article_return).setOnClickListener(v -> finish());
 
         TextView publisherView = findViewById(R.id.article_source);
         publisherView.setText(publisher);
 
-        RelativeLayout viewInBrowser = findViewById(R.id.article_viewinbrowser);
-        viewInBrowser.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl.toString()));
-            startActivity(intent);
-        });
+        findViewById(R.id.article_viewinbrowser).setOnClickListener(v ->
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl.toString()))));
 
-        if(preferences.s_reducedglare){
+        if(preferences.s_reducedglare) {
             int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
             }
         }
-        if(preferences.s_articlefullscreen){
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (preferences.s_articlefullscreen) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
-    private void initializeContent(String result){
+
+    private void initializeContent(String result) {
         TextView titleView = findViewById(R.id.article_title);
         titleView.setText(title);
+        titleView.setTypeface(PreferencesManager.getSavedFont(preferences, this));
 
         parseSpanned(HtmlCompat.fromHtml(result, HtmlCompat.FROM_HTML_MODE_LEGACY));
-
         articleLoader.setVisibility(View.GONE);
+
+        // Scroll to the saved position (if available)
+        View articleScrollView = findViewById(R.id.articleScrollView);
+        articleScrollView.post(() -> articleScrollView.scrollTo(0, scrollPosition));
     }
+
     private void parseSpanned(Spanned spanned) {
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(spanned);
-        int subSequenceStart = 0;
-        ImageSpan[] imageSpans = spannableStringBuilder.getSpans(0, spannableStringBuilder.length(), ImageSpan.class);
-        if(imageSpans.length == 0){
+        SpannableStringBuilder builder = new SpannableStringBuilder(spanned);
+        ImageSpan[] imageSpans = builder.getSpans(0, builder.length(), ImageSpan.class);
+
+        if (imageSpans.length == 0) {
             createTextView(spanned);
             return;
         }
-        for (ImageSpan imageSpan : imageSpans) {
-            int start = spannableStringBuilder.getSpanStart(imageSpan);
-            int end = spannableStringBuilder.getSpanEnd(imageSpan);
-            createTextView((Spanned) spannableStringBuilder.subSequence(subSequenceStart, start));
-            subSequenceStart = end;
 
+        int lastEnd = 0;
+        for (ImageSpan imageSpan : imageSpans) {
+            int start = builder.getSpanStart(imageSpan);
+            int end = builder.getSpanEnd(imageSpan);
+
+            createTextView((Spanned) builder.subSequence(lastEnd, start));
             createImageView(imageSpan);
 
+            lastEnd = end;
         }
+
         // Handle remaining text after last image
-        if (subSequenceStart < spannableStringBuilder.length()) {
-            createTextView((Spanned) spannableStringBuilder.subSequence(subSequenceStart, spannableStringBuilder.length()));
+        if (lastEnd < builder.length()) {
+            createTextView((Spanned) builder.subSequence(lastEnd, builder.length()));
         }
     }
 
+
     private void createImageView(ImageSpan span) {
         ImageView imageView = new ImageView(this);
-        articleContainer.addView(imageView);
+        articleContainer.addView(imageView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-
-        ViewGroup.MarginLayoutParams margin = (ViewGroup.MarginLayoutParams) imageView.getLayoutParams();
         int marginPx = PreferencesManager.dpToPx(15, this);
-        margin.setMargins(0,marginPx, 0,marginPx);
+        imageView.setPadding(0, marginPx, 0, marginPx);
 
         Picasso.get().load(span.getSource())
                 .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, this), 0)
                 .transform(new MaskTransformation(this, R.drawable.image_rounded))
                 .into(imageView);
 
+
+        imageView.setOnClickListener(v -> {
+
+            Intent imageIntent = new Intent(ArticleActivity.this, ImageViewActivity.class);
+
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(ArticleActivity.this, imageView, "img");
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageView.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
+            imageView.setDrawingCacheEnabled(false);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            imageIntent.putExtra("imageurl", span.getSource());
+            imageIntent.putExtra("image", byteArray);
+
+            startActivity(imageIntent, options.toBundle());
+
+        });
     }
-    private void createTextView(Spanned text){
-        if(text.length() > 0 && !TextUtils.isEmpty(text) && !text.toString().matches("\\A\\s*\\z")){
+
+    private void createTextView(Spanned text) {
+        if (text.length() > 0 && !TextUtils.isEmpty(text) && !text.toString().matches("\\A\\s*\\z")) {
             //remove excess line breaks from start and end
             int startIndex = 0;
             int endIndex = text.length();
@@ -232,16 +265,16 @@ public class ArticleActivity extends AppCompatActivity {
 
             // Find all QuoteSpans and replace them with CustomQuoteSpan
             QuoteSpan[] quoteSpans = spannableString.getSpans(0, text.length(), QuoteSpan.class);
-            for(QuoteSpan quoteSpan : quoteSpans){
+            for (QuoteSpan quoteSpan : quoteSpans) {
                 int spanStart = spannableString.getSpanStart(quoteSpan);
                 int spanEnd = spannableString.getSpanEnd(quoteSpan);
                 int flags = spannableString.getSpanFlags(quoteSpan);
                 spannableString.removeSpan(quoteSpan);
                 spannableString.setSpan(new ArticleQuoteSpan(this), spanStart, spanEnd, flags);
             }
-            if(!preferences.s_articlesinbrowser){
+            if (!preferences.s_articlesinbrowser) {
                 URLSpan[] linkSpans = spannableString.getSpans(0, text.length(), URLSpan.class);
-                for(URLSpan linkSpan : linkSpans){
+                for (URLSpan linkSpan : linkSpans) {
                     int start = spannableString.getSpanStart(linkSpan);
                     int end = spannableString.getSpanEnd(linkSpan);
                     int flags = spannableString.getSpanFlags(linkSpan);
@@ -265,11 +298,9 @@ public class ArticleActivity extends AppCompatActivity {
             articleContainer.addView(textView);
         }
     }
-    private void createUrlSpan(URLSpan span){
-        
-    }
+
     @SuppressLint("SetJavaScriptEnabled")
-    private void openWebView(String url, String titleText){
+    private void openWebView(String url, String titleText) {
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this, R.style.BottomSheetStyle);
         webViewSheet.setContentView(R.layout.webview_dialog);
         webViewSheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -287,15 +318,14 @@ public class ArticleActivity extends AppCompatActivity {
         cancel.setOnClickListener(view -> {
             webViewSheet.cancel();
             webView.destroy();
-        } );
+        });
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                try{
+                try {
                     URL host = new URL(url);
                     titleView.setText(host.getHost());
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     titleView.setText(view.getTitle());
                 }
 
@@ -305,31 +335,32 @@ public class ArticleActivity extends AppCompatActivity {
 
         webViewSheet.show();
     }
-    private void ReadabilityThread(URL url, WebCallBack<String> callback){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    Readability readability = new Readability(url, 100000);
 
-                    readability.init(false);
-                    title = readability.separateTitle();
-
-                    callback.onResult(readability.outerHtml());
-                }
-                catch (Exception e){
-                    if(e.getClass() == java.net.UnknownHostException.class){
-                        callback.onResult("408");
-                        e.printStackTrace();
-                    }
-                    else{
-                        callback.onResult("404");
-                        e.printStackTrace();
-                    }
-
+    private void ReadabilityThread(URL url, WebCallBack<String> callback) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                Readability readability = new Readability(url, 100000);
+                readability.init(false);
+                title = readability.separateTitle();
+                callback.onResult(readability.outerHtml());
+            } catch (Exception e) {
+                if (e.getClass() == java.net.UnknownHostException.class) {
+                    callback.onResult("408");
+                    e.printStackTrace();
+                } else {
+                    callback.onResult("404");
+                    e.printStackTrace();
                 }
             }
         });
-        thread.start();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("content", resultData);
+        outState.putString("title", title);
+        outState.putInt("scroll_position", findViewById(R.id.articleScrollView).getScrollY());
     }
 }
