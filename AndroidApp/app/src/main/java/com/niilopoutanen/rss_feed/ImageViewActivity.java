@@ -24,6 +24,7 @@ import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -45,28 +46,15 @@ public class ImageViewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             url = extras.getString("imageurl");
-            try{
-                byte[] byteArray = getIntent().getByteArrayExtra("image");
-                bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            }
-            catch (Exception e){
-                //image decode failed
-            }
         }
 
         imageView = findViewById(R.id.imageview);
 
-        if(bitmap != null){
-            imageView.setImageBitmap(bitmap);
-        }
-        else{
-            Picasso.get().load(url).into(imageView);
-        }
+        Picasso.get().load(url).into(imageView);
 
-        new Handler().postDelayed(() -> {
-            Thread loadThread = new Thread(this::tryLoadHDimg);
-            loadThread.start();
-        }, 300);
+        imageView.setDrawingCacheEnabled(true);
+        bitmap = imageView.getDrawingCache();
+        imageView.setDrawingCacheEnabled(false);
 
         LinearLayout saveBtn = findViewById(R.id.saveimg);
         saveBtn.setOnClickListener(v -> saveImage());
@@ -88,7 +76,9 @@ public class ImageViewActivity extends AppCompatActivity {
             }
         }
 
-
+        if(bitmap == null) {
+            return;
+        }
         String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, filename, null);
         Uri uri = Uri.parse(filepath);
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -96,26 +86,6 @@ public class ImageViewActivity extends AppCompatActivity {
         sendBroadcast(intent);
 
         Toast.makeText(ImageViewActivity.this, getString(R.string.imagesaved), Toast.LENGTH_SHORT).show();
-    }
-    private void tryLoadHDimg() {
-        Bitmap HDbitmap = null;
-        try {
-            URL imgUrl = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) imgUrl.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            HDbitmap = BitmapFactory.decodeStream(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(HDbitmap != null){
-            Bitmap finalHDbitmap = HDbitmap;
-            runOnUiThread(() -> {
-                this.bitmap = finalHDbitmap;
-                imageView.setImageBitmap(finalHDbitmap);
-            });
-        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
