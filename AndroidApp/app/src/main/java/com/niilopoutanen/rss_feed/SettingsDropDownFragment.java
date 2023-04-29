@@ -2,10 +2,12 @@ package com.niilopoutanen.rss_feed;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.TypedValue;
@@ -91,7 +93,7 @@ public class SettingsDropDownFragment extends Fragment {
             String[] windowNames = context.getResources().getStringArray(R.array.launch_windows);
             for(int i=0;i<windowNames.length; i++){
                 boolean isLast = i == windowNames.length - 1;
-                RelativeLayout item = addViews(windowNames[i], verifySelected(i, LaunchWindow.class), isLast);
+                RelativeLayout item = addViews(windowNames[i], verifySelected(i, LaunchWindow.class), isLast, null);
                 final int index = i;
                 item.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -107,12 +109,20 @@ public class SettingsDropDownFragment extends Fragment {
             String[] fontNames = context.getResources().getStringArray(R.array.fonts);
             for(int i=0;i<fontNames.length; i++){
                 boolean isLast = i == fontNames.length - 1;
-                RelativeLayout item = addViews(fontNames[i], verifySelected(i, Font.class), isLast);
-                final int index = i;
+
+                Preferences.Font selectedFont = Preferences.Font.values()[i];
+                Typeface font = ResourcesCompat.getFont(context, R.font.inter);
+                if(selectedFont == Font.ROBOTO_MONO){
+                    font = ResourcesCompat.getFont(context, R.font.roboto_mono);
+                }
+                else if(selectedFont == Font.ROBOTO_SANS){
+                    font = ResourcesCompat.getFont(context, R.font.roboto_serif);
+                }
+
+                RelativeLayout item = addViews(fontNames[i], verifySelected(i, Font.class), isLast, font);
                 item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Preferences.Font selectedFont = Preferences.Font.values()[index];
                         PreferencesManager.saveEnumPreference(SP_FONT, PREFS_LANG, selectedFont, context);
                         closeFragment();
                     }
@@ -123,7 +133,7 @@ public class SettingsDropDownFragment extends Fragment {
             String[] themeNames = context.getResources().getStringArray(R.array.theme_modes);
             for(int i=0;i<themeNames.length; i++){
                 boolean isLast = i == themeNames.length - 1;
-                RelativeLayout item = addViews(themeNames[i], verifySelected(i, ThemeMode.class), isLast);
+                RelativeLayout item = addViews(themeNames[i], verifySelected(i, ThemeMode.class), isLast, null);
                 final int index = i;
                 item.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -136,12 +146,13 @@ public class SettingsDropDownFragment extends Fragment {
             }
         }
     }
-    private RelativeLayout addViews(String name, boolean selected, boolean lastView){
+    private RelativeLayout addViews(String name, boolean selected, boolean lastView, Typeface font){
         RelativeLayout parent = new RelativeLayout(context);
 
 
         TextView textView = new TextView(context);
         textView.setText(name);
+        textView.setTypeface(font);
         int px = PreferencesManager.dpToPx(10, context);
         textView.setPadding(px, px, px, px);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);

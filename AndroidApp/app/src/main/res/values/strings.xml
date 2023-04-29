@@ -61,6 +61,7 @@
     <string-array name="fonts">
         <item>Inter</item>
         <item>Roboto Serif</item>
+        <item>Roboto Mono</item>
     </string-array>
     <string-array name="launch_windows">
         <item>Settings</item>

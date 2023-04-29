@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
@@ -78,8 +77,11 @@ public class PreferencesManager {
     }
     public static Typeface getSavedFont(Preferences preferences, Context context){
         switch (preferences.s_font){
-            case RobotoSans:
+            case ROBOTO_SANS:
                 return ResourcesCompat.getFont(context, R.font.roboto_serif);
+
+            case ROBOTO_MONO:
+                return ResourcesCompat.getFont(context, R.font.roboto_mono);
             default:
                 return ResourcesCompat.getFont(context, R.font.inter);
 

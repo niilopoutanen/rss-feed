@@ -148,9 +148,11 @@ public class ArticleActivity extends AppCompatActivity {
         findViewById(R.id.article_viewinbrowser).setOnClickListener(v ->
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl.toString()))));
 
-        if (preferences.s_reducedglare && (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES ||
-                preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
+        if(preferences.s_reducedglare) {
+            int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
+            }
         }
 
         if (preferences.s_articlefullscreen) {
@@ -161,6 +163,7 @@ public class ArticleActivity extends AppCompatActivity {
     private void initializeContent(String result) {
         TextView titleView = findViewById(R.id.article_title);
         titleView.setText(title);
+        titleView.setTypeface(PreferencesManager.getSavedFont(preferences, this));
 
         parseSpanned(HtmlCompat.fromHtml(result, HtmlCompat.FROM_HTML_MODE_LEGACY));
         articleLoader.setVisibility(View.GONE);
