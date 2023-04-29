@@ -10,13 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:transitionName="img"/>
-    <Button
+    <LinearLayout
         android:id="@+id/saveimg"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_marginEnd="10dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/element_background"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:minWidth="80dp"
+        android:layout_marginBottom="10dp">
+        <View
+            android:backgroundTint="?attr/colorAccent"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:background="@drawable/icon_image"
+            android:layout_marginRight="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            app:fontFamily="@font/inter_semibold"
+            android:textColor="@color/textPrimary"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

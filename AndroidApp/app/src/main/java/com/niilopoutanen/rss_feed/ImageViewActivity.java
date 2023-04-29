@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ortiz.touchview.TouchImageView;
@@ -61,7 +62,7 @@ public class ImageViewActivity extends AppCompatActivity {
             loadThread.start();
         }, 300);
 
-        Button saveBtn = findViewById(R.id.saveimg);
+        LinearLayout saveBtn = findViewById(R.id.saveimg);
         saveBtn.setOnClickListener(v -> saveImage());
 
     }
