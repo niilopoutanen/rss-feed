@@ -1,8 +1,10 @@
 package com.niilopoutanen.rss_feed;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +45,7 @@ import com.niilopoutanen.rss_feed.rss.Readability;
 import com.niilopoutanen.rss_feed.web.WebCallBack;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.Executor;
@@ -212,15 +215,26 @@ public class ArticleActivity extends AppCompatActivity {
                 .transform(new MaskTransformation(this, R.drawable.image_rounded))
                 .into(imageView);
 
-        imageView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent imageIntent = new Intent(ArticleActivity.this, ImageViewActivity.class);
-                imageIntent.putExtra("imageurl", span.getSource());
-                startActivity(imageIntent);
 
-                return true;
-            }
+        imageView.setOnClickListener(v -> {
+
+            Intent imageIntent = new Intent(ArticleActivity.this, ImageViewActivity.class);
+
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(ArticleActivity.this, imageView, "img");
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageView.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
+            imageView.setDrawingCacheEnabled(false);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            imageIntent.putExtra("imageurl", span.getSource());
+            imageIntent.putExtra("image", byteArray);
+
+            startActivity(imageIntent, options.toBundle());
+
         });
     }
 
