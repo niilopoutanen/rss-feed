@@ -211,6 +211,17 @@ public class ArticleActivity extends AppCompatActivity {
                 .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, this), 0)
                 .transform(new MaskTransformation(this, R.drawable.image_rounded))
                 .into(imageView);
+
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent imageIntent = new Intent(ArticleActivity.this, ImageViewActivity.class);
+                imageIntent.putExtra("imageurl", span.getSource());
+                startActivity(imageIntent);
+
+                return true;
+            }
+        });
     }
 
     private void createTextView(Spanned text) {
