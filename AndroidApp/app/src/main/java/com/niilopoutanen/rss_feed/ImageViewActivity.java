@@ -1,8 +1,11 @@
 package com.niilopoutanen.rss_feed;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -34,6 +38,7 @@ public class ImageViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferencesManager.setSavedTheme(this, PreferencesManager.loadPreferences(this));
         setContentView(R.layout.activity_image_view);
 
         Bundle extras = getIntent().getExtras();
@@ -74,6 +79,12 @@ public class ImageViewActivity extends AppCompatActivity {
         }
         catch (Exception ignored){}
 
+        // Check if the permission has not been granted
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            return;
+        }
+
         String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, filename, null);
         Uri uri = Uri.parse(filepath);
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -102,5 +113,16 @@ public class ImageViewActivity extends AppCompatActivity {
             });
         }
     }
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                saveImage();
+            }
+            else{
+                Toast.makeText(this, getString(R.string.nowriteaccess), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

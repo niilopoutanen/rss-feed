@@ -38,6 +38,7 @@
     <string name="justnow">Just now</string>
     <string name="imagefrom">Image from</string>
     <string name="imagesaved">Image saved to gallery</string>
+    <string name="nowriteaccess">You have not granted write permissions to the app.</string>
 
     <string name="settings_material_you">Material You</string>
     <string name="settings_theme">Theme</string>
