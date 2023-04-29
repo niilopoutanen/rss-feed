@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -80,10 +81,13 @@ public class ImageViewActivity extends AppCompatActivity {
         catch (Exception ignored){}
 
         // Check if the permission has not been granted
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            return;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return;
+            }
         }
+
 
         String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, filename, null);
         Uri uri = Uri.parse(filepath);
