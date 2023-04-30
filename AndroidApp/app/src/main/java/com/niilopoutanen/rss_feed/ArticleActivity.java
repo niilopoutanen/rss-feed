@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed;
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -135,20 +137,24 @@ public class ArticleActivity extends AppCompatActivity {
 
     private void initializeBase() {
         View background = findViewById(R.id.article_base);
+        Window window = getWindow();
+        int color = getColor(R.color.article1);
+
         switch (preferences.s_articlecolor){
-            case STAGE1:
-                background.setBackgroundColor(getColor(R.color.article1));
-                break;
             case STAGE2:
-                background.setBackgroundColor(getColor(R.color.article2));
+                color = getColor(R.color.article2);
                 break;
             case STAGE3:
-                background.setBackgroundColor(getColor(R.color.article3));
+                color = getColor(R.color.article3);
                 break;
             case STAGE4:
-                background.setBackgroundColor(getColor(R.color.article4));
+                color = getColor(R.color.article4);
                 break;
         }
+
+        window.setNavigationBarColor(color);
+        window.setStatusBarColor(color);
+        background.setBackgroundColor(color);
 
         if (preferences.s_articlefullscreen) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
