@@ -6,95 +6,14 @@
     android:layout_height="match_parent"
     android:id="@+id/article_base"
     tools:context="com.niilopoutanen.rss_feed.ArticleActivity">
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="10dp"
+        android:id="@+id/article_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/articleScrollView">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="15dp">
-                <LinearLayout
-                    android:id="@+id/article_return"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <Button
-                        android:layout_width="12dp"
-                        android:layout_height="21dp"
-                        android:background="@drawable/arrow"
-                        android:layout_marginRight="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Return"
-                        android:textColor="?attr/colorAccent" />
-                </LinearLayout>
+        android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_centerInParent="true"
-                    android:id="@+id/article_source"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLength="20"
-                    android:textColor="@color/textSecondary"
-                    app:fontFamily="@font/inter_semibold"
-                    android:textSize="15sp"/>
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/article_publishtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLength="14"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="@color/textSecondary"
-                    app:fontFamily="@font/inter_semibold"/>
-            </RelativeLayout>
-            <TextView
-                android:id="@+id/article_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fontFamily="@font/inter_bold"
-                android:textColor="@color/textPrimary"
-                android:textSize="25sp"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:id="@+id/articleview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+    </androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:id="@+id/article_viewinbrowser"
-                android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/element_background"
-                android:layout_gravity="center_horizontal">
-                <View
-                    android:backgroundTint="?attr/colorAccent"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/icon_popup"
-                    android:layout_marginRight="5dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/view_in_browser"
-                    android:textColor="@color/textPrimary"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
     <ProgressBar
         android:id="@+id/article_load"
         android:layout_width="wrap_content"
