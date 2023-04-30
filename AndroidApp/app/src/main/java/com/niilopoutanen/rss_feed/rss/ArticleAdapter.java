@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -18,11 +17,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.rss_feed.ArticleActivity;
 import com.niilopoutanen.rss_feed.ImageViewActivity;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.List;
@@ -55,12 +54,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case VIEW_TYPE_HEADER:
                 view = inflater.inflate(R.layout.article_header, parent, false);
                 LinearLayout returnBtn = view.findViewById(R.id.article_return);
-                returnBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((Activity)appContext).finish();
-                    }
-                });
+                returnBtn.setOnClickListener(v -> ((Activity)appContext).finish());
 
                 TextView publisherView = view.findViewById(R.id.article_source);
                 publisherView.setText(publisher);
@@ -104,12 +98,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             switch (getItemViewType(position)) {
                 case VIEW_TYPE_IMAGE:
                     ContentViewHolder imageviewHolder = (ContentViewHolder) holder;
-                    imageviewHolder.imageView.setImageBitmap(((BitmapItem)item).getBitmap());
+                    Picasso.get().load(((ImageItem)item).getUrl())
+                            .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, appContext), 0)
+                            .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
+                            .into(imageviewHolder.imageView);
 
                     imageviewHolder.imageView.setOnClickListener(v -> {
                         Intent imageIntent = new Intent(appContext, ImageViewActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)appContext, imageviewHolder.imageView, "img");
-                        imageIntent.putExtra("imageurl", ((BitmapItem)item).getUrl());
+                        imageIntent.putExtra("imageurl", ((ImageItem)item).getUrl());
                         appContext.startActivity(imageIntent, options.toBundle());
                     });
                     break;
@@ -152,7 +149,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Object item = adapterData.get(position - 1);
             if (item instanceof SpannedItem) {
                 return VIEW_TYPE_TEXT;
-            } else if (item instanceof BitmapItem) {
+            } else if (item instanceof ImageItem) {
                 return VIEW_TYPE_IMAGE;
             }
             throw new IllegalArgumentException("Invalid item type");
@@ -166,7 +163,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return adapterData.size() + 2; // Add two for header and footer views
     }
     private static class HeaderFooterViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout openInBrowser;
         LinearLayout returnBtn;
         TextView articleTitle;
         TextView articleDate;
@@ -211,17 +207,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public static class BitmapItem implements ArticleItem {
-        private final Bitmap bitmap;
+    public static class ImageItem implements ArticleItem {
         private final String url;
 
-        public BitmapItem(Bitmap bitmap, String url) {
-            this.bitmap = bitmap;
+        public ImageItem(String url) {
             this.url = url;
-        }
-
-        public Bitmap getBitmap() {
-            return bitmap;
         }
         public String getUrl() {
             return url;

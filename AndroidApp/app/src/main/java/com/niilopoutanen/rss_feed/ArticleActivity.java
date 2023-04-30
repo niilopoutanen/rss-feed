@@ -1,13 +1,9 @@
 package com.niilopoutanen.rss_feed;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -15,20 +11,17 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
 import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,10 +45,6 @@ import com.niilopoutanen.rss_feed.web.WebCallBack;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -202,24 +191,8 @@ public class ArticleActivity extends AppCompatActivity {
 
     private void createImageView(ImageSpan span) {
         int itemIndex = views.size();
-        Target customTarget = new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                views.add(itemIndex, new ArticleAdapter.BitmapItem(bitmap, span.getSource()));
-                adapter.notifyItemInserted(itemIndex);
-            }
-
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {}
-        };
-
-        Picasso.get().load(span.getSource())
-                .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, this), 0)
-                .transform(new MaskTransformation(this, R.drawable.image_rounded))
-                .into(customTarget);
+        views.add(itemIndex, new ArticleAdapter.ImageItem(span.getSource()));
+        adapter.notifyItemInserted(itemIndex);
     }
 
 
