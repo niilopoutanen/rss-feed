@@ -50,11 +50,24 @@ public class ImageViewActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageview);
 
-        Picasso.get().load(url).into(imageView);
+        Picasso.get().load(url).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bm, Picasso.LoadedFrom from) {
+                bitmap = bm;
+                imageView.setImageBitmap(bitmap);
+            }
 
-        imageView.setDrawingCacheEnabled(true);
-        bitmap = imageView.getDrawingCache();
-        imageView.setDrawingCacheEnabled(false);
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+
 
         LinearLayout saveBtn = findViewById(R.id.saveimg);
         saveBtn.setOnClickListener(v -> saveImage());
@@ -77,9 +90,31 @@ public class ImageViewActivity extends AppCompatActivity {
         }
 
         if(bitmap == null) {
-            return;
+            String finalFilename = filename;
+            Picasso.get().load(url).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bm, Picasso.LoadedFrom from) {
+                    saveToGallery(bm, finalFilename);
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
         }
-        String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, filename, null);
+        else{
+            saveToGallery(bitmap, filename);
+        }
+
+    }
+    private void saveToGallery(Bitmap image, String filename){
+        String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), image, filename, null);
         Uri uri = Uri.parse(filepath);
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(uri);

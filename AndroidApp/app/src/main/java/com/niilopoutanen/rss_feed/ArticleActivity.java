@@ -1,12 +1,9 @@
 package com.niilopoutanen.rss_feed;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Binder;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -14,18 +11,16 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
 import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,37 +30,39 @@ import androidx.core.text.HtmlCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
+import com.niilopoutanen.rss_feed.rss.ArticleAdapter;
 import com.niilopoutanen.rss_feed.rss.ArticleQuoteSpan;
 import com.niilopoutanen.rss_feed.rss.MaskTransformation;
 import com.niilopoutanen.rss_feed.rss.Readability;
 import com.niilopoutanen.rss_feed.web.WebCallBack;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
-    private LinearLayout articleContainer;
+    private RecyclerView articleContainer;
     private String title;
     private ProgressBar articleLoader;
-    private int scrollPosition;
-
     private String resultData;
     private String publisher;
     private Date publishTime;
     private URL postUrl;
     private Preferences preferences;
+    List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
+    ArticleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,6 @@ public class ArticleActivity extends AppCompatActivity {
             if (savedInstanceState != null) {
                 resultData = savedInstanceState.getString("content");
                 title = savedInstanceState.getString("title");
-                scrollPosition = savedInstanceState.getInt("scroll_position");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +91,7 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article);
 
         articleLoader = findViewById(R.id.article_load);
-        articleContainer = findViewById(R.id.articleview);
+        articleContainer = findViewById(R.id.article_recyclerview);
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.article_base), (v, windowInsets) -> {
@@ -110,9 +106,6 @@ public class ArticleActivity extends AppCompatActivity {
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels - PreferencesManager.dpToPx(200, this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-        articleContainer.setLayoutParams(layoutParams);
 
         initializeBase();
 
@@ -129,32 +122,18 @@ public class ArticleActivity extends AppCompatActivity {
                             createTextView(new SpannedString(getString(R.string.error_host)));
                         } else {
                             resultData = result;
-                            LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            articleContainer.setLayoutParams(restoreParams);
                             initializeContent(result);
                         }
                     });
                 }
             });
-        } else {
-            LinearLayout.LayoutParams restoreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            articleContainer.setLayoutParams(restoreParams);
+        }
+        else {
             initializeContent(resultData);
         }
     }
 
     private void initializeBase() {
-        TextView publishTimeView = findViewById(R.id.article_publishtime);
-        publishTimeView.setText(android.text.format.DateFormat.getDateFormat(getApplicationContext()).format(publishTime));
-
-        findViewById(R.id.article_return).setOnClickListener(v -> finish());
-
-        TextView publisherView = findViewById(R.id.article_source);
-        publisherView.setText(publisher);
-
-        findViewById(R.id.article_viewinbrowser).setOnClickListener(v ->
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl.toString()))));
-
         if(preferences.s_reducedglare) {
             int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
             if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
@@ -168,19 +147,16 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeContent(String result) {
-        TextView titleView = findViewById(R.id.article_title);
-        titleView.setText(title);
-        titleView.setTypeface(PreferencesManager.getSavedFont(preferences, this));
+        adapter = new ArticleAdapter(views, preferences, this, postUrl.toString(), publishTime, publisher);
+        articleContainer.setAdapter(adapter);
+        articleContainer.setLayoutManager(new LinearLayoutManager(this));
 
         parseSpanned(HtmlCompat.fromHtml(result, HtmlCompat.FROM_HTML_MODE_LEGACY));
         articleLoader.setVisibility(View.GONE);
-
-        // Scroll to the saved position (if available)
-        View articleScrollView = findViewById(R.id.articleScrollView);
-        articleScrollView.post(() -> articleScrollView.scrollTo(0, scrollPosition));
     }
 
     private void parseSpanned(Spanned spanned) {
+        views.add(new ArticleAdapter.TitleItem(title));
         SpannableStringBuilder builder = new SpannableStringBuilder(spanned);
         ImageSpan[] imageSpans = builder.getSpans(0, builder.length(), ImageSpan.class);
 
@@ -208,25 +184,11 @@ public class ArticleActivity extends AppCompatActivity {
 
 
     private void createImageView(ImageSpan span) {
-        ImageView imageView = new ImageView(this);
-        articleContainer.addView(imageView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        int marginPx = PreferencesManager.dpToPx(15, this);
-        imageView.setPadding(0, marginPx, 0, marginPx);
-
-        Picasso.get().load(span.getSource())
-                .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, this), 0)
-                .transform(new MaskTransformation(this, R.drawable.image_rounded))
-                .into(imageView);
-
-
-        imageView.setOnClickListener(v -> {
-            Intent imageIntent = new Intent(ArticleActivity.this, ImageViewActivity.class);
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ArticleActivity.this, imageView, "img");
-            imageIntent.putExtra("imageurl", span.getSource());
-            startActivity(imageIntent, options.toBundle());
-        });
+        int itemIndex = views.size();
+        views.add(itemIndex, new ArticleAdapter.ImageItem(span.getSource()));
+        adapter.notifyItemInserted(itemIndex);
     }
+
 
     private void createTextView(Spanned text) {
         if (text.length() > 0 && !TextUtils.isEmpty(text) && !text.toString().matches("\\A\\s*\\z")) {
@@ -242,14 +204,6 @@ public class ArticleActivity extends AppCompatActivity {
             }
 
             text = (Spanned) text.subSequence(startIndex, endIndex);
-
-
-            TextView textView = new TextView(ArticleActivity.this);
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setText(text);
-            textView.setTextColor(getColor(R.color.textPrimary));
-
-            textView.setTypeface(PreferencesManager.getSavedFont(preferences, this));
 
             SpannableString spannableString = new SpannableString(text);
 
@@ -282,10 +236,9 @@ public class ArticleActivity extends AppCompatActivity {
                 }
             }
 
-
-            textView.setText(spannableString);
-
-            articleContainer.addView(textView);
+            int itemIndex = views.size();
+            views.add(new ArticleAdapter.SpannedItem(spannableString));
+            adapter.notifyItemInserted(itemIndex);
         }
     }
 
@@ -351,6 +304,5 @@ public class ArticleActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString("content", resultData);
         outState.putString("title", title);
-        outState.putInt("scroll_position", findViewById(R.id.articleScrollView).getScrollY());
     }
 }
