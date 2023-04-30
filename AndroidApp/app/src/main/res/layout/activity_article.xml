@@ -8,6 +8,7 @@
     tools:context="com.niilopoutanen.rss_feed.ArticleActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:padding="10dp"
+        android:clipToPadding="false"
         android:id="@+id/article_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

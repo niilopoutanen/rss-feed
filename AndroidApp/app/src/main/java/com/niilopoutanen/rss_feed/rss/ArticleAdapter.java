@@ -54,7 +54,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         View view;
         switch (viewType) {
             case VIEW_TYPE_HEADER:
-                view = inflater.inflate(R.layout.article_header, parent, false);
+                view = inflater.inflate(R.layout.header_article, parent, false);
                 LinearLayout returnBtn = view.findViewById(R.id.article_return);
                 returnBtn.setOnClickListener(v -> ((Activity)appContext).finish());
 
@@ -93,6 +93,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 titleTextView.setLayoutParams(new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+                titleTextView.setPadding(0,0,0,PreferencesManager.dpToPx(10, appContext));
                 titleTextView.setTextColor(appContext.getColor(R.color.textPrimary));
                 titleTextView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
                 titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
