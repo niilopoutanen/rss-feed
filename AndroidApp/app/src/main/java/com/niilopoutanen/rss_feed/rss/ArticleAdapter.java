@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,9 @@ import java.util.List;
 public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_IMAGE = 0;
     private static final int VIEW_TYPE_TEXT = 1;
-    private static final int VIEW_TYPE_HEADER = 2;
-    private static final int VIEW_TYPE_FOOTER = 3;
+    private static final int VIEW_TYPE_TITLE = 2;
+    private static final int VIEW_TYPE_HEADER = 3;
+    private static final int VIEW_TYPE_FOOTER = 4;
     private final List<ArticleItem> adapterData;
     private final Preferences preferences;
     private final Context appContext;
@@ -86,6 +88,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 textView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
 
                 return new ContentViewHolder(textView);
+            case VIEW_TYPE_TITLE:
+                TextView titleTextView = new TextView(appContext);
+                titleTextView.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                titleTextView.setTextColor(appContext.getColor(R.color.textPrimary));
+                titleTextView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
+                titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                return new ContentViewHolder(titleTextView, true);
             default:
                 throw new IllegalArgumentException("Invalid view type");
         }
@@ -113,6 +124,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case VIEW_TYPE_TEXT:
                     ContentViewHolder textviewHolder = (ContentViewHolder) holder;
                     textviewHolder.textView.setText(((SpannedItem)item).getSpanned());
+                    break;
+                case VIEW_TYPE_TITLE:
+                    ContentViewHolder titleViewHolder = (ContentViewHolder) holder;
+                    titleViewHolder.textView.setText(((TitleItem)item).getTitle());
                     break;
                 case VIEW_TYPE_HEADER:
                     LinearLayout returnBtn = ((HeaderFooterViewHolder)holder).returnBtn;
@@ -149,7 +164,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Object item = adapterData.get(position - 1);
             if (item instanceof SpannedItem) {
                 return VIEW_TYPE_TEXT;
-            } else if (item instanceof ImageItem) {
+            }
+            else if (item instanceof TitleItem) {
+                return VIEW_TYPE_TITLE;
+            }
+            else if (item instanceof ImageItem) {
                 return VIEW_TYPE_IMAGE;
             }
             throw new IllegalArgumentException("Invalid item type");
@@ -179,6 +198,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             imageView = view;
         }
         ContentViewHolder(TextView view) {
+            super(view);
+            textView = view;
+        }
+        ContentViewHolder(TextView view, boolean title) {
             super(view);
             textView = view;
         }
@@ -217,9 +240,5 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return url;
         }
     }
-    public interface ArticleItem {
-    }
-
-
-
+    public interface ArticleItem {}
 }

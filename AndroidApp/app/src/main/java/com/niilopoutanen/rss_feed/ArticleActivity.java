@@ -56,8 +56,6 @@ public class ArticleActivity extends AppCompatActivity {
     private RecyclerView articleContainer;
     private String title;
     private ProgressBar articleLoader;
-    private int scrollPosition;
-
     private String resultData;
     private String publisher;
     private Date publishTime;
@@ -84,7 +82,6 @@ public class ArticleActivity extends AppCompatActivity {
             if (savedInstanceState != null) {
                 resultData = savedInstanceState.getString("content");
                 title = savedInstanceState.getString("title");
-                scrollPosition = savedInstanceState.getInt("scroll_position");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,10 +134,6 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
-
-        //findViewById(R.id.article_viewinbrowser).setOnClickListener(v ->
-                //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl.toString()))));
-
         if(preferences.s_reducedglare) {
             int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
             if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
@@ -163,6 +156,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void parseSpanned(Spanned spanned) {
+        views.add(new ArticleAdapter.TitleItem(title));
         SpannableStringBuilder builder = new SpannableStringBuilder(spanned);
         ImageSpan[] imageSpans = builder.getSpans(0, builder.length(), ImageSpan.class);
 
