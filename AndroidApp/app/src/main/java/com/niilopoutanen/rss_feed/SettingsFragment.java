@@ -35,8 +35,8 @@ public class SettingsFragment extends Fragment {
     TextView themeSelected;
     TextView fontSelected;
     TextView launchwindowSelected;
+    TextView articleColorSelected;
     SwitchCompat articlesInBrowser;
-    SwitchCompat reducedGlare;
     SwitchCompat articleFullScreen;
 
     List<RelativeLayout> colorAccentButtons;
@@ -103,7 +103,6 @@ public class SettingsFragment extends Fragment {
         }
 
         articlesInBrowser = rootView.findViewById(R.id.switch_articleinbrowser);
-        reducedGlare = rootView.findViewById(R.id.switch_darkbg);
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
 
         themeSelected = rootView.findViewById(R.id.theme_selected);
@@ -136,6 +135,15 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        articleColorSelected = rootView.findViewById(R.id.articlecolor_selected);
+        RelativeLayout articleColorSettings = rootView.findViewById(R.id.settings_articlecolorsettings);
+        articleColorSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDropDownSettings(ArticleColor.class, getString(R.string.article_background_color), getString(R.string.article_background_color_desc));
+            }
+        });
+
         setSavedData();
 
         articlesInBrowser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -148,14 +156,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
-            }
-        });
-
-
-        reducedGlare.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                PreferencesManager.saveBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, isChecked, appContext);
             }
         });
 
@@ -194,9 +194,10 @@ public class SettingsFragment extends Fragment {
         ThemeMode selectedTheme = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, appContext);
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
 
-        articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
+        ArticleColor selectedColor = PreferencesManager.getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, appContext);
+        articleColorSelected.setText(getResources().getStringArray(R.array.article_backgrounds)[selectedColor.ordinal()]);
 
-        reducedGlare.setChecked(PreferencesManager.getBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, SP_REDUCEDGLARE_DEFAULT, appContext));
+        articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
 
         articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, appContext));
 

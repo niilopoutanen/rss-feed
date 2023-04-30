@@ -134,11 +134,20 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
-        if(preferences.s_reducedglare) {
-            int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
-            }
+        View background = findViewById(R.id.article_base);
+        switch (preferences.s_articlecolor){
+            case STAGE1:
+                background.setBackgroundColor(getColor(R.color.article1));
+                break;
+            case STAGE2:
+                background.setBackgroundColor(getColor(R.color.article2));
+                break;
+            case STAGE3:
+                background.setBackgroundColor(getColor(R.color.article3));
+                break;
+            case STAGE4:
+                background.setBackgroundColor(getColor(R.color.article4));
+                break;
         }
 
         if (preferences.s_articlefullscreen) {
