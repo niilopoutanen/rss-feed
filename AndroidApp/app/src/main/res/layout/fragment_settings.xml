@@ -226,6 +226,32 @@
             </LinearLayout>
         </LinearLayout>
         <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/haptics"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_haptics"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:thumb="@drawable/switch_thumb"
+                app:track="@drawable/switch_track"/>
+
+
+        </RelativeLayout>
+        <RelativeLayout
             android:id="@+id/settings_fontsettings"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"

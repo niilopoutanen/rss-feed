@@ -93,5 +93,6 @@
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
+    <string name="haptics">Haptics</string>
 
 </resources>

@@ -38,6 +38,7 @@ public class SettingsFragment extends Fragment {
     TextView articleColorSelected;
     SwitchCompat articlesInBrowser;
     SwitchCompat articleFullScreen;
+    SwitchCompat haptics;
 
     List<RelativeLayout> colorAccentButtons;
     public SettingsFragment(Context context) {
@@ -104,6 +105,7 @@ public class SettingsFragment extends Fragment {
 
         articlesInBrowser = rootView.findViewById(R.id.switch_articleinbrowser);
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
+        haptics = rootView.findViewById(R.id.switch_haptics);
 
         themeSelected = rootView.findViewById(R.id.theme_selected);
         RelativeLayout themeSettings = rootView.findViewById(R.id.settings_themesettings);
@@ -158,6 +160,12 @@ public class SettingsFragment extends Fragment {
                 PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
             }
         });
+        haptics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, appContext);
+            }
+        });
 
         //material you
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.S){
@@ -200,6 +208,8 @@ public class SettingsFragment extends Fragment {
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
 
         articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, appContext));
+
+        haptics.setChecked(PreferencesManager.getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, appContext));
 
     }
 
