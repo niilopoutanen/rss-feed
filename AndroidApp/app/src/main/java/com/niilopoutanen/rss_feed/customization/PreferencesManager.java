@@ -10,6 +10,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.HapticFeedbackConstants;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
@@ -85,6 +87,17 @@ public class PreferencesManager {
             default:
                 return ResourcesCompat.getFont(context, R.font.inter);
 
+        }
+    }
+    public static void vibrate(View view, Context context){
+        Preferences preferences = PreferencesManager.loadPreferences(context);
+        if(preferences.s_haptics){
+            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        }
+    }
+    public static void vibrate(View view, Context context, Preferences preferences){
+        if(preferences.s_haptics){
+            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
         }
     }
     public static Preferences loadPreferences(Context context){

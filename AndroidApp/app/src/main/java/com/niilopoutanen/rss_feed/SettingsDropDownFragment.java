@@ -54,7 +54,7 @@ public class SettingsDropDownFragment extends Fragment {
 
         LinearLayout returnBtn = rootView.findViewById(R.id.dropdownsettings_return);
 
-        returnBtn.setOnClickListener(view -> closeFragment());
+        returnBtn.setOnClickListener(view -> closeFragment(returnBtn));
         return rootView;
     }
 
@@ -89,8 +89,9 @@ public class SettingsDropDownFragment extends Fragment {
 
         return false;
     }
-    private void closeFragment(){
+    private void closeFragment(View view){
         getParentFragmentManager().popBackStack();
+        PreferencesManager.vibrate(view, context);
     }
     private void addOptions(Class<?> type){
         if (Preferences.LaunchWindow.class.equals(type)) {
@@ -104,7 +105,7 @@ public class SettingsDropDownFragment extends Fragment {
                     public void onClick(View view) {
                         Preferences.LaunchWindow selectedWindow = Preferences.LaunchWindow.values()[index];
                         PreferencesManager.saveEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, selectedWindow, context);
-                        closeFragment();
+                        closeFragment(view);
                     }
                 });
             }
@@ -128,7 +129,7 @@ public class SettingsDropDownFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         PreferencesManager.saveEnumPreference(SP_FONT, PREFS_LANG, selectedFont, context);
-                        closeFragment();
+                        closeFragment(view);
                     }
                 });
             }
@@ -144,7 +145,7 @@ public class SettingsDropDownFragment extends Fragment {
                     public void onClick(View view) {
                         Preferences.ThemeMode selectedTheme = Preferences.ThemeMode.values()[index];
                         PreferencesManager.saveEnumPreference(SP_THEME, PREFS_UI, selectedTheme, context);
-                        closeFragment();
+                        closeFragment(view);
                     }
                 });
             }
@@ -160,7 +161,7 @@ public class SettingsDropDownFragment extends Fragment {
                     public void onClick(View view) {
                         Preferences.ArticleColor selectedColor = Preferences.ArticleColor.values()[index];
                         PreferencesManager.saveEnumPreference(SP_ARTICLECOLOR, PREFS_UI, selectedColor, context);
-                        closeFragment();
+                        closeFragment(view);
                     }
                 });
             }
