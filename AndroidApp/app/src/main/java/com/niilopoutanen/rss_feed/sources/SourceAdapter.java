@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.niilopoutanen.rss_feed.FeedActivity;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
+import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.customization.SaveSystem;
 import com.niilopoutanen.rss_feed.rss.MaskTransformation;
 import com.niilopoutanen.rss_feed.web.WebCallBack;
@@ -94,6 +96,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             View container = holder.itemView;
 
             container.setOnLongClickListener(view -> {
+                PreferencesManager.vibrate(view, preferences, HapticFeedbackConstants.LONG_PRESS);
                 askForSourceInput(source);
                 return true;
             });
@@ -105,7 +108,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                     bundle.putSerializable("preferences", preferences);
                     Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
                     feedIntent.putExtras(bundle);
-
+                    PreferencesManager.vibrate(v, preferences);
                     v.getContext().startActivity(feedIntent);
                 }
             });
@@ -118,7 +121,10 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             Button addNewButton = headerViewHolder.addNewButton;
 
-            addNewButton.setOnClickListener(v -> askForSourceInput(null));
+            addNewButton.setOnClickListener(v ->{
+                PreferencesManager.vibrate(v, preferences);
+                askForSourceInput(null);
+            });
         }
 
 

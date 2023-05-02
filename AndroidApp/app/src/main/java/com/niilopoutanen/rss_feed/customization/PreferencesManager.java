@@ -89,13 +89,26 @@ public class PreferencesManager {
 
         }
     }
+
+    //Haptic methods
+    public static void vibrate(View view, Context context, int stage){
+        Preferences preferences = PreferencesManager.loadPreferences(context);
+        if(preferences.s_haptics){
+            view.performHapticFeedback(stage);
+        }
+    }
     public static void vibrate(View view, Context context){
         Preferences preferences = PreferencesManager.loadPreferences(context);
         if(preferences.s_haptics){
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
         }
     }
-    public static void vibrate(View view, Context context, Preferences preferences){
+    public static void vibrate(View view, Preferences preferences, int stage){
+        if(preferences.s_haptics){
+            view.performHapticFeedback(stage);
+        }
+    }
+    public static void vibrate(View view, Preferences preferences){
         if(preferences.s_haptics){
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
         }

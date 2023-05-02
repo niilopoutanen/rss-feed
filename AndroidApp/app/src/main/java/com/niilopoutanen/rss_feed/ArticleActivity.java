@@ -1,11 +1,6 @@
 package com.niilopoutanen.rss_feed;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -15,10 +10,7 @@ import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
 import android.text.style.URLSpan;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -27,11 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.text.HtmlCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,11 +29,8 @@ import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.rss.ArticleAdapter;
 import com.niilopoutanen.rss_feed.rss.ArticleQuoteSpan;
-import com.niilopoutanen.rss_feed.rss.MaskTransformation;
 import com.niilopoutanen.rss_feed.rss.Readability;
 import com.niilopoutanen.rss_feed.web.WebCallBack;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -95,19 +80,6 @@ public class ArticleActivity extends AppCompatActivity {
         articleLoader = findViewById(R.id.article_load);
         articleContainer = findViewById(R.id.article_recyclerview);
 
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.article_base), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
-
-            return WindowInsetsCompat.CONSUMED;
-        });
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         initializeBase();
 
