@@ -10,10 +10,13 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.HapticFeedbackConstants;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 
 import java.text.DateFormat;
@@ -87,16 +90,62 @@ public class PreferencesManager {
 
         }
     }
+
+    //Haptic methods
+    public static void vibrate(View view, Context context, int stage){
+        Preferences preferences = PreferencesManager.loadPreferences(context);
+        if(preferences.s_haptics){
+            view.performHapticFeedback(stage);
+        }
+    }
+    public static void vibrate(View view, Context context){
+        Preferences preferences = PreferencesManager.loadPreferences(context);
+        if(view == null){
+            return;
+        }
+        if(preferences.s_haptics){
+            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        }
+    }
+    public static void vibrate(View view, Preferences preferences, int stage){
+        if(preferences.s_haptics){
+            view.performHapticFeedback(stage);
+        }
+    }
+    public static void vibrate(View view, Preferences preferences){
+        if(preferences.s_haptics){
+            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        }
+    }
+    public static int getLastVersionUsed(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
+        return prefs.getInt(SP_VERSION, 0);
+    }
+    public static void setLatestVersion(Context context){
+        int versionCode = BuildConfig.VERSION_CODE;
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt(SP_VERSION, versionCode);
+        editor.apply();
+    }
+    public static boolean isFirstLaunch(Context context){
+        int currentVersion = BuildConfig.VERSION_CODE;
+        int lastVersionUsed = getLastVersionUsed(context);
+
+        return currentVersion > lastVersionUsed;
+    }
     public static Preferences loadPreferences(Context context){
         Preferences preferences = new Preferences();
 
+        preferences.s_haptics = getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context);
         preferences.s_ThemeMode = getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
         preferences.s_coloraccent = getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
         preferences.s_feedcardstyle = getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, context);
         preferences.s_font = getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
         preferences.s_launchwindow = getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
         preferences.s_articlesinbrowser = getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context);
-        preferences.s_reducedglare = getBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, SP_REDUCEDGLARE_DEFAULT, context);
+        preferences.s_articlecolor = getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, context);
         preferences.s_articlefullscreen = getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);

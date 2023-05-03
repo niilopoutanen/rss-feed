@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import static com.niilopoutanen.rss_feed.customization.Preferences.*;
 
@@ -35,9 +37,10 @@ public class SettingsFragment extends Fragment {
     TextView themeSelected;
     TextView fontSelected;
     TextView launchwindowSelected;
+    TextView articleColorSelected;
     SwitchCompat articlesInBrowser;
-    SwitchCompat reducedGlare;
     SwitchCompat articleFullScreen;
+    SwitchCompat haptics;
 
     List<RelativeLayout> colorAccentButtons;
     public SettingsFragment(Context context) {
@@ -81,6 +84,7 @@ public class SettingsFragment extends Fragment {
                 transaction.replace(R.id.frame_container, settingsFeedFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+                PreferencesManager.vibrate(view, appContext);
             }
         });
 
@@ -103,8 +107,8 @@ public class SettingsFragment extends Fragment {
         }
 
         articlesInBrowser = rootView.findViewById(R.id.switch_articleinbrowser);
-        reducedGlare = rootView.findViewById(R.id.switch_darkbg);
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
+        haptics = rootView.findViewById(R.id.switch_haptics);
 
         themeSelected = rootView.findViewById(R.id.theme_selected);
         RelativeLayout themeSettings = rootView.findViewById(R.id.settings_themesettings);
@@ -112,6 +116,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openDropDownSettings(ThemeMode.class, getString(R.string.settings_theme), appContext.getString(R.string.settings_theme_additional));
+                PreferencesManager.vibrate(v, appContext);
             }
         });
 
@@ -123,6 +128,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openDropDownSettings(Font.class, getString(R.string.settings_font), "");
+                PreferencesManager.vibrate(v, appContext);
             }
         });
 
@@ -133,6 +139,17 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openDropDownSettings(LaunchWindow.class, getString(R.string.settings_launchwindow), "");
+                PreferencesManager.vibrate(v, appContext);
+            }
+        });
+
+        articleColorSelected = rootView.findViewById(R.id.articlecolor_selected);
+        RelativeLayout articleColorSettings = rootView.findViewById(R.id.settings_articlecolorsettings);
+        articleColorSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDropDownSettings(ArticleColor.class, getString(R.string.article_background_color), getString(R.string.article_background_color_desc));
+                PreferencesManager.vibrate(v, appContext);
             }
         });
 
@@ -142,20 +159,21 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, isChecked, appContext);
+                PreferencesManager.vibrate(buttonView, appContext);
             }
         });
         articleFullScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
+                PreferencesManager.vibrate(buttonView, appContext);
             }
         });
-
-
-        reducedGlare.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        haptics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                PreferencesManager.saveBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, isChecked, appContext);
+                PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, appContext);
+                PreferencesManager.vibrate(buttonView, appContext);
             }
         });
 
@@ -176,7 +194,6 @@ public class SettingsFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
     private void setSavedData() {
 
         // Load saved ColorAccent enum value and check the corresponding button
@@ -194,11 +211,14 @@ public class SettingsFragment extends Fragment {
         ThemeMode selectedTheme = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, appContext);
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
 
+        ArticleColor selectedColor = PreferencesManager.getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, appContext);
+        articleColorSelected.setText(getResources().getStringArray(R.array.article_backgrounds)[selectedColor.ordinal()]);
+
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
 
-        reducedGlare.setChecked(PreferencesManager.getBooleanPreference(SP_REDUCEDGLARE, PREFS_UI, SP_REDUCEDGLARE_DEFAULT, appContext));
-
         articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, appContext));
+
+        haptics.setChecked(PreferencesManager.getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, appContext));
 
     }
 

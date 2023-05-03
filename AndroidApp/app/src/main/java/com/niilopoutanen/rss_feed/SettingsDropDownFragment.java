@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.TypedValue;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class SettingsDropDownFragment extends Fragment {
 
         LinearLayout returnBtn = rootView.findViewById(R.id.dropdownsettings_return);
 
-        returnBtn.setOnClickListener(view -> closeFragment());
+        returnBtn.setOnClickListener(view -> closeFragment(returnBtn));
         return rootView;
     }
 
@@ -82,11 +83,16 @@ public class SettingsDropDownFragment extends Fragment {
             }
             return index == selected.ordinal();
         }
+        if(Preferences.ArticleColor.class.equals(type)){
+            ArticleColor selected = PreferencesManager.getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, context);
+            return index == selected.ordinal();
+        }
 
         return false;
     }
-    private void closeFragment(){
+    private void closeFragment(View view){
         getParentFragmentManager().popBackStack();
+        PreferencesManager.vibrate(view, context);
     }
     private void addOptions(Class<?> type){
         if (Preferences.LaunchWindow.class.equals(type)) {
@@ -100,7 +106,7 @@ public class SettingsDropDownFragment extends Fragment {
                     public void onClick(View view) {
                         Preferences.LaunchWindow selectedWindow = Preferences.LaunchWindow.values()[index];
                         PreferencesManager.saveEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, selectedWindow, context);
-                        closeFragment();
+                        closeFragment(view);
                     }
                 });
             }
@@ -124,7 +130,7 @@ public class SettingsDropDownFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         PreferencesManager.saveEnumPreference(SP_FONT, PREFS_LANG, selectedFont, context);
-                        closeFragment();
+                        closeFragment(view);
                     }
                 });
             }
@@ -140,7 +146,23 @@ public class SettingsDropDownFragment extends Fragment {
                     public void onClick(View view) {
                         Preferences.ThemeMode selectedTheme = Preferences.ThemeMode.values()[index];
                         PreferencesManager.saveEnumPreference(SP_THEME, PREFS_UI, selectedTheme, context);
-                        closeFragment();
+                        closeFragment(view);
+                    }
+                });
+            }
+        }
+        else if (Preferences.ArticleColor.class.equals(type)) {
+            String[] articleColors = context.getResources().getStringArray(R.array.article_backgrounds);
+            for(int i=0;i<articleColors.length; i++){
+                boolean isLast = i == articleColors.length - 1;
+                RelativeLayout item = addViews(articleColors[i], verifySelected(i, ArticleColor.class), isLast, null);
+                final int index = i;
+                item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Preferences.ArticleColor selectedColor = Preferences.ArticleColor.values()[index];
+                        PreferencesManager.saveEnumPreference(SP_ARTICLECOLOR, PREFS_UI, selectedColor, context);
+                        closeFragment(view);
                     }
                 });
             }

@@ -37,7 +37,7 @@ public class FeedActivity extends AppCompatActivity {
         PreferencesManager.setSavedTheme(this, preferences);
 
         setContentView(R.layout.activity_feed);
-
+        getWindow().setNavigationBarColor(getColor(android.R.color.transparent));
         FrameLayout frame = findViewById(R.id.feedactivity_container);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ViewCompat.setOnApplyWindowInsetsListener(frame, (v, windowInsets) -> {
@@ -49,8 +49,5 @@ public class FeedActivity extends AppCompatActivity {
             
             return WindowInsetsCompat.CONSUMED;
         });
-
-
-
     }
 }

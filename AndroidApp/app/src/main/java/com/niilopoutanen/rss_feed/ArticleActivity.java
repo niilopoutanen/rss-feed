@@ -1,10 +1,6 @@
 package com.niilopoutanen.rss_feed;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -14,10 +10,8 @@ import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
 import android.text.style.URLSpan;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -25,11 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.text.HtmlCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,11 +29,8 @@ import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.rss.ArticleAdapter;
 import com.niilopoutanen.rss_feed.rss.ArticleQuoteSpan;
-import com.niilopoutanen.rss_feed.rss.MaskTransformation;
 import com.niilopoutanen.rss_feed.rss.Readability;
 import com.niilopoutanen.rss_feed.web.WebCallBack;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -93,19 +80,6 @@ public class ArticleActivity extends AppCompatActivity {
         articleLoader = findViewById(R.id.article_load);
         articleContainer = findViewById(R.id.article_recyclerview);
 
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.article_base), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
-
-            return WindowInsetsCompat.CONSUMED;
-        });
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         initializeBase();
 
@@ -134,12 +108,25 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
-        if(preferences.s_reducedglare) {
-            int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES || preferences.s_ThemeMode == Preferences.ThemeMode.DARK || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                findViewById(R.id.article_base).setBackgroundColor(getColor(R.color.windowBgSoft));
-            }
+        View background = findViewById(R.id.article_base);
+        Window window = getWindow();
+        int color = getColor(R.color.article1);
+
+        switch (preferences.s_articlecolor){
+            case STAGE2:
+                color = getColor(R.color.article2);
+                break;
+            case STAGE3:
+                color = getColor(R.color.article3);
+                break;
+            case STAGE4:
+                color = getColor(R.color.article4);
+                break;
         }
+
+        window.setNavigationBarColor(color);
+        window.setStatusBarColor(color);
+        background.setBackgroundColor(color);
 
         if (preferences.s_articlefullscreen) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -245,7 +232,7 @@ public class ArticleActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     private void openWebView(String url, String titleText) {
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this, R.style.BottomSheetStyle);
-        webViewSheet.setContentView(R.layout.webview_dialog);
+        webViewSheet.setContentView(R.layout.dialog_webview);
         webViewSheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         webViewSheet.getBehavior().setDraggable(false);
 

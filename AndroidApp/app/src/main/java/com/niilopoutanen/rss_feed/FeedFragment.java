@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         articleIntent.putExtra("postPublishTime", feed.get(position).getPublishTime());
 
         articleIntent.putExtra("preferences", preferences);
+        PreferencesManager.vibrate(recyclerView.getChildAt(0), appContext);
         appContext.startActivity(articleIntent);
     }
 

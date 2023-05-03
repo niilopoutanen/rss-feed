@@ -7,7 +7,7 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <item name="android:windowBackground">@color/windowBg</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/windowBg</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 

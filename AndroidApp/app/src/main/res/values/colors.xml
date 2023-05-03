@@ -24,4 +24,9 @@
     <color name="accentOrange">#f6801f</color>
     <color name="accentYellow">#fcb82a</color>
     <color name="accentGreen">#055c39</color>
+
+    <color name="article1">#000000</color>
+    <color name="article2">#121212</color>
+    <color name="article3">#1D1D1D</color>
+    <color name="article4">#282828</color>
 </resources>

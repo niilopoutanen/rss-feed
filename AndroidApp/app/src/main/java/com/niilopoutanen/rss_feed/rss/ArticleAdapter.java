@@ -39,6 +39,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final String postUrl;
     private final Date postDate;
     private final String publisher;
+    private String title = "";
     public ArticleAdapter(List<ArticleItem> data, Preferences preferences, Context context, String postUrl, Date postDate, String publisher) {
         this.adapterData = data;
         this.preferences = preferences;
@@ -54,7 +55,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         View view;
         switch (viewType) {
             case VIEW_TYPE_HEADER:
-                view = inflater.inflate(R.layout.article_header, parent, false);
+                view = inflater.inflate(R.layout.header_article, parent, false);
                 LinearLayout returnBtn = view.findViewById(R.id.article_return);
                 returnBtn.setOnClickListener(v -> ((Activity)appContext).finish());
 
@@ -66,8 +67,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return new HeaderFooterViewHolder(view);
             case VIEW_TYPE_FOOTER:
                 view = inflater.inflate(R.layout.article_footer, parent, false);
-                LinearLayout openInBrowser = view.findViewById(R.id.article_viewinbrowser);
-                openInBrowser.setOnClickListener(v -> appContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl))));
+                (view.findViewById(R.id.article_viewinbrowser)).setOnClickListener(v -> appContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(postUrl))));
+
+                (view.findViewById(R.id.article_share)).setOnClickListener(v -> {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, postUrl);
+                    shareIntent.putExtra(Intent.EXTRA_TITLE, title);
+                    appContext.startActivity(Intent.createChooser(shareIntent, appContext.getString(R.string.sharepost)));
+                });
+
                 return new HeaderFooterViewHolder(view);
             case VIEW_TYPE_IMAGE:
                 ImageView imageView = new ImageView(appContext);
@@ -93,6 +102,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 titleTextView.setLayoutParams(new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+                titleTextView.setPadding(0,0,0,PreferencesManager.dpToPx(10, appContext));
                 titleTextView.setTextColor(appContext.getColor(R.color.textPrimary));
                 titleTextView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
                 titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
@@ -128,6 +138,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case VIEW_TYPE_TITLE:
                     ContentViewHolder titleViewHolder = (ContentViewHolder) holder;
                     titleViewHolder.textView.setText(((TitleItem)item).getTitle());
+                    title = (((TitleItem)item).getTitle());
                     break;
                 case VIEW_TYPE_HEADER:
                     LinearLayout returnBtn = ((HeaderFooterViewHolder)holder).returnBtn;

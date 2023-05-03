@@ -9,12 +9,15 @@
     <string name="sources_header">Sources</string>
 
     <string name="add">Add</string>
+    <string name="continua">Continue</string>
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="goback">Return</string>
     <string name="save">Save</string>
+    <string name="share">Share</string>
+    <string name="sharepost">Share post</string>
 
     <string name="addsource">Add source</string>
     <string name="updatesource">Update source</string>
@@ -49,8 +52,8 @@
     <string name="settings_launchwindow">Launch window</string>
     <string name="view_in_browser">View in browser</string>
     <string name="open_articles_in_browser">Open articles in browser</string>
-    <string name="reduced_glare">Reduced Glare</string>
-    <string name="reduced_glare_desc">Sets the article background to dark grey instead of pure black</string>
+    <string name="article_background_color">Article background color</string>
+    <string name="article_background_color_desc">Sets the background color when reading articles. Stage 1 provides higher contrast between text and background, while stage 4 reduces eye strain and has less contrast.</string>
     <string name="articles_fullscreen">View articles in fullscreen</string>
 
     <string name="author_visible">Author visible</string>
@@ -64,6 +67,12 @@
         <item>Light</item>
         <item>Dark</item>
         <item>Follow system</item>
+    </string-array>
+    <string-array name="article_backgrounds">
+        <item>Stage 1</item>
+        <item>Stage 2</item>
+        <item>Stage 3</item>
+        <item>Stage 4</item>
     </string-array>
     <string-array name="fonts">
         <item>Inter</item>
@@ -82,8 +91,19 @@
         <item>Time only</item>
     </string-array>
 
+    <string name="whatsnew">What\'s new in</string>
+
+    <string name="feature1">RSS feeds</string>
+    <string name="feature1desc">Add publishers that you would like to follow to your sources and read posts from them in your feed.</string>
+
+    <string name="feature2">Customize your app</string>
+    <string name="feature2desc">Settings menu provides many customization options such as color-, font-, and functionality changes.</string>
+
+    <string name="feature3">Provide feedback</string>
+    <string name="feature3desc">This is the first version of the app so bugs are expected. Send feedback or request features from settings!</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
+    <string name="haptics">Haptics</string>
 
 </resources>

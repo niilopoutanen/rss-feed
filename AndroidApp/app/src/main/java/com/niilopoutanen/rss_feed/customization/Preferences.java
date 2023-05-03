@@ -15,21 +15,23 @@ public class Preferences implements Serializable {
     public boolean s_feedcard_titlevisible;
     public boolean s_feedcard_descvisible;
     public boolean s_feedcard_datevisible;
-    public boolean s_reducedglare;
+    public ArticleColor s_articlecolor;
     public boolean s_articlefullscreen;
+    public boolean s_haptics;
 
     public DateStyle s_feedcard_datestyle;
     public static final String SP_THEME = "theme";
-    public static final ThemeMode SP_THEME_DEFAULT = ThemeMode.DARK;
+    public static final ThemeMode SP_THEME_DEFAULT = ThemeMode.FOLLOWSYSTEM;
     public static final String SP_FONT = "font";
     public static final Font SP_FONT_DEFAULT = Font.INTER;
     public static final String SP_ARTICLESINBROWSER = "articles_openinbrowser";
     public static final boolean SP_ARTICLESINBROWSER_DEFAULT = false;
-
+    public static final String SP_HAPTICS = "haptics";
+    public static final boolean SP_HAPTICS_DEFAULT = true;
     public static final String SP_ARTICLEFULLSCREEN = "article_fullscreen";
     public static final boolean SP_ARTICLEFULLSCREEN_DEFAULT = false;
-    public static final String SP_REDUCEDGLARE = "ui_reducedglare";
-    public static final boolean SP_REDUCEDGLARE_DEFAULT = false;
+    public static final String SP_ARTICLECOLOR = "article_backgroundcolor";
+    public static final ArticleColor SP_ARTICLECOLOR_DEFAULT = ArticleColor.STAGE1;
     public static final String SP_LAUNCHWINDOW= "launch_window";
     public static final LaunchWindow SP_LAUNCHWINDOW_DEFAULT = LaunchWindow.FEED;
     public static final String SP_FEEDCARD_STYLE = "feedcard_style";
@@ -54,6 +56,7 @@ public class Preferences implements Serializable {
     public static final DateStyle SP_FEEDCARD_DATESTYLE_DEFAULT = DateStyle.TIMESINCE;
     public static final String SP_COLORACCENT = "coloraccent";
     public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.GREEN;
+    public static final String SP_VERSION = "version";
     public static final String PREFS_UI = "preferences_ui";
     public static final String PREFS_LANG = "preferences_language";
     public static final String PREFS_FUNCTIONALITY = "preferences_functionality";
@@ -61,6 +64,9 @@ public class Preferences implements Serializable {
     }
     public enum ThemeMode {
         LIGHT, DARK, FOLLOWSYSTEM
+    }
+    public enum ArticleColor{
+        STAGE1, STAGE2, STAGE3, STAGE4
     }
     public enum Font{
         INTER, ROBOTO_SANS, ROBOTO_MONO

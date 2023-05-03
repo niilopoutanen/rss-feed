@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,6 +17,7 @@ import java.util.List;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.customization.SaveSystem;
+import com.niilopoutanen.rss_feed.customization.UpdateDialog;
 import com.niilopoutanen.rss_feed.sources.Source;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkUpdate();
         preferences = PreferencesManager.loadPreferences(this);
         PreferencesManager.setSavedTheme(this, preferences);
 
@@ -107,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkUpdate(){
-
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetStyle);
-        bottomSheetDialog.setContentView(R.layout.update_dialog);
-
-        bottomSheetDialog.show();
+        boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
+        if(isFirstLaunch){
+            UpdateDialog dialog = new UpdateDialog(this);
+            dialog.show();
+        }
     }
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {

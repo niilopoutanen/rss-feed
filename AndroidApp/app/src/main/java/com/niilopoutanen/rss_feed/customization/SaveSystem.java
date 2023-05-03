@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.customization;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +15,7 @@ import java.util.List;
 import com.niilopoutanen.rss_feed.sources.Source;
 
 public class SaveSystem {
-    private static final String FILENAME = "sources.txt";
+    private static final String FILENAME = "rssfeed.sources";
 
     public static void saveSources(Context context, List<Source> sources) {
         try {
@@ -41,7 +42,7 @@ public class SaveSystem {
             oos.close();
             fos.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("SAVESYSTEM", "Source database not found");
         }
     }
 
@@ -49,7 +50,7 @@ public class SaveSystem {
         List<Source> sources = new ArrayList<>();
         try {
             File file = context.getFileStreamPath(FILENAME);
-            if(file != null || file.exists()) {
+            if(file != null && file.exists()) {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 sources = (List<Source>) ois.readObject();
