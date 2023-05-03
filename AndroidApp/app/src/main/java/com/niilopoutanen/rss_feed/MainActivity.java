@@ -108,15 +108,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkUpdate(){
-        /*boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
+        boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
         if(isFirstLaunch){
             UpdateDialog dialog = new UpdateDialog(this);
             dialog.show();
         }
-
-        */
-        UpdateDialog dialog = new UpdateDialog(this);
-        dialog.show();
     }
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {

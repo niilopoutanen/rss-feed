@@ -21,7 +21,7 @@ public class Preferences implements Serializable {
 
     public DateStyle s_feedcard_datestyle;
     public static final String SP_THEME = "theme";
-    public static final ThemeMode SP_THEME_DEFAULT = ThemeMode.DARK;
+    public static final ThemeMode SP_THEME_DEFAULT = ThemeMode.FOLLOWSYSTEM;
     public static final String SP_FONT = "font";
     public static final Font SP_FONT_DEFAULT = Font.INTER;
     public static final String SP_ARTICLESINBROWSER = "articles_openinbrowser";
