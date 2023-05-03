@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed;
+package com.niilopoutanen.rss_feed.customization;
 
 import static com.niilopoutanen.rss_feed.customization.Preferences.*;
 
@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.rss.MaskTransformation;

@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed;
+package com.niilopoutanen.rss_feed.customization;
 
 import android.content.Context;
 import android.os.Bundle;

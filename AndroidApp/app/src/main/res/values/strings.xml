@@ -58,6 +58,8 @@
     <string name="article_background_color">Article background color</string>
     <string name="article_background_color_desc">Sets the background color when reading articles. Stage 1 provides higher contrast between text and background, while stage 4 reduces eye strain and has less contrast.</string>
     <string name="articles_fullscreen">View articles in fullscreen</string>
+    <string name="cache_images">Cache images to disk</string>
+
 
     <string name="settingsheader_feed">Feed</string>
     <string name="settingsheader_colors">Colors</string>

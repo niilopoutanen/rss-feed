@@ -17,6 +17,7 @@ public class Preferences implements Serializable {
     public boolean s_feedcard_datevisible;
     public ArticleColor s_articlecolor;
     public boolean s_articlefullscreen;
+    public boolean s_imagecache;
     public boolean s_haptics;
 
     public DateStyle s_feedcard_datestyle;
@@ -28,6 +29,8 @@ public class Preferences implements Serializable {
     public static final boolean SP_ARTICLESINBROWSER_DEFAULT = false;
     public static final String SP_HAPTICS = "haptics";
     public static final boolean SP_HAPTICS_DEFAULT = true;
+    public static final String SP_IMAGECACHE = "imagecache";
+    public static final boolean SP_IMAGECACHE_DEFAULT = true;
     public static final String SP_ARTICLEFULLSCREEN = "article_fullscreen";
     public static final boolean SP_ARTICLEFULLSCREEN_DEFAULT = false;
     public static final String SP_ARTICLECOLOR = "article_backgroundcolor";
