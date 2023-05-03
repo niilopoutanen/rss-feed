@@ -56,6 +56,7 @@ public class Preferences implements Serializable {
     public static final DateStyle SP_FEEDCARD_DATESTYLE_DEFAULT = DateStyle.TIMESINCE;
     public static final String SP_COLORACCENT = "coloraccent";
     public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.GREEN;
+    public static final String SP_VERSION = "version";
     public static final String PREFS_UI = "preferences_ui";
     public static final String PREFS_LANG = "preferences_language";
     public static final String PREFS_FUNCTIONALITY = "preferences_functionality";

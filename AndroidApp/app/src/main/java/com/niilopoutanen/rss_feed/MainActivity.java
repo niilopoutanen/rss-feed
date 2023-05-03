@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -107,11 +108,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkUpdate(){
+        boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
+        if(isFirstLaunch){
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetStyle);
+            bottomSheetDialog.setContentView(R.layout.update_dialog);
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetStyle);
-        bottomSheetDialog.setContentView(R.layout.update_dialog);
+            bottomSheetDialog.show();
 
-        bottomSheetDialog.show();
+            bottomSheetDialog.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(MainActivity.this));
+            bottomSheetDialog.setOnDismissListener(dialog -> PreferencesManager.setLatestVersion(MainActivity.this));
+        }
     }
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {

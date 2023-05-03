@@ -16,6 +16,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 
 import java.text.DateFormat;
@@ -115,6 +116,24 @@ public class PreferencesManager {
         if(preferences.s_haptics){
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
         }
+    }
+    public static int getLastVersionUsed(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
+        return prefs.getInt(SP_VERSION, 0);
+    }
+    public static void setLatestVersion(Context context){
+        int versionCode = BuildConfig.VERSION_CODE;
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt(SP_VERSION, versionCode);
+        editor.apply();
+    }
+    public static boolean isFirstLaunch(Context context){
+        int currentVersion = BuildConfig.VERSION_CODE;
+        int lastVersionUsed = getLastVersionUsed(context);
+
+        return currentVersion > lastVersionUsed;
     }
     public static Preferences loadPreferences(Context context){
         Preferences preferences = new Preferences();
