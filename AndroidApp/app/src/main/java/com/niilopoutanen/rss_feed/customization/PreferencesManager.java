@@ -99,6 +99,9 @@ public class PreferencesManager {
     }
     public static void vibrate(View view, Context context){
         Preferences preferences = PreferencesManager.loadPreferences(context);
+        if(view == null){
+            return;
+        }
         if(preferences.s_haptics){
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
         }

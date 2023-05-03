@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+AndroidApp/.idea/deploymentTargetDropDown.xml
