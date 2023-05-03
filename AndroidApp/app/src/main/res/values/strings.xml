@@ -9,6 +9,7 @@
     <string name="sources_header">Sources</string>
 
     <string name="add">Add</string>
+    <string name="continua">Continue</string>
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
     <string name="update">Update</string>
@@ -90,6 +91,16 @@
         <item>Time only</item>
     </string-array>
 
+    <string name="whatsnew">What\'s new in</string>
+
+    <string name="feature1">RSS feeds</string>
+    <string name="feature1desc">Add publishers that you would like to follow to your sources and read posts from them in your feed.</string>
+
+    <string name="feature2">Customize your app</string>
+    <string name="feature2desc">Settings menu provides many customization options such as color-, font-, and functionality changes.</string>
+
+    <string name="feature3">Provide feedback</string>
+    <string name="feature3desc">This is the first version of the app so bugs are expected. Send feedback or request features from settings!</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>

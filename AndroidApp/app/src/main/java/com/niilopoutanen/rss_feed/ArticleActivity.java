@@ -232,7 +232,7 @@ public class ArticleActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     private void openWebView(String url, String titleText) {
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this, R.style.BottomSheetStyle);
-        webViewSheet.setContentView(R.layout.webview_dialog);
+        webViewSheet.setContentView(R.layout.dialog_webview);
         webViewSheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         webViewSheet.getBehavior().setDraggable(false);
 

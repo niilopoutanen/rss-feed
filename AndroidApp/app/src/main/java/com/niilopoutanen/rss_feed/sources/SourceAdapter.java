@@ -148,7 +148,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
     }
     public void askForSourceInput(Source source){
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyle);
-        bottomSheetDialog.setContentView(R.layout.addsource_dialog);
+        bottomSheetDialog.setContentView(R.layout.dialog_addsource);
 
         TextView sourceAdd = bottomSheetDialog.findViewById(R.id.sourcedialog_add);
         TextView sourceCancel = bottomSheetDialog.findViewById(R.id.sourcedialog_cancel);

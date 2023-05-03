@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/element_background"
+    android:background="@drawable/bottomsheet_dialog"
     android:padding="2dp">
     <RelativeLayout
         android:padding="15dp"
