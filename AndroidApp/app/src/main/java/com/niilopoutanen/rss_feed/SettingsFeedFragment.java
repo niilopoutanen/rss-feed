@@ -60,11 +60,9 @@ public class SettingsFeedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
         LinearLayout returnBtn = rootView.findViewById(R.id.feedsettings_return);
-        returnBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().popBackStack();
-            }
+        returnBtn.setOnClickListener(view -> {
+            PreferencesManager.vibrate(view, appContext);
+            getParentFragmentManager().popBackStack();
         });
 
 

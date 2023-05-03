@@ -16,15 +16,12 @@ import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
+
 import static com.niilopoutanen.rss_feed.customization.Preferences.*;
 
 
@@ -87,17 +84,30 @@ public class SettingsFragment extends Fragment {
                 PreferencesManager.vibrate(view, appContext);
             }
         });
+        ((RelativeLayout)rootView.findViewById(R.id.troubleshoot_haptics)).setOnLongClickListener(new View.OnLongClickListener() {
+              @Override
+              public boolean onLongClick(View v) {
+                  SettingsHapticsFragment hapticsFragment = new SettingsHapticsFragment(appContext);
+                  FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                  transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                  transaction.replace(R.id.frame_container, hapticsFragment);
+                  transaction.addToBackStack(null);
+                  PreferencesManager.vibrate(v, appContext, HapticFeedbackConstants.LONG_PRESS);
+                  transaction.commit();
 
+                  return true;
+              }
+          });
 
-        colorAccentButtons = Arrays.asList(
-                rootView.findViewById(R.id.checkboxblue_accentcolor),
-                rootView.findViewById(R.id.checkboxviolet_accentcolor),
-                rootView.findViewById(R.id.checkboxpink_accentcolor),
-                rootView.findViewById(R.id.checkboxred_accentcolor),
-                rootView.findViewById(R.id.checkboxorange_accentcolor),
-                rootView.findViewById(R.id.checkboxyellow_accentcolor),
-                rootView.findViewById(R.id.checkboxgreen_accentcolor)
-        );
+                colorAccentButtons = Arrays.asList(
+                        rootView.findViewById(R.id.checkboxblue_accentcolor),
+                        rootView.findViewById(R.id.checkboxviolet_accentcolor),
+                        rootView.findViewById(R.id.checkboxpink_accentcolor),
+                        rootView.findViewById(R.id.checkboxred_accentcolor),
+                        rootView.findViewById(R.id.checkboxorange_accentcolor),
+                        rootView.findViewById(R.id.checkboxyellow_accentcolor),
+                        rootView.findViewById(R.id.checkboxgreen_accentcolor)
+                );
 
 
 

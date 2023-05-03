@@ -298,6 +298,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/element_background">
             <RelativeLayout
+                android:id="@+id/troubleshoot_haptics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
@@ -361,6 +362,16 @@
 
             </RelativeLayout>
         </LinearLayout>
+        <TextView
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/haptics_troubleshoot"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/textSecondary"
+            android:textSize="13sp"/>
 
         <TextView
             android:layout_width="wrap_content"

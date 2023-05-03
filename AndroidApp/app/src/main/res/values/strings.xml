@@ -51,6 +51,8 @@
     <string name="settings_font">Font used in articles</string>
     <string name="settings_launchwindow">Launch window</string>
     <string name="haptics">Haptics</string>
+    <string name="haptics_troubleshoot">Haptics not working for you? Long press the haptics setting to open troubleshooting menu.</string>
+    <string name="haptics_troubleshoot_header">Troubleshoot haptics</string>
     <string name="view_in_browser">View in browser</string>
     <string name="open_articles_in_browser">Open articles in browser</string>
     <string name="article_background_color">Article background color</string>
