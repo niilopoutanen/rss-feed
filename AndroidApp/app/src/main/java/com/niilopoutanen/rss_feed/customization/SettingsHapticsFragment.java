@@ -17,6 +17,7 @@ import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 
 public class SettingsHapticsFragment extends Fragment {
     private Context appContext;
+    private int selectedIndex;
     public SettingsHapticsFragment() {}
     public SettingsHapticsFragment(Context context){
         this.appContext = context;
@@ -32,7 +33,7 @@ public class SettingsHapticsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_settings_haptics, container, false);
 
         ((LinearLayout)rootView.findViewById(R.id.feedsettings_return)).setOnClickListener(v -> {
-            PreferencesManager.vibrate(v, appContext);
+            PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext));
             getParentFragmentManager().popBackStack();
         });
 

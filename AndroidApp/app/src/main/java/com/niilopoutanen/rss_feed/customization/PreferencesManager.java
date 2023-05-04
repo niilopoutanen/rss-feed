@@ -92,23 +92,15 @@ public class PreferencesManager {
     }
 
     //Haptic methods
-    public static void vibrate(View view, Context context, int stage){
-        Preferences preferences = PreferencesManager.loadPreferences(context);
-        if(preferences.s_haptics){
-            view.performHapticFeedback(stage);
-        }
-    }
-    public static void vibrate(View view, Context context){
-        Preferences preferences = PreferencesManager.loadPreferences(context);
-        if(view == null){
-            return;
-        }
-        if(preferences.s_haptics){
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-        }
+    public static void vibrate(View view, Preferences preferences){
+        performVibrate(view, preferences, HapticFeedbackConstants.KEYBOARD_TAP);
     }
     public static void vibrate(View view, Preferences preferences, int stage){
-        if(!preferences.s_haptics){
+        performVibrate(view, preferences, stage);
+    }
+
+    public static void performVibrate(View view, Preferences preferences, int stage){
+        if(!preferences.s_haptics || view == null){
             return;
         }
         switch (preferences.s_hapticstype){
@@ -121,11 +113,7 @@ public class PreferencesManager {
         }
 
     }
-    public static void vibrate(View view, Preferences preferences){
-        if(preferences.s_haptics){
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-        }
-    }
+
     public static int getLastVersionUsed(Context context){
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
         return prefs.getInt(SP_VERSION, 0);

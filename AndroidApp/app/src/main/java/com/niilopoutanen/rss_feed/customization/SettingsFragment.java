@@ -82,7 +82,7 @@ public class SettingsFragment extends Fragment {
                 transaction.replace(R.id.frame_container, settingsFeedFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-                PreferencesManager.vibrate(view, appContext);
+                PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(appContext));
             }
         });
         ((RelativeLayout)rootView.findViewById(R.id.troubleshoot_haptics)).setOnLongClickListener(new View.OnLongClickListener() {
@@ -93,7 +93,7 @@ public class SettingsFragment extends Fragment {
                   transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
                   transaction.replace(R.id.frame_container, hapticsFragment);
                   transaction.addToBackStack(null);
-                  PreferencesManager.vibrate(v, appContext, HapticFeedbackConstants.LONG_PRESS);
+                  PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), HapticFeedbackConstants.LONG_PRESS);
                   transaction.commit();
 
                   return true;
@@ -128,7 +128,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openDropDownSettings(ThemeMode.class, getString(R.string.settings_theme), appContext.getString(R.string.settings_theme_additional));
-                PreferencesManager.vibrate(v, appContext);
+                PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext));
             }
         });
 
@@ -140,7 +140,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openDropDownSettings(Font.class, getString(R.string.settings_font), "");
-                PreferencesManager.vibrate(v, appContext);
+                PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext));
             }
         });
 
@@ -151,7 +151,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openDropDownSettings(LaunchWindow.class, getString(R.string.settings_launchwindow), "");
-                PreferencesManager.vibrate(v, appContext);
+                PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext));
             }
         });
 
@@ -161,7 +161,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openDropDownSettings(ArticleColor.class, getString(R.string.article_background_color), getString(R.string.article_background_color_desc));
-                PreferencesManager.vibrate(v, appContext);
+                PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext));
             }
         });
 
@@ -171,28 +171,28 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, isChecked, appContext);
-                PreferencesManager.vibrate(buttonView, appContext);
+                PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext));
             }
         });
         articleFullScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
-                PreferencesManager.vibrate(buttonView, appContext);
+                PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext));
             }
         });
         haptics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, appContext);
-                PreferencesManager.vibrate(buttonView, appContext);
+                PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext));
             }
         });
         imagecache.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferencesManager.saveBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, isChecked, appContext);
-                PreferencesManager.vibrate(buttonView, appContext);
+                PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext));
             }
         });
 
