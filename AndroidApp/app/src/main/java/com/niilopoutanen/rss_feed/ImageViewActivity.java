@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -21,6 +22,9 @@ import android.widget.Toast;
 
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.ortiz.touchview.TouchImageView;
+import com.squareup.picasso.Cache;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -49,8 +53,7 @@ public class ImageViewActivity extends AppCompatActivity {
         }
 
         imageView = findViewById(R.id.imageview);
-
-        Picasso.get().load(url).into(new Target() {
+        Target target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bm, Picasso.LoadedFrom from) {
                 bitmap = bm;
@@ -66,7 +69,13 @@ public class ImageViewActivity extends AppCompatActivity {
             public void onPrepareLoad(Drawable placeHolderDrawable) {
 
             }
-        });
+        };
+        if(PreferencesManager.loadPreferences(this).s_imagecache){
+            Picasso.get().load(url).into(target);
+        }
+        else{
+            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_STORE).into(target);
+        }
 
 
         LinearLayout saveBtn = findViewById(R.id.saveimg);
@@ -83,18 +92,18 @@ public class ImageViewActivity extends AppCompatActivity {
 
         // Check if the permission has not been granted
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return;
             }
         }
 
         if(bitmap == null) {
             String finalFilename = filename;
-            Picasso.get().load(url).into(new Target() {
+            Target target = new Target() {
                 @Override
-                public void onBitmapLoaded(Bitmap bm, Picasso.LoadedFrom from) {
-                    saveToGallery(bm, finalFilename);
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    saveToGallery(bitmap, finalFilename);
                 }
 
                 @Override
@@ -106,7 +115,14 @@ public class ImageViewActivity extends AppCompatActivity {
                 public void onPrepareLoad(Drawable placeHolderDrawable) {
 
                 }
-            });
+            };
+            if(PreferencesManager.loadPreferences(this).s_imagecache){
+                Picasso.get().load(url).into(target);
+            }
+            else{
+                Picasso.get().load(url).networkPolicy(NetworkPolicy.NO_STORE).into(target);
+
+            }
         }
         else{
             saveToGallery(bitmap, filename);
