@@ -74,7 +74,7 @@ public class ImageViewActivity extends AppCompatActivity {
             Picasso.get().load(url).into(target);
         }
         else{
-            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_STORE).into(target);
+            Picasso.get().load(url).networkPolicy(NetworkPolicy.NO_STORE).into(target);
         }
 
 
