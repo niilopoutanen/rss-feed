@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.customization;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
@@ -34,6 +36,11 @@ public class SettingsHapticsFragment extends Fragment {
             getParentFragmentManager().popBackStack();
         });
 
+        Preferences.HapticTypes selected = PreferencesManager.getEnumPreference(Preferences.SP_HAPTICS_TYPE, Preferences.PREFS_FUNCTIONALITY, Preferences.HapticTypes.class, Preferences.SP_HAPTICS_TYPE_DEFAULT, appContext);
+        TextView type1 = rootView.findViewById(R.id.vibration_type1);
+        TextView type2 = rootView.findViewById(R.id.vibration_type2);
+        TextView type3 = rootView.findViewById(R.id.vibration_type3);
         return rootView;
     }
+
 }

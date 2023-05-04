@@ -108,9 +108,18 @@ public class PreferencesManager {
         }
     }
     public static void vibrate(View view, Preferences preferences, int stage){
-        if(preferences.s_haptics){
-            view.performHapticFeedback(stage);
+        if(!preferences.s_haptics){
+            return;
         }
+        switch (preferences.s_hapticstype){
+            case VIEW:
+                view.performHapticFeedback(stage);
+                break;
+            case VIBRATE:
+
+                break;
+        }
+
     }
     public static void vibrate(View view, Preferences preferences){
         if(preferences.s_haptics){
@@ -139,6 +148,7 @@ public class PreferencesManager {
         Preferences preferences = new Preferences();
 
         preferences.s_haptics = getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context);
+        preferences.s_hapticstype = getEnumPreference(SP_HAPTICS_TYPE, PREFS_FUNCTIONALITY, HapticTypes.class, SP_HAPTICS_TYPE_DEFAULT, context);
         preferences.s_ThemeMode = getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
         preferences.s_coloraccent = getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
         preferences.s_feedcardstyle = getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, context);
