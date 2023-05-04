@@ -16,7 +16,10 @@ import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.sources.RecyclerViewInterface;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 
@@ -150,23 +153,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
                 image.setLayoutParams(layoutParams);
 
             }
-
-            Picasso.get().load(post.getImageUrl())
+            RequestCreator requestCreator = Picasso.get().load(post.getImageUrl())
                     .resize(imageWidth, targetHeight)
                     .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
-                    .centerCrop()
-                    .into(image, new Callback() {
-                        @Override
-                        public void onSuccess() {
+                    .centerCrop();
 
-                        }
+            if (!preferences.s_imagecache) {
+                requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+            }
 
-                        @Override
-                        public void onError(Exception e) {
-                            // Actual image failed to load, set placeholder image
-                            image.setImageDrawable(null);
-                        }
-                    });
+            requestCreator.into(image);
         }
     }
 

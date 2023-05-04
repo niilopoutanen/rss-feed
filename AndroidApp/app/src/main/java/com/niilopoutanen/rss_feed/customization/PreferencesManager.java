@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
@@ -92,31 +94,37 @@ public class PreferencesManager {
     }
 
     //Haptic methods
-    public static void vibrate(View view, Context context, int stage){
-        Preferences preferences = PreferencesManager.loadPreferences(context);
-        if(preferences.s_haptics){
-            view.performHapticFeedback(stage);
-        }
+    public static void vibrate(View view, Preferences preferences, Context context){
+        performVibrate(view, preferences, HapticFeedbackConstants.KEYBOARD_TAP, context);
     }
-    public static void vibrate(View view, Context context){
-        Preferences preferences = PreferencesManager.loadPreferences(context);
-        if(view == null){
+    public static void vibrate(View view, Preferences preferences, int stage, Context context){
+        performVibrate(view, preferences, stage, context);
+    }
+
+    public static void performVibrate(View view, Preferences preferences, int stage, Context context){
+        if(!preferences.s_haptics || view == null){
             return;
         }
-        if(preferences.s_haptics){
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        switch (preferences.s_hapticstype){
+            case VIEW:
+                view.performHapticFeedback(stage);
+                break;
+            case VIBRATE:
+                vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
+                break;
+            case FALLBACK:
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_CLICK));
+                    }
+                }
+                catch (Exception ignored){}
+                break;
         }
+
     }
-    public static void vibrate(View view, Preferences preferences, int stage){
-        if(preferences.s_haptics){
-            view.performHapticFeedback(stage);
-        }
-    }
-    public static void vibrate(View view, Preferences preferences){
-        if(preferences.s_haptics){
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-        }
-    }
+
     public static int getLastVersionUsed(Context context){
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
         return prefs.getInt(SP_VERSION, 0);
@@ -139,6 +147,7 @@ public class PreferencesManager {
         Preferences preferences = new Preferences();
 
         preferences.s_haptics = getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context);
+        preferences.s_hapticstype = getEnumPreference(SP_HAPTICS_TYPE, PREFS_FUNCTIONALITY, HapticTypes.class, SP_HAPTICS_TYPE_DEFAULT, context);
         preferences.s_ThemeMode = getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
         preferences.s_coloraccent = getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
         preferences.s_feedcardstyle = getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, context);
@@ -147,6 +156,7 @@ public class PreferencesManager {
         preferences.s_articlesinbrowser = getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context);
         preferences.s_articlecolor = getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, context);
         preferences.s_articlefullscreen = getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context);
+        preferences.s_imagecache = getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_authorname = getBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, SP_FEEDCARD_AUTHORNAME_DEFAULT, context);

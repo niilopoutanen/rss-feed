@@ -96,7 +96,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             View container = holder.itemView;
 
             container.setOnLongClickListener(view -> {
-                PreferencesManager.vibrate(view, preferences, HapticFeedbackConstants.LONG_PRESS);
+                PreferencesManager.vibrate(view, preferences, HapticFeedbackConstants.LONG_PRESS, context);
                 askForSourceInput(source);
                 return true;
             });
@@ -108,7 +108,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                     bundle.putSerializable("preferences", preferences);
                     Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
                     feedIntent.putExtras(bundle);
-                    PreferencesManager.vibrate(v, preferences);
+                    PreferencesManager.vibrate(v, preferences, context);
                     v.getContext().startActivity(feedIntent);
                 }
             });
@@ -122,7 +122,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             Button addNewButton = headerViewHolder.addNewButton;
 
             addNewButton.setOnClickListener(v ->{
-                PreferencesManager.vibrate(v, preferences);
+                PreferencesManager.vibrate(v, preferences, context);
                 askForSourceInput(null);
             });
         }

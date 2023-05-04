@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.List;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.customization.SaveSystem;
+import com.niilopoutanen.rss_feed.customization.SettingsFragment;
 import com.niilopoutanen.rss_feed.customization.UpdateDialog;
 import com.niilopoutanen.rss_feed.sources.Source;
 

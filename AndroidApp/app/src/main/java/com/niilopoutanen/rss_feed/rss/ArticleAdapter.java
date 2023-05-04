@@ -22,7 +22,10 @@ import com.niilopoutanen.rss_feed.ImageViewActivity;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.Date;
 import java.util.List;
@@ -119,10 +122,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             switch (getItemViewType(position)) {
                 case VIEW_TYPE_IMAGE:
                     ContentViewHolder imageviewHolder = (ContentViewHolder) holder;
-                    Picasso.get().load(((ImageItem)item).getUrl())
+                    RequestCreator requestCreator = Picasso.get().load(((ImageItem)item).getUrl())
                             .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, appContext), 0)
                             .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
-                            .into(imageviewHolder.imageView);
+                            .centerCrop();
+                    if (!preferences.s_imagecache) {
+                        requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+                    }
+
+                    requestCreator.into(imageviewHolder.imageView);
 
                     imageviewHolder.imageView.setOnClickListener(v -> {
                         Intent imageIntent = new Intent(appContext, ImageViewActivity.class);

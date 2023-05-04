@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed;
+package com.niilopoutanen.rss_feed.customization;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import static com.niilopoutanen.rss_feed.customization.Preferences.*;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
@@ -92,7 +93,7 @@ public class SettingsDropDownFragment extends Fragment {
     }
     private void closeFragment(View view){
         getParentFragmentManager().popBackStack();
-        PreferencesManager.vibrate(view, context);
+        PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(context), context);
     }
     private void addOptions(Class<?> type){
         if (Preferences.LaunchWindow.class.equals(type)) {

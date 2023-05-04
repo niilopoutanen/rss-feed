@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed;
+package com.niilopoutanen.rss_feed.customization;
 
 import static com.niilopoutanen.rss_feed.customization.Preferences.*;
 
@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.rss.MaskTransformation;
@@ -60,11 +61,9 @@ public class SettingsFeedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
         LinearLayout returnBtn = rootView.findViewById(R.id.feedsettings_return);
-        returnBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().popBackStack();
-            }
+        returnBtn.setOnClickListener(view -> {
+            PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(appContext), appContext);
+            getParentFragmentManager().popBackStack();
         });
 
 

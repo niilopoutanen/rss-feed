@@ -50,11 +50,23 @@
     <string name="accentcolor">Accent color</string>
     <string name="settings_font">Font used in articles</string>
     <string name="settings_launchwindow">Launch window</string>
+    <string name="haptics">Haptics</string>
+    <string name="haptics_troubleshoot">Haptics not working for you? Long press the haptics setting to open troubleshooting menu.</string>
+    <string name="haptics_troubleshoot_header">Troubleshoot haptics</string>
+    <string name="haptics_troubleshoot_desc">Older Android devices do not support all the haptic features. If you experience issues with vibrations while using the app or the haptics don\'t work at all, try different types below.</string>
+
     <string name="view_in_browser">View in browser</string>
     <string name="open_articles_in_browser">Open articles in browser</string>
     <string name="article_background_color">Article background color</string>
     <string name="article_background_color_desc">Sets the background color when reading articles. Stage 1 provides higher contrast between text and background, while stage 4 reduces eye strain and has less contrast.</string>
     <string name="articles_fullscreen">View articles in fullscreen</string>
+    <string name="cache_images">Cache images to disk</string>
+
+
+    <string name="settingsheader_feed">Feed</string>
+    <string name="settingsheader_colors">Colors</string>
+    <string name="settingsheader_functionality">Functionality</string>
+    <string name="settingsheader_article">Article</string>
 
     <string name="author_visible">Author visible</string>
     <string name="author_sourcedesc">Show post source</string>
@@ -84,6 +96,11 @@
         <item>Feed</item>
         <item>Sources</item>
     </string-array>
+    <string-array name="haptic_types">
+        <item>Mode 1</item>
+        <item>Mode 2</item>
+        <item>Mode 2</item>
+    </string-array>
     <string-array name="date_modes">
         <item>Long</item>
         <item>Short</item>
@@ -104,6 +121,6 @@
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
-    <string name="haptics">Haptics</string>
+
 
 </resources>
