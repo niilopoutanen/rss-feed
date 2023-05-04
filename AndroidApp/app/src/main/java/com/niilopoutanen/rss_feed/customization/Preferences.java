@@ -92,6 +92,6 @@ public class Preferences implements Serializable {
         BLUE, VIOLET, PINK, RED, ORANGE, YELLOW, GREEN
     }
     public enum HapticTypes{
-        VIEW, VIBRATE
+        VIEW, VIBRATE, FALLBACK
     }
 }

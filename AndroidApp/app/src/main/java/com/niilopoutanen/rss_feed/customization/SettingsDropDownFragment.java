@@ -93,7 +93,7 @@ public class SettingsDropDownFragment extends Fragment {
     }
     private void closeFragment(View view){
         getParentFragmentManager().popBackStack();
-        PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(context));
+        PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(context), context);
     }
     private void addOptions(Class<?> type){
         if (Preferences.LaunchWindow.class.equals(type)) {

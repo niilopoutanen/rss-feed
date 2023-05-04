@@ -62,7 +62,7 @@ public class SettingsFeedFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
         LinearLayout returnBtn = rootView.findViewById(R.id.feedsettings_return);
         returnBtn.setOnClickListener(view -> {
-            PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(appContext));
+            PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(appContext), appContext);
             getParentFragmentManager().popBackStack();
         });
 

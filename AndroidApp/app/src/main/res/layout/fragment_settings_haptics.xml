@@ -53,53 +53,57 @@
         android:minHeight="20dp"
         android:background="@drawable/element_background">
 
-        <TextView
+        <RelativeLayout
+            android:tag="false"
             android:id="@+id/vibration_type1"
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/element_border"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
-        <TextView
-            android:id="@+id/vibration_type2"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/element_border"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
-        <TextView
-            android:id="@+id/vibration_type3"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-    <RelativeLayout
-        android:id="@+id/updatedialog_continue"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="20dp"
-        android:background="@drawable/input_background"
-        android:backgroundTint="?attr/colorAccent">
-        <TextView
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            app:fontFamily="@font/inter_medium"
-            android:text="@string/continua"
-            android:textColor="@color/textPrimary"/>
-    </RelativeLayout>
+            android:padding="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textPrimary"
+                app:fontFamily="@font/inter"
+                android:text="Mode 1"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/element_border"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
+        <RelativeLayout
+            android:tag="false"
+            android:id="@+id/vibration_type2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textPrimary"
+                app:fontFamily="@font/inter"
+                android:text="Mode 2"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/element_border"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
+        <RelativeLayout
+            android:tag="false"
+            android:id="@+id/vibration_type3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textPrimary"
+                app:fontFamily="@font/inter"
+                android:text="Mode 3"/>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

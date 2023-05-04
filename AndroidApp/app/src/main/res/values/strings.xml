@@ -96,6 +96,11 @@
         <item>Feed</item>
         <item>Sources</item>
     </string-array>
+    <string-array name="haptic_types">
+        <item>Mode 1</item>
+        <item>Mode 2</item>
+        <item>Mode 2</item>
+    </string-array>
     <string-array name="date_modes">
         <item>Long</item>
         <item>Short</item>

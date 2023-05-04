@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
@@ -92,23 +94,32 @@ public class PreferencesManager {
     }
 
     //Haptic methods
-    public static void vibrate(View view, Preferences preferences){
-        performVibrate(view, preferences, HapticFeedbackConstants.KEYBOARD_TAP);
+    public static void vibrate(View view, Preferences preferences, Context context){
+        performVibrate(view, preferences, HapticFeedbackConstants.KEYBOARD_TAP, context);
     }
-    public static void vibrate(View view, Preferences preferences, int stage){
-        performVibrate(view, preferences, stage);
+    public static void vibrate(View view, Preferences preferences, int stage, Context context){
+        performVibrate(view, preferences, stage, context);
     }
 
-    public static void performVibrate(View view, Preferences preferences, int stage){
+    public static void performVibrate(View view, Preferences preferences, int stage, Context context){
         if(!preferences.s_haptics || view == null){
             return;
         }
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         switch (preferences.s_hapticstype){
             case VIEW:
                 view.performHapticFeedback(stage);
                 break;
             case VIBRATE:
-
+                vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
+                break;
+            case FALLBACK:
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_CLICK));
+                    }
+                }
+                catch (Exception ignored){}
                 break;
         }
 
