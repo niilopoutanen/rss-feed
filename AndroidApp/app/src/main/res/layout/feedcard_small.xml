@@ -20,15 +20,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/feedcard_author"
-            android:textSize="13sp"
-            app:fontFamily="@font/inter_medium"
-            android:textColor="@color/textSecondary"
-            android:maxLines="1"
-            android:ellipsize="end"/>
+            android:orientation="horizontal">
+            <View
+                android:id="@+id/feedcard_color"
+                android:layout_gravity="center_vertical"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/circle"
+                android:layout_marginRight="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/feedcard_author"
+                android:textSize="13sp"
+                app:fontFamily="@font/inter_medium"
+                android:textColor="@color/textSecondary"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/feedcard_title"
             android:layout_width="wrap_content"

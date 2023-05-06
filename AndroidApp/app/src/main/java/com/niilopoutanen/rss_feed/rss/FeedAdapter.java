@@ -1,6 +1,8 @@
 package com.niilopoutanen.rss_feed.rss;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +17,13 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.sources.RecyclerViewInterface;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.CardViewHolder> {
 
     private final RecyclerViewInterface recyclerViewInterface;
     private final List<RSSPost> feed;
@@ -57,7 +57,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
     }
     @NonNull
     @Override
-    public LargeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
@@ -69,7 +69,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
             case VIEW_TYPE_ITEM:
                 view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
                 setViewMargins(view, 40, 0, 40, 40);
-                return new LargeViewHolder(view, recyclerViewInterface);
+                return new CardViewHolder(view, recyclerViewInterface);
             default:
                 throw new IllegalArgumentException("Invalid view type: " + viewType);
         }
@@ -91,7 +91,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LargeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.header.setText(viewTitle);
@@ -101,6 +101,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         TextView title = holder.titleTextView;
         TextView desc = holder.descTextView;
         TextView author = holder.author;
+        View sourceColor = holder.authorColor;
         TextView date = holder.date;
         View container = holder.container;
         ImageView image = holder.image;
@@ -123,6 +124,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         else{
             author.setText(post.getSourceName());
         }
+        sourceColor.setBackgroundTintList(ColorStateList.valueOf(post.getSourceColor().toArgb()));
         image.setImageDrawable(null);
         Picasso.get().cancelRequest(image);
 
@@ -181,16 +183,17 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         }
     }
 
-    public static class LargeViewHolder extends RecyclerView.ViewHolder {
+    public static class CardViewHolder extends RecyclerView.ViewHolder {
 
         public TextView titleTextView;
         public TextView descTextView;
         public TextView author;
+        public View authorColor;
         public TextView date;
         public ImageView image;
         public View container;
 
-        public LargeViewHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
+        public CardViewHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             itemView.setOnClickListener(v -> {
@@ -204,6 +207,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
 
             titleTextView = (TextView) itemView.findViewById(R.id.feedcard_title);
             descTextView = (TextView) itemView.findViewById(R.id.feedcard_description);
+            authorColor = itemView.findViewById(R.id.feedcard_color);
             author = (TextView) itemView.findViewById(R.id.feedcard_author);
             date = (TextView) itemView.findViewById(R.id.feedcard_date);
             image = (ImageView) itemView.findViewById(R.id.feedcard_image);
@@ -212,7 +216,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         }
 
     }
-    public static class HeaderViewHolder extends LargeViewHolder {
+    public static class HeaderViewHolder extends CardViewHolder {
 
         public TextView header;
         public HeaderViewHolder(View itemView) {
