@@ -108,7 +108,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private boolean checkValidity() {
-        if (sources.size() == 0) {
+        if (sources.size() <= 0) {
             Toast.makeText(appContext, appContext.getString(R.string.nosources), Toast.LENGTH_LONG).show();
             return false;
         }
@@ -142,7 +142,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
                         for (RSSPost post : posts) {
                             post.setSourceName(source.getName());
-                            post.setSourceColor(source.getColor());
                             feed.add(post);
                         }
 

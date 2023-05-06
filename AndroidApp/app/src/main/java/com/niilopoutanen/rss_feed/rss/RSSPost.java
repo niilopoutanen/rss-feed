@@ -1,25 +1,21 @@
 package com.niilopoutanen.rss_feed.rss;
 
-import android.graphics.Color;
-
 import java.util.Date;
 
 public class RSSPost implements Comparable<RSSPost>{
     private String postLink;
     private String author;
     private String sourceName;
-    private Color sourceColor;
     private String imageUrl;
     private String title;
     private String description;
     private Date publishTime;
 
 
-    public RSSPost(String postLink, String author, String sourceName,Color sourceColor, String imageUrl, String title, String description, Date publishTime) {
+    public RSSPost(String postLink, String author, String sourceName, String imageUrl, String title, String description, Date publishTime) {
         this.postLink = postLink;
         this.author = author;
         this.sourceName = sourceName;
-        this.sourceColor = sourceColor;
         this.imageUrl = imageUrl;
         this.title = title;
         this.description = description;
@@ -37,9 +33,7 @@ public class RSSPost implements Comparable<RSSPost>{
     public String getSourceName() {
         return sourceName;
     }
-    public Color getSourceColor() {
-        return sourceColor;
-    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -62,9 +56,7 @@ public class RSSPost implements Comparable<RSSPost>{
     public void setSourceName(String sourceName){
         this.sourceName = sourceName;
     }
-    public void setSourceColor(Color sourceColor) {
-        this.sourceColor = sourceColor;
-    }
+
     public void setImageUrl(String imageUrl){
         this.imageUrl = imageUrl;
     }
