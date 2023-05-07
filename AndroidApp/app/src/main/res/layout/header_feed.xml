@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -12,4 +12,28 @@
         app:fontFamily="@font/inter_semibold"
         android:textSize="40sp"
         android:textColor="@color/textPrimary"/>
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/feed_searchBtn"
+        android:layout_centerVertical="true"
+        android:animateLayoutChanges="true"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/element_background">
+        <EditText
+            android:visibility="gone"
+            android:hint="Search for posts"
+            android:id="@+id/feed_searchInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:id="@+id/feed_searchIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/icon_search"
+            android:backgroundTint="?attr/colorAccent"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,12 +1,19 @@
 package com.niilopoutanen.rss_feed.rss;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,14 +41,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
     private static final int IMAGE_MARGIN_PX = 20;
     private final String viewTitle;
     private final Preferences preferences;
+    private final Context appContext;
 
     public FeedAdapter(Preferences preferences, List<RSSPost> posts, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface){
         feed = posts;
         this.viewTitle = viewTitle;
         this.recyclerViewInterface = recyclerViewInterface;
         this.preferences = preferences;
-
-        setImageWidth(context);
+        this.appContext = context;
+        setImageWidth(appContext);
     }
     public void setImageWidth(Context context) {
         switch (preferences.s_feedcardstyle) {
@@ -67,6 +75,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         switch (viewType) {
             case VIEW_TYPE_HEADER:
                 view = inflater.inflate(R.layout.header_feed, parent, false);
+                initSearch(view.findViewById(R.id.feed_searchInput), parent);
+                view.findViewById(R.id.feed_searchBtn).setOnClickListener(v -> toggleSearch(view));
                 setViewMargins(view, margin, margin,margin,margin);
                 return new HeaderViewHolder(view);
             case VIEW_TYPE_ITEM:
@@ -82,8 +92,41 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         layoutParams.setMargins(left, top, right, bottom);
         view.setLayoutParams(layoutParams);
     }
+    private void initSearch(EditText searchField, View parent){
+        searchField.setOnClickListener(view -> toggleSearch(parent));
+        searchField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Toast.makeText(appContext, editable.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void toggleSearch(View parent){
+        EditText searchField = parent.findViewById(R.id.feed_searchInput);
+        View searchBtn = parent.findViewById(R.id.feed_searchIcon);
+        switch (searchField.getVisibility()){
+            case View.VISIBLE:
+                searchField.setVisibility(View.GONE);
+                InputMethodManager imm = (InputMethodManager)appContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(parent.getWindowToken(), 0);
+                searchBtn.setVisibility(View.VISIBLE);
+                break;
+            case View.GONE:
+                searchField.setVisibility(View.VISIBLE);
+                searchBtn.setVisibility(View.GONE);
+                break;
+        }
+    }
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
