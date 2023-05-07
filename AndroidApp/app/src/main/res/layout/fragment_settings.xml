@@ -517,11 +517,39 @@
                     android:layout_alignParentRight="true"
                     android:thumb="@drawable/switch_thumb"
                     app:track="@drawable/switch_track"/>
-
-
             </RelativeLayout>
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <RelativeLayout
+                android:layout_marginRight="10dp"
+                android:id="@+id/settings_sendMail"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:background="@drawable/element_background">
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icon_email"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/settings_createIssue"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:background="@drawable/element_background">
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icon_github"/>
+            </RelativeLayout>
+        </LinearLayout>
 
         <Space
             android:layout_weight="1"

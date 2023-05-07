@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.niilopoutanen.rss_feed.BuildConfig;
+import com.niilopoutanen.rss_feed.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
 
 import java.text.DateFormat;
@@ -199,7 +200,7 @@ public class PreferencesManager {
 
         if(imageType == FEED_IMAGE_LARGE){
             int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
-            return displayMetrics.widthPixels - excessValue- 80;
+            return displayMetrics.widthPixels - excessValue- dpToPx(FeedFragment.CARDMARGIN_DP, context);
         }
         else if(imageType == FEED_IMAGE_SMALL){
             return dpToPx(100, context);

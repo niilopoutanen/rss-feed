@@ -46,7 +46,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     Context appContext;
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
-
+    public static final int CARDMARGIN_DP = 10;
+    public static final int CARDGAP_DP = 20;
     @ColorInt
     int colorAccent;
 
@@ -108,7 +109,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private boolean checkValidity() {
-        if (sources.size() <= 0) {
+        if (sources.size() == 0) {
             Toast.makeText(appContext, appContext.getString(R.string.nosources), Toast.LENGTH_LONG).show();
             return false;
         }

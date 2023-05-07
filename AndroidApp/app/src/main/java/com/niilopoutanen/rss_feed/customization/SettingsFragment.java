@@ -19,7 +19,9 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 
 import static com.niilopoutanen.rss_feed.customization.Preferences.*;
@@ -69,6 +71,24 @@ public class SettingsFragment extends Fragment {
             String url = "https://github.com/niilopoutanen/RSS-Feed";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
+        });
+        rootView.findViewById(R.id.settings_createIssue).setOnClickListener(v -> {
+            String url = "https://github.com/niilopoutanen/RSS-Feed/issues/new";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        });
+        rootView.findViewById(R.id.settings_sendMail).setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"niilo.poutanen@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback from RSS-Feed");
+            intent.putExtra(Intent.EXTRA_TEXT, appContext.getString(R.string.emailquide) + "\n \n App version: " + BuildConfig.VERSION_NAME + "\n Android version: " + Build.VERSION.SDK_INT);
+            try{
+                startActivity(Intent.createChooser(intent, appContext.getString(R.string.sendmail)));
+            }
+            catch (Exception e) {
+                Toast.makeText(appContext, appContext.getString(R.string.noemailfound), Toast.LENGTH_LONG).show();
+            }
         });
 
 

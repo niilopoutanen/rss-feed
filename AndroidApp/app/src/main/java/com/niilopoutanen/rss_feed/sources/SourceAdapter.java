@@ -225,7 +225,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                         }
 
                     }
-                });
+                }, context);
             }
         });
 

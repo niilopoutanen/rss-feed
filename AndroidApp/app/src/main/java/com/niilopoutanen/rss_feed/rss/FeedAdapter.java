@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.rss_feed.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
@@ -61,14 +62,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
+        int margin = PreferencesManager.dpToPx(FeedFragment.CARDMARGIN_DP, context);
+        int gap = PreferencesManager.dpToPx(FeedFragment.CARDGAP_DP, context);
         switch (viewType) {
             case VIEW_TYPE_HEADER:
                 view = inflater.inflate(R.layout.header_feed, parent, false);
-                setViewMargins(view, 40, 40,40,40);
+                setViewMargins(view, margin, margin,margin,margin);
                 return new HeaderViewHolder(view);
             case VIEW_TYPE_ITEM:
                 view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
-                setViewMargins(view, 40, 0, 40, 40);
+                setViewMargins(view, margin, 0, margin, gap);
                 return new LargeViewHolder(view, recyclerViewInterface);
             default:
                 throw new IllegalArgumentException("Invalid view type: " + viewType);
