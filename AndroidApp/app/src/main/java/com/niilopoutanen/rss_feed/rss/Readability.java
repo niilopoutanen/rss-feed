@@ -13,6 +13,10 @@ The code is modified, although all credit goes to him.
 */
 package com.niilopoutanen.rss_feed.rss;
 
+import android.content.Context;
+
+import com.niilopoutanen.rss_feed.R;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +35,7 @@ public class Readability {
         super();
         mDocument = Jsoup.parse(url, timeoutMillis);
     }
-    public void init(boolean preserveUnlikelyCandidates) {
+    public void init(boolean preserveUnlikelyCandidates, Context context) {
         if (mDocument.body() != null && mBodyCache == null) {
             mBodyCache = mDocument.body().html();
         }
@@ -45,11 +49,11 @@ public class Readability {
         if (isEmpty(getInnerText(articleContent, false))) {
             if (!preserveUnlikelyCandidates) {
                 mDocument.body().html(mBodyCache);
-                init(true);
+                init(true, context);
                 return;
             } else {
                 articleContent
-                        .html("<p>Sorry, readability was unable to parse this page for content.</p>");
+                        .html("<p>"+ context.getString(R.string.failed_to_parse) +"</p>");
             }
         }
         

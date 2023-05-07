@@ -122,8 +122,15 @@ public class WebHelper {
         // create an HTTP connection for the website's homepage
         Document doc = Jsoup.parse(fetchUrlData(new URL(urlToUse)));
 
-        Elements link = doc.select("link[href~=.*\\.(png)][rel~=icon|apple-touch-icon|shortcut icon]");
+        Elements link = doc.select("link[href~=.*\\.(png|webp|jpg|jpeg)][rel~=icon|apple-touch-icon|shortcut icon]");
         String faviconUrl = link.attr("href");
+        if(link.isEmpty()){
+            link = doc.select("meta[property~=og:image], meta[name~=twitter:image]");
+            faviconUrl = link.attr("content");
+        }
+        if(link.isEmpty() || faviconUrl.isEmpty()){
+            return null;
+        }
 
         // make sure the favicon URL is an absolute URL
         if (!faviconUrl.startsWith("http")) {
