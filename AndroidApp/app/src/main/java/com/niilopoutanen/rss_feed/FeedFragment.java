@@ -46,7 +46,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     Context appContext;
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
-    public static final int CARDMARGIN_DP = 5;
+    public static final int CARDMARGIN_DP = 10;
     public static final int CARDGAP_DP = 20;
     @ColorInt
     int colorAccent;

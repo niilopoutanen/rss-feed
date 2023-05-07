@@ -517,11 +517,40 @@
                     android:layout_alignParentRight="true"
                     android:thumb="@drawable/switch_thumb"
                     app:track="@drawable/switch_track"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/element_background">
+            <RelativeLayout
+                android:id="@+id/settings_sendFeedBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
 
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sendfeedback"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold"/>
+
+                <View
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="9dp"
+                    android:layout_height="17dp"
+                    android:background="@drawable/arrow"
+                    android:backgroundTint="@color/white"
+                    android:rotation="180"/>
 
             </RelativeLayout>
         </LinearLayout>
-
 
         <Space
             android:layout_weight="1"

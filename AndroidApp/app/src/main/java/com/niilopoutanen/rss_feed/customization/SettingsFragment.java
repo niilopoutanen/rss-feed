@@ -70,6 +70,11 @@ public class SettingsFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         });
+        rootView.findViewById(R.id.settings_sendFeedBack).setOnClickListener(v -> {
+            String url = "https://github.com/niilopoutanen/RSS-Feed/issues/new";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        });
 
 
         RelativeLayout feedSettings = rootView.findViewById(R.id.settings_openFeedSettings);

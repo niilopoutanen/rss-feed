@@ -21,14 +21,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SourceValidator {
-    public static void validate(String sourceUrl, String sourceName, WebCallBack<Source> sourceCallBack) {
+    public static void validate(String sourceUrl, String sourceName, WebCallBack<Source> sourceCallBack, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
         List<URL> urlsToCheck = new ArrayList<>();
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/feed"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/uutiset.xml"));
+        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/" + context.getString(R.string.rsslocale_news) + ".xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/news.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss.xml"));
         urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/rss.xml"));
