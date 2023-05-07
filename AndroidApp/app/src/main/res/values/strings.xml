@@ -3,8 +3,6 @@
     <string name="app_version">Version: 1.0</string>
     <string name="copyright">©2023 Niilo Poutanen</string>
 
-    <string name="feed_widget_description">View your RSS feed from your home screen.</string>
-
     <string name="feed_header">Feed</string>
     <string name="settings_header">Settings</string>
     <string name="feedsettings_header">Feed customization</string>
@@ -123,4 +121,6 @@
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
+
+
 </resources>
