@@ -33,16 +33,19 @@ public class RSSParser {
             if (linkElement != null) {
                 post.setPostLink(linkElement.text());
             }
+
             Element descElement = itemElement.selectFirst("description");
             if (descElement != null) {
                 String htmlDescription = descElement.html();
                 String plainDescription = Jsoup.parse(htmlDescription).text().replaceAll("\\<.*?>", "");
                 plainDescription = plainDescription.replaceAll("\n", "");
+                plainDescription = org.jsoup.parser.Parser.unescapeEntities(plainDescription, true); // unescape HTML entities
                 post.setDescription(plainDescription);
                 try {
                     post.setImageUrl(parseImageURL(htmlDescription));
                 } catch (Exception ignored) {}
             }
+
 
             Element pubDate = itemElement.selectFirst("pubDate");
             if(pubDate != null){
