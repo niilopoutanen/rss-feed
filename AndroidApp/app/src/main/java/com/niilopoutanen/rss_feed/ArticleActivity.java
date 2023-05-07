@@ -271,7 +271,7 @@ public class ArticleActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 Readability readability = new Readability(url, 100000);
-                readability.init(false);
+                readability.init(false, this);
                 title = readability.separateTitle();
                 callback.onResult(readability.outerHtml());
             } catch (Exception e) {

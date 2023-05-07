@@ -114,12 +114,17 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             });
 
             sourceName.setText(source.getName());
-
-            Picasso.get().load(source.getImageUrl()).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
+            if(source.getImageUrl() != null){
+                sourceImage.setVisibility(View.VISIBLE);
+                Picasso.get().load(source.getImageUrl()).resize(100,100).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
+            }
+            else{
+                sourceImage.setVisibility(View.GONE);
+            }
         }
         else if(getItemViewType(position) == VIEW_TYPE_HEADER){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            Button addNewButton = headerViewHolder.addNewButton;
+            RelativeLayout addNewButton = headerViewHolder.addNewButton;
 
             addNewButton.setOnClickListener(v ->{
                 PreferencesManager.vibrate(v, preferences, context);
@@ -248,7 +253,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
     public static class HeaderViewHolder extends ViewHolder {
 
         public RelativeLayout header;
-        public Button addNewButton;
+        public RelativeLayout addNewButton;
         public HeaderViewHolder(View itemView) {
             super(itemView);
 

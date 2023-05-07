@@ -18,7 +18,7 @@
     <string name="addsource">Lisää lähde</string>
     <string name="updatesource">Päivitä lähde</string>
     <string name="sourceremoved">Lähde poistettu</string>
-    <string name="feed_name">Syötteen nimi (jätä tyhjäksi automaattista täyttöä varten)</string>
+    <string name="feed_name">Nimi (jätä tyhjäksi automaattista täyttöä varten)</string>
     <string name="feed_url">Syötteen URL-osoite</string>
     <string name="today">Tänään klo</string>
     <string name="nointernet">Ei internet-yhteyttä.</string>
@@ -102,4 +102,5 @@
     <string name="sendmail">Lähetä sähköpostia</string>
     <string name="noemailfound">Sähköpostisovellusta ei löydetty. Lähetä palautetta osoitteeseen niilo.poutanen@gmail.com</string>
     <string name="emailquide">Kirjoita palautteesi tähän. Jätä valmiiksi täytetyt tiedot viestiin mukaan. (Viestin pohjalla olevat numerot)</string>
+    <string name="failed_to_parse">Artikkelin avaaminen ei onnistunut. Avaa artikkeli selaimessa lukeaksesi se.</string>
 </resources>

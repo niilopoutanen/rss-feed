@@ -13,11 +13,19 @@
         app:fontFamily="@font/inter_semibold"
         android:textSize="40sp"
         android:textColor="@color/textPrimary"/>
-    <Button
+    <RelativeLayout
         android:id="@+id/addNewButton"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/button_add"/>
+        android:layout_alignParentRight="true"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:background="@drawable/element_background">
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/icon_plus"
+            android:backgroundTint="?attr/colorAccent"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
 </RelativeLayout>

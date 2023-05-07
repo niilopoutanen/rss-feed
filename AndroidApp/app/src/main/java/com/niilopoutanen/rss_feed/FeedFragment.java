@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
@@ -46,6 +47,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     Context appContext;
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
+    ExecutorService executor = null;
     public static final int CARDMARGIN_DP = 10;
     public static final int CARDGAP_DP = 20;
     @ColorInt
@@ -131,7 +133,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         feed.clear();
 
         // Create a new Executor for running the feed updates on a background thread
-        Executor executor = Executors.newSingleThreadExecutor();
+        executor = Executors.newSingleThreadExecutor();
 
         // Submit each update to the executor
         executor.execute(() -> {
@@ -160,7 +162,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             }
         });
 
-
+        executor = null;
     }
 
     @Override
@@ -235,6 +237,13 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         outState.putSerializable("sources", new ArrayList<>(sources));
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(executor != null){
+            executor.shutdownNow();
+        }
+    }
     interface Callback {
         void onSuccess();
     }
