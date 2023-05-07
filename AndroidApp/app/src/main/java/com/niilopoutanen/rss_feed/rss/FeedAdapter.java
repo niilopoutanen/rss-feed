@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.rss;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,14 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolder> {
 
     private final RecyclerViewInterface recyclerViewInterface;
-    private final List<RSSPost> feed;
+    private List<RSSPost> feed;
+    private List<RSSPost> tempfeed;
     private static int imageWidth;
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
@@ -107,9 +110,51 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Toast.makeText(appContext, editable.toString(), Toast.LENGTH_SHORT).show();
+                if(editable.toString().isEmpty() && tempfeed != null){
+                    feed = tempfeed;
+                    tempfeed = null;
+                    notifyDataSetChanged();
+                }
+                else{
+                    search(editable.toString());
+                }
             }
         });
+
+        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                toggleSearch(parent);
+                return true;
+            }
+        });
+    }
+    public void filterList(ArrayList<RSSPost> filterlist) {
+        feed = filterlist;
+        notifyDataSetChanged();
+    }
+    private void search(String text){
+        // creating a new array list to filter our data.
+        ArrayList<RSSPost> filteredlist = new ArrayList<RSSPost>();
+
+        // running a for loop to compare elements.
+        for (RSSPost item : feed) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(appContext, "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            filterList(filteredlist);
+        }
     }
     private void toggleSearch(View parent){
         EditText searchField = parent.findViewById(R.id.feed_searchInput);
@@ -119,11 +164,17 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
                 searchField.setVisibility(View.GONE);
                 InputMethodManager imm = (InputMethodManager)appContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(parent.getWindowToken(), 0);
+                if(tempfeed != null){
+                    feed = tempfeed;
+                    tempfeed = null;
+                    notifyDataSetChanged();
+                }
                 searchBtn.setVisibility(View.VISIBLE);
                 break;
             case View.GONE:
                 searchField.setVisibility(View.VISIBLE);
                 searchBtn.setVisibility(View.GONE);
+                tempfeed = feed;
                 break;
         }
     }
