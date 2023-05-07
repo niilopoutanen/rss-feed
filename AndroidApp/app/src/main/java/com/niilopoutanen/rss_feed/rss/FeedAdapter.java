@@ -1,6 +1,9 @@
 package com.niilopoutanen.rss_feed.rss;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,7 +22,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.FeedFragment;
+import com.niilopoutanen.rss_feed.ImageViewActivity;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.SearchActivity;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.sources.RecyclerViewInterface;
@@ -75,8 +80,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         switch (viewType) {
             case VIEW_TYPE_HEADER:
                 view = inflater.inflate(R.layout.header_feed, parent, false);
-                initSearch(view.findViewById(R.id.feed_searchInput), parent);
-                view.findViewById(R.id.feed_searchBtn).setOnClickListener(v -> toggleSearch(view));
+
+                view.findViewById(R.id.feed_searchBtn).setOnClickListener(view1 -> {
+                    Intent searchIntent = new Intent(appContext, SearchActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)appContext, view1.findViewById(R.id.feed_searchBtn), "search");
+                    appContext.startActivity(searchIntent, options.toBundle());
+                });
+
                 setViewMargins(view, margin, margin,margin,margin);
                 return new HeaderViewHolder(view);
             case VIEW_TYPE_ITEM:
@@ -91,41 +101,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.setMargins(left, top, right, bottom);
         view.setLayoutParams(layoutParams);
-    }
-    private void initSearch(EditText searchField, View parent){
-        searchField.setOnClickListener(view -> toggleSearch(parent));
-        searchField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Toast.makeText(appContext, editable.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void toggleSearch(View parent){
-        EditText searchField = parent.findViewById(R.id.feed_searchInput);
-        View searchBtn = parent.findViewById(R.id.feed_searchIcon);
-        switch (searchField.getVisibility()){
-            case View.VISIBLE:
-                searchField.setVisibility(View.GONE);
-                InputMethodManager imm = (InputMethodManager)appContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(parent.getWindowToken(), 0);
-                searchBtn.setVisibility(View.VISIBLE);
-                break;
-            case View.GONE:
-                searchField.setVisibility(View.VISIBLE);
-                searchBtn.setVisibility(View.GONE);
-                break;
-        }
     }
     @Override
     public int getItemViewType(int position) {
