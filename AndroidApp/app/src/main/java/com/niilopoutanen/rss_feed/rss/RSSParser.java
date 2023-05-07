@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RSSParser {
@@ -56,6 +58,25 @@ public class RSSParser {
             if (!author.isEmpty()) {
                 post.setAuthor(author.first().text());
             }
+
+            Elements contentEncoded = itemElement.select("content\\:encoded");
+            if (!contentEncoded.isEmpty()) {
+                String contentHtml = contentEncoded.first().html();
+                String cdataRegex = "<!\\[CDATA\\[(.*?)\\]\\]>";
+                Pattern pattern = Pattern.compile(cdataRegex, Pattern.DOTALL);
+                Matcher matcher = pattern.matcher(contentHtml);
+                if (matcher.find()) {
+                    contentHtml = matcher.group(1);
+                }
+                Document inlineDoc = Jsoup.parse(contentHtml);
+                Elements imgElements = inlineDoc.select("img");
+                if (!imgElements.isEmpty()) {
+                    String imageUrl = imgElements.first().attr("src");
+                    post.setImageUrl(imageUrl);
+                }
+            }
+
+
             itemList.add(post);
         }
         return itemList;
