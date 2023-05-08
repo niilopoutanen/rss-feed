@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
@@ -55,8 +56,15 @@ public class SettingsDropDownFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if(savedInstanceState != null){
+            title = savedInstanceState.getString("title");
+            additionalMessage = savedInstanceState.getString("additionalMessage");
+            type = (Class<?>) savedInstanceState.getSerializable("class");
+        }
+        if(context == null){
+            context = getContext();
+        }
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -226,5 +234,12 @@ public class SettingsDropDownFragment extends Fragment {
 
         optionsContainer.addView(parent);
         return parent;
+    }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("additionalMessage", additionalMessage);
+        outState.putString("title", title);
+        outState.putSerializable("class", type);
     }
 }

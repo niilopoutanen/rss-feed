@@ -68,6 +68,9 @@ public class SettingsFeedFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(appContext == null){
+            appContext = getContext();
+        }
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
         LinearLayout returnBtn = rootView.findViewById(R.id.feedsettings_return);
         returnBtn.setOnClickListener(view -> {
