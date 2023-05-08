@@ -28,6 +28,7 @@ public class SaveSystem {
             e.printStackTrace();
         }
     }
+
     public static void saveSources(Context context, Source source) {
         List<Source> sources;
         try {
@@ -50,7 +51,7 @@ public class SaveSystem {
         List<Source> sources = new ArrayList<>();
         try {
             File file = context.getFileStreamPath(FILENAME);
-            if(file != null && file.exists()) {
+            if (file != null && file.exists()) {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 sources = (List<Source>) ois.readObject();

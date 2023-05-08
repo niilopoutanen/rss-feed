@@ -37,6 +37,8 @@ import java.util.concurrent.Executors;
 
 public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
+    public static final int CARDMARGIN_DP = 10;
+    public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
     List<RSSPost> feed = new ArrayList<>();
     String viewTitle;
@@ -46,8 +48,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
     ExecutorService executor = null;
-    public static final int CARDMARGIN_DP = 10;
-    public static final int CARDGAP_DP = 20;
     @ColorInt
     int colorAccent;
 
@@ -236,12 +236,13 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        if(executor != null){
+        if (executor != null) {
             executor.shutdownNow();
         }
     }
+
     interface Callback {
         void onSuccess();
     }

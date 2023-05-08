@@ -13,11 +13,12 @@ public class UpdateDialog {
     private final Context appContext;
     public BottomSheetDialog sheet;
 
-    public UpdateDialog(Context context){
+    public UpdateDialog(Context context) {
         this.appContext = context;
         initializeSheet();
     }
-    private void initializeSheet(){
+
+    private void initializeSheet() {
         sheet = new BottomSheetDialog(appContext, R.style.BottomSheetStyle);
 
         sheet.setContentView(R.layout.dialog_update);
@@ -30,9 +31,10 @@ public class UpdateDialog {
         sheet.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(appContext));
         sheet.setOnDismissListener(dialog -> PreferencesManager.setLatestVersion(appContext));
 
-        ((RelativeLayout) sheet.findViewById(R.id.updatedialog_continue)).setOnClickListener(v -> sheet.dismiss());
+        sheet.findViewById(R.id.updatedialog_continue).setOnClickListener(v -> sheet.dismiss());
     }
-    public void show(){
+
+    public void show() {
         sheet.show();
     }
 }

@@ -57,7 +57,10 @@ public class SettingsFeedFragment extends Fragment {
     public SettingsFeedFragment(Context context) {
         this.appContext = context;
     }
-    public SettingsFeedFragment(){}
+
+    public SettingsFeedFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +154,7 @@ public class SettingsFeedFragment extends Fragment {
         return rootView;
     }
 
-    private void loadSavedData(){
+    private void loadSavedData() {
         // Load saved FeedCardStyle enum value and check the corresponding button
         Preferences.FeedCardStyle savedStyle = PreferencesManager.getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, Preferences.FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, appContext);
         if (savedStyle.ordinal() < feedcardStyleButtons.size()) {

@@ -55,7 +55,6 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    private Context appContext;
     TextView themeSelected;
     TextView fontSelected;
     TextView launchwindowSelected;
@@ -64,16 +63,20 @@ public class SettingsFragment extends Fragment {
     SwitchCompat articleFullScreen;
     SwitchCompat imagecache;
     SwitchCompat haptics;
-
     List<RelativeLayout> colorAccentButtons;
+    private Context appContext;
+
     public SettingsFragment(Context context) {
         this.appContext = context;
     }
-    public SettingsFragment(){}
+
+    public SettingsFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(appContext == null){
+        if (appContext == null) {
             appContext = getContext();
         }
     }
@@ -84,6 +87,7 @@ public class SettingsFragment extends Fragment {
         initializeElements(rootView);
         return rootView;
     }
+
     private void initializeElements(View rootView) {
         rootView.findViewById(R.id.copyright).setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen";
@@ -103,13 +107,12 @@ public class SettingsFragment extends Fragment {
         rootView.findViewById(R.id.settings_sendMail).setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"niilo.poutanen@gmail.com"});
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"niilo.poutanen@gmail.com"});
             intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback from RSS-Feed");
             intent.putExtra(Intent.EXTRA_TEXT, appContext.getString(R.string.emailquide) + "\n \n App version: " + BuildConfig.VERSION_NAME + "\n Android version: " + Build.VERSION.SDK_INT);
-            try{
+            try {
                 startActivity(Intent.createChooser(intent, appContext.getString(R.string.sendmail)));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Toast.makeText(appContext, appContext.getString(R.string.noemailfound), Toast.LENGTH_LONG).show();
             }
         });
@@ -128,31 +131,30 @@ public class SettingsFragment extends Fragment {
                 PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(appContext), appContext);
             }
         });
-        ((RelativeLayout)rootView.findViewById(R.id.troubleshoot_haptics)).setOnLongClickListener(new View.OnLongClickListener() {
-              @Override
-              public boolean onLongClick(View v) {
-                  SettingsHapticsFragment hapticsFragment = new SettingsHapticsFragment(appContext);
-                  FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                  transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-                  transaction.replace(R.id.frame_container, hapticsFragment);
-                  transaction.addToBackStack(null);
-                  PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), HapticFeedbackConstants.LONG_PRESS, appContext);
-                  transaction.commit();
+        rootView.findViewById(R.id.troubleshoot_haptics).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                SettingsHapticsFragment hapticsFragment = new SettingsHapticsFragment(appContext);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                transaction.replace(R.id.frame_container, hapticsFragment);
+                transaction.addToBackStack(null);
+                PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), HapticFeedbackConstants.LONG_PRESS, appContext);
+                transaction.commit();
 
-                  return true;
-              }
-          });
+                return true;
+            }
+        });
 
-                colorAccentButtons = Arrays.asList(
-                        rootView.findViewById(R.id.checkboxblue_accentcolor),
-                        rootView.findViewById(R.id.checkboxviolet_accentcolor),
-                        rootView.findViewById(R.id.checkboxpink_accentcolor),
-                        rootView.findViewById(R.id.checkboxred_accentcolor),
-                        rootView.findViewById(R.id.checkboxorange_accentcolor),
-                        rootView.findViewById(R.id.checkboxyellow_accentcolor),
-                        rootView.findViewById(R.id.checkboxgreen_accentcolor)
-                );
-
+        colorAccentButtons = Arrays.asList(
+                rootView.findViewById(R.id.checkboxblue_accentcolor),
+                rootView.findViewById(R.id.checkboxviolet_accentcolor),
+                rootView.findViewById(R.id.checkboxpink_accentcolor),
+                rootView.findViewById(R.id.checkboxred_accentcolor),
+                rootView.findViewById(R.id.checkboxorange_accentcolor),
+                rootView.findViewById(R.id.checkboxyellow_accentcolor),
+                rootView.findViewById(R.id.checkboxgreen_accentcolor)
+        );
 
 
         for (int i = 0; i < colorAccentButtons.size(); i++) {
@@ -174,7 +176,6 @@ public class SettingsFragment extends Fragment {
                 PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), appContext);
             }
         });
-
 
 
         fontSelected = rootView.findViewById(R.id.fontsettings_selected);
@@ -240,15 +241,16 @@ public class SettingsFragment extends Fragment {
         });
 
         //material you
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.S){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
             rootView.findViewById(R.id.settings_colortile).setVisibility(View.GONE);
         }
         //no dark theme support
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             rootView.findViewById(R.id.settings_themesettings).setVisibility(View.GONE);
         }
     }
-    private <T extends Enum<T>> void openDropDownSettings(Class<?> type, String title, String additionalMessage){
+
+    private <T extends Enum<T>> void openDropDownSettings(Class<?> type, String title, String additionalMessage) {
         SettingsDropDownFragment dropDownFragment = new SettingsDropDownFragment(title, additionalMessage, type, appContext);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
@@ -256,6 +258,7 @@ public class SettingsFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     private void setSavedData() {
 
         // Load saved ColorAccent enum value and check the corresponding button

@@ -39,17 +39,17 @@ public class RSSParser {
                 post.setDescription(plainDescription);
                 try {
                     post.setImageUrl(parseImageURL(htmlDescription));
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
 
 
             Element pubDate = itemElement.selectFirst("pubDate");
-            if(pubDate != null){
+            if (pubDate != null) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-                try{
+                try {
                     post.setPublishTime(dateFormat.parse(pubDate.text()));
-                }
-                catch (Exception ignored){
+                } catch (Exception ignored) {
 
                 }
             }
@@ -80,6 +80,7 @@ public class RSSParser {
         }
         return itemList;
     }
+
     private static String parseImageURL(String description) {
         int startIndex = description.indexOf("src=\"") + 5;
         int endIndex = description.indexOf("\"", startIndex);

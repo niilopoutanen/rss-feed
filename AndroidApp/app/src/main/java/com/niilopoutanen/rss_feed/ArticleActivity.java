@@ -40,6 +40,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
+    List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
+    ArticleAdapter adapter;
     private RecyclerView articleContainer;
     private String title;
     private ProgressBar articleLoader;
@@ -48,8 +50,6 @@ public class ArticleActivity extends AppCompatActivity {
     private Date publishTime;
     private URL postUrl;
     private Preferences preferences;
-    List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
-    ArticleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +101,7 @@ public class ArticleActivity extends AppCompatActivity {
                     });
                 }
             });
-        }
-        else {
+        } else {
             initializeContent(resultData);
         }
     }
@@ -112,7 +111,7 @@ public class ArticleActivity extends AppCompatActivity {
         Window window = getWindow();
         int color = getColor(R.color.article1);
 
-        switch (preferences.s_articlecolor){
+        switch (preferences.s_articlecolor) {
             case STAGE2:
                 color = getColor(R.color.article2);
                 break;

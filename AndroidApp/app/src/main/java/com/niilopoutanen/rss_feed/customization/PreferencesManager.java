@@ -80,9 +80,9 @@ public class PreferencesManager {
     public static final int FEED_IMAGE_SMALL = 3;
     public static final int ARTICLE_IMAGE = 2;
 
-    public static void setSavedTheme(Activity activity, Preferences preferences){
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.S){
-            switch(preferences.s_coloraccent) {
+    public static void setSavedTheme(Activity activity, Preferences preferences) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            switch (preferences.s_coloraccent) {
                 case BLUE:
                     activity.setTheme(R.style.AccentBlue);
                     break;
@@ -105,14 +105,13 @@ public class PreferencesManager {
                     activity.setTheme(R.style.AccentGreen);
                     break;
             }
-        }
-        else{
+        } else {
             activity.setTheme(R.style.RSSFeedStyle);
         }
 
         //dark/light
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            switch (preferences.s_ThemeMode){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            switch (preferences.s_ThemeMode) {
                 case DARK:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     break;
@@ -126,8 +125,9 @@ public class PreferencesManager {
         }
 
     }
-    public static Typeface getSavedFont(Preferences preferences, Context context){
-        switch (preferences.s_font){
+
+    public static Typeface getSavedFont(Preferences preferences, Context context) {
+        switch (preferences.s_font) {
             case ROBOTO_SANS:
                 return ResourcesCompat.getFont(context, R.font.roboto_serif);
 
@@ -140,19 +140,20 @@ public class PreferencesManager {
     }
 
     //Haptic methods
-    public static void vibrate(View view, Preferences preferences, Context context){
+    public static void vibrate(View view, Preferences preferences, Context context) {
         performVibrate(view, preferences, HapticFeedbackConstants.KEYBOARD_TAP, context);
     }
-    public static void vibrate(View view, Preferences preferences, int stage, Context context){
+
+    public static void vibrate(View view, Preferences preferences, int stage, Context context) {
         performVibrate(view, preferences, stage, context);
     }
 
-    public static void performVibrate(View view, Preferences preferences, int stage, Context context){
-        if(!preferences.s_haptics || view == null){
+    public static void performVibrate(View view, Preferences preferences, int stage, Context context) {
+        if (!preferences.s_haptics || view == null) {
             return;
         }
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        switch (preferences.s_hapticstype){
+        switch (preferences.s_hapticstype) {
             case VIEW:
                 view.performHapticFeedback(stage);
                 break;
@@ -160,22 +161,23 @@ public class PreferencesManager {
                 vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
                 break;
             case FALLBACK:
-                try{
+                try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_CLICK));
                     }
+                } catch (Exception ignored) {
                 }
-                catch (Exception ignored){}
                 break;
         }
 
     }
 
-    public static int getLastVersionUsed(Context context){
+    public static int getLastVersionUsed(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
         return prefs.getInt(SP_VERSION, 0);
     }
-    public static void setLatestVersion(Context context){
+
+    public static void setLatestVersion(Context context) {
         int versionCode = BuildConfig.VERSION_CODE;
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -183,13 +185,15 @@ public class PreferencesManager {
         editor.putInt(SP_VERSION, versionCode);
         editor.apply();
     }
-    public static boolean isFirstLaunch(Context context){
+
+    public static boolean isFirstLaunch(Context context) {
         int currentVersion = BuildConfig.VERSION_CODE;
         int lastVersionUsed = getLastVersionUsed(context);
 
         return currentVersion > lastVersionUsed;
     }
-    public static Preferences loadPreferences(Context context){
+
+    public static Preferences loadPreferences(Context context) {
         Preferences preferences = new Preferences();
 
         preferences.s_haptics = getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context);
@@ -209,10 +213,11 @@ public class PreferencesManager {
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);
         preferences.s_feedcard_descvisible = getBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, SP_FEEDCARD_DESCVISIBLE_DEFAULT, context);
         preferences.s_feedcard_datevisible = getBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, SP_FEEDCARD_DATEVISIBLE_DEFAULT, context);
-        preferences.s_feedcard_datestyle = getEnumPreference(SP_FEEDCARD_DATESTYLE, PREFS_LANG,DateStyle.class, SP_FEEDCARD_DATESTYLE_DEFAULT, context);
+        preferences.s_feedcard_datestyle = getEnumPreference(SP_FEEDCARD_DATESTYLE, PREFS_LANG, DateStyle.class, SP_FEEDCARD_DATESTYLE_DEFAULT, context);
 
         return preferences;
     }
+
     public static void saveEnumPreference(String key, String category, Enum<?> value, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -221,13 +226,15 @@ public class PreferencesManager {
 
         editor.apply();
     }
+
     public static <T extends Enum<T>> T getEnumPreference(String key, String category, Class<T> enumClass, T defValue, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         String valueName = prefs.getString(key, defValue.name());
 
         return Enum.valueOf(enumClass, valueName);
     }
-    public static void saveBooleanPreference(String key,String category, boolean value, Context context){
+
+    public static void saveBooleanPreference(String key, String category, boolean value, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -235,44 +242,43 @@ public class PreferencesManager {
 
         editor.apply();
     }
+
     public static boolean getBooleanPreference(String key, String category, boolean defValue, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         return prefs.getBoolean(key, defValue);
     }
 
-    public static int getImageWidth(int imageType, Context context){
+    public static int getImageWidth(int imageType, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        if(imageType == FEED_IMAGE_LARGE){
+        if (imageType == FEED_IMAGE_LARGE) {
             int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
-            return displayMetrics.widthPixels - excessValue- dpToPx(FeedFragment.CARDMARGIN_DP, context);
-        }
-        else if(imageType == FEED_IMAGE_SMALL){
+            return displayMetrics.widthPixels - excessValue - dpToPx(FeedFragment.CARDMARGIN_DP, context);
+        } else if (imageType == FEED_IMAGE_SMALL) {
             return dpToPx(100, context);
-        }
-        else if(imageType == ARTICLE_IMAGE){
+        } else if (imageType == ARTICLE_IMAGE) {
             int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
             return displayMetrics.widthPixels - excessValue;
-        }
-        else{
+        } else {
             //fallback value
             return 1000;
         }
     }
-    public static int getAccentColor(Context context){
+
+    public static int getAccentColor(Context context) {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorAccent, typedValue, true);
         return typedValue.data;
     }
 
-    public static String formatDate(Date date,DateStyle dateStyle, Context context) {
+    public static String formatDate(Date date, DateStyle dateStyle, Context context) {
         Instant now = Instant.now();
         Instant postTime = date.toInstant();
 
         String formattedTime = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
         String formattedDate = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
 
-        switch (dateStyle){
+        switch (dateStyle) {
             case LONG:
                 return formattedDate + " " + formattedTime;
             case SHORT:
@@ -285,10 +291,10 @@ public class PreferencesManager {
                     return context.getString(R.string.justnow);
                 } else if (duration.toMinutes() < 60) {
                     long diffInMinutes = duration.toMinutes();
-                    return context.getResources().getQuantityString(R.plurals.minutes_ago, (int)diffInMinutes, diffInMinutes);
+                    return context.getResources().getQuantityString(R.plurals.minutes_ago, (int) diffInMinutes, diffInMinutes);
                 } else if (duration.toHours() < 24) {
                     long diffInHours = duration.toHours();
-                    return context.getResources().getQuantityString(R.plurals.hours_ago, (int)diffInHours, diffInHours);
+                    return context.getResources().getQuantityString(R.plurals.hours_ago, (int) diffInHours, diffInHours);
                 } else {
                     return formattedDate + " " + formattedTime;
                 }
@@ -297,7 +303,8 @@ public class PreferencesManager {
         }
         return "";
     }
-    public static int dpToPx(int dp, Context context){
+
+    public static int dpToPx(int dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float scaleFactor = metrics.density;

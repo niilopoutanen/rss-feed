@@ -18,6 +18,7 @@ import com.niilopoutanen.rss_feed.sources.Source;
 public class FeedActivity extends AppCompatActivity {
 
     private Preferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class FeedActivity extends AppCompatActivity {
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             mlp.topMargin = insets.top;
             v.setLayoutParams(mlp);
-            
+
             return WindowInsetsCompat.CONSUMED;
         });
     }

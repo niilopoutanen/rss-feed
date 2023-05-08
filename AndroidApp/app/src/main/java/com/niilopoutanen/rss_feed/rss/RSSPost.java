@@ -2,7 +2,7 @@ package com.niilopoutanen.rss_feed.rss;
 
 import java.util.Date;
 
-public class RSSPost implements Comparable<RSSPost>{
+public class RSSPost implements Comparable<RSSPost> {
     private String postLink;
     private String author;
     private String sourceName;
@@ -22,51 +22,63 @@ public class RSSPost implements Comparable<RSSPost>{
         this.publishTime = publishTime;
     }
 
-    public RSSPost(){
+    public RSSPost() {
 
     }
 
-    public String getPostLink(){return postLink;}
+    public String getPostLink() {
+        return postLink;
+    }
+
+    public void setPostLink(String postLink) {
+        this.postLink = postLink;
+    }
+
     public String getAuthor() {
         return author;
     }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getSourceName() {
         return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getTitle() {
         return title;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Date getPublishTime() {
         return publishTime;
     }
 
-    public void setPostLink(String postLink){
-        this.postLink = postLink;
-    }
-    public void setAuthor(String author){
-        this.author = author;
-    }
-    public void setSourceName(String sourceName){
-        this.sourceName = sourceName;
-    }
-
-    public void setImageUrl(String imageUrl){
-        this.imageUrl = imageUrl;
-    }
-    public void setTitle(String title){
-        this.title = title;
-    }
-    public void setDescription(String description){
-        this.description = description;
-    }
-    public void setPublishTime(Date publishTime){
+    public void setPublishTime(Date publishTime) {
         this.publishTime = publishTime;
     }
 

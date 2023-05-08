@@ -83,7 +83,6 @@ public class SourceValidator {
     }
 
 
-
     private static boolean urlExists(URL url) throws IOException {
         HttpURLConnection.setFollowRedirects(false);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -93,14 +92,15 @@ public class SourceValidator {
                 responseCode != HttpURLConnection.HTTP_GONE &&
                 responseCode != HttpURLConnection.HTTP_FORBIDDEN;
     }
-    private static boolean rssExists(URL url) throws IOException{
+
+    private static boolean rssExists(URL url) throws IOException {
         HttpURLConnection.setFollowRedirects(false);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("HEAD");
         String contentType = httpURLConnection.getContentType();
-        if(contentType != null){
+        if (contentType != null) {
             boolean hasRssHeader = contentType.startsWith("application/rss+xml") || contentType.startsWith("application/xml");
-            if(hasRssHeader){
+            if (hasRssHeader) {
                 //if rss headers are detected
                 return true;
             }
@@ -108,37 +108,37 @@ public class SourceValidator {
 
         Document document = Jsoup.connect(url.toString()).ignoreContentType(true).get();
         Element rootElement = document.select(":root").first();
-        if(rootElement == null){
+        if (rootElement == null) {
             return false;
         }
         String tagname = rootElement.tagName();
         return tagname.equals("xml") || tagname.equals("rss");
     }
+
     public static String getSiteTitle(URL siteUrl) {
-        try{
+        try {
             Document doc = Jsoup.connect(WebHelper.getBaseUrl(siteUrl).toString()).get();
             String title = doc.title();
 
             // Check if the title has a separator
             if (title.contains(" | ")) {
                 return title.split(" \\| ")[0];
-            }
-            else if (title.contains(" - ")) {
+            } else if (title.contains(" - ")) {
                 return title.split(" - ")[0];
             }
 
             return title;
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return siteUrl.toString();
         }
     }
-    public static TextView createErrorMessage(Context context, String errorMessage){
+
+    public static TextView createErrorMessage(Context context, String errorMessage) {
         TextView errorText = new TextView(context);
         errorText.setText(errorMessage);
         errorText.setTextColor(context.getColor(R.color.textSecondary));
         errorText.setTag("error-message");
-        return  errorText;
+        return errorText;
     }
 
 }

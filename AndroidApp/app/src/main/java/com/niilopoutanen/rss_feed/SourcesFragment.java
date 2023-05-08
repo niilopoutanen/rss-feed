@@ -24,19 +24,23 @@ public class SourcesFragment extends Fragment {
     private SourceAdapter adapter;
     private Context appContext;
     private Preferences preferences;
+
     public SourcesFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
     }
-    public SourcesFragment(){}
+
+    public SourcesFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(appContext == null){
+        if (appContext == null) {
             appContext = getContext();
         }
         sources = SaveSystem.loadSources(appContext);
-        if(adapter != null){
+        if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
         if (savedInstanceState != null) {
@@ -58,6 +62,7 @@ public class SourcesFragment extends Fragment {
 
         return rootView;
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

@@ -41,22 +41,35 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Objects;
 
-public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder>{
+public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder> {
 
-    private List<Source> sources;
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
+    private List<Source> sources;
     private Context context;
-    private Preferences preferences;
+    private final Preferences preferences;
 
-    private RecyclerView recyclerView;
+    private final RecyclerView recyclerView;
     private Source tempSource;
+    private final Runnable undoDelete = new Runnable() {
+        @Override
+        public void run() {
+            if (tempSource != null) {
+                sources = SaveSystem.loadSources(context);
+                sources.add(tempSource);
+                SaveSystem.saveSources(context, sources);
+                notifyItemChanged(sources.size() - 1);
+                tempSource = null;
+            }
+        }
+    };
+
+
     public SourceAdapter(List<Source> sources, Preferences preferences, RecyclerView recyclerView) {
         this.sources = sources;
         this.preferences = preferences;
         this.recyclerView = recyclerView;
     }
-
 
     @NonNull
     @Override
@@ -88,7 +101,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull SourceAdapter.ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_ITEM) {
-            Source source = sources.get(position -1);
+            Source source = sources.get(position - 1);
 
             TextView sourceName = holder.sourceName;
             ImageView sourceImage = holder.sourceImage;
@@ -113,19 +126,17 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             });
 
             sourceName.setText(source.getName());
-            if(source.getImageUrl() != null){
+            if (source.getImageUrl() != null) {
                 sourceImage.setVisibility(View.VISIBLE);
-                Picasso.get().load(source.getImageUrl()).resize(100,100).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
-            }
-            else{
+                Picasso.get().load(source.getImageUrl()).resize(100, 100).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
+            } else {
                 sourceImage.setVisibility(View.GONE);
             }
-        }
-        else if(getItemViewType(position) == VIEW_TYPE_HEADER){
+        } else if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             RelativeLayout addNewButton = headerViewHolder.addNewButton;
 
-            addNewButton.setOnClickListener(v ->{
+            addNewButton.setOnClickListener(v -> {
                 PreferencesManager.vibrate(v, preferences, context);
                 askForSourceInput(null);
             });
@@ -142,6 +153,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             return VIEW_TYPE_ITEM;
         }
     }
+
     @Override
     public int getItemCount() {
         if (sources.isEmpty()) {
@@ -150,7 +162,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             return sources.size() + 1;
         }
     }
-    public void askForSourceInput(Source source){
+
+    public void askForSourceInput(Source source) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyle);
         bottomSheetDialog.setContentView(R.layout.dialog_addsource);
 
@@ -161,7 +174,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         EditText nameInput = bottomSheetDialog.findViewById(R.id.sourcedialog_feedName);
 
         LinearLayout sheetLayout = bottomSheetDialog.findViewById(R.id.addsource_layout);
-        if(source != null){
+        if (source != null) {
             urlInput.setText(source.getFeedUrl());
             nameInput.setText(source.getName());
             sourceAdd.setText(context.getString(R.string.update));
@@ -172,7 +185,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             @Override
             public void onClick(View view) {
 
-                InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(urlInput.getWindowToken(), 0);
 
                 for (int i = 0; i < sheetLayout.getChildCount(); i++) {
@@ -187,7 +200,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
 
                 String inputUrl = urlInput.getText().toString();
                 String inputName = nameInput.getText().toString();
-                if(inputUrl.isEmpty()){
+                if (inputUrl.isEmpty()) {
                     sheetLayout.addView(SourceValidator.createErrorMessage(context, "URL can't be empty"));
                     return;
                 }
@@ -199,12 +212,11 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                 SourceValidator.validate(inputUrl, inputName, new WebCallBack<Source>() {
                     @Override
                     public void onResult(Source result) {
-                        Activity activity = (Activity)context;
-                        if(result != null){
-                            if(source == null){
+                        Activity activity = (Activity) context;
+                        if (result != null) {
+                            if (source == null) {
                                 SaveSystem.saveSources(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
-                            }
-                            else{
+                            } else {
                                 sources = SaveSystem.loadSources(context);
                                 sources.removeIf(oldSource -> Objects.equals(oldSource.getName(), source.getName()));
                                 sources.add(new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
@@ -214,8 +226,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                             bottomSheetDialog.dismiss();
 
                             activity.runOnUiThread(() -> notifyDataSetChanged());
-                        }
-                        else{
+                        } else {
                             activity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -237,7 +248,19 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
 
         bottomSheetDialog.show();
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+    public Source removeItem(int position) {
+        List<Source> sourcesTemp = SaveSystem.loadSources(context);
+        Source sourceToRemove = sourcesTemp.get(position - 1);
+        sourcesTemp.remove(sourceToRemove);
+        SaveSystem.saveSources(context, sourcesTemp);
+        sources.remove(position - 1);
+        notifyItemRemoved(position);
+
+        return sourceToRemove;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView sourceName;
         public ImageView sourceImage;
@@ -253,39 +276,20 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
 
         public RelativeLayout header;
         public RelativeLayout addNewButton;
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
 
             addNewButton = itemView.findViewById(R.id.addNewButton);
 
-            header =  itemView.findViewById(R.id.actionbar_sources);
+            header = itemView.findViewById(R.id.actionbar_sources);
         }
     }
-    public Source removeItem(int position) {
-        List<Source> sourcesTemp = SaveSystem.loadSources(context);
-        Source sourceToRemove = sourcesTemp.get(position -1);
-        sourcesTemp.remove(sourceToRemove);
-        SaveSystem.saveSources(context, sourcesTemp);
-        sources.remove(position -1);
-        notifyItemRemoved(position);
 
-        return sourceToRemove;
-    }
-    private final Runnable undoDelete = new Runnable() {
-        @Override
-        public void run() {
-            if(tempSource != null){
-                sources = SaveSystem.loadSources(context);
-                sources.add(tempSource);
-                SaveSystem.saveSources(context, sources);
-                notifyItemChanged(sources.size() - 1);
-                tempSource = null;
-            }
-        }
-    };
     public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
 
         private final Context context;
+
         public SwipeToDeleteCallback(Context context) {
             super(0, ItemTouchHelper.LEFT);
             this.context = context;
@@ -304,19 +308,20 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             Snackbar snackbar = Snackbar.make(recyclerView, context.getString(R.string.sourceremoved), Snackbar.LENGTH_LONG);
             snackbar.setAction(R.string.cancel, v -> undoDelete.run());
 
-            TextView snackbarActionTextView = (TextView) snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_action);
+            TextView snackbarActionTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_action);
             snackbarActionTextView.setAllCaps(false);
             snackbarActionTextView.setTypeface(ResourcesCompat.getFont(context, R.font.inter));
             snackbarActionTextView.setLetterSpacing(0.0f);
             snackbar.show();
         }
+
         @Override
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                 View itemView = viewHolder.itemView;
                 Paint paint = new Paint();
                 RectF background;
-                if(dX < 0) {
+                if (dX < 0) {
                     // Swiping left
                     paint.setColor(Color.parseColor("#FF0000"));
                     background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),
