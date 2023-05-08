@@ -7,7 +7,7 @@
     android:background="@drawable/bottomsheet_dialog"
     android:minHeight="500dp"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"

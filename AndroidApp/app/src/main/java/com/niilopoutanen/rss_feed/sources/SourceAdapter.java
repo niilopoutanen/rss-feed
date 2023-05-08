@@ -128,7 +128,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             sourceName.setText(source.getName());
             if (source.getImageUrl() != null) {
                 sourceImage.setVisibility(View.VISIBLE);
-                Picasso.get().load(source.getImageUrl()).resize(100, 100).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
+                Picasso.get().load(source.getImageUrl()).resize(70, 70).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
             } else {
                 sourceImage.setVisibility(View.GONE);
             }

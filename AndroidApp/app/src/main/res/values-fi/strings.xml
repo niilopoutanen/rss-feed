@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RSS-Feed</string>
+    <string name="app_name">RSS-Syöte</string>
+    <string name="app_version">Versio: 1.0</string>
     <string name="feed_header">Syöte</string>
     <string name="settings_header">Asetukset</string>
     <string name="feedsettings_header">Syötteen muokkaaminen</string>

@@ -586,7 +586,8 @@
                 <View
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/icon_email" />
+                    android:background="@drawable/icon_email"
+                    android:backgroundTint="@color/textPrimary"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -599,7 +600,8 @@
                 <View
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/icon_github" />
+                    android:background="@drawable/icon_github"
+                    android:backgroundTint="@color/textPrimary"/>
             </RelativeLayout>
         </LinearLayout>
 
