@@ -10,11 +10,14 @@ import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
 import android.text.style.URLSpan;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -244,6 +247,12 @@ public class ArticleActivity extends AppCompatActivity {
         WebView webView = webViewSheet.findViewById(R.id.dialog_webview);
         webView.getSettings().setJavaScriptEnabled(true);
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, screenHeight));
+
+
         cancel.setOnClickListener(view -> {
             webViewSheet.cancel();
             webView.destroy();
@@ -254,6 +263,8 @@ public class ArticleActivity extends AppCompatActivity {
                 try {
                     URL host = new URL(url);
                     titleView.setText(host.getHost());
+                    webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
                 } catch (Exception e) {
                     titleView.setText(view.getTitle());
                 }
