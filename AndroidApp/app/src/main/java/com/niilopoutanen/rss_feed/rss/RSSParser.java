@@ -82,8 +82,14 @@ public class RSSParser {
     }
 
     private static String parseImageURL(String description) {
-        int startIndex = description.indexOf("src=\"") + 5;
+        int startIndex = description.indexOf("<img");
+        if (startIndex == -1) {
+            // no image tag found, return null
+            return null;
+        }
+        startIndex = description.indexOf("src=\"", startIndex) + 5;
         int endIndex = description.indexOf("\"", startIndex);
         return description.substring(startIndex, endIndex);
     }
+
 }

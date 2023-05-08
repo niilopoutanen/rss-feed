@@ -127,6 +127,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
             author.setText(post.getSourceName());
         }
         image.setImageDrawable(null);
+
         Picasso.get().cancelRequest(image);
 
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
