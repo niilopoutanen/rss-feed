@@ -1,29 +1,39 @@
 package com.niilopoutanen.rss_feed.customization;
 
+import static com.niilopoutanen.rss_feed.customization.Preferences.ArticleColor;
+import static com.niilopoutanen.rss_feed.customization.Preferences.Font;
+import static com.niilopoutanen.rss_feed.customization.Preferences.LaunchWindow;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLECOLOR;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLECOLOR_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FONT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FONT_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_LAUNCHWINDOW;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_THEME;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_THEME_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.ThemeMode;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.TypedValue;
-import android.view.HapticFeedbackConstants;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.customization.Preferences;
-import static com.niilopoutanen.rss_feed.customization.Preferences.*;
-import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 
 public class SettingsDropDownFragment extends Fragment {
 

@@ -1,15 +1,15 @@
 package com.niilopoutanen.rss_feed;
 
+import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;

@@ -1,9 +1,5 @@
 package com.niilopoutanen.rss_feed.rss;
 
-import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

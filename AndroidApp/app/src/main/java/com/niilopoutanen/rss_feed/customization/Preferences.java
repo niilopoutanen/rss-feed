@@ -1,7 +1,5 @@
 package com.niilopoutanen.rss_feed.customization;
 
-import android.view.HapticFeedbackConstants;
-
 import java.io.Serializable;
 
 public class Preferences implements Serializable {

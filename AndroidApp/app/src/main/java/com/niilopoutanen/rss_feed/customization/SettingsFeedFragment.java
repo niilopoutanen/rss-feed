@@ -1,38 +1,44 @@
 package com.niilopoutanen.rss_feed.customization;
 
-import static com.niilopoutanen.rss_feed.customization.Preferences.*;
+import static com.niilopoutanen.rss_feed.customization.Preferences.DateStyle;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_AUTHORNAME;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_AUTHORNAME_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_DATESTYLE;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_DATESTYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_DATEVISIBLE;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_DESCVISIBLE;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_STYLE;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_TITLEVISIBLE;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
+
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
 
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.customization.Preferences;
-import com.niilopoutanen.rss_feed.customization.PreferencesManager;
-import com.niilopoutanen.rss_feed.rss.MaskTransformation;
-import com.squareup.picasso.Picasso;
 
-import java.sql.Date;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 public class SettingsFeedFragment extends Fragment {

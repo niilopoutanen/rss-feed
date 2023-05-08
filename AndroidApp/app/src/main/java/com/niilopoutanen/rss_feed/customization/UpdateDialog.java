@@ -1,14 +1,12 @@
 package com.niilopoutanen.rss_feed.customization;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.MainActivity;
 import com.niilopoutanen.rss_feed.R;
 
 public class UpdateDialog {

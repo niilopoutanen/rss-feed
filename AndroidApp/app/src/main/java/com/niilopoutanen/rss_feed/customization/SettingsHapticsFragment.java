@@ -1,21 +1,13 @@
 package com.niilopoutanen.rss_feed.customization;
 
 import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_FUNCTIONALITY;
-import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.customization.Preferences.SP_COLORACCENT;
 import static com.niilopoutanen.rss_feed.customization.Preferences.SP_HAPTICS_TYPE;
-import static com.niilopoutanen.rss_feed.customization.Preferences.SP_HAPTICS_TYPE_DEFAULT;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
-
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
@@ -24,10 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.Fragment;
 
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 
 import java.util.Arrays;
 import java.util.List;

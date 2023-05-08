@@ -34,7 +34,7 @@
     <string name="settings_font">Fontti jota käytetään artikkeleissa</string>
     <string name="settings_launchwindow">Ikkuna joka avataan käynnistäessä</string>
     <string name="haptics">Värinä</string>
-    <string name="haptics_troubleshoot">Eikö värinä toimi sinulla? Avaa vianmääritysvalikko painamalla pitkään värinä-asetusta.</string>
+    <string name="haptics_troubleshoot">Eikö värinä toimi? Avaa vianmääritysvalikko painamalla pitkään värinä-asetusta.</string>
     <string name="haptics_troubleshoot_header">Värinän vianetsintä</string>
     <string name="haptics_troubleshoot_desc">Vanhemmat Android-laitteet eivät tue kaikkia haptisia ominaisuuksia. Jos sinulla on ongelmia värinän kanssa sovelluksen käytön aikana tai haptiikka ei toimi ollenkaan, kokeile eri tyyppejä alla.</string>
     <string name="view_in_browser">Avaa selaimessa</string>

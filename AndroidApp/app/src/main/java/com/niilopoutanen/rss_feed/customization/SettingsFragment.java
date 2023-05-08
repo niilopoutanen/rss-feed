@@ -1,17 +1,38 @@
 package com.niilopoutanen.rss_feed.customization;
 
+import static com.niilopoutanen.rss_feed.customization.Preferences.ArticleColor;
+import static com.niilopoutanen.rss_feed.customization.Preferences.ColorAccent;
+import static com.niilopoutanen.rss_feed.customization.Preferences.Font;
+import static com.niilopoutanen.rss_feed.customization.Preferences.LaunchWindow;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLECOLOR;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLECOLOR_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLEFULLSCREEN;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLESINBROWSER;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_COLORACCENT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_COLORACCENT_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FONT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FONT_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_HAPTICS;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_IMAGECACHE;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_IMAGECACHE_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_LAUNCHWINDOW;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_THEME;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_THEME_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.ThemeMode;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +42,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
-
-import static com.niilopoutanen.rss_feed.customization.Preferences.*;
-
 
 import java.util.Arrays;
 import java.util.List;
