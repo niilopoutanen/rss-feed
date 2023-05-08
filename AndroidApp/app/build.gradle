@@ -11,6 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.niilopoutanen.rss_feed"
+        resourceConfigurations += ["en", "fi"]
         minSdk 26
         targetSdk 33
         versionCode 1
