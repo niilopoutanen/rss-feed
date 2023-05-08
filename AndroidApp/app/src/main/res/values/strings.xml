@@ -13,7 +13,6 @@
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
     <string name="update">Update</string>
-    <string name="delete">Delete</string>
     <string name="goback">Return</string>
     <string name="save">Save</string>
     <string name="share">Share</string>
@@ -26,7 +25,6 @@
     <string name="feed_name">Feed name (Leave empty for autofill)</string>
     <string name="feed_url">Feed url</string>
 
-    <string name="today">Today at</string>
     <string name="nointernet">No internet connection available.</string>
     <string name="nosources">No sources added.</string>
 
@@ -43,7 +41,6 @@
     <string name="imagesaved">Image saved to gallery</string>
     <string name="nowriteaccess">You have not granted write permissions to the app.</string>
 
-    <string name="settings_material_you" translatable="false">Material You</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_additional">The theme changes when restarting the app for the next time.</string>
     <string name="settings_feedcardstyle">Feed card style</string>
@@ -95,11 +92,6 @@
         <item>Settings</item>
         <item>Feed</item>
         <item>Sources</item>
-    </string-array>
-    <string-array name="haptic_types">
-        <item>Mode 1</item>
-        <item>Mode 2</item>
-        <item>Mode 2</item>
     </string-array>
     <string-array name="date_modes">
         <item>Long</item>

@@ -1,77 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.niilopoutanen.rss_feed.customization.SettingsFragment"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context="com.niilopoutanen.rss_feed.customization.SettingsFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_header"
-            app:fontFamily="@font/inter_semibold"
-            android:textSize="40sp"
-            android:textColor="@color/textPrimary"
-            android:layout_marginBottom="10dp"/>
-        <LinearLayout
-            android:orientation="horizontal"
             android:layout_marginBottom="10dp"
+            android:text="@string/settings_header"
+            android:textColor="@color/textPrimary"
+            android:textSize="40sp"
+            app:fontFamily="@font/inter_semibold" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/element_background"
+            android:orientation="horizontal"
             android:padding="10dp">
 
             <View
                 android:id="@+id/settings_appicon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@mipmap/ic_launcher"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_launcher" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/settings_appname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
-                    android:textSize="20sp"
                     android:textColor="@color/textPrimary"
+                    android:textSize="20sp"
                     app:fontFamily="@font/inter_bold" />
 
                 <TextView
-                    android:id="@+id/settings_appversion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_version"
                     android:textColor="@color/textSecondary"
                     android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold"/>
+                    app:fontFamily="@font/inter_semibold" />
             </LinearLayout>
 
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/settingsheader_feed"
-            android:textSize="13sp"
             android:textColor="@color/textSecondary"
-            app:fontFamily="@font/inter_medium"
-            android:layout_marginLeft="10dp"/>
+            android:textSize="13sp"
+            app:fontFamily="@font/inter_medium" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/element_background"
-            android:layout_marginBottom="10dp">
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/settings_openFeedSettings"
                 android:layout_width="match_parent"
@@ -79,43 +84,45 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="@string/feedsettings_header"
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold"/>
+                    app:fontFamily="@font/inter_semibold" />
 
                 <View
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:layout_width="9dp"
                     android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/arrow"
                     android:backgroundTint="@color/white"
-                    android:rotation="180"/>
+                    android:rotation="180" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@color/element_border"/>
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="@string/open_articles_in_browser"
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold"/>
+                    app:fontFamily="@font/inter_semibold" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_articleinbrowser"
@@ -123,29 +130,32 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:thumb="@drawable/switch_thumb"
-                    app:track="@drawable/switch_track"/>
+                    app:track="@drawable/switch_track" />
             </RelativeLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/settingsheader_colors"
-            android:textSize="13sp"
             android:textColor="@color/textSecondary"
-            app:fontFamily="@font/inter_medium"
-            android:layout_marginLeft="10dp"/>
+            android:textSize="13sp"
+            app:fontFamily="@font/inter_medium" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/element_background">
+            android:background="@drawable/element_background"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/settings_themesettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,131 +165,149 @@
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
                     app:fontFamily="@font/inter_semibold" />
+
                 <TextView
                     android:id="@+id/theme_selected"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/textSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@id/theme_arrow"
-                    android:layout_marginRight="15dp"/>
+                    android:textColor="@color/textSecondary" />
+
                 <View
                     android:id="@+id/theme_arrow"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:layout_width="9dp"
                     android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/arrow"
                     android:backgroundTint="@color/white"
-                    android:rotation="180"/>
+                    android:rotation="180" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@color/element_border"/>
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
             <LinearLayout
                 android:id="@+id/settings_colortile"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/accentcolor"
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold"
-                    android:layout_marginBottom="5dp"/>
+                    app:fontFamily="@font/inter_semibold" />
+
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:weightSum="6">
+
                     <RelativeLayout
                         android:id="@+id/checkboxblue_accentcolor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:padding="7dp"
-                        android:tag="false"
                         android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentBlue"/>
+                        android:backgroundTint="@color/accentBlue"
+                        android:padding="7dp"
+                        android:tag="false" />
+
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <RelativeLayout
                         android:id="@+id/checkboxviolet_accentcolor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:padding="7dp"
-                        android:tag="false"
                         android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentViolet"/>
+                        android:backgroundTint="@color/accentViolet"
+                        android:padding="7dp"
+                        android:tag="false" />
+
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <RelativeLayout
                         android:id="@+id/checkboxpink_accentcolor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:padding="7dp"
-                        android:tag="false"
                         android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentPink"/>
+                        android:backgroundTint="@color/accentPink"
+                        android:padding="7dp"
+                        android:tag="false" />
+
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <RelativeLayout
                         android:id="@+id/checkboxred_accentcolor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:padding="7dp"
-                        android:tag="false"
                         android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentRed"/>
+                        android:backgroundTint="@color/accentRed"
+                        android:padding="7dp"
+                        android:tag="false" />
+
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <RelativeLayout
                         android:id="@+id/checkboxorange_accentcolor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:padding="7dp"
-                        android:tag="false"
                         android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentOrange"/>
+                        android:backgroundTint="@color/accentOrange"
+                        android:padding="7dp"
+                        android:tag="false" />
+
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <RelativeLayout
                         android:id="@+id/checkboxyellow_accentcolor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:padding="7dp"
-                        android:tag="false"
                         android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentYellow"/>
+                        android:backgroundTint="@color/accentYellow"
+                        android:padding="7dp"
+                        android:tag="false" />
+
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <RelativeLayout
-                        android:padding="5dp"
                         android:id="@+id/checkboxgreen_accentcolor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:tag="false"
                         android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentGreen"/>
+                        android:backgroundTint="@color/accentGreen"
+                        android:padding="5dp"
+                        android:tag="false" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -287,16 +315,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/settingsheader_functionality"
-            android:textSize="13sp"
             android:textColor="@color/textSecondary"
-            app:fontFamily="@font/inter_medium"
-            android:layout_marginLeft="10dp"/>
+            android:textSize="13sp"
+            app:fontFamily="@font/inter_medium" />
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/element_background">
+            android:background="@drawable/element_background"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/troubleshoot_haptics"
                 android:layout_width="match_parent"
@@ -304,13 +334,13 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="@string/haptics"
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold"/>
+                    app:fontFamily="@font/inter_semibold" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_haptics"
@@ -318,16 +348,18 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:thumb="@drawable/switch_thumb"
-                    app:track="@drawable/switch_track"/>
+                    app:track="@drawable/switch_track" />
 
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@color/element_border"/>
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
             <RelativeLayout
                 android:id="@+id/settings_launchwindowsettings"
                 android:layout_width="match_parent"
@@ -342,44 +374,48 @@
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
                     app:fontFamily="@font/inter_semibold" />
+
                 <TextView
                     android:id="@+id/launchwindow_selected"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/textSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@id/launchwindow_arrow"
-                    android:layout_marginRight="15dp"/>
+                    android:textColor="@color/textSecondary" />
+
                 <View
                     android:id="@+id/launchwindow_arrow"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:layout_width="9dp"
                     android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/arrow"
                     android:backgroundTint="@color/white"
-                    android:rotation="180"/>
+                    android:rotation="180" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@color/element_border"/>
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="@string/cache_images"
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold"/>
+                    app:fontFamily="@font/inter_semibold" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_cache"
@@ -387,36 +423,39 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:thumb="@drawable/switch_thumb"
-                    app:track="@drawable/switch_track"/>
+                    app:track="@drawable/switch_track" />
 
 
             </RelativeLayout>
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/haptics_troubleshoot"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:textColor="@color/textSecondary"
-            android:textSize="13sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settingsheader_article"
-            android:textSize="13sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/haptics_troubleshoot"
             android:textColor="@color/textSecondary"
-            app:fontFamily="@font/inter_medium"
-            android:layout_marginLeft="10dp"/>
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/settingsheader_article"
+            android:textColor="@color/textSecondary"
+            android:textSize="13sp"
+            app:fontFamily="@font/inter_medium" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/element_background">
+            android:background="@drawable/element_background"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/settings_fontsettings"
                 android:layout_width="match_parent"
@@ -432,31 +471,35 @@
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
                     app:fontFamily="@font/inter_semibold" />
+
                 <TextView
                     android:id="@+id/fontsettings_selected"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/textSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@id/fontsettings_arrow"
-                    android:layout_marginRight="15dp"/>
+                    android:textColor="@color/textSecondary" />
+
                 <View
                     android:id="@+id/fontsettings_arrow"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:layout_width="9dp"
                     android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/arrow"
                     android:backgroundTint="@color/white"
-                    android:rotation="180"/>
+                    android:rotation="180" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@color/element_border"/>
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
             <RelativeLayout
                 android:id="@+id/settings_articlecolorsettings"
                 android:layout_width="match_parent"
@@ -471,44 +514,48 @@
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
                     app:fontFamily="@font/inter_semibold" />
+
                 <TextView
                     android:id="@+id/articlecolor_selected"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/textSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@id/articlecolor_arrow"
-                    android:layout_marginRight="15dp"/>
+                    android:textColor="@color/textSecondary" />
+
                 <View
                     android:id="@+id/articlecolor_arrow"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:layout_width="9dp"
                     android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/arrow"
                     android:backgroundTint="@color/white"
-                    android:rotation="180"/>
+                    android:rotation="180" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@color/element_border"/>
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="@string/articles_fullscreen"
                     android:textColor="@color/textPrimary"
                     android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold"/>
+                    app:fontFamily="@font/inter_semibold" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_articlefullscreen"
@@ -516,56 +563,60 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:thumb="@drawable/switch_thumb"
-                    app:track="@drawable/switch_track"/>
+                    app:track="@drawable/switch_track" />
             </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
             <RelativeLayout
-                android:layout_marginRight="10dp"
                 android:id="@+id/settings_sendMail"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:padding="10dp"
-                android:background="@drawable/element_background">
+                android:layout_marginRight="10dp"
+                android:background="@drawable/element_background"
+                android:padding="10dp">
+
                 <View
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/icon_email"/>
+                    android:background="@drawable/icon_email" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/settings_createIssue"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:padding="10dp"
-                android:background="@drawable/element_background">
+                android:background="@drawable/element_background"
+                android:padding="10dp">
+
                 <View
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/icon_github"/>
+                    android:background="@drawable/icon_github" />
             </RelativeLayout>
         </LinearLayout>
 
         <Space
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/copyright"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/copyright"
             android:textColor="@color/textSecondary"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
     </LinearLayout>
-
 
 
 </ScrollView>

@@ -3,8 +3,12 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="?attr/colorAccent" />
-            <size android:width="20dp" android:height="20dp"/>
+            <size
+                android:width="20dp"
+                android:height="20dp" />
         </shape>
     </item>
-    <item android:drawable="@drawable/icon_checkmark" android:gravity="center" />
+    <item
+        android:drawable="@drawable/icon_checkmark"
+        android:gravity="center" />
 </layer-list>
