@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.customization;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class UpdateDialog {
     }
 
     private void initializeSheet() {
+        PreferencesManager.setSavedTheme((Activity) appContext, PreferencesManager.loadPreferences(appContext));
         sheet = new BottomSheetDialog(appContext, R.style.BottomSheetStyle);
 
         sheet.setContentView(R.layout.dialog_update);
