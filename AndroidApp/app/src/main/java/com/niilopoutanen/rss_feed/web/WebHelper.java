@@ -19,7 +19,7 @@ import java.util.concurrent.Future;
 
 public class WebHelper {
 
-    public static URL formatUrl(String url){
+    public static URL formatUrl(String url) {
         try {
             // check if the URL already includes a protocol
             if (!url.startsWith("http://") && !url.startsWith("https://")) {
@@ -27,20 +27,20 @@ public class WebHelper {
                 url = "https://" + url;
             }
             return new URL(url);
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             return null;
         }
     }
-    public static URL getBaseUrl(URL url){
-        try{
+
+    public static URL getBaseUrl(URL url) {
+        try {
             return new URL(url.getProtocol() + "://" + url.getHost());
-        }
-        catch (MalformedURLException m){
+        } catch (MalformedURLException m) {
             return url;
         }
 
     }
+
     public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(new Callable<String>() {
@@ -57,7 +57,8 @@ public class WebHelper {
             throw new RuntimeException(e);
         }
     }
-    public static String fetchUrlData(URL url) throws IOException{
+
+    public static String fetchUrlData(URL url) throws IOException {
         // Create a new HTTP connection
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -112,6 +113,7 @@ public class WebHelper {
         // Return the fetched data as a string
         return result.toString();
     }
+
     public static String getFaviconUrl(final URL url) throws IOException {
         // check if the URL is the homepage and return the base URL in that case
         String baseUrl = url.getProtocol() + "://" + url.getHost();
@@ -124,11 +126,11 @@ public class WebHelper {
 
         Elements link = doc.select("link[href~=.*\\.(png|webp|jpg|jpeg)][rel~=icon|apple-touch-icon|shortcut icon]");
         String faviconUrl = link.attr("href");
-        if(link.isEmpty()){
+        if (link.isEmpty()) {
             link = doc.select("meta[property~=og:image], meta[name~=twitter:image]");
             faviconUrl = link.attr("content");
         }
-        if(link.isEmpty() || faviconUrl.isEmpty()){
+        if (link.isEmpty() || faviconUrl.isEmpty()) {
             return null;
         }
 

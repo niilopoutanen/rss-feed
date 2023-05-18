@@ -1,39 +1,28 @@
 package com.niilopoutanen.rss_feed;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.ortiz.touchview.TouchImageView;
-import com.squareup.picasso.Cache;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.CountDownLatch;
 
 public class ImageViewActivity extends AppCompatActivity {
 
@@ -48,7 +37,7 @@ public class ImageViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_view);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
+        if (extras != null) {
             url = extras.getString("imageurl");
         }
 
@@ -70,10 +59,9 @@ public class ImageViewActivity extends AppCompatActivity {
 
             }
         };
-        if(PreferencesManager.loadPreferences(this).s_imagecache){
+        if (PreferencesManager.loadPreferences(this).s_imagecache) {
             Picasso.get().load(url).into(target);
-        }
-        else{
+        } else {
             Picasso.get().load(url).networkPolicy(NetworkPolicy.NO_STORE).into(target);
         }
 
@@ -82,23 +70,24 @@ public class ImageViewActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(v -> saveImage());
 
     }
-    private void saveImage(){
-        String filename = String.format("%s %s",getString(R.string.imagefrom), getString(R.string.app_name));
-        try{
+
+    private void saveImage() {
+        String filename = String.format("%s %s", getString(R.string.imagefrom), getString(R.string.app_name));
+        try {
             URL imgUrl = new URL(url);
-            filename = String.format("%s %s",getString(R.string.imagefrom), imgUrl.getHost());
+            filename = String.format("%s %s", getString(R.string.imagefrom), imgUrl.getHost());
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
 
         // Check if the permission has not been granted
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return;
             }
         }
 
-        if(bitmap == null) {
+        if (bitmap == null) {
             String finalFilename = filename;
             Target target = new Target() {
                 @Override
@@ -116,20 +105,19 @@ public class ImageViewActivity extends AppCompatActivity {
 
                 }
             };
-            if(PreferencesManager.loadPreferences(this).s_imagecache){
+            if (PreferencesManager.loadPreferences(this).s_imagecache) {
                 Picasso.get().load(url).into(target);
-            }
-            else{
+            } else {
                 Picasso.get().load(url).networkPolicy(NetworkPolicy.NO_STORE).into(target);
 
             }
-        }
-        else{
+        } else {
             saveToGallery(bitmap, filename);
         }
 
     }
-    private void saveToGallery(Bitmap image, String filename){
+
+    private void saveToGallery(Bitmap image, String filename) {
         String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), image, filename, null);
         Uri uri = Uri.parse(filepath);
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -138,14 +126,14 @@ public class ImageViewActivity extends AppCompatActivity {
 
         Toast.makeText(ImageViewActivity.this, getString(R.string.imagesaved), Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 saveImage();
-            }
-            else{
+            } else {
                 Toast.makeText(this, getString(R.string.nowriteaccess), Toast.LENGTH_SHORT).show();
             }
         }

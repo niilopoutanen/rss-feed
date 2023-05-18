@@ -1,21 +1,13 @@
 package com.niilopoutanen.rss_feed.customization;
 
 import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_FUNCTIONALITY;
-import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.customization.Preferences.SP_COLORACCENT;
 import static com.niilopoutanen.rss_feed.customization.Preferences.SP_HAPTICS_TYPE;
-import static com.niilopoutanen.rss_feed.customization.Preferences.SP_HAPTICS_TYPE_DEFAULT;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
-
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
@@ -24,20 +16,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.Fragment;
 
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SettingsHapticsFragment extends Fragment {
+    List<RelativeLayout> types;
     private Context appContext;
     private int selectedIndex;
-    List<RelativeLayout> types;
-    public SettingsHapticsFragment() {}
-    public SettingsHapticsFragment(Context context){
+
+    public SettingsHapticsFragment() {
+    }
+
+    public SettingsHapticsFragment(Context context) {
         this.appContext = context;
     }
 
@@ -50,14 +46,14 @@ public class SettingsHapticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings_haptics, container, false);
 
-        ((LinearLayout)rootView.findViewById(R.id.feedsettings_return)).setOnClickListener(v -> {
+        rootView.findViewById(R.id.feedsettings_return).setOnClickListener(v -> {
             PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), appContext);
             getParentFragmentManager().popBackStack();
         });
 
         Preferences.HapticTypes selected = PreferencesManager.getEnumPreference(Preferences.SP_HAPTICS_TYPE, Preferences.PREFS_FUNCTIONALITY, Preferences.HapticTypes.class, Preferences.SP_HAPTICS_TYPE_DEFAULT, appContext);
 
-         types = Arrays.asList(
+        types = Arrays.asList(
                 rootView.findViewById(R.id.vibration_type1),
                 rootView.findViewById(R.id.vibration_type2),
                 rootView.findViewById(R.id.vibration_type3)
@@ -69,9 +65,10 @@ public class SettingsHapticsFragment extends Fragment {
         }
         return rootView;
     }
-    private void loadSavedData(){
+
+    private void loadSavedData() {
         Preferences preferences = PreferencesManager.loadPreferences(appContext);
-        switch (preferences.s_hapticstype){
+        switch (preferences.s_hapticstype) {
             case VIEW:
                 checkButton(types.get(0));
                 break;
@@ -83,6 +80,7 @@ public class SettingsHapticsFragment extends Fragment {
                 break;
         }
     }
+
     private void onTypeChange(RelativeLayout button, List<RelativeLayout> buttonCollection) {
 
         boolean isChecked = Boolean.parseBoolean(button.getTag().toString());
@@ -96,8 +94,8 @@ public class SettingsHapticsFragment extends Fragment {
                 continue;
             }
             otherButton.setTag(false);
-            if(otherButton.getChildCount() >= 2){
-                otherButton.removeViewAt(otherButton.getChildCount() -1);
+            if (otherButton.getChildCount() >= 2) {
+                otherButton.removeViewAt(otherButton.getChildCount() - 1);
             }
         }
 
@@ -107,7 +105,7 @@ public class SettingsHapticsFragment extends Fragment {
         Preferences.HapticTypes selectedType;
         int selectedIndex = buttonCollection.indexOf(button);
         Vibrator vibrator = (Vibrator) appContext.getSystemService(Context.VIBRATOR_SERVICE);
-        switch (selectedIndex){
+        switch (selectedIndex) {
             default:
                 selectedType = Preferences.HapticTypes.VIEW;
                 button.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
@@ -118,17 +116,18 @@ public class SettingsHapticsFragment extends Fragment {
                 break;
             case 2:
                 selectedType = Preferences.HapticTypes.FALLBACK;
-                try{
+                try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_CLICK));
                     }
+                } catch (Exception ignored) {
                 }
-                catch (Exception ignored){}
                 break;
         }
-        PreferencesManager.saveEnumPreference(SP_HAPTICS_TYPE, PREFS_FUNCTIONALITY, selectedType , appContext);
+        PreferencesManager.saveEnumPreference(SP_HAPTICS_TYPE, PREFS_FUNCTIONALITY, selectedType, appContext);
     }
-    private void checkButton(RelativeLayout button){
+
+    private void checkButton(RelativeLayout button) {
         Drawable checkmark = AppCompatResources.getDrawable(appContext, R.drawable.icon_checkmark);
 
         // Check the selected button

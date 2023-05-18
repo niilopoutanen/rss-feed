@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
 
@@ -15,7 +14,6 @@
     <color name="textSecondary">#7B8086</color>
 
     <color name="windowBg">#000000</color>
-    <color name="windowBgSoft">#121212</color>
 
     <color name="accentBlue">#0075FF</color>
     <color name="accentViolet">#a446a3</color>

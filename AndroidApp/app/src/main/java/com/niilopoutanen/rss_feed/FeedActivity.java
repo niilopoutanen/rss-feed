@@ -1,15 +1,15 @@
 package com.niilopoutanen.rss_feed;
 
+import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
@@ -18,6 +18,7 @@ import com.niilopoutanen.rss_feed.sources.Source;
 public class FeedActivity extends AppCompatActivity {
 
     private Preferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class FeedActivity extends AppCompatActivity {
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             mlp.topMargin = insets.top;
             v.setLayoutParams(mlp);
-            
+
             return WindowInsetsCompat.CONSUMED;
         });
     }

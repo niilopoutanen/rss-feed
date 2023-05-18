@@ -15,19 +15,21 @@ import com.squareup.picasso.Transformation;
 public class MaskTransformation implements Transformation {
 
     private static final Paint mMaskingPaint = new Paint();
-    private final Context mContext;
-    private final int mMaskId;
 
     static {
         mMaskingPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
     }
+
+    private final Context mContext;
+    private final int mMaskId;
 
     public MaskTransformation(Context context, int maskId) {
         mContext = context.getApplicationContext();
         mMaskId = maskId;
     }
 
-    @Override public Bitmap transform(Bitmap source) {
+    @Override
+    public Bitmap transform(Bitmap source) {
         int width = source.getWidth();
         int height = source.getHeight();
 
@@ -45,7 +47,8 @@ public class MaskTransformation implements Transformation {
         return result;
     }
 
-    @Override public String key() {
+    @Override
+    public String key() {
         return "MaskTransformation(maskId=" + mContext.getResources().getResourceEntryName(mMaskId)
                 + ")";
     }

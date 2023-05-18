@@ -1,29 +1,40 @@
 package com.niilopoutanen.rss_feed.customization;
 
+import static com.niilopoutanen.rss_feed.customization.Preferences.ArticleColor;
+import static com.niilopoutanen.rss_feed.customization.Preferences.Font;
+import static com.niilopoutanen.rss_feed.customization.Preferences.LaunchWindow;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.customization.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLECOLOR;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_ARTICLECOLOR_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FONT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_FONT_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_LAUNCHWINDOW;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_THEME;
+import static com.niilopoutanen.rss_feed.customization.Preferences.SP_THEME_DEFAULT;
+import static com.niilopoutanen.rss_feed.customization.Preferences.ThemeMode;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.TypedValue;
-import android.view.HapticFeedbackConstants;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.customization.Preferences;
-import static com.niilopoutanen.rss_feed.customization.Preferences.*;
-import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 
 public class SettingsDropDownFragment extends Fragment {
 
@@ -32,17 +43,28 @@ public class SettingsDropDownFragment extends Fragment {
     Class<?> type;
     String title;
     String additionalMessage;
+
     public SettingsDropDownFragment(String optionTitle, String additionalMessage, Class<?> type, Context context) {
         this.context = context;
         this.type = type;
         this.title = optionTitle;
         this.additionalMessage = additionalMessage;
     }
-    public SettingsDropDownFragment(){}
+
+    public SettingsDropDownFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if(savedInstanceState != null){
+            title = savedInstanceState.getString("title");
+            additionalMessage = savedInstanceState.getString("additionalMessage");
+            type = (Class<?>) savedInstanceState.getSerializable("class");
+        }
+        if(context == null){
+            context = getContext();
+        }
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -51,8 +73,8 @@ public class SettingsDropDownFragment extends Fragment {
         optionsContainer = rootView.findViewById(R.id.settings_dropdown_options);
         addOptions(type);
 
-        ((TextView)rootView.findViewById(R.id.settings_dropdown_title)).setText(title);
-        ((TextView)rootView.findViewById(R.id.dropdownsettings_details)).setText(additionalMessage);
+        ((TextView) rootView.findViewById(R.id.settings_dropdown_title)).setText(title);
+        ((TextView) rootView.findViewById(R.id.dropdownsettings_details)).setText(additionalMessage);
 
         LinearLayout returnBtn = rootView.findViewById(R.id.dropdownsettings_return);
 
@@ -60,18 +82,18 @@ public class SettingsDropDownFragment extends Fragment {
         return rootView;
     }
 
-    private boolean verifySelected(int index, Class<?> type){
-        if(Preferences.LaunchWindow.class.equals(type)){
+    private boolean verifySelected(int index, Class<?> type) {
+        if (Preferences.LaunchWindow.class.equals(type)) {
             LaunchWindow selected = PreferencesManager.getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
             return index == selected.ordinal();
         }
-        if(Preferences.Font.class.equals(type)){
+        if (Preferences.Font.class.equals(type)) {
             Font selected = PreferencesManager.getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
             return index == selected.ordinal();
         }
-        if(Preferences.ThemeMode.class.equals(type)){
+        if (Preferences.ThemeMode.class.equals(type)) {
             ThemeMode selected = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
-            switch (selected){
+            switch (selected) {
                 case DARK:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     break;
@@ -84,21 +106,23 @@ public class SettingsDropDownFragment extends Fragment {
             }
             return index == selected.ordinal();
         }
-        if(Preferences.ArticleColor.class.equals(type)){
+        if (Preferences.ArticleColor.class.equals(type)) {
             ArticleColor selected = PreferencesManager.getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, context);
             return index == selected.ordinal();
         }
 
         return false;
     }
-    private void closeFragment(View view){
+
+    private void closeFragment(View view) {
         getParentFragmentManager().popBackStack();
         PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(context), context);
     }
-    private void addOptions(Class<?> type){
+
+    private void addOptions(Class<?> type) {
         if (Preferences.LaunchWindow.class.equals(type)) {
             String[] windowNames = context.getResources().getStringArray(R.array.launch_windows);
-            for(int i=0;i<windowNames.length; i++){
+            for (int i = 0; i < windowNames.length; i++) {
                 boolean isLast = i == windowNames.length - 1;
                 RelativeLayout item = addViews(windowNames[i], verifySelected(i, LaunchWindow.class), isLast, null);
                 final int index = i;
@@ -111,18 +135,16 @@ public class SettingsDropDownFragment extends Fragment {
                     }
                 });
             }
-        }
-        else if (Preferences.Font.class.equals(type)) {
+        } else if (Preferences.Font.class.equals(type)) {
             String[] fontNames = context.getResources().getStringArray(R.array.fonts);
-            for(int i=0;i<fontNames.length; i++){
+            for (int i = 0; i < fontNames.length; i++) {
                 boolean isLast = i == fontNames.length - 1;
 
                 Preferences.Font selectedFont = Preferences.Font.values()[i];
                 Typeface font = ResourcesCompat.getFont(context, R.font.inter);
-                if(selectedFont == Font.ROBOTO_MONO){
+                if (selectedFont == Font.ROBOTO_MONO) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_mono);
-                }
-                else if(selectedFont == Font.ROBOTO_SANS){
+                } else if (selectedFont == Font.ROBOTO_SANS) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_serif);
                 }
 
@@ -135,10 +157,9 @@ public class SettingsDropDownFragment extends Fragment {
                     }
                 });
             }
-        }
-        else if (Preferences.ThemeMode.class.equals(type)) {
+        } else if (Preferences.ThemeMode.class.equals(type)) {
             String[] themeNames = context.getResources().getStringArray(R.array.theme_modes);
-            for(int i=0;i<themeNames.length; i++){
+            for (int i = 0; i < themeNames.length; i++) {
                 boolean isLast = i == themeNames.length - 1;
                 RelativeLayout item = addViews(themeNames[i], verifySelected(i, ThemeMode.class), isLast, null);
                 final int index = i;
@@ -151,10 +172,9 @@ public class SettingsDropDownFragment extends Fragment {
                     }
                 });
             }
-        }
-        else if (Preferences.ArticleColor.class.equals(type)) {
+        } else if (Preferences.ArticleColor.class.equals(type)) {
             String[] articleColors = context.getResources().getStringArray(R.array.article_backgrounds);
-            for(int i=0;i<articleColors.length; i++){
+            for (int i = 0; i < articleColors.length; i++) {
                 boolean isLast = i == articleColors.length - 1;
                 RelativeLayout item = addViews(articleColors[i], verifySelected(i, ArticleColor.class), isLast, null);
                 final int index = i;
@@ -169,7 +189,8 @@ public class SettingsDropDownFragment extends Fragment {
             }
         }
     }
-    private RelativeLayout addViews(String name, boolean selected, boolean lastView, Typeface font){
+
+    private RelativeLayout addViews(String name, boolean selected, boolean lastView, Typeface font) {
         RelativeLayout parent = new RelativeLayout(context);
 
 
@@ -182,14 +203,14 @@ public class SettingsDropDownFragment extends Fragment {
         textView.setTextColor(context.getColor(R.color.textPrimary));
         parent.addView(textView);
 
-        RelativeLayout.LayoutParams textparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams textparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         textparams.addRule(RelativeLayout.ALIGN_PARENT_START);
         textView.setLayoutParams(textparams);
 
-        if(!lastView){
+        if (!lastView) {
             View separator = new View(context);
             separator.setBackgroundColor(context.getColor(R.color.element_border));
-            RelativeLayout.LayoutParams separatorparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,PreferencesManager.dpToPx(1, context));
+            RelativeLayout.LayoutParams separatorparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, PreferencesManager.dpToPx(1, context));
             separatorparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             int margin = PreferencesManager.dpToPx(10, context);
             separatorparams.setMargins(margin, 0, margin, 0);
@@ -198,12 +219,11 @@ public class SettingsDropDownFragment extends Fragment {
         }
 
 
-
-        if(selected){
+        if (selected) {
             View icon = new View(context);
             icon.setBackground(AppCompatResources.getDrawable(context, R.drawable.icon_checkmark));
             int iconSize = PreferencesManager.dpToPx(15, context);
-            RelativeLayout.LayoutParams iconparams = new RelativeLayout.LayoutParams(iconSize,iconSize);
+            RelativeLayout.LayoutParams iconparams = new RelativeLayout.LayoutParams(iconSize, iconSize);
             iconparams.addRule(RelativeLayout.ALIGN_PARENT_END);
             iconparams.addRule(RelativeLayout.CENTER_VERTICAL);
             iconparams.setMarginEnd(iconSize);
@@ -214,5 +234,12 @@ public class SettingsDropDownFragment extends Fragment {
 
         optionsContainer.addView(parent);
         return parent;
+    }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("additionalMessage", additionalMessage);
+        outState.putString("title", title);
+        outState.putSerializable("class", type);
     }
 }

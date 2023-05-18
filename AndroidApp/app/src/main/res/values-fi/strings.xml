@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RSS-Feed</string>
+    <string name="app_name">RSS-Syöte</string>
+    <string name="app_version">Versio: 1.0</string>
     <string name="feed_header">Syöte</string>
     <string name="settings_header">Asetukset</string>
     <string name="feedsettings_header">Syötteen muokkaaminen</string>
@@ -10,7 +11,6 @@
     <string name="cancel">Peruuta</string>
     <string name="close">Sulje</string>
     <string name="update">Päivitä</string>
-    <string name="delete">Poista</string>
     <string name="goback">Takaisin</string>
     <string name="save">Tallenna</string>
     <string name="share">Jaa</string>
@@ -20,7 +20,6 @@
     <string name="sourceremoved">Lähde poistettu</string>
     <string name="feed_name">Nimi (jätä tyhjäksi automaattista täyttöä varten)</string>
     <string name="feed_url">Syötteen URL-osoite</string>
-    <string name="today">Tänään klo</string>
     <string name="nointernet">Ei internet-yhteyttä.</string>
     <string name="nosources">Yhtään lähdettä ei ole lisätty.</string>
     <string name="justnow">Juuri nyt</string>
@@ -34,7 +33,7 @@
     <string name="settings_font">Fontti jota käytetään artikkeleissa</string>
     <string name="settings_launchwindow">Ikkuna joka avataan käynnistäessä</string>
     <string name="haptics">Värinä</string>
-    <string name="haptics_troubleshoot">Eikö värinä toimi sinulla? Avaa vianmääritysvalikko painamalla pitkään värinä-asetusta.</string>
+    <string name="haptics_troubleshoot">Eikö värinä toimi? Avaa vianmääritysvalikko painamalla pitkään värinä-asetusta.</string>
     <string name="haptics_troubleshoot_header">Värinän vianetsintä</string>
     <string name="haptics_troubleshoot_desc">Vanhemmat Android-laitteet eivät tue kaikkia haptisia ominaisuuksia. Jos sinulla on ongelmia värinän kanssa sovelluksen käytön aikana tai haptiikka ei toimi ollenkaan, kokeile eri tyyppejä alla.</string>
     <string name="view_in_browser">Avaa selaimessa</string>
@@ -79,11 +78,6 @@
         <item>Asetukset</item>
         <item>Syöte</item>
         <item>Lähteet</item>
-    </string-array>
-    <string-array name="haptic_types">
-        <item>Tila 1</item>
-        <item>Tila 2</item>
-        <item>Tila 3</item>
     </string-array>
     <string-array name="date_modes">
         <item>Pitkä</item>

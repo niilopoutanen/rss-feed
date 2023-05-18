@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,13 +32,14 @@ import com.niilopoutanen.rss_feed.web.WebHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
 public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
+    public static final int CARDMARGIN_DP = 10;
+    public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
     List<RSSPost> feed = new ArrayList<>();
     String viewTitle;
@@ -49,8 +49,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
     ExecutorService executor = null;
-    public static final int CARDMARGIN_DP = 10;
-    public static final int CARDGAP_DP = 20;
     @ColorInt
     int colorAccent;
 
@@ -239,12 +237,13 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        if(executor != null){
+        if (executor != null) {
             executor.shutdownNow();
         }
     }
+
     interface Callback {
         void onSuccess();
     }

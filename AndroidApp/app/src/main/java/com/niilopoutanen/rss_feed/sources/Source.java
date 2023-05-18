@@ -17,9 +17,11 @@ public class Source implements Serializable {
     public String getFeedUrl() {
         return feedUrl;
     }
+
     public String getName() {
         return name;
     }
+
     public String getImageUrl() {
         return imageUrl;
     }

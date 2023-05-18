@@ -1,18 +1,14 @@
 package com.niilopoutanen.rss_feed;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.customization.SaveSystem;
@@ -20,11 +16,15 @@ import com.niilopoutanen.rss_feed.customization.SettingsFragment;
 import com.niilopoutanen.rss_feed.customization.UpdateDialog;
 import com.niilopoutanen.rss_feed.sources.Source;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Fragment currentFragment;
     Preferences preferences;
     List<Source> sources = new ArrayList<>();
+    private Fragment currentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +41,11 @@ public class MainActivity extends AppCompatActivity {
         sources = SaveSystem.loadSources(MainActivity.this);
 
 
-
         // Navigation bar init
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_menu);
         // If the current fragment is null, set the default fragment to be loaded
         if (currentFragment == null) {
-            switch (preferences.s_launchwindow){
+            switch (preferences.s_launchwindow) {
                 case SETTINGS:
                     currentFragment = new SettingsFragment(this);
                     bottomNav.setSelectedItemId(R.id.nav_settings);
@@ -107,13 +106,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
     }
 
-    private void checkUpdate(){
+    private void checkUpdate() {
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
-        if(isFirstLaunch){
+        if (isFirstLaunch) {
             UpdateDialog dialog = new UpdateDialog(this);
             dialog.show();
         }
     }
+
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
             currentFragment = fragment;

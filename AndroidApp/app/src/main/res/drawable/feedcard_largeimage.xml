@@ -3,19 +3,19 @@
     android:height="60dp"
     android:viewportWidth="98"
     android:viewportHeight="60">
-  <path
-      android:pathData="M5,0L93,0A5,5 0,0 1,98 5L98,55A5,5 0,0 1,93 60L5,60A5,5 0,0 1,0 55L0,5A5,5 0,0 1,5 0z"
-      android:fillColor="@color/surface"/>
-  <path
-      android:pathData="M7,5L91,5A2,2 0,0 1,93 7L93,32A2,2 0,0 1,91 34L7,34A2,2 0,0 1,5 32L5,7A2,2 0,0 1,7 5z"
-      android:fillColor="@color/surface_border"/>
-  <path
-      android:pathData="M6.5,38L83.5,38A1.5,1.5 0,0 1,85 39.5L85,39.5A1.5,1.5 0,0 1,83.5 41L6.5,41A1.5,1.5 0,0 1,5 39.5L5,39.5A1.5,1.5 0,0 1,6.5 38z"
-      android:fillColor="@color/surface_border"/>
-  <path
-      android:pathData="M6.5,45L78.5,45A1.5,1.5 0,0 1,80 46.5L80,46.5A1.5,1.5 0,0 1,78.5 48L6.5,48A1.5,1.5 0,0 1,5 46.5L5,46.5A1.5,1.5 0,0 1,6.5 45z"
-      android:fillColor="@color/surface_border"/>
-  <path
-      android:pathData="M6.5,52L73.5,52A1.5,1.5 0,0 1,75 53.5L75,53.5A1.5,1.5 0,0 1,73.5 55L6.5,55A1.5,1.5 0,0 1,5 53.5L5,53.5A1.5,1.5 0,0 1,6.5 52z"
-      android:fillColor="@color/surface_border"/>
+    <path
+        android:fillColor="@color/surface"
+        android:pathData="M5,0L93,0A5,5 0,0 1,98 5L98,55A5,5 0,0 1,93 60L5,60A5,5 0,0 1,0 55L0,5A5,5 0,0 1,5 0z" />
+    <path
+        android:fillColor="@color/surface_border"
+        android:pathData="M7,5L91,5A2,2 0,0 1,93 7L93,32A2,2 0,0 1,91 34L7,34A2,2 0,0 1,5 32L5,7A2,2 0,0 1,7 5z" />
+    <path
+        android:fillColor="@color/surface_border"
+        android:pathData="M6.5,38L83.5,38A1.5,1.5 0,0 1,85 39.5L85,39.5A1.5,1.5 0,0 1,83.5 41L6.5,41A1.5,1.5 0,0 1,5 39.5L5,39.5A1.5,1.5 0,0 1,6.5 38z" />
+    <path
+        android:fillColor="@color/surface_border"
+        android:pathData="M6.5,45L78.5,45A1.5,1.5 0,0 1,80 46.5L80,46.5A1.5,1.5 0,0 1,78.5 48L6.5,48A1.5,1.5 0,0 1,5 46.5L5,46.5A1.5,1.5 0,0 1,6.5 45z" />
+    <path
+        android:fillColor="@color/surface_border"
+        android:pathData="M6.5,52L73.5,52A1.5,1.5 0,0 1,75 53.5L75,53.5A1.5,1.5 0,0 1,73.5 55L6.5,55A1.5,1.5 0,0 1,5 53.5L5,53.5A1.5,1.5 0,0 1,6.5 52z" />
 </vector>

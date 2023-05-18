@@ -22,7 +22,6 @@ import com.niilopoutanen.rss_feed.ImageViewActivity;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
 import com.niilopoutanen.rss_feed.customization.PreferencesManager;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -43,6 +42,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final Date postDate;
     private final String publisher;
     private String title = "";
+
     public ArticleAdapter(List<ArticleItem> data, Preferences preferences, Context context, String postUrl, Date postDate, String publisher) {
         this.adapterData = data;
         this.preferences = preferences;
@@ -51,6 +51,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.postDate = postDate;
         this.publisher = publisher;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,7 +61,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case VIEW_TYPE_HEADER:
                 view = inflater.inflate(R.layout.header_article, parent, false);
                 LinearLayout returnBtn = view.findViewById(R.id.article_return);
-                returnBtn.setOnClickListener(v -> ((Activity)appContext).finish());
+                returnBtn.setOnClickListener(v -> ((Activity) appContext).finish());
 
                 TextView publisherView = view.findViewById(R.id.article_source);
                 publisherView.setText(publisher);
@@ -105,7 +106,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 titleTextView.setLayoutParams(new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                titleTextView.setPadding(0,0,0,PreferencesManager.dpToPx(10, appContext));
+                titleTextView.setPadding(0, 0, 0, PreferencesManager.dpToPx(10, appContext));
                 titleTextView.setTextColor(appContext.getColor(R.color.textPrimary));
                 titleTextView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
                 titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
@@ -117,12 +118,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        try{
-            ArticleItem item = adapterData.get(position -1);
+        try {
+            ArticleItem item = adapterData.get(position - 1);
             switch (getItemViewType(position)) {
                 case VIEW_TYPE_IMAGE:
                     ContentViewHolder imageviewHolder = (ContentViewHolder) holder;
-                    RequestCreator requestCreator = Picasso.get().load(((ImageItem)item).getUrl())
+                    RequestCreator requestCreator = Picasso.get().load(((ImageItem) item).getUrl())
                             .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, appContext), 0)
                             .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
                             .centerCrop();
@@ -134,80 +135,83 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     imageviewHolder.imageView.setOnClickListener(v -> {
                         Intent imageIntent = new Intent(appContext, ImageViewActivity.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)appContext, imageviewHolder.imageView, "img");
-                        imageIntent.putExtra("imageurl", ((ImageItem)item).getUrl());
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, imageviewHolder.imageView, "img");
+                        imageIntent.putExtra("imageurl", ((ImageItem) item).getUrl());
                         appContext.startActivity(imageIntent, options.toBundle());
                     });
                     break;
                 case VIEW_TYPE_TEXT:
                     ContentViewHolder textviewHolder = (ContentViewHolder) holder;
-                    textviewHolder.textView.setText(((SpannedItem)item).getSpanned());
+                    textviewHolder.textView.setText(((SpannedItem) item).getSpanned());
                     break;
                 case VIEW_TYPE_TITLE:
                     ContentViewHolder titleViewHolder = (ContentViewHolder) holder;
-                    titleViewHolder.textView.setText(((TitleItem)item).getTitle());
-                    title = (((TitleItem)item).getTitle());
+                    titleViewHolder.textView.setText(((TitleItem) item).getTitle());
+                    title = (((TitleItem) item).getTitle());
                     break;
                 case VIEW_TYPE_HEADER:
-                    LinearLayout returnBtn = ((HeaderFooterViewHolder)holder).returnBtn;
+                    LinearLayout returnBtn = ((HeaderFooterViewHolder) holder).returnBtn;
                     returnBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ((Activity)appContext).finish();
+                            ((Activity) appContext).finish();
                         }
                     });
 
-                    TextView title = ((HeaderFooterViewHolder)holder).articleTitle;
-                    title.setText(((TitleItem)item).getTitle());
+                    TextView title = ((HeaderFooterViewHolder) holder).articleTitle;
+                    title.setText(((TitleItem) item).getTitle());
 
-                    TextView publisherView = ((HeaderFooterViewHolder)holder).articleTitle;
+                    TextView publisherView = ((HeaderFooterViewHolder) holder).articleTitle;
                     publisherView.setText(publisher);
 
-                    TextView dateView = ((HeaderFooterViewHolder)holder).articleDate;
+                    TextView dateView = ((HeaderFooterViewHolder) holder).articleDate;
                     dateView.setText(android.text.format.DateFormat.getDateFormat(appContext).format(postDate));
                     break;
             }
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
             return VIEW_TYPE_HEADER;
-        }
-        else if (position == adapterData.size() + 1) {
+        } else if (position == adapterData.size() + 1) {
             return VIEW_TYPE_FOOTER;
-        }
-        else {
+        } else {
             Object item = adapterData.get(position - 1);
             if (item instanceof SpannedItem) {
                 return VIEW_TYPE_TEXT;
-            }
-            else if (item instanceof TitleItem) {
+            } else if (item instanceof TitleItem) {
                 return VIEW_TYPE_TITLE;
-            }
-            else if (item instanceof ImageItem) {
+            } else if (item instanceof ImageItem) {
                 return VIEW_TYPE_IMAGE;
             }
             throw new IllegalArgumentException("Invalid item type");
         }
     }
+
     @Override
     public int getItemCount() {
-        if(adapterData == null){
+        if (adapterData == null) {
             return 0;
         }
         return adapterData.size() + 2; // Add two for header and footer views
     }
+
+    public interface ArticleItem {
+    }
+
     private static class HeaderFooterViewHolder extends RecyclerView.ViewHolder {
         LinearLayout returnBtn;
         TextView articleTitle;
         TextView articleDate;
+
         HeaderFooterViewHolder(View itemView) {
             super(itemView);
         }
     }
+
     private static class ContentViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
@@ -216,10 +220,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(view);
             imageView = view;
         }
+
         ContentViewHolder(TextView view) {
             super(view);
             textView = view;
         }
+
         ContentViewHolder(TextView view, boolean title) {
             super(view);
             textView = view;
@@ -237,6 +243,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return title;
         }
     }
+
     public static class SpannedItem implements ArticleItem {
         private final Spanned spanned;
 
@@ -255,9 +262,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public ImageItem(String url) {
             this.url = url;
         }
+
         public String getUrl() {
             return url;
         }
     }
-    public interface ArticleItem {}
 }

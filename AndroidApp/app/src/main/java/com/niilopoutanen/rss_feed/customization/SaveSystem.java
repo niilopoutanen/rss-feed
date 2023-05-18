@@ -3,6 +3,8 @@ package com.niilopoutanen.rss_feed.customization;
 import android.content.Context;
 import android.util.Log;
 
+import com.niilopoutanen.rss_feed.sources.Source;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,8 +13,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.niilopoutanen.rss_feed.sources.Source;
 
 public class SaveSystem {
     private static final String FILENAME = "rssfeed.sources";
@@ -28,6 +28,7 @@ public class SaveSystem {
             e.printStackTrace();
         }
     }
+
     public static void saveSources(Context context, Source source) {
         List<Source> sources;
         try {
@@ -50,7 +51,7 @@ public class SaveSystem {
         List<Source> sources = new ArrayList<>();
         try {
             File file = context.getFileStreamPath(FILENAME);
-            if(file != null && file.exists()) {
+            if (file != null && file.exists()) {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 sources = (List<Source>) ois.readObject();

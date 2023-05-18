@@ -24,18 +24,23 @@
     <style name="AccentViolet" parent="RSSFeedStyle">
         <item name="colorAccent">@color/accentViolet</item>
     </style>
+
     <style name="AccentPink" parent="RSSFeedStyle">
         <item name="colorAccent">@color/accentPink</item>
     </style>
+
     <style name="AccentRed" parent="RSSFeedStyle">
         <item name="colorAccent">@color/accentRed</item>
     </style>
+
     <style name="AccentOrange" parent="RSSFeedStyle">
         <item name="colorAccent">@color/accentOrange</item>
     </style>
+
     <style name="AccentYellow" parent="RSSFeedStyle">
         <item name="colorAccent">@color/accentYellow</item>
     </style>
+
     <style name="AccentGreen" parent="RSSFeedStyle">
         <item name="colorAccent">@color/accentGreen</item>
     </style>
@@ -48,11 +53,4 @@
         <item name="backgroundTint">@color/transparent</item>
     </style>
 
-    <style name="RSSFeedStyle.EditTextStyle" parent="@android:style/Widget.EditText">
-        <item name="android:textColor">@color/textPrimary</item>
-        <item name="hintTextColor">@color/textSecondary</item>
-        <item name="paddingStart">10dp</item>
-        <item name="paddingEnd">10dp</item>
-        <item name="background">@null</item>
-    </style>
 </resources>
