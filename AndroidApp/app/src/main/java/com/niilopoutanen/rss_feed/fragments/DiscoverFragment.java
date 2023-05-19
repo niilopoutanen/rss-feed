@@ -49,7 +49,6 @@ public class DiscoverFragment extends Fragment {
             categories = categoriesFuture.join();
             publishers = publishersFuture.join();
 
-            Log.d("task", "complete");
         });
     }
 

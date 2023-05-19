@@ -9,11 +9,11 @@
         android:icon="@drawable/icon_feed"
         android:title="@string/feed_header" />
     <item
-        android:id="@+id/nav_sources"
-        android:icon="@drawable/icon_sources"
-        android:title="@string/sources_header" />
+        android:id="@+id/nav_content"
+        android:icon="@drawable/icon_content"
+        android:title="@string/content_header" />
     <item
         android:id="@+id/nav_discover"
-        android:icon="@drawable/icon_sources"
+        android:icon="@drawable/icon_search"
         android:title="@string/discover_header" />
 </menu>

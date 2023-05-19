@@ -20,13 +20,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
+import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.utils.RSSParser;
 import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
 
@@ -41,7 +41,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     public static final int CARDMARGIN_DP = 10;
     public static final int CARDGAP_DP = 20;
-    List<Source> sources = new ArrayList<>();
+    List<Content> contents = new ArrayList<>();
     List<RSSPost> feed = new ArrayList<>();
     String viewTitle;
     RecyclerView recyclerView;
@@ -53,15 +53,15 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     @ColorInt
     int colorAccent;
 
-    public FeedFragment(List<Source> sources, Preferences preferences) {
-        this.sources = sources;
+    public FeedFragment(List<Content> contents, Preferences preferences) {
+        this.contents = contents;
         this.preferences = preferences;
     }
 
-    public FeedFragment(Source source, Preferences preferences) {
+    public FeedFragment(Content content, Preferences preferences) {
         //single source view
-        sources.add(source);
-        viewTitle = source.getName();
+        contents.add(content);
+        viewTitle = content.getName();
         this.preferences = preferences;
     }
 
@@ -75,7 +75,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
-            sources = (List<Source>) savedInstanceState.getSerializable("sources");
+            contents = (List<Content>) savedInstanceState.getSerializable("sources");
         }
 
         assert appContext != null;
@@ -111,8 +111,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private boolean checkValidity() {
-        if (sources.size() == 0) {
-            Toast.makeText(appContext, appContext.getString(R.string.nosources), Toast.LENGTH_LONG).show();
+        if (contents.size() == 0) {
+            Toast.makeText(appContext, appContext.getString(R.string.nocontent), Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -137,14 +137,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         // Submit each update to the executor
         executor.execute(() -> {
-            for (Source source : sources) {
-                WebHelper.getFeedData(source.getFeedUrl(), new WebCallBack<String>() {
+            for (Content content : contents) {
+                WebHelper.getFeedData(content.getFeedUrl(), new WebCallBack<String>() {
                     @Override
                     public void onResult(String result) {
                         List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
                         for (RSSPost post : posts) {
-                            post.setSourceName(source.getName());
+                            post.setSourceName(content.getName());
                             feed.add(post);
                         }
 
@@ -234,7 +234,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
-        outState.putSerializable("sources", new ArrayList<>(sources));
+        outState.putSerializable("sources", new ArrayList<>(contents));
     }
 
     @Override

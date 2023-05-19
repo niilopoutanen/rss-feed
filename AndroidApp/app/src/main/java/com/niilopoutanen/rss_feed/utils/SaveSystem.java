@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.Publisher;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.json.JSONArray;
@@ -24,15 +24,15 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class SaveSystem {
-    private static final String FILENAME = "rssfeed.sources";
+    private static final String FILENAME = "rssfeed.content";
     private static final String URL_CATEGORIES = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/release/categories.json";
     private static final String URL_PUBLISHERS= "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/release/publishers.json";
 
-    public static void saveSources(Context context, List<Source> sources) {
+    public static void saveContent(Context context, List<Content> contents) {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(sources);
+            oos.writeObject(contents);
             oos.close();
             fos.close();
         } catch (IOException e) {
@@ -40,32 +40,32 @@ public class SaveSystem {
         }
     }
 
-    public static void saveSources(Context context, Source source) {
-        List<Source> sources;
+    public static void saveContent(Context context, Content content) {
+        List<Content> contents;
         try {
-            sources = loadSources(context);
+            contents = loadContent(context);
 
-            sources.removeIf(sourceObj -> sourceObj.getFeedUrl().equals(source.getFeedUrl()));
+            contents.removeIf(contentObj -> contentObj.getFeedUrl().equals(content.getFeedUrl()));
 
-            sources.add(source);
+            contents.add(content);
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(sources);
+            oos.writeObject(contents);
             oos.close();
             fos.close();
         } catch (IOException e) {
-            Log.d("SAVESYSTEM", "Source database not found");
+            Log.d("SAVESYSTEM", "Content database not found");
         }
     }
 
-    public static List<Source> loadSources(Context context) {
-        List<Source> sources = new ArrayList<>();
+    public static List<Content> loadContent(Context context) {
+        List<Content> contents = new ArrayList<>();
         try {
             File file = context.getFileStreamPath(FILENAME);
             if (file != null && file.exists()) {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                sources = (List<Source>) ois.readObject();
+                contents = (List<Content>) ois.readObject();
                 ois.close();
                 fis.close();
             }
@@ -74,7 +74,7 @@ public class SaveSystem {
             e.printStackTrace();
         }
 
-        return sources;
+        return contents;
     }
 
     public static void loadCategories(final WebCallBack<List<Category>> callBack) {

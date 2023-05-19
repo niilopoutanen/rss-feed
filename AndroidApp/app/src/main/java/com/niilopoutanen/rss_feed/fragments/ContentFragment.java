@@ -14,24 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 
 import java.util.List;
 
-public class SourcesFragment extends Fragment {
+public class ContentFragment extends Fragment {
 
-    private List<Source> sources;
+    private List<Content> contents;
     private SourceAdapter adapter;
     private Context appContext;
     private Preferences preferences;
 
-    public SourcesFragment(Context context, Preferences preferences) {
+    public ContentFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
     }
 
-    public SourcesFragment() {
+    public ContentFragment() {
     }
 
     @Override
@@ -40,7 +40,7 @@ public class SourcesFragment extends Fragment {
         if (appContext == null) {
             appContext = getContext();
         }
-        sources = SaveSystem.loadSources(appContext);
+        contents = SaveSystem.loadContent(appContext);
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
@@ -51,10 +51,10 @@ public class SourcesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_sources, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_content, container, false);
         RecyclerView sourcesContainer = rootView.findViewById(R.id.sources_recyclerview);
 
-        adapter = new SourceAdapter(sources, preferences, sourcesContainer);
+        adapter = new SourceAdapter(contents, preferences, sourcesContainer);
         sourcesContainer.setAdapter(adapter);
         sourcesContainer.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 

@@ -76,7 +76,7 @@ public class Preferences implements Serializable {
     }
 
     public enum LaunchWindow {
-        SETTINGS, FEED, SOURCES
+        SETTINGS, FEED, SOURCES, DISCOVER
     }
 
     public enum DateStyle {

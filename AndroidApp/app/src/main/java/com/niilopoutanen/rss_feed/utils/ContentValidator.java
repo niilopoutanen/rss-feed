@@ -4,9 +4,8 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
-import com.niilopoutanen.rss_feed.utils.WebHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,20 +20,20 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class SourceValidator {
-    public static void validate(String sourceUrl, String sourceName, WebCallBack<Source> sourceCallBack, Context context) {
+public class ContentValidator {
+    public static void validate(String contentUrl, String contentName, WebCallBack<Content> contentCallBack, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
         List<URL> urlsToCheck = new ArrayList<>();
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/feed"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/" + context.getString(R.string.rsslocale_news) + ".xml"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/news.xml"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss.xml"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/rss/rss.xml"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/atom"));
-        urlsToCheck.add(WebHelper.formatUrl(sourceUrl + "/atom.xml"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/feed"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss/" + context.getString(R.string.rsslocale_news) + ".xml"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss/news.xml"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss.xml"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss/rss.xml"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/atom"));
+        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/atom.xml"));
 
         CompletableFuture.supplyAsync(() -> {
             for (URL url : urlsToCheck) {
@@ -61,24 +60,24 @@ public class SourceValidator {
                     }
                 }, executor);
 
-                CompletableFuture<String> sourceNameFuture = CompletableFuture.supplyAsync(() -> {
-                    if (sourceName.isEmpty()) {
+                CompletableFuture<String> contentNameFuture = CompletableFuture.supplyAsync(() -> {
+                    if (contentName.isEmpty()) {
                         return getSiteTitle(finalUrl);
                     } else {
-                        return sourceName;
+                        return contentName;
                     }
                 }, executor);
 
-                return faviconUrlFuture.thenCombineAsync(sourceNameFuture, (validatedIcon, validatedName) -> {
+                return faviconUrlFuture.thenCombineAsync(contentNameFuture, (validatedIcon, validatedName) -> {
                     if (validatedName.isEmpty()) {
                         return null;
                     } else {
-                        return new Source(validatedName, finalUrl.toString(), validatedIcon);
+                        return new Content(validatedName, finalUrl.toString(), validatedIcon);
                     }
                 }, executor);
             }
-        }, executor).whenCompleteAsync((validatedSource, throwable) -> {
-            sourceCallBack.onResult(validatedSource);
+        }, executor).whenCompleteAsync((validatedContent, throwable) -> {
+            contentCallBack.onResult(validatedContent);
             executor.shutdown();
         }, executor);
     }

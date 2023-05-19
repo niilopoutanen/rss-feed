@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.fragments.SourcesFragment;
+import com.niilopoutanen.rss_feed.fragments.ContentFragment;
+import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
-import com.niilopoutanen.rss_feed.models.Source;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Preferences preferences;
-    List<Source> sources = new ArrayList<>();
+    List<Content> contents = new ArrayList<>();
     private Fragment currentFragment;
 
     @Override
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
         }
-        sources = SaveSystem.loadSources(MainActivity.this);
+        contents = SaveSystem.loadContent(MainActivity.this);
 
 
         // Navigation bar init
@@ -55,12 +55,16 @@ public class MainActivity extends AppCompatActivity {
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = new FeedFragment(sources, preferences);
+                    currentFragment = new FeedFragment(contents, preferences);
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
-                    currentFragment = new SourcesFragment(this, preferences);
-                    bottomNav.setSelectedItemId(R.id.nav_sources);
+                    currentFragment = new ContentFragment(this, preferences);
+                    bottomNav.setSelectedItemId(R.id.nav_content);
+                    break;
+                case DISCOVER:
+                    currentFragment = new DiscoverFragment(this, preferences);
+                    bottomNav.setSelectedItemId(R.id.nav_discover);
                     break;
             }
             getSupportFragmentManager().beginTransaction()
@@ -75,15 +79,16 @@ public class MainActivity extends AppCompatActivity {
                     // The selected item is already active, do nothing
                     return true;
                 }
-
+                preferences = PreferencesManager.loadPreferences(MainActivity.this);
                 if (itemId == R.id.nav_settings) {
                     currentFragment = new SettingsFragment(MainActivity.this);
-                } else if (itemId == R.id.nav_feed) {
-                    sources = SaveSystem.loadSources(MainActivity.this);
-                    preferences = PreferencesManager.loadPreferences(MainActivity.this);
-                    currentFragment = new FeedFragment(sources, preferences);
-                } else if (itemId == R.id.nav_sources) {
-                    currentFragment = new SourcesFragment(MainActivity.this, preferences);
+                }
+                else if (itemId == R.id.nav_feed) {
+                    contents = SaveSystem.loadContent(MainActivity.this);
+                    currentFragment = new FeedFragment(contents, preferences);
+                }
+                else if (itemId == R.id.nav_content) {
+                    currentFragment = new ContentFragment(MainActivity.this, preferences);
                 }
                 else if (itemId == R.id.nav_discover) {
                     currentFragment = new DiscoverFragment(MainActivity.this, preferences);
