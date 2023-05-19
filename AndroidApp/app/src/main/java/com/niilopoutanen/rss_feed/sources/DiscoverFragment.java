@@ -9,14 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.customization.Preferences;
-import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 
 public class DiscoverFragment extends Fragment {
 
-    FirebaseFirestore db;
     Context appContext;
     Preferences preferences;
     public DiscoverFragment(Context context, Preferences preferences) {
@@ -28,7 +25,6 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = FirebaseFirestore.getInstance();
     }
 
     @Override
