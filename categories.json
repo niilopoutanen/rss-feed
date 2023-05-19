@@ -1,8 +1,14 @@
 {
-    "tech":{
-       "name":"Tech"
+    "tech": {
+        "name": "Tech",
+        "id": 1
     },
-    "sports":{
-       "name":"Sports"
+    "sports": {
+        "name": "Sports",
+        "id": 2
+    },
+    "news": {
+        "name": "News",
+        "id": 3
     }
- }
+}
