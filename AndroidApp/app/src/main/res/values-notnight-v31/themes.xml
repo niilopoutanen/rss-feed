@@ -23,13 +23,4 @@
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">@color/surface_border</item>
     </style>
-
-    <style name="BottomSheetStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheetDialog</item>
-    </style>
-
-    <style name="BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="backgroundTint">@color/transparent</item>
-    </style>
-
 </resources>

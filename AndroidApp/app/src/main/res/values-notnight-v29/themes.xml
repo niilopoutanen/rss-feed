@@ -19,44 +19,6 @@
 
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
-        <item name="colorOutline">@color/surface_border</item>
+        <item name="colorOutline">#CBC9D1</item>
     </style>
-
-
-    <style name="AccentBlue" parent="RSSFeedStyle">
-        <item name="colorAccent">@color/accentBlue</item>
-    </style>
-
-    <style name="AccentViolet" parent="RSSFeedStyle">
-        <item name="colorAccent">@color/accentViolet</item>
-    </style>
-
-    <style name="AccentPink" parent="RSSFeedStyle">
-        <item name="colorAccent">@color/accentPink</item>
-    </style>
-
-    <style name="AccentRed" parent="RSSFeedStyle">
-        <item name="colorAccent">@color/accentRed</item>
-    </style>
-
-    <style name="AccentOrange" parent="RSSFeedStyle">
-        <item name="colorAccent">@color/accentOrange</item>
-    </style>
-
-    <style name="AccentYellow" parent="RSSFeedStyle">
-        <item name="colorAccent">@color/accentYellow</item>
-    </style>
-
-    <style name="AccentGreen" parent="RSSFeedStyle">
-        <item name="colorAccent">@color/accentGreen</item>
-    </style>
-
-    <style name="BottomSheetStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheetDialog</item>
-    </style>
-
-    <style name="BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="backgroundTint">@color/transparent</item>
-    </style>
-
 </resources>

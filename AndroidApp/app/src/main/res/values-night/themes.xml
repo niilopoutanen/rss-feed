@@ -17,5 +17,6 @@
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">@color/surface_border</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 </resources>
