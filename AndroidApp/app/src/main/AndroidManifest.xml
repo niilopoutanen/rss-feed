@@ -17,21 +17,18 @@
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/RSSFeedStyle"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
-            android:name=".SearchActivity"
+            android:name=".activities.ImageViewActivity"
             android:exported="false" />
         <activity
-            android:name=".ImageViewActivity"
+            android:name=".activities.FeedActivity"
             android:exported="false" />
         <activity
-            android:name=".FeedActivity"
+            android:name=".activities.ArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".ArticleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true">
             <intent-filter>

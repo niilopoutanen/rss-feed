@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.niilopoutanen.rss_feed.SourcesFragment">
+    tools:context="com.niilopoutanen.rss_feed.fragments.SourcesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sources_recyclerview"
