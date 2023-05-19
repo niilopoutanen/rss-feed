@@ -55,7 +55,7 @@
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
     <string name="feature1">RSS-syötteet</string>
-    <string name="feature1desc">Lisää lähteisiisi julkaisijat, joita haluat seurata, ja lue heidän julkaisuja syötteeseesi.</string>
+    <string name="feature1desc">Lisää lähteisiisi julkaisijat, joita haluat seurata, ja lue heidän julkaisuja syötteestäsi.</string>
     <string name="feature2">Mukauta sovellustasi</string>
     <string name="feature2desc">Asetukset-valikko tarjoaa monia mukautusvaihtoehtoja, kuten väri-, fontti- ja toiminnallisuuden muutoksia.</string>
     <string name="feature3">Anna palautetta</string>

@@ -19,15 +19,15 @@
     <string name="sharepost">Share post</string>
 
     <string name="addcontent">Add content</string>
-    <string name="updatecontent">Update content</string>
-    <string name="contentremoved">Content removed</string>
+    <string name="updatecontent">Update source</string>
+    <string name="contentremoved">Source removed</string>
 
     <string name="feed_name">Feed name</string>
     <string name="feed_name_autofill">Optional: Leave name empty for autofill</string>
     <string name="feed_url">Feed url</string>
 
     <string name="nointernet">No internet connection available.</string>
-    <string name="nocontent">No content added.</string>
+    <string name="nocontent">No sources added.</string>
 
     <plurals name="minutes_ago">
         <item quantity="one">%d minute ago</item>
@@ -67,7 +67,7 @@
     <string name="settingsheader_article">Article</string>
 
     <string name="author_visible">Author visible</string>
-    <string name="author_sourcedesc">Show post content</string>
+    <string name="author_sourcedesc">Show post publisher</string>
     <string name="title_visible">Title visible</string>
     <string name="description_visible">Description visible</string>
     <string name="date_visible">Date visible</string>
@@ -105,7 +105,7 @@
     <string name="whatsnew">What\'s new in</string>
 
     <string name="feature1">RSS feeds</string>
-    <string name="feature1desc">Add publishers that you would like to follow to your content and read posts from them in your feed.</string>
+    <string name="feature1desc">Add publishers that you would like to follow to your sources and read posts from them in your feed.</string>
 
     <string name="feature2">Customize your app</string>
     <string name="feature2desc">Settings menu provides many customization options such as color-, font-, and functionality changes.</string>
