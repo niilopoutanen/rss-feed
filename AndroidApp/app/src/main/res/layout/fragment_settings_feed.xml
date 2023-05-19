@@ -156,13 +156,11 @@
                 android:textSize="15sp"
                 app:fontFamily="@font/inter_semibold" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switch_author"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:thumb="@drawable/switch_thumb"
-                app:track="@drawable/switch_track" />
+                android:layout_alignParentRight="true"/>
 
 
         </RelativeLayout>
@@ -184,13 +182,11 @@
                 android:textSize="15sp"
                 app:fontFamily="@font/inter_semibold" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switch_authorname"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:thumb="@drawable/switch_thumb"
-                app:track="@drawable/switch_track" />
+                android:layout_alignParentRight="true"/>
 
 
         </RelativeLayout>
@@ -212,13 +208,11 @@
                 android:textSize="15sp"
                 app:fontFamily="@font/inter_semibold" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switch_title"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:thumb="@drawable/switch_thumb"
-                app:track="@drawable/switch_track" />
+                android:layout_alignParentRight="true"/>
 
 
         </RelativeLayout>
@@ -240,13 +234,11 @@
                 android:textSize="15sp"
                 app:fontFamily="@font/inter_semibold" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switch_description"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:thumb="@drawable/switch_thumb"
-                app:track="@drawable/switch_track" />
+                android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -266,13 +258,11 @@
                 android:textSize="15sp"
                 app:fontFamily="@font/inter_semibold" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switch_date"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:thumb="@drawable/switch_thumb"
-                app:track="@drawable/switch_track" />
+                android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
         <RelativeLayout
