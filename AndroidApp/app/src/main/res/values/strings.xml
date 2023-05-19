@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">RSS-Feed</string>
+    <string name="app_version">Version: 1.0</string>
+    <string name="copyright" translatable="false">©2023 Niilo Poutanen</string>
+
+    <string name="feed_header">Feed</string>
+    <string name="settings_header">Settings</string>
+    <string name="feedsettings_header">Feed customization</string>
+    <string name="sources_header">Sources</string>
+
+    <string name="add">Add</string>
+    <string name="continua">Continue</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="update">Update</string>
+    <string name="goback">Return</string>
+    <string name="save">Save</string>
+    <string name="share">Share</string>
+    <string name="sharepost">Share post</string>
+
+    <string name="addsource">Add source</string>
+    <string name="updatesource">Update source</string>
+    <string name="sourceremoved">Source removed</string>
+
+    <string name="feed_name">Feed name</string>
+    <string name="feed_name_autofill">Optional: Leave name empty for autofill</string>
+    <string name="feed_url">Feed url</string>
+
+    <string name="nointernet">No internet connection available.</string>
+    <string name="nosources">No sources added.</string>
+
+    <plurals name="minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="hours_ago">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <string name="justnow">Just now</string>
+    <string name="imagefrom">Image from</string>
+    <string name="imagesaved">Image saved to gallery</string>
+    <string name="nowriteaccess">You have not granted write permissions to the app.</string>
+
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_additional">The theme changes when restarting the app for the next time.</string>
+    <string name="settings_feedcardstyle">Feed card style</string>
+    <string name="accentcolor">Accent color</string>
+    <string name="settings_font">Font used in articles</string>
+    <string name="settings_launchwindow">Launch window</string>
+    <string name="haptics">Haptics</string>
+    <string name="haptics_troubleshoot">Haptics not working for you? Long press the haptics setting to open troubleshooting menu.</string>
+    <string name="haptics_troubleshoot_header">Troubleshoot haptics</string>
+    <string name="haptics_troubleshoot_desc">Older Android devices do not support all the haptic features. If you experience issues with vibrations while using the app or the haptics don\'t work at all, try different types below.</string>
+
+    <string name="view_in_browser">View in browser</string>
+    <string name="open_articles_in_browser">Open articles in browser</string>
+    <string name="article_background_color">Article background color</string>
+    <string name="article_background_color_desc">Sets the background color when reading articles. Stage 1 provides higher contrast between text and background, while stage 4 reduces eye strain and has less contrast.</string>
+    <string name="articles_fullscreen">View articles in fullscreen</string>
+    <string name="cache_images">Cache images to disk</string>
+
+
+    <string name="settingsheader_feed">Feed</string>
+    <string name="settingsheader_colors">Colors</string>
+    <string name="settingsheader_functionality">Functionality</string>
+    <string name="settingsheader_article">Article</string>
+
+    <string name="author_visible">Author visible</string>
+    <string name="author_sourcedesc">Show post source</string>
+    <string name="title_visible">Title visible</string>
+    <string name="description_visible">Description visible</string>
+    <string name="date_visible">Date visible</string>
+    <string name="date_format">Date format</string>
+
+    <string-array name="theme_modes">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Follow system</item>
+    </string-array>
+    <string-array name="article_backgrounds">
+        <item>Stage 1</item>
+        <item>Stage 2</item>
+        <item>Stage 3</item>
+        <item>Stage 4</item>
+    </string-array>
+    <string-array name="fonts">
+        <item>Inter</item>
+        <item>Roboto Serif</item>
+        <item>Roboto Mono</item>
+    </string-array>
+    <string-array name="launch_windows">
+        <item>Settings</item>
+        <item>Feed</item>
+        <item>Sources</item>
+    </string-array>
+    <string-array name="date_modes">
+        <item>Long</item>
+        <item>Short</item>
+        <item>Time since</item>
+        <item>Time only</item>
+    </string-array>
+
+    <string name="whatsnew">What\'s new in</string>
+
+    <string name="feature1">RSS feeds</string>
+    <string name="feature1desc">Add publishers that you would like to follow to your sources and read posts from them in your feed.</string>
+
+    <string name="feature2">Customize your app</string>
+    <string name="feature2desc">Settings menu provides many customization options such as color-, font-, and functionality changes.</string>
+
+    <string name="feature3">Provide feedback</string>
+    <string name="feature3desc">This is the first version of the app so bugs are expected. Send feedback or request features from settings!</string>
+
+    <string name="error_url">Error reading from url.</string>
+    <string name="error_host">No internet connection or bad host url.</string>
+
+    <string name="rsslocale_news">News</string>
+
+    <string name="sendmail">Send email</string>
+    <string name="noemailfound">No email app was found. Send feed back to niilo.poutanen@gmail.com</string>
+    <string name="emailquide">Write your feedback here. Leave the app and android version info to the message.</string>
+    <string name="failed_to_parse">Failed to read article. Open in browser to read.</string>
+    <string name="themechange_desc">Changes to the app theme will be visible when opening the app for the next time</string>
+</resources>

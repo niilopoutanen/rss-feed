@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ImageViewActivity">
+
+    <com.ortiz.touchview.TouchImageView
+        android:id="@+id/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:transitionName="img" />
+
+    <LinearLayout
+        android:id="@+id/saveimg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/element_background"
+        android:gravity="center_vertical"
+        android:minWidth="80dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/icon_image"
+            android:backgroundTint="?attr/colorAccent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textColor="@color/textPrimary"
+            app:fontFamily="@font/inter_semibold" />
+    </LinearLayout>
+
+
+</RelativeLayout>
