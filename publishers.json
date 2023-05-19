@@ -1,0 +1,12 @@
+{
+   "a":{
+      "name":"9to5mac",
+      "url":"https:\/\/9to5mac.com\/feed\/",
+      "categoryId":1
+   },
+   "b":{
+      "name":"Iltalehti",
+      "url":"https:\/\/www.iltalehti.fi\/rss\/uutiset.xml",
+      "categoryId":3
+   }
+}
