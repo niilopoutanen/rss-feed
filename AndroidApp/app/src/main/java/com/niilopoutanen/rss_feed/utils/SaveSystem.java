@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.Publisher;
 import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
@@ -91,9 +90,8 @@ public class SaveSystem {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonCategory = jsonArray.getJSONObject(i);
                     String categoryName = jsonCategory.getString("name");
-                    int categoryId = jsonCategory.getInt("id");
 
-                    Category category = new Category(categoryName, categoryId);
+                    Category category = new Category(categoryName);
                     categories.add(category);
                 }
             } catch (Exception e) {
@@ -103,33 +101,4 @@ public class SaveSystem {
             callBack.onResult(categories);
         });
     }
-    public static void loadPublishers(final WebCallBack<List<Publisher>> callBack) {
-        Executor executor = Executors.newSingleThreadExecutor();
-
-        executor.execute(() -> {
-
-            List<Publisher> publishers = new ArrayList<>();
-            try {
-                URL url = new URL(URL_PUBLISHERS);
-                String result = WebHelper.fetchUrlData(url);
-
-                JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonCategory = jsonArray.getJSONObject(i);
-                    String name = jsonCategory.getString("name");
-                    String feedurl = jsonCategory.getString("url");
-                    int categoryId = jsonCategory.getInt("categoryId");
-
-                    Publisher publisher = new Publisher(name, feedurl, categoryId);
-                    publishers.add(publisher);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            callBack.onResult(publishers);
-        });
-    }
-
-
 }

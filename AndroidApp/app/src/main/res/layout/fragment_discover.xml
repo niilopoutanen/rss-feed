@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.DiscoverFragment">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/discover_recyclerview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:clipToPadding="false"/>
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/discover_header"
+            android:textColor="@color/textPrimary"
+            android:textSize="40sp"
+            app:fontFamily="@font/inter_semibold" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discover_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:clipToPadding="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="700dp"/>
+    </LinearLayout>
+
+</ScrollView>
