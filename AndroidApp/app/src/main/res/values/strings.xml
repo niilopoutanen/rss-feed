@@ -122,4 +122,6 @@
     <string name="emailquide">Write your feedback here. Leave the app and android version info to the message.</string>
     <string name="failed_to_parse">Failed to read article. Open in browser to read.</string>
     <string name="themechange_desc">Changes to the app theme will be visible when opening the app for the next time</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
