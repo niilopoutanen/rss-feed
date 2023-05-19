@@ -1,34 +1,33 @@
 <resources>
     <string name="app_name">RSS-Feed</string>
-    <string name="app_version" translatable="false">Version: 1.0</string>
+    <string name="app_version">Version: 1.0</string>
     <string name="copyright" translatable="false">©2023 Niilo Poutanen</string>
 
     <string name="feed_header">Feed</string>
     <string name="settings_header">Settings</string>
     <string name="feedsettings_header">Feed customization</string>
-    <string name="sources_header">Sources</string>
+    <string name="content_header">Content</string>
 
     <string name="add">Add</string>
     <string name="continua">Continue</string>
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
     <string name="update">Update</string>
-    <string name="delete">Delete</string>
     <string name="goback">Return</string>
     <string name="save">Save</string>
     <string name="share">Share</string>
     <string name="sharepost">Share post</string>
 
-    <string name="addsource">Add source</string>
-    <string name="updatesource">Update source</string>
-    <string name="sourceremoved">Source removed</string>
+    <string name="addcontent">Add content</string>
+    <string name="updatecontent">Update content</string>
+    <string name="contentremoved">Content removed</string>
 
-    <string name="feed_name">Feed name (Leave empty for autofill)</string>
+    <string name="feed_name">Feed name</string>
+    <string name="feed_name_autofill">Optional: Leave name empty for autofill</string>
     <string name="feed_url">Feed url</string>
 
-    <string name="today">Today at</string>
     <string name="nointernet">No internet connection available.</string>
-    <string name="nosources">No sources added.</string>
+    <string name="nocontent">No content added.</string>
 
     <plurals name="minutes_ago">
         <item quantity="one">%d minute ago</item>
@@ -43,7 +42,6 @@
     <string name="imagesaved">Image saved to gallery</string>
     <string name="nowriteaccess">You have not granted write permissions to the app.</string>
 
-    <string name="settings_material_you" translatable="false">Material You</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_additional">The theme changes when restarting the app for the next time.</string>
     <string name="settings_feedcardstyle">Feed card style</string>
@@ -69,7 +67,7 @@
     <string name="settingsheader_article">Article</string>
 
     <string name="author_visible">Author visible</string>
-    <string name="author_sourcedesc">Show post source</string>
+    <string name="author_sourcedesc">Show post content</string>
     <string name="title_visible">Title visible</string>
     <string name="description_visible">Description visible</string>
     <string name="date_visible">Date visible</string>
@@ -94,12 +92,8 @@
     <string-array name="launch_windows">
         <item>Settings</item>
         <item>Feed</item>
-        <item>Sources</item>
-    </string-array>
-    <string-array name="haptic_types">
-        <item>Mode 1</item>
-        <item>Mode 2</item>
-        <item>Mode 2</item>
+        <item>Content</item>
+        <item>Discover</item>
     </string-array>
     <string-array name="date_modes">
         <item>Long</item>
@@ -111,7 +105,7 @@
     <string name="whatsnew">What\'s new in</string>
 
     <string name="feature1">RSS feeds</string>
-    <string name="feature1desc">Add publishers that you would like to follow to your sources and read posts from them in your feed.</string>
+    <string name="feature1desc">Add publishers that you would like to follow to your content and read posts from them in your feed.</string>
 
     <string name="feature2">Customize your app</string>
     <string name="feature2desc">Settings menu provides many customization options such as color-, font-, and functionality changes.</string>
@@ -128,4 +122,6 @@
     <string name="noemailfound">No email app was found. Send feed back to niilo.poutanen@gmail.com</string>
     <string name="emailquide">Write your feedback here. Leave the app and android version info to the message.</string>
     <string name="failed_to_parse">Failed to read article. Open in browser to read.</string>
+    <string name="themechange_desc">Changes to the app theme will be visible when opening the app for the next time</string>
+    <string name="discover_header">Discover</string>
 </resources>

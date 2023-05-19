@@ -1,64 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.niilopoutanen.rss_feed.customization.SettingsFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:context="com.niilopoutanen.rss_feed.fragments.SettingsFragment">
+
     <LinearLayout
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/dropdownsettings_return"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <Button
                     android:layout_width="12dp"
                     android:layout_height="21dp"
-                    android:background="@drawable/arrow"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/arrow" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/goback"
                     android:textColor="?attr/colorAccent" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/settings_dropdown_title"
-                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fontFamily="@font/inter_semibold"
-                android:textSize="15sp"
-                android:maxEms="10"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
+                android:maxEms="10"
                 android:textColor="@color/textPrimary"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_semibold" />
         </RelativeLayout>
+
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/settings_dropdown_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
             android:minHeight="20dp"
-            android:background="@drawable/element_background">
+            android:orientation="vertical">
 
         </LinearLayout>
+
         <TextView
-            android:layout_marginTop="10dp"
+            android:id="@+id/dropdownsettings_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/dropdownsettings_details"
-            app:fontFamily="@font/inter_medium"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/textSecondary"
             android:textSize="13sp"
-            android:textColor="@color/textSecondary"/>
+            app:fontFamily="@font/inter_medium" />
     </LinearLayout>
 </ScrollView>

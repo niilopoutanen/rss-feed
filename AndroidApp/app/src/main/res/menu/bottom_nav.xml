@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/settings_header" android:icon="@drawable/icon_settings" android:id="@+id/nav_settings"/>
-    <item android:title="@string/feed_header" android:icon="@drawable/icon_feed" android:id="@+id/nav_feed"/>
-    <item android:title="@string/sources_header" android:icon="@drawable/icon_sources" android:id="@+id/nav_sources"/>
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/icon_settings"
+        android:title="@string/settings_header" />
+    <item
+        android:id="@+id/nav_feed"
+        android:icon="@drawable/icon_feed"
+        android:title="@string/feed_header" />
+    <item
+        android:id="@+id/nav_content"
+        android:icon="@drawable/icon_content"
+        android:title="@string/content_header" />
+    <item
+        android:id="@+id/nav_discover"
+        android:icon="@drawable/icon_search"
+        android:title="@string/discover_header" />
 </menu>

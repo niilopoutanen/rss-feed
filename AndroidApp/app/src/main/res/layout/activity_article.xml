@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/article_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/article_base"
-    tools:context="com.niilopoutanen.rss_feed.ArticleActivity">
+    tools:context="com.niilopoutanen.rss_feed.activities.ArticleActivity">
+
     <androidx.recyclerview.widget.RecyclerView
-        android:padding="10dp"
-        android:clipToPadding="false"
         android:id="@+id/article_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="10dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -19,5 +20,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:indeterminateTint="?attr/colorAccent"/>
+        android:indeterminateTint="?attr/colorAccent" />
 </RelativeLayout>
