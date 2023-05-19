@@ -12,4 +12,8 @@
         android:id="@+id/nav_sources"
         android:icon="@drawable/icon_sources"
         android:title="@string/sources_header" />
+    <item
+        android:id="@+id/nav_discover"
+        android:icon="@drawable/icon_sources"
+        android:title="@string/discover_header" />
 </menu>

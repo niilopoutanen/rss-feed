@@ -14,6 +14,7 @@ import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 import com.niilopoutanen.rss_feed.customization.SaveSystem;
 import com.niilopoutanen.rss_feed.customization.SettingsFragment;
 import com.niilopoutanen.rss_feed.customization.UpdateDialog;
+import com.niilopoutanen.rss_feed.sources.DiscoverFragment;
 import com.niilopoutanen.rss_feed.sources.Source;
 
 import java.util.ArrayList;
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     currentFragment = new FeedFragment(sources, preferences);
                 } else if (itemId == R.id.nav_sources) {
                     currentFragment = new SourcesFragment(MainActivity.this, preferences);
+                }
+                else if (itemId == R.id.nav_discover) {
+                    currentFragment = new DiscoverFragment(MainActivity.this, preferences);
                 }
 
                 return loadFragment(currentFragment);

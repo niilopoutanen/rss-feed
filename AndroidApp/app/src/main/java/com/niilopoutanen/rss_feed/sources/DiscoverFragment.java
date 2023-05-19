@@ -1,0 +1,39 @@
+package com.niilopoutanen.rss_feed.sources;
+
+import android.content.Context;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.customization.Preferences;
+import com.niilopoutanen.rss_feed.customization.PreferencesManager;
+
+public class DiscoverFragment extends Fragment {
+
+    FirebaseFirestore db;
+    Context appContext;
+    Preferences preferences;
+    public DiscoverFragment(Context context, Preferences preferences) {
+        this.appContext = context;
+        this.preferences = preferences;
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        db = FirebaseFirestore.getInstance();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
+        return rootView;
+    }
+}
