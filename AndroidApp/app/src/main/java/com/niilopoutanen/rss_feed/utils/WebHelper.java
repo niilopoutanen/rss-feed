@@ -83,17 +83,9 @@ public class WebHelper {
         }
 
         if (redirect) {
-            // Get the new URL from the location header field
             String newUrl = connection.getHeaderField("Location");
-
-            // Open a connection to the new URL
             connection = (HttpURLConnection) new URL(newUrl).openConnection();
-
-            // Set request method
             connection.setRequestMethod("GET");
-
-
-            // Connect to the new URL
             connection.connect();
         }
 

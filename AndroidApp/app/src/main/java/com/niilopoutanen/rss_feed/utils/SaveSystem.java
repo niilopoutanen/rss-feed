@@ -6,7 +6,9 @@ import android.util.Log;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.Publisher;
 import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.models.WebCallBack;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -15,11 +17,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SaveSystem {
     private static final String FILENAME = "rssfeed.sources";
+    private static final String URL_CATEGORIES = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/release/categories.json";
+    private static final String URL_PUBLISHERS= "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/release/publishers.json";
 
     public static void saveSources(Context context, List<Source> sources) {
         try {
@@ -66,12 +73,62 @@ public class SaveSystem {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
         return sources;
     }
-    public static List<Category> loadCategories(){
-        List<Category> categories = new ArrayList<>();
 
-        return categories;
+    public static void loadCategories(final WebCallBack<List<Category>> callBack) {
+        Executor executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+
+            List<Category> categories = new ArrayList<>();
+            try {
+                URL url = new URL(URL_CATEGORIES);
+                String result = WebHelper.fetchUrlData(url);
+
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonCategory = jsonArray.getJSONObject(i);
+                    String categoryName = jsonCategory.getString("name");
+                    int categoryId = jsonCategory.getInt("id");
+
+                    Category category = new Category(categoryName, categoryId);
+                    categories.add(category);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            callBack.onResult(categories);
+        });
+    }
+    public static void loadPublishers(final WebCallBack<List<Publisher>> callBack) {
+        Executor executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+
+            List<Publisher> publishers = new ArrayList<>();
+            try {
+                URL url = new URL(URL_PUBLISHERS);
+                String result = WebHelper.fetchUrlData(url);
+
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonCategory = jsonArray.getJSONObject(i);
+                    String name = jsonCategory.getString("name");
+                    String feedurl = jsonCategory.getString("url");
+                    int categoryId = jsonCategory.getInt("categoryId");
+
+                    Publisher publisher = new Publisher(name, feedurl, categoryId);
+                    publishers.add(publisher);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            callBack.onResult(publishers);
+        });
     }
 
 
