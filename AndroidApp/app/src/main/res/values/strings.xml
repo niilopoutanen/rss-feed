@@ -22,7 +22,8 @@
     <string name="updatesource">Update source</string>
     <string name="sourceremoved">Source removed</string>
 
-    <string name="feed_name">Feed name (Leave empty for autofill)</string>
+    <string name="feed_name">Feed name</string>
+    <string name="feed_name_autofill">Optional: Leave name empty for autofill</string>
     <string name="feed_url">Feed url</string>
 
     <string name="nointernet">No internet connection available.</string>
@@ -120,4 +121,5 @@
     <string name="noemailfound">No email app was found. Send feed back to niilo.poutanen@gmail.com</string>
     <string name="emailquide">Write your feedback here. Leave the app and android version info to the message.</string>
     <string name="failed_to_parse">Failed to read article. Open in browser to read.</string>
+    <string name="themechange_desc">Changes to the app theme will be visible when opening the app for the next time</string>
 </resources>
