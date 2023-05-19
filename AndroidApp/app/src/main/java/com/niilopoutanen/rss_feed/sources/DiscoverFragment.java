@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.sources;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,10 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.customization.Preferences;
+import com.niilopoutanen.rss_feed.customization.PreferencesManager;
 
 public class DiscoverFragment extends Fragment {
 
-    public DiscoverFragment() {
+
+    Context appContext;
+    Preferences preferences;
+    public DiscoverFragment(Context context, Preferences preferences) {
+        this.appContext = context;
+        this.preferences = preferences;
     }
 
 
