@@ -1,14 +1,17 @@
 package com.niilopoutanen.rss_feed.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Publisher {
     private String name;
     private String url;
-    private Category category;
+    private int categoryId;
 
-    public Publisher(String name, String url, Category category) {
+    public Publisher(String name, String url, int categoryId) {
         this.name = name;
         this.url = url;
-        this.category = category;
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -27,11 +30,23 @@ public class Publisher {
         this.url = url;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("name", name);
+            json.put("url", url);
+            json.put("categoryId", categoryId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

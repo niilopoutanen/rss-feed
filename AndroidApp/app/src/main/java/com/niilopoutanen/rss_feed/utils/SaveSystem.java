@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.niilopoutanen.rss_feed.models.Category;
+import com.niilopoutanen.rss_feed.models.Publisher;
 import com.niilopoutanen.rss_feed.models.Source;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -66,25 +66,13 @@ public class SaveSystem {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        ParseCategories();
         return sources;
     }
+    public static List<Category> loadCategories(){
+        List<Category> categories = new ArrayList<>();
 
-
-    public static void ParseCategories() {
-        Category tech = new Category(Category.c_TECH);
-        Category sports = new Category(Category.c_SPORTS);
-
-        JSONObject json = new JSONObject();
-        try {
-            json.put("tech", tech.toJson());
-            json.put("sports", sports.toJson());
-
-            String jsonString = json.toString();
-            Log.d("json", jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        return categories;
     }
+
 
 }
