@@ -1,14 +1,20 @@
 [
     {
-        "name": "Tech",
-        "id": 1
+        "name": "Tech"
     },
     {
-        "name": "Sports",
-        "id": 2
+        "name": "Sports"
     },
     {
-        "name": "News",
-        "id": 3
+        "name": "News"
+    },
+    {
+        "name": "Politics"
+    },
+    {
+        "name": "Science"
+    },
+    {
+        "name": "Education"
     }
 ]
