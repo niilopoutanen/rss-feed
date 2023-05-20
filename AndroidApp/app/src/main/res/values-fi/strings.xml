@@ -103,4 +103,5 @@
     <string name="discover_header">Tutki</string>
     <string name="results">Tulokset</string>
     <string name="categories">Kategoriat</string>
+    <string name="search">Hae</string>
 </resources>

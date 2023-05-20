@@ -126,4 +126,5 @@
     <string name="discover_header">Discover</string>
     <string name="categories">Categories</string>
     <string name="results">Results</string>
+    <string name="search">Search</string>
 </resources>

@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.niilopoutanen.rss_feed.R;
@@ -36,6 +38,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     DiscoverCategoryAdapter categoryAdapter;
     DiscoverResultAdapter resultAdapter;
     RecyclerView categoryRecyclerView;
+    RelativeLayout loader;
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
@@ -59,23 +62,35 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             categories = result;
 
             if(categoryAdapter != null){
-                ((Activity)appContext).runOnUiThread(() -> categoryAdapter.setCategories(categories));
+                ((Activity)appContext).runOnUiThread(() -> {
+                    categoryAdapter.setCategories(categories);
+                    if(loader != null){
+                        loader.setVisibility(View.GONE);
+                    }
+                });
             }
         });
 
     }
     private void search(String query){
+        loader.setVisibility(View.VISIBLE);
         WebHelper.fetchFeedQuery(query, result -> {
             results = FeedResult.parseResult(result);
 
             if(resultAdapter != null){
-                ((Activity)appContext).runOnUiThread(() -> resultAdapter.setResults(results));
+                ((Activity)appContext).runOnUiThread(() -> {
+                    resultAdapter.setResults(results);
+                    loader.setVisibility(View.GONE);
+                });
             }
+
+
         });
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
+        loader = rootView.findViewById(R.id.discover_progress);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
         categoryAdapter = new DiscoverCategoryAdapter(categories, this);

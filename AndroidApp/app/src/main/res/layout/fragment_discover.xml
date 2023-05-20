@@ -1,59 +1,77 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.DiscoverFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:padding="10dp"
+        android:layout_height="match_parent"
+        tools:context=".fragments.DiscoverFragment">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/discover_header"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="40sp"
+                    app:fontFamily="@font/inter_semibold" />
+            </RelativeLayout>
+
             <TextView
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/discover_header"
+                app:fontFamily="@font/inter_medium"
+                android:layout_marginBottom="5dp"
                 android:textColor="@color/textPrimary"
-                android:textSize="40sp"
-                app:fontFamily="@font/inter_semibold" />
-        </RelativeLayout>
+                android:text="@string/categories"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/discover_categories_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fontFamily="@font/inter_medium"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:text="@string/results"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/discover_results_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_marginLeft="10dp"
+    </androidx.core.widget.NestedScrollView>
+    <RelativeLayout
+        android:id="@+id/discover_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000">
+        <ProgressBar
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fontFamily="@font/inter_medium"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/textPrimary"
-            android:text="@string/categories"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/discover_categories_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:clipToPadding="false"
-            android:nestedScrollingEnabled="false" />
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fontFamily="@font/inter_medium"
-            android:textColor="@color/textPrimary"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="2dp"
-            android:text="@string/results"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:id="@+id/discover_results_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:nestedScrollingEnabled="false" />
-    </LinearLayout>
+            android:indeterminateTint="?attr/colorAccent"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>

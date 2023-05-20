@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.models.Category;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -48,7 +49,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (category.getImageUrl() == null) {
             return;
         }
-        Picasso.get().load(category.getImageUrl()).into(itemImage);
+        Picasso.get().load(category.getImageUrl()).resize(0,PreferencesManager.dpToPx(200, holder.itemView.getContext())).into(itemImage);
         holder.itemView.setOnClickListener(onClickListener);
     }
 
