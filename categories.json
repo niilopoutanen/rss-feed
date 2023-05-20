@@ -1,6 +1,7 @@
 [
     {
-        "name": "Tech"
+        "name": "Tech",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/release/categoryimages/tech.jpg"
     },
     {
         "name": "Sports"
