@@ -17,11 +17,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class WebHelper {
@@ -30,12 +33,25 @@ public class WebHelper {
     public static final int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
     public static URL formatUrl(String url) {
         try {
+            String regex = "https?://\\S+";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(url);
+            if (matcher.find()) {
+                url = matcher.group();
+            }
             // check if the URL already includes a protocol
             if (!url.startsWith("http://") && !url.startsWith("https://")) {
                 // add the http protocol to the URL
                 url = "https://" + url;
             }
-            return new URL(url);
+
+            //upgrade http to https
+            URL finalUrl = new URL(url);
+            if(finalUrl.getProtocol().equalsIgnoreCase("http")) {
+                String upgradedUrlString = "https" + finalUrl.toString().substring(4);
+                finalUrl = new URL(upgradedUrlString);
+            }
+            return finalUrl;
         } catch (MalformedURLException e) {
             return null;
         }
@@ -63,7 +79,7 @@ public class WebHelper {
         try {
             callback.onResult(future.get());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

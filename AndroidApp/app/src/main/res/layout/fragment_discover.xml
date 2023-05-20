@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 app:fontFamily="@font/inter_medium"
                 android:layout_marginBottom="5dp"
-                android:textColor="@color/textPrimary"
+                android:textColor="@color/textSecondary"
                 android:text="@string/categories"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/discover_categories_recyclerview"
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fontFamily="@font/inter_medium"
-                android:textColor="@color/textPrimary"
+                android:textColor="@color/textSecondary"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
                 android:text="@string/results"/>
