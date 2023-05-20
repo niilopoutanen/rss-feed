@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
+import com.niilopoutanen.rss_feed.utils.WebHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +54,13 @@ public class DiscoverFragment extends Fragment {
 
             if(categoryAdapter != null){
                 ((Activity)appContext).runOnUiThread(() -> categoryAdapter.setCategories(categories));
+            }
+        });
+        WebHelper.fetchFeedQuery("Tech", result -> {
+            results = FeedResult.parseResult(result);
+
+            if(resultAdapter != null){
+                ((Activity)appContext).runOnUiThread(() -> resultAdapter.setResults(results));
             }
         });
     }

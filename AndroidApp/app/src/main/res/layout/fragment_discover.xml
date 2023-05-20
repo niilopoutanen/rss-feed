@@ -25,6 +25,7 @@
             android:clipToPadding="false"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:padding="10dp"
             android:id="@+id/discover_results_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -8,7 +8,8 @@
     android:orientation="vertical"
     android:id="@+id/carousel_item_container"
     android:background="@drawable/element_background"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:layout_marginBottom="10dp">
     <TextView
         android:id="@+id/discover_result_title"
         android:layout_width="wrap_content"

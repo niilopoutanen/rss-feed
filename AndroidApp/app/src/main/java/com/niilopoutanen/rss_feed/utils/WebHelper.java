@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.utils;
 
+import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.jsoup.Jsoup;
@@ -13,7 +14,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -21,6 +25,8 @@ import java.util.concurrent.Future;
 
 public class WebHelper {
 
+    public static final String FEEDLY_ENDPOINT = "https://cloud.feedly.com/v3/search/feeds?query=";
+    public static final int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
     public static URL formatUrl(String url) {
         try {
             // check if the URL already includes a protocol
@@ -134,5 +140,21 @@ public class WebHelper {
         }
 
         return faviconUrl;
+    }
+    public static void fetchFeedQuery(String query, WebCallBack<String> callBack) {
+        Executor executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                List<FeedResult> results = new ArrayList<>();
+                URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT);
+                String result = fetchUrlData(queryUrl);
+                callBack.onResult(result);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
     }
 }

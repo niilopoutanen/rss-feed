@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,7 +28,10 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         return new ItemViewHolder(view);
     }
-
+    public void setResults(List<FeedResult> results){
+        this.results = results;
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         FeedResult result = results.get(position);
