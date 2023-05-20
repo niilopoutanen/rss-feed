@@ -19,12 +19,15 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class SaveSystem {
     private static final String FILENAME = "rssfeed.content";
-    private static final String URL_CATEGORIES = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categories.json";
+    private static final String BASEURL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/";
+    private static final String CATEGORIES_EN = "categories.json";
+    private static final String CATEGORIES_FI = "categories-fi.json";
 
     public static void saveContent(Context context, List<Content> contents) {
         try {
@@ -76,13 +79,23 @@ public class SaveSystem {
     }
 
     public static void loadCategories(final WebCallBack<List<Category>> callBack) {
+        String locale = Locale.getDefault().getLanguage();
+        String selectedLocale;
+        switch (locale){
+            default:
+                selectedLocale = CATEGORIES_EN;
+                break;
+            case "fi":
+                selectedLocale = CATEGORIES_FI;
+                break;
+        }
         Executor executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
 
             List<Category> categories = new ArrayList<>();
             try {
-                URL url = new URL(URL_CATEGORIES);
+                URL url = new URL(BASEURL + selectedLocale);
                 String result = WebHelper.fetchUrlData(url);
 
                 JSONArray jsonArray = new JSONArray(result);

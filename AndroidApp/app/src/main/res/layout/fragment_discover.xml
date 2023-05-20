@@ -21,21 +21,6 @@
                 android:textColor="@color/textPrimary"
                 android:textSize="40sp"
                 app:fontFamily="@font/inter_semibold" />
-            <RelativeLayout
-                android:id="@+id/btn_discover_language"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/element_background">
-
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="20dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/icon_language"
-                    android:backgroundTint="?attr/colorAccent" />
-            </RelativeLayout>
         </RelativeLayout>
 
         <TextView
