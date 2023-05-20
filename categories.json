@@ -24,8 +24,18 @@
         "query": "Science"
     },
     {
+        "name": "Stocks",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/stocks.jpg",
+        "query": "Stocks"
+    },
+    {
         "name": "Education",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/education.jpg",
         "query": "Education"
-
+    },
+    {
+        "name": "Gaming",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/gaming.jpg",
+        "query": "Gaming"
     }
 ]
