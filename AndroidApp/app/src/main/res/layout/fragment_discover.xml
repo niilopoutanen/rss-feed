@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.DiscoverFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,18 +18,21 @@
             android:textColor="@color/textPrimary"
             android:textSize="40sp"
             app:fontFamily="@font/inter_semibold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/discover_categories_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:padding="10dp"
             android:id="@+id/discover_results_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false" />
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
