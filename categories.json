@@ -1,24 +1,31 @@
 [
     {
-        "name": "News"
+        "name": "News",
+        "query": "News"
     },
     {
         "name": "Tech",
-        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/tech.jpg"
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/tech.jpg",
+        "query": "Tech"
     },
     {
         "name": "Sports",
-        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/sports.jpg"
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/sports.jpg",
+        "query": "Sports"
     },
     {
         "name": "Politics",
-        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg"
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg",
+        "query": "Politics"
     },
     {
         "name": "Science",
-        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/science.jpg"
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/science.jpg",
+        "query": "Science"
     },
     {
-        "name": "Education"
+        "name": "Education",
+        "query": "Education"
+
     }
 ]
