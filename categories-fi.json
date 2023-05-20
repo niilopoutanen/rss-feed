@@ -1,6 +1,7 @@
 [
     {
         "name": "Uutiset",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/news.jpg",
         "query": "Uutiset"
     },
     {
