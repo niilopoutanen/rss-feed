@@ -19,14 +19,16 @@
             android:textSize="40sp"
             app:fontFamily="@font/inter_semibold" />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/discover_recyclerview"
+            android:id="@+id/discover_categories_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:clipToPadding="false"/>
 
-        <View
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discover_results_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="700dp"/>
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"/>
     </LinearLayout>
 
 </ScrollView>

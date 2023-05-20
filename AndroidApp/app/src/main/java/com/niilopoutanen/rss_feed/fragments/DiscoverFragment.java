@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
+import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
+import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 
@@ -26,7 +29,9 @@ public class DiscoverFragment extends Fragment {
     Context appContext;
     Preferences preferences;
     List<Category> categories = new ArrayList<>();
-    DiscoverCategoryAdapter adapter;
+    List<FeedResult> results = new ArrayList<>();
+    DiscoverCategoryAdapter categoryAdapter;
+    DiscoverResultAdapter resultAdapter;
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
@@ -44,8 +49,8 @@ public class DiscoverFragment extends Fragment {
         SaveSystem.loadCategories(result -> {
             categories = result;
 
-            if(adapter != null){
-                ((Activity)appContext).runOnUiThread(() -> adapter.setCategories(categories));
+            if(categoryAdapter != null){
+                ((Activity)appContext).runOnUiThread(() -> categoryAdapter.setCategories(categories));
             }
         });
     }
@@ -54,10 +59,15 @@ public class DiscoverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
 
-        RecyclerView categoryRecyclerView = rootView.findViewById(R.id.discover_recyclerview);
-        adapter = new DiscoverCategoryAdapter(categories);
-        categoryRecyclerView.setAdapter(adapter);
+        RecyclerView categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
+        categoryAdapter = new DiscoverCategoryAdapter(categories);
+        categoryRecyclerView.setAdapter(categoryAdapter);
         categoryRecyclerView.setLayoutManager(new CarouselLayoutManager());
+
+        RecyclerView resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
+        resultAdapter = new DiscoverResultAdapter(results);
+        resultsRecyclerView.setAdapter(resultAdapter);
+        resultsRecyclerView.setLayoutManager(new LinearLayoutManager(appContext));
 
         return rootView;
     }
