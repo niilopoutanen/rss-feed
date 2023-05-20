@@ -1,0 +1,41 @@
+[
+    {
+        "name": "Uutiset",
+        "query": "Uutiset"
+    },
+    {
+        "name": "Tech",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/tech.jpg",
+        "query": "Tech"
+    },
+    {
+        "name": "Urheilu",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/sports.jpg",
+        "query": "Urheilu"
+    },
+    {
+        "name": "Politiikka",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg",
+        "query": "Politics"
+    },
+    {
+        "name": "Tiede",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/science.jpg",
+        "query": "Science"
+    },
+    {
+        "name": "Pörssi",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/stocks.jpg",
+        "query": "Stocks"
+    },
+    {
+        "name": "Opiskelu",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/education.jpg",
+        "query": "Education"
+    },
+    {
+        "name": "Videopelit",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/gaming.jpg",
+        "query": "Gaming"
+    }
+]
