@@ -17,6 +17,7 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
+import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
@@ -45,6 +46,12 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            preferences = (Preferences) savedInstanceState.getSerializable("preferences");
+        }
+        if(appContext == null){
+            appContext = getContext();
+        }
         loadData();
     }
     private void loadData(){
@@ -90,5 +97,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         int position = categoryRecyclerView.getChildAdapterPosition(v);
         Category categoryClicked = categories.get(position);
         search(categoryClicked.getQuery());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("preferences", preferences);
     }
 }
