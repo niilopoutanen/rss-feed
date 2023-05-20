@@ -124,4 +124,6 @@
     <string name="failed_to_parse">Failed to read article. Open in browser to read.</string>
     <string name="themechange_desc">Changes to the app theme will be visible when opening the app for the next time</string>
     <string name="discover_header">Discover</string>
+    <string name="categories">Categories</string>
+    <string name="results">Results</string>
 </resources>

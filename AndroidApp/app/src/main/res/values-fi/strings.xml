@@ -101,4 +101,6 @@
     <string name="failed_to_parse">Artikkelin avaaminen ei onnistunut. Avaa artikkeli selaimessa lukeaksesi se.</string>
     <string name="themechange_desc">Muutokset sovelluksen teemaan tulevat näkyviin kun avaat sovelluksen seuraavan kerran.</string>
     <string name="discover_header">Tutki</string>
+    <string name="results">Tulokset</string>
+    <string name="categories">Kategoriat</string>
 </resources>

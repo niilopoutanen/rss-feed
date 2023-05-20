@@ -18,16 +18,32 @@
             android:textColor="@color/textPrimary"
             android:textSize="40sp"
             app:fontFamily="@font/inter_semibold" />
-
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fontFamily="@font/inter_medium"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/textPrimary"
+            android:text="@string/categories"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/discover_categories_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:clipToPadding="false"
             android:nestedScrollingEnabled="false" />
-
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fontFamily="@font/inter_medium"
+            android:textColor="@color/textPrimary"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/results"/>
         <androidx.recyclerview.widget.RecyclerView
-            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:id="@+id/discover_results_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
