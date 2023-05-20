@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiscoverFragment extends Fragment {
+public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
     Context appContext;
     Preferences preferences;
@@ -35,6 +35,7 @@ public class DiscoverFragment extends Fragment {
     List<FeedResult> results = new ArrayList<>();
     DiscoverCategoryAdapter categoryAdapter;
     DiscoverResultAdapter resultAdapter;
+    RecyclerView categoryRecyclerView;
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
@@ -56,7 +57,10 @@ public class DiscoverFragment extends Fragment {
                 ((Activity)appContext).runOnUiThread(() -> categoryAdapter.setCategories(categories));
             }
         });
-        WebHelper.fetchFeedQuery("Tech", result -> {
+
+    }
+    private void search(String query){
+        WebHelper.fetchFeedQuery(query, result -> {
             results = FeedResult.parseResult(result);
 
             if(resultAdapter != null){
@@ -64,13 +68,12 @@ public class DiscoverFragment extends Fragment {
             }
         });
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
 
-        RecyclerView categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
-        categoryAdapter = new DiscoverCategoryAdapter(categories);
+        categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
+        categoryAdapter = new DiscoverCategoryAdapter(categories, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
         categoryRecyclerView.setLayoutManager(new CarouselLayoutManager());
 
@@ -80,5 +83,14 @@ public class DiscoverFragment extends Fragment {
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(appContext));
 
         return rootView;
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+        int position = categoryRecyclerView.getChildAdapterPosition(v);
+        Category categoryClicked = categories.get(position);
+        search(categoryClicked.getQuery());
     }
 }

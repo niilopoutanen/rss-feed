@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.squareup.picasso.Picasso;
 
@@ -20,9 +21,10 @@ import java.util.List;
 
 public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public List<Category> categories;
-
-    public DiscoverCategoryAdapter(List<Category> categories){
+    private View.OnClickListener onClickListener;
+    public DiscoverCategoryAdapter(List<Category> categories, View.OnClickListener onClickListener) {
         this.categories = categories;
+        this.onClickListener = onClickListener;
     }
     @NonNull
     @Override
@@ -47,6 +49,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
             return;
         }
         Picasso.get().load(category.getImageUrl()).into(itemImage);
+        holder.itemView.setOnClickListener(onClickListener);
     }
 
     @Override
