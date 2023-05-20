@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Category;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -42,6 +43,10 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         ImageView itemImage = ((ItemViewHolder)holder).imageView;
         TextView itemTitle = ((ItemViewHolder)holder).textView;
         itemTitle.setText(category.getName());
+        if (category.getImageUrl() == null) {
+            return;
+        }
+        Picasso.get().load(category.getImageUrl()).into(itemImage);
     }
 
     @Override

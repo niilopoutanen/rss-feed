@@ -90,8 +90,12 @@ public class SaveSystem {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonCategory = jsonArray.getJSONObject(i);
                     String categoryName = jsonCategory.getString("name");
-
-                    Category category = new Category(categoryName);
+                    String categoryImgUrl = null;
+                    try{
+                        categoryImgUrl = jsonCategory.getString("img");
+                    }
+                    catch (Exception ignored){}
+                    Category category = new Category(categoryName, categoryImgUrl);
                     categories.add(category);
                 }
             } catch (Exception e) {

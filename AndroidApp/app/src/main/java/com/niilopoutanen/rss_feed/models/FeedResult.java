@@ -24,8 +24,6 @@ public class FeedResult {
     public String visualUrl;
     public int estimatedEngagement;
     public ArrayList<String> topics;
-    public String twitterScreenName;
-    public int twitterFollowers;
     public static List<FeedResult> parseResult(String result) {
         List<FeedResult> results = new ArrayList<>();
         try {
