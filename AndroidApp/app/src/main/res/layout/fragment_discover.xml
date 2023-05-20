@@ -9,15 +9,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
+        <RelativeLayout
             android:padding="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/discover_header"
-            android:textColor="@color/textPrimary"
-            android:textSize="40sp"
-            app:fontFamily="@font/inter_semibold" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discover_header"
+                android:textColor="@color/textPrimary"
+                android:textSize="40sp"
+                app:fontFamily="@font/inter_semibold" />
+            <RelativeLayout
+                android:id="@+id/btn_discover_language"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/element_background">
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/icon_language"
+                    android:backgroundTint="?attr/colorAccent" />
+            </RelativeLayout>
+        </RelativeLayout>
+
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
