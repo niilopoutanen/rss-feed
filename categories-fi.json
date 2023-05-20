@@ -16,17 +16,17 @@
     {
         "name": "Politiikka",
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg",
-        "query": "Politics"
+        "query": "Politiikka"
     },
     {
         "name": "Tiede",
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/science.jpg",
-        "query": "Science"
+        "query": "Tiede"
     },
     {
         "name": "Pörssi",
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/stocks.jpg",
-        "query": "Stocks"
+        "query": "Pörssi"
     },
     {
         "name": "Opiskelu",
