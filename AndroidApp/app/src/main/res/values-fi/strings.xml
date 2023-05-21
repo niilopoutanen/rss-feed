@@ -15,9 +15,9 @@
     <string name="save">Tallenna</string>
     <string name="share">Jaa</string>
     <string name="sharepost">Jaa julkaisu</string>
-    <string name="addcontent">Lisää lähde</string>
-    <string name="updatecontent">Päivitä lähde</string>
-    <string name="contentremoved">Lähde poistettu</string>
+    <string name="addsource">Lisää lähde</string>
+    <string name="updatesource">Päivitä lähde</string>
+    <string name="sourceremoved">Lähde poistettu</string>
     <string name="feed_name">Nimi</string>
     <string name="feed_name_autofill">Valinnainen: Jätä nimi tyhjäksi automaattista täyttöä varten.</string>
     <string name="feed_url">Syötteen URL-osoite</string>

@@ -18,9 +18,9 @@
     <string name="share">Share</string>
     <string name="sharepost">Share post</string>
 
-    <string name="addcontent">Add content</string>
-    <string name="updatecontent">Update source</string>
-    <string name="contentremoved">Source removed</string>
+    <string name="addsource">Add source</string>
+    <string name="updatesource">Update source</string>
+    <string name="sourceremoved">Source removed</string>
 
     <string name="feed_name">Feed name</string>
     <string name="feed_name_autofill">Optional: Leave name empty for autofill</string>

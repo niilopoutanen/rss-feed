@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.carousel.CarouselLayoutManager;
@@ -23,7 +21,6 @@ import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
@@ -31,7 +28,6 @@ import com.niilopoutanen.rss_feed.utils.WebHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class DiscoverFragment extends Fragment implements View.OnClickListener {
 

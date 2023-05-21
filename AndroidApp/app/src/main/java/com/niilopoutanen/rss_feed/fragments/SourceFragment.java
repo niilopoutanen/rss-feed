@@ -14,24 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.models.Content;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 
 import java.util.List;
 
-public class ContentFragment extends Fragment {
+public class SourceFragment extends Fragment {
 
-    private List<Content> contents;
+    private List<Source> sources;
     private SourceAdapter adapter;
     private Context appContext;
     private Preferences preferences;
 
-    public ContentFragment(Context context, Preferences preferences) {
+    public SourceFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
     }
 
-    public ContentFragment() {
+    public SourceFragment() {
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ContentFragment extends Fragment {
         if (appContext == null) {
             appContext = getContext();
         }
-        contents = SaveSystem.loadContent(appContext);
+        sources = SaveSystem.loadContent(appContext);
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
@@ -54,7 +54,7 @@ public class ContentFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_content, container, false);
         RecyclerView sourcesContainer = rootView.findViewById(R.id.sources_recyclerview);
 
-        adapter = new SourceAdapter(contents, preferences, sourcesContainer);
+        adapter = new SourceAdapter(sources, preferences, sourcesContainer);
         sourcesContainer.setAdapter(adapter);
         sourcesContainer.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 

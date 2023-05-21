@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Content;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.jsoup.Jsoup;
@@ -20,8 +20,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ContentValidator {
-    public static void validate(String contentUrl, String contentName, WebCallBack<Content> contentCallBack, Context context) {
+public class SourceValidator {
+    public static void validate(String contentUrl, String contentName, WebCallBack<Source> contentCallBack, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
         List<URL> urlsToCheck = new ArrayList<>();
@@ -72,7 +72,7 @@ public class ContentValidator {
                     if (validatedName.isEmpty()) {
                         return null;
                     } else {
-                        return new Content(validatedName, finalUrl.toString(), validatedIcon);
+                        return new Source(validatedName, finalUrl.toString(), validatedIcon);
                     }
                 }, executor);
             }

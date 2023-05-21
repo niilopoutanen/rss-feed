@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.Content;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.json.JSONArray;
@@ -29,11 +29,11 @@ public class SaveSystem {
     private static final String CATEGORIES_EN = "categories.json";
     private static final String CATEGORIES_FI = "categories-fi.json";
 
-    public static void saveContent(Context context, List<Content> contents) {
+    public static void saveContent(Context context, List<Source> sources) {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(contents);
+            oos.writeObject(sources);
             oos.close();
             fos.close();
         } catch (IOException e) {
@@ -41,17 +41,17 @@ public class SaveSystem {
         }
     }
 
-    public static void saveContent(Context context, Content content) {
-        List<Content> contents;
+    public static void saveContent(Context context, Source source) {
+        List<Source> sources;
         try {
-            contents = loadContent(context);
+            sources = loadContent(context);
 
-            contents.removeIf(contentObj -> contentObj.getFeedUrl().equals(content.getFeedUrl()));
+            sources.removeIf(contentObj -> contentObj.getFeedUrl().equals(source.getFeedUrl()));
 
-            contents.add(content);
+            sources.add(source);
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(contents);
+            oos.writeObject(sources);
             oos.close();
             fos.close();
         } catch (IOException e) {
@@ -59,14 +59,14 @@ public class SaveSystem {
         }
     }
 
-    public static List<Content> loadContent(Context context) {
-        List<Content> contents = new ArrayList<>();
+    public static List<Source> loadContent(Context context) {
+        List<Source> sources = new ArrayList<>();
         try {
             File file = context.getFileStreamPath(FILENAME);
             if (file != null && file.exists()) {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                contents = (List<Content>) ois.readObject();
+                sources = (List<Source>) ois.readObject();
                 ois.close();
                 fis.close();
             }
@@ -75,7 +75,7 @@ public class SaveSystem {
             e.printStackTrace();
         }
 
-        return contents;
+        return sources;
     }
 
     public static void loadCategories(final WebCallBack<List<Category>> callBack) {
