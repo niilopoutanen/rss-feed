@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.models;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class RSSPost implements Comparable<RSSPost> {
@@ -75,6 +76,10 @@ public class RSSPost implements Comparable<RSSPost> {
     }
 
     public Date getPublishTime() {
+        if (publishTime == null) {
+            Calendar calendar = Calendar.getInstance();
+            publishTime = calendar.getTime();
+        }
         return publishTime;
     }
 

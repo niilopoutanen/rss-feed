@@ -105,4 +105,5 @@
     <string name="categories">Kategoriat</string>
     <string name="search">Hae</string>
     <string name="sourceadded">Lähde lisätty.</string>
+    <string name="sourcealreadyadded">Lähde on jo lisätty.</string>
 </resources>
