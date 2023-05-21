@@ -44,15 +44,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder> {
-
-    private static final int VIEW_TYPE_HEADER = 0;
-    private static final int VIEW_TYPE_ITEM = 1;
     private List<Source> sources;
     private Context context;
     private final Preferences preferences;
 
     private final RecyclerView recyclerView;
     private Source tempSource;
+    private View.OnLongClickListener onLongClickListener;
     private final Runnable undoDelete = new Runnable() {
         @Override
         public void run() {
@@ -60,17 +58,18 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                 sources = SaveSystem.loadContent(context);
                 sources.add(tempSource);
                 SaveSystem.saveContent(context, sources);
-                notifyItemChanged(sources.size() - 1);
+                notifyItemChanged(sources.size());
                 tempSource = null;
             }
         }
     };
 
 
-    public SourceAdapter(List<Source> sources, Preferences preferences, RecyclerView recyclerView) {
+    public SourceAdapter(List<Source> sources, Preferences preferences, RecyclerView recyclerView, View.OnLongClickListener onClickListener) {
         this.sources = sources;
         this.preferences = preferences;
         this.recyclerView = recyclerView;
+        this.onLongClickListener = onClickListener;
     }
 
     @NonNull
@@ -79,191 +78,70 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        if (viewType == VIEW_TYPE_HEADER) {
-            View headerView = inflater.inflate(R.layout.header_content, parent, false);
-            ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(40, 40, 40, 40);
-            headerView.setLayoutParams(layoutParams);
+        View sourceItemView = inflater.inflate(R.layout.source_item, parent, false);
+        ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(40, 0, 40, 40);
+        sourceItemView.setLayoutParams(layoutParams);
 
-            return new SourceAdapter.HeaderViewHolder(headerView);
-        } else {
-            View sourceItemView = inflater.inflate(R.layout.source_item, parent, false);
-            ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(40, 0, 40, 40);
-            sourceItemView.setLayoutParams(layoutParams);
-
-            return new SourceAdapter.ViewHolder(sourceItemView);
-        }
+        return new SourceAdapter.ViewHolder(sourceItemView);
     }
 
+    public void updateSources(List<Source> sources){
+        this.sources = sources;
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull SourceAdapter.ViewHolder holder, int position) {
-        if (getItemViewType(position) == VIEW_TYPE_ITEM) {
-            Source source = sources.get(position - 1);
+        Source source = sources.get(position);
 
-            TextView sourceName = holder.sourceName;
-            ImageView sourceImage = holder.sourceImage;
-            View container = holder.itemView;
+        TextView sourceName = holder.sourceName;
+        ImageView sourceImage = holder.sourceImage;
+        View container = holder.itemView;
 
-            container.setOnLongClickListener(view -> {
-                PreferencesManager.vibrate(view, preferences, HapticFeedbackConstants.LONG_PRESS, context);
-                askForSourceInput(source);
-                return true;
-            });
-            container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("source", source);
-                    bundle.putSerializable("preferences", preferences);
-                    Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
-                    feedIntent.putExtras(bundle);
-                    PreferencesManager.vibrate(v, preferences, context);
-                    v.getContext().startActivity(feedIntent);
-                }
-            });
-
-            sourceName.setText(source.getName());
-            if (source.getImageUrl() != null) {
-                sourceImage.setVisibility(View.VISIBLE);
-                Picasso.get().load(source.getImageUrl()).resize(70, 70).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
-            } else {
-                sourceImage.setVisibility(View.GONE);
-            }
-        } else if (getItemViewType(position) == VIEW_TYPE_HEADER) {
-            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            RelativeLayout addNewButton = headerViewHolder.addNewButton;
-
-            addNewButton.setOnClickListener(v -> {
-                PreferencesManager.vibrate(v, preferences, context);
-                askForSourceInput(null);
-            });
-        }
-
-
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 0) {
-            return VIEW_TYPE_HEADER;
-        } else {
-            return VIEW_TYPE_ITEM;
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        if (sources.isEmpty()) {
-            return 1; // return 1 for the header
-        } else {
-            return sources.size() + 1;
-        }
-    }
-
-    public void askForSourceInput(Source source) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyle);
-        bottomSheetDialog.setContentView(R.layout.dialog_addsource);
-
-        TextView sourceAdd = bottomSheetDialog.findViewById(R.id.sourcedialog_add);
-        TextView sourceCancel = bottomSheetDialog.findViewById(R.id.sourcedialog_cancel);
-
-        EditText urlInput = bottomSheetDialog.findViewById(R.id.sourcedialog_feedUrl);
-        EditText nameInput = bottomSheetDialog.findViewById(R.id.sourcedialog_feedName);
-
-        LinearLayout sheetLayout = bottomSheetDialog.findViewById(R.id.addsource_layout);
-        if (source != null) {
-            urlInput.setText(source.getFeedUrl());
-            nameInput.setText(source.getName());
-            sourceAdd.setText(context.getString(R.string.update));
-            TextView title = bottomSheetDialog.findViewById(R.id.sourcedialog_title);
-            title.setText(context.getString(R.string.updatesource));
-        }
-        sourceAdd.setOnClickListener(new View.OnClickListener() {
+        container.setOnLongClickListener(onLongClickListener);
+        container.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(urlInput.getWindowToken(), 0);
-
-                for (int i = 0; i < sheetLayout.getChildCount(); i++) {
-                    View childView = sheetLayout.getChildAt(i);
-                    Object tag = childView.getTag();
-                    if (tag != null && tag.equals("error-message")) {
-                        sheetLayout.removeView(childView);
-                    }
-                }
-                ProgressBar progress = bottomSheetDialog.findViewById(R.id.sourcedialog_progress);
-
-
-                String inputUrl = urlInput.getText().toString();
-                String inputName = nameInput.getText().toString();
-                if (inputUrl.isEmpty()) {
-                    sheetLayout.addView(SourceValidator.createErrorMessage(context, "URL can't be empty"));
-                    return;
-                }
-                sourceCancel.setOnClickListener(null);
-
-                sourceAdd.setVisibility(View.GONE);
-                progress.setVisibility(View.VISIBLE);
-                bottomSheetDialog.setCancelable(false);
-                SourceValidator.validate(inputUrl, inputName, new WebCallBack<Source>() {
-                    @Override
-                    public void onResult(Source result) {
-                        Activity activity = (Activity) context;
-                        if (result != null) {
-                            if (source == null) {
-                                SaveSystem.saveContent(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
-                            } else {
-                                sources = SaveSystem.loadContent(context);
-                                sources.removeIf(oldSource -> Objects.equals(oldSource.getName(), source.getName()));
-                                sources.add(new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
-                                SaveSystem.saveContent(context, sources);
-                            }
-                            sources = SaveSystem.loadContent(context);
-                            bottomSheetDialog.dismiss();
-
-                            activity.runOnUiThread(() -> notifyDataSetChanged());
-                        } else {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progress.setVisibility(View.GONE);
-                                    sourceAdd.setVisibility(View.VISIBLE);
-                                    bottomSheetDialog.setCancelable(true);
-                                    sheetLayout.addView(SourceValidator.createErrorMessage(context, "Error with adding source. Please try again"));
-                                }
-                            });
-
-                        }
-
-                    }
-                }, context);
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("source", source);
+                bundle.putSerializable("preferences", preferences);
+                Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
+                feedIntent.putExtras(bundle);
+                PreferencesManager.vibrate(v, preferences, context);
+                v.getContext().startActivity(feedIntent);
             }
         });
 
-        sourceCancel.setOnClickListener(view -> bottomSheetDialog.dismiss());
-
-        bottomSheetDialog.show();
+        sourceName.setText(source.getName());
+        if (source.getImageUrl() != null) {
+            sourceImage.setVisibility(View.VISIBLE);
+            Picasso.get().load(source.getImageUrl()).resize(70, 70).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
+        } else {
+            sourceImage.setVisibility(View.GONE);
+        }
     }
+
+
+    @Override
+    public int getItemCount() {
+        return sources.size();
+    }
+
 
     public Source removeItem(int position) {
         List<Source> sourcesTemp = SaveSystem.loadContent(context);
-        Source sourceToRemove = sourcesTemp.get(position - 1);
+        Source sourceToRemove = sourcesTemp.get(position);
         sourcesTemp.remove(sourceToRemove);
         SaveSystem.saveContent(context, sourcesTemp);
-        sources.remove(position - 1);
+        sources.remove(position);
         notifyItemRemoved(position);
 
         return sourceToRemove;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         public TextView sourceName;
         public ImageView sourceImage;
 
@@ -274,22 +152,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         }
     }
 
-    public static class HeaderViewHolder extends ViewHolder {
-
-        public RelativeLayout header;
-        public RelativeLayout addNewButton;
-
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
-
-            addNewButton = itemView.findViewById(R.id.addNewButton);
-
-            header = itemView.findViewById(R.id.actionbar_sources);
-        }
-    }
-
     public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
-
         private final Context context;
 
         public SwipeToDeleteCallback(Context context) {
