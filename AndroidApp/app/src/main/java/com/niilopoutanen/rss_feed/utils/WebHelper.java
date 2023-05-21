@@ -173,7 +173,7 @@ public class WebHelper {
         executor.execute(() -> {
             try {
                 List<FeedResult> results = new ArrayList<>();
-                URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT);
+                URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
                 String result = fetchUrlData(queryUrl);
                 callBack.onResult(result);
             }
