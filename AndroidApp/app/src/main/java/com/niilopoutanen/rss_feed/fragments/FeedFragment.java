@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
@@ -171,15 +170,15 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
         recyclerView = rootView.findViewById(R.id.feed_container);
 
-        TextView header = rootView.findViewById(R.id.feed_header);
-        if (viewTitle == null) {
+        if (viewTitle == null && appContext != null) {
             viewTitle = appContext.getString(R.string.feed_header);
+        } else if (viewTitle == null) {
+            viewTitle = "Feed";
         }
-        else {
-            header.setTextSize(20);
+        if (viewTitle.length() > 20) {
+            viewTitle = viewTitle.substring(0, 20) + "...";
         }
-        header.setText(viewTitle);
-        adapter = new FeedAdapter(preferences, feed, appContext, this);
+        adapter = new FeedAdapter(preferences, feed, appContext, viewTitle, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
