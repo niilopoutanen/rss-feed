@@ -26,19 +26,15 @@ import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolder> {
 
-    private static final int VIEW_TYPE_HEADER = 0;
-    private static final int VIEW_TYPE_ITEM = 1;
     private static final int IMAGE_MARGIN_PX = 20;
     private static int imageWidth;
     private final RecyclerViewInterface recyclerViewInterface;
     private final List<RSSPost> feed;
-    private final String viewTitle;
     private final Preferences preferences;
     private final Context appContext;
 
-    public FeedAdapter(Preferences preferences, List<RSSPost> posts, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface) {
+    public FeedAdapter(Preferences preferences, List<RSSPost> posts, Context context, RecyclerViewInterface recyclerViewInterface) {
         feed = posts;
-        this.viewTitle = viewTitle;
         this.recyclerViewInterface = recyclerViewInterface;
         this.preferences = preferences;
         this.appContext = context;
@@ -67,18 +63,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         View view;
         int margin = PreferencesManager.dpToPx(FeedFragment.CARDMARGIN_DP, context);
         int gap = PreferencesManager.dpToPx(FeedFragment.CARDGAP_DP, context);
-        switch (viewType) {
-            case VIEW_TYPE_HEADER:
-                view = inflater.inflate(R.layout.header_feed, parent, false);
-                setViewMargins(view, margin, margin, margin, margin);
-                return new HeaderViewHolder(view);
-            case VIEW_TYPE_ITEM:
-                view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
-                setViewMargins(view, margin, 0, margin, gap);
-                return new LargeViewHolder(view, recyclerViewInterface);
-            default:
-                throw new IllegalArgumentException("Invalid view type: " + viewType);
-        }
+
+        view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
+        setViewMargins(view, margin, 0, margin, gap);
+        return new LargeViewHolder(view, recyclerViewInterface);
     }
 
     private void setViewMargins(View view, int left, int top, int right, int bottom) {
@@ -86,23 +74,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         layoutParams.setMargins(left, top, right, bottom);
         view.setLayoutParams(layoutParams);
     }
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 0) {
-            return VIEW_TYPE_HEADER;
-        } else {
-            return VIEW_TYPE_ITEM;
-        }
-    }
 
     @Override
     public void onBindViewHolder(@NonNull LargeViewHolder holder, int position) {
-        if (getItemViewType(position) == VIEW_TYPE_HEADER) {
-            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.header.setText(viewTitle);
-            return;
-        }
-        RSSPost post = feed.get(position - 1);
+        RSSPost post = feed.get(position);
         TextView title = holder.titleTextView;
         TextView desc = holder.descTextView;
         TextView author = holder.author;
@@ -172,11 +147,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
 
     @Override
     public int getItemCount() {
-        if (feed.isEmpty()) {
-            return 1;
-        } else {
-            return feed.size();
-        }
+        return feed.size();
     }
 
     public static class LargeViewHolder extends RecyclerView.ViewHolder {
@@ -193,7 +164,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
 
             itemView.setOnClickListener(v -> {
                 if (recyclerViewInterface != null) {
-                    int position = getAdapterPosition() - 1;
+                    int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position);
                     }
@@ -211,14 +182,4 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
 
     }
 
-    public static class HeaderViewHolder extends LargeViewHolder {
-
-        public TextView header;
-
-        public HeaderViewHolder(View itemView) {
-            super(itemView, null);
-
-            header = itemView.findViewById(R.id.feed_header);
-        }
-    }
 }
