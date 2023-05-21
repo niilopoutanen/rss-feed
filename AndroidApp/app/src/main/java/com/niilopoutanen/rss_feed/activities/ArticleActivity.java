@@ -69,6 +69,7 @@ public class ArticleActivity extends AppCompatActivity {
             publisher = extras.getString("postPublisher");
             publishTime = (Date) extras.get("postPublishTime");
             preferences = (Preferences) extras.get("preferences");
+            title = extras.getString("title");
 
             if (savedInstanceState != null) {
                 resultData = savedInstanceState.getString("content");
@@ -88,23 +89,18 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            ReadabilityThread(postUrl, new WebCallBack<String>() {
-                @Override
-                public void onResult(String result) {
-                    runOnUiThread(() -> {
-                        articleLoader.setVisibility(View.GONE);
+            ReadabilityThread(postUrl, result -> runOnUiThread(() -> {
+                articleLoader.setVisibility(View.GONE);
 
-                        if (result.equals("404")) {
-                            createTextView(new SpannedString(getString(R.string.error_url)));
-                        } else if (result.equals("408")) {
-                            createTextView(new SpannedString(getString(R.string.error_host)));
-                        } else {
-                            resultData = result;
-                            initializeContent(result);
-                        }
-                    });
+                if (result.equals("404")) {
+                    initializeContent(getString(R.string.error_url));
+                } else if (result.equals("408")) {
+                    initializeContent(getString(R.string.error_host));
+                } else {
+                    resultData = result;
+                    initializeContent(result);
                 }
-            });
+            }));
         } else {
             initializeContent(resultData);
         }
