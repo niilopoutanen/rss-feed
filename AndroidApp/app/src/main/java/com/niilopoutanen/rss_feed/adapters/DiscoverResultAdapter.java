@@ -2,14 +2,17 @@ package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
@@ -17,6 +20,7 @@ import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.models.Content;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
 
 import java.util.List;
@@ -42,26 +46,36 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         FeedResult result = results.get(position);
+        Context context = holder.itemView.getContext();
 
         TextView title = ((ItemViewHolder)holder).title;
         TextView desc = ((ItemViewHolder)holder).desc;
         RelativeLayout add = ((ItemViewHolder)holder).addBtn;
 
+        List<Content> savedSources = SaveSystem.loadContent(context);
+        for(Content source : savedSources){
+            if(source.getFeedUrl().equalsIgnoreCase(WebHelper.formatUrl(result.feedId).toString())){
+                result.alreadyAdded = true;
+                View icon = add.findViewById(R.id.discover_result_add_icon);
+                Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
+                icon.setBackground(checkmark);
+            }
+        }
+
         title.setText(result.title);
         desc.setText(result.description);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        add.setOnClickListener(v -> {
+            if(!result.alreadyAdded){
+                SaveSystem.saveContent(v.getContext(), new Content(result.title, WebHelper.formatUrl(result.feedId).toString(), result.iconUrl));
+                Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
             }
         });
         holder.itemView.setOnClickListener(v -> {
-            Context context = title.getContext();
-            Intent intent = new Intent(context, FeedActivity.class);
+            Intent intent = new Intent(v.getContext(), FeedActivity.class);
             Content tempSource = new Content(result.title, WebHelper.formatUrl(result.feedId).toString(), result.visualUrl);
             intent.putExtra("source", tempSource);
-            intent.putExtra("preferences", PreferencesManager.loadPreferences(context));
-            context.startActivity(intent);
+            intent.putExtra("preferences", PreferencesManager.loadPreferences(v.getContext()));
+            v.getContext().startActivity(intent);
         });
     }
 

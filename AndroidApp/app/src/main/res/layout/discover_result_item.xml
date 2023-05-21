@@ -39,6 +39,7 @@
         android:layout_height="40dp"
         android:background="@drawable/element_background">
         <View
+            android:id="@+id/discover_result_add_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerInParent="true"

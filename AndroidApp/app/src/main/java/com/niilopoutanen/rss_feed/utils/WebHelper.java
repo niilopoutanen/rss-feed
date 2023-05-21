@@ -39,23 +39,32 @@ public class WebHelper {
             if (matcher.find()) {
                 url = matcher.group();
             }
-            // check if the URL already includes a protocol
+            // Check if the URL already includes a protocol
             if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                // add the http protocol to the URL
+                // Add the http protocol to the URL
                 url = "https://" + url;
             }
 
-            //upgrade http to https
+            // Upgrade http to https
             URL finalUrl = new URL(url);
-            if(finalUrl.getProtocol().equalsIgnoreCase("http")) {
+            if (finalUrl.getProtocol().equalsIgnoreCase("http")) {
                 String upgradedUrlString = "https" + finalUrl.toString().substring(4);
                 finalUrl = new URL(upgradedUrlString);
             }
+
+            // Remove trailing "/" if it exists
+            String urlString = finalUrl.toString();
+            if (urlString.endsWith("/")) {
+                urlString = urlString.substring(0, urlString.length() - 1);
+                finalUrl = new URL(urlString);
+            }
+
             return finalUrl;
         } catch (MalformedURLException e) {
             return null;
         }
     }
+
 
     public static URL getBaseUrl(URL url) {
         try {
