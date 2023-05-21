@@ -14,6 +14,11 @@
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/sports.jpg",
         "query": "Sports"
     },
+        {
+        "name": "Cars",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/cars.jpg",
+        "query": "Cars"
+    },
     {
         "name": "Politics",
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg",
