@@ -34,9 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     private List<FeedResult> discoverResults = new ArrayList<>();
 
     //Feed type
-    public static final int FEED = 2;
-    private FeedActivity feedAdapter;
-    private List<RSSPost> feedPosts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +50,6 @@ public class SearchActivity extends AppCompatActivity {
                     discoverResultAdapter = new DiscoverResultAdapter(discoverResults);
                     searchRecyclerView.setAdapter(discoverResultAdapter);
                     activeType = DISCOVER;
-                    break;
-                case FEED:
-                    // Code for handling Feed type
-                    activeType = FEED;
                     break;
             }
         }
