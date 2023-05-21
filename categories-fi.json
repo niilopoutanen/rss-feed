@@ -24,6 +24,11 @@
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg",
         "query": "Politiikka"
     },
+        {
+        "name": "Elokuvat",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/movies.jpg",
+        "query": "Movies"
+    },
     {
         "name": "Tiede",
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/science.jpg",
