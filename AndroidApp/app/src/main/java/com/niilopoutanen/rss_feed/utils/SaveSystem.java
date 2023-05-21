@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
 
 public class SaveSystem {
     private static final String FILENAME = "rssfeed.content";
-    private static final String FILENAME_CATEGORYCACHE = "rssfeed.categorycache";
+    private static final String FILENAME_CATEGORYCACHCE = "rssfeed.categorycache";
     private static final String BASEURL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/";
     private static final String CATEGORIES_EN = "categories.json";
     private static final String CATEGORIES_FI = "categories-fi.json";
@@ -93,26 +93,26 @@ public class SaveSystem {
                 break;
         }
         final String[] result = new String[1];
-        if(isFileCached(context, FILENAME_CATEGORYCACHE)){
+        if(isFileCached(context, FILENAME_CATEGORYCACHCE)){
             result[0] = loadCachedCategories(context);
             callBack.onResult(parseJsonCategories(result[0]));
         }
+        else{
+            Executor executor = Executors.newSingleThreadExecutor();
 
-        Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
 
-        executor.execute(() -> {
+                try {
+                    URL url = new URL(BASEURL + selectedLocale);
+                    result[0] = WebHelper.fetchUrlData(url);
+                    cacheCategories(context, result[0]);
+                    callBack.onResult(parseJsonCategories(result[0]));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            try {
-                URL url = new URL(BASEURL + selectedLocale);
-                result[0] = WebHelper.fetchUrlData(url);
-                cacheCategories(context, result[0]);
-                callBack.onResult(parseJsonCategories(result[0]));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        });
-
+            });
+        }
 
     }
     private static List<Category> parseJsonCategories(String result){
@@ -144,7 +144,7 @@ public class SaveSystem {
     public static void cacheCategories(Context context, String json) {
         File cacheDir = context.getCacheDir();
 
-        File file = new File(cacheDir, FILENAME_CATEGORYCACHE);
+        File file = new File(cacheDir, FILENAME_CATEGORYCACHCE);
 
         try {
             FileOutputStream outputStream = new FileOutputStream(file);
@@ -157,7 +157,7 @@ public class SaveSystem {
     public static String loadCachedCategories(Context context) {
         File cacheDir = context.getCacheDir();
 
-        File file = new File(cacheDir, FILENAME_CATEGORYCACHE);
+        File file = new File(cacheDir, FILENAME_CATEGORYCACHCE);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
