@@ -1,7 +1,9 @@
 package com.niilopoutanen.rss_feed.fragments;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
@@ -101,6 +105,14 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(appContext));
+
+        View searchBtn = rootView.findViewById(R.id.discover_search);
+        searchBtn.setOnClickListener(v -> {
+            Intent searchIntent = new Intent(appContext, SearchActivity.class);
+            searchIntent.putExtra("type", SearchActivity.DISCOVER);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, searchBtn, "search");
+            appContext.startActivity(searchIntent, options.toBundle());
+        });
 
         return rootView;
     }
