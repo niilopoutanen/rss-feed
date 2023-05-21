@@ -23,6 +23,7 @@ import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
 
@@ -64,12 +65,12 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             if(categoryAdapter != null){
                 ((Activity)appContext).runOnUiThread(() -> {
                     categoryAdapter.setCategories(categories);
-                    if(loader != null){
-                        loader.setVisibility(View.GONE);
-                    }
                 });
             }
-        });
+            if(loader != null){
+                loader.setVisibility(View.GONE);
+            }
+        }, appContext);
 
     }
     private void search(String query){
@@ -110,6 +111,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             appContext.startActivity(searchIntent, options.toBundle());
         });
 
+        if(categories.size() > 0){
+            loader.setVisibility(View.GONE);
+        }
         return rootView;
     }
 
