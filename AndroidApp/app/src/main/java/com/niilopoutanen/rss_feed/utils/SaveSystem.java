@@ -10,11 +10,9 @@ import com.niilopoutanen.rss_feed.models.WebCallBack;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -27,7 +25,6 @@ import java.util.concurrent.Executors;
 
 public class SaveSystem {
     private static final String FILENAME = "rssfeed.content";
-    private static final String FILENAME_CATEGORYCACHCE = "rssfeed.categorycache";
     private static final String BASEURL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/";
     private static final String CATEGORIES_EN = "categories.json";
     private static final String CATEGORIES_FI = "categories-fi.json";
@@ -81,7 +78,7 @@ public class SaveSystem {
         return sources;
     }
 
-    public static void loadCategories(final WebCallBack<List<Category>> callBack, Context context) {
+    public static void loadCategories(final WebCallBack<List<Category>> callBack) {
         String locale = Locale.getDefault().getLanguage();
         String selectedLocale;
         switch (locale){
@@ -92,84 +89,33 @@ public class SaveSystem {
                 selectedLocale = CATEGORIES_FI;
                 break;
         }
-        final String[] result = new String[1];
-        if(isFileCached(context, FILENAME_CATEGORYCACHCE)){
-            result[0] = loadCachedCategories(context);
-            callBack.onResult(parseJsonCategories(result[0]));
-        }
-        else{
-            Executor executor = Executors.newSingleThreadExecutor();
+        Executor executor = Executors.newSingleThreadExecutor();
 
-            executor.execute(() -> {
+        executor.execute(() -> {
 
-                try {
-                    URL url = new URL(BASEURL + selectedLocale);
-                    result[0] = WebHelper.fetchUrlData(url);
-                    cacheCategories(context, result[0]);
-                    callBack.onResult(parseJsonCategories(result[0]));
-                } catch (Exception e) {
-                    e.printStackTrace();
+            List<Category> categories = new ArrayList<>();
+            try {
+                URL url = new URL(BASEURL + selectedLocale);
+                String result = WebHelper.fetchUrlData(url);
+
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonCategory = jsonArray.getJSONObject(i);
+                    String categoryName = jsonCategory.getString("name");
+                    String categoryQuery = jsonCategory.getString("query");
+                    String categoryImgUrl = null;
+                    try{
+                        categoryImgUrl = jsonCategory.getString("img");
+                    }
+                    catch (Exception ignored){}
+                    Category category = new Category(categoryName, categoryImgUrl, categoryQuery);
+                    categories.add(category);
                 }
-
-            });
-        }
-
-    }
-    private static List<Category> parseJsonCategories(String result){
-        List<Category> categories = new ArrayList<>();
-        try{
-            JSONArray jsonArray = new JSONArray(result);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonCategory = jsonArray.getJSONObject(i);
-                String categoryName = jsonCategory.getString("name");
-                String categoryQuery = jsonCategory.getString("query");
-                String categoryImgUrl = null;
-                try{
-                    categoryImgUrl = jsonCategory.getString("img");
-                }
-                catch (Exception ignored){}
-                Category category = new Category(categoryName, categoryImgUrl, categoryQuery);
-                categories.add(category);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }
-        catch (Exception ignored){}
 
-        return categories;
-    }
-    public static boolean isFileCached(Context context, String fileName) {
-        File cacheDir = context.getCacheDir();
-        File file = new File(cacheDir, fileName);
-        return file.exists();
-    }
-    public static void cacheCategories(Context context, String json) {
-        File cacheDir = context.getCacheDir();
-
-        File file = new File(cacheDir, FILENAME_CATEGORYCACHCE);
-
-        try {
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(json.getBytes());
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public static String loadCachedCategories(Context context) {
-        File cacheDir = context.getCacheDir();
-
-        File file = new File(cacheDir, FILENAME_CATEGORYCACHCE);
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return stringBuilder.toString();
+            callBack.onResult(categories);
+        });
     }
 }
