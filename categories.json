@@ -25,6 +25,11 @@
         "query": "Politics"
     },
     {
+        "name": "Movies",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/movies.jpg",
+        "query": "Movies"
+    },
+    {
         "name": "Science",
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/science.jpg",
         "query": "Science"
