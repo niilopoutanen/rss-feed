@@ -15,6 +15,11 @@
         "query": "Urheilu"
     },
     {
+        "name": "Autot",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/cars.jpg",
+        "query": "Cars"
+    },
+    {
         "name": "Politiikka",
         "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg",
         "query": "Politiikka"
