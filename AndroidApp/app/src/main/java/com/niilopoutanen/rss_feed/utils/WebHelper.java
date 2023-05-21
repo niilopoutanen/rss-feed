@@ -167,15 +167,15 @@ public class WebHelper {
 
         return faviconUrl;
     }
-    public static void fetchFeedQuery(String query, WebCallBack<String> callBack) {
+    public static void fetchFeedQuery(String query, WebCallBack<List<FeedResult>> callBack) {
         Executor executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
             try {
-                List<FeedResult> results = new ArrayList<>();
                 URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
                 String result = fetchUrlData(queryUrl);
-                callBack.onResult(result);
+                List<FeedResult> results = FeedResult.parseResult(result);
+                callBack.onResult(results);
             }
             catch (Exception e) {
                 e.printStackTrace();

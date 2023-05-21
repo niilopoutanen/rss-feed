@@ -75,8 +75,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     private void search(String query){
         loader.setVisibility(View.VISIBLE);
         WebHelper.fetchFeedQuery(query, result -> {
-            results = FeedResult.parseResult(result);
-
+            results = result;
             if(resultAdapter != null){
                 ((Activity)appContext).runOnUiThread(() -> {
                     resultAdapter.setResults(results);

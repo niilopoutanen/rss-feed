@@ -83,7 +83,7 @@ public class SearchActivity extends AppCompatActivity {
         if(activeType == DISCOVER){
             if(query.length() > 0){
                 WebHelper.fetchFeedQuery(query, result -> {
-                    discoverResults = FeedResult.parseResult(result);
+                    discoverResults = result;
 
                     if(discoverResultAdapter != null){
                         runOnUiThread(() -> {
