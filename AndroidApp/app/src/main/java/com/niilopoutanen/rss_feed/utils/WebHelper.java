@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.utils;
 
+import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.jsoup.Jsoup;
@@ -13,26 +14,57 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class WebHelper {
 
+    public static final String FEEDLY_ENDPOINT = "https://cloud.feedly.com/v3/search/feeds?query=";
+    public static final int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
     public static URL formatUrl(String url) {
         try {
-            // check if the URL already includes a protocol
+            String regex = "https?://\\S+";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(url);
+            if (matcher.find()) {
+                url = matcher.group();
+            }
+            // Check if the URL already includes a protocol
             if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                // add the http protocol to the URL
+                // Add the http protocol to the URL
                 url = "https://" + url;
             }
-            return new URL(url);
+
+            // Upgrade http to https
+            URL finalUrl = new URL(url);
+            if (finalUrl.getProtocol().equalsIgnoreCase("http")) {
+                String upgradedUrlString = "https" + finalUrl.toString().substring(4);
+                finalUrl = new URL(upgradedUrlString);
+            }
+
+            // Remove trailing "/" if it exists
+            String urlString = finalUrl.toString();
+            if (urlString.endsWith("/")) {
+                urlString = urlString.substring(0, urlString.length() - 1);
+                finalUrl = new URL(urlString);
+            }
+
+            return finalUrl;
         } catch (MalformedURLException e) {
             return null;
         }
     }
+
 
     public static URL getBaseUrl(URL url) {
         try {
@@ -56,7 +88,7 @@ public class WebHelper {
         try {
             callback.onResult(future.get());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -134,5 +166,21 @@ public class WebHelper {
         }
 
         return faviconUrl;
+    }
+    public static void fetchFeedQuery(String query, WebCallBack<String> callBack) {
+        Executor executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                List<FeedResult> results = new ArrayList<>();
+                URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT);
+                String result = fetchUrlData(queryUrl);
+                callBack.onResult(result);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
     }
 }

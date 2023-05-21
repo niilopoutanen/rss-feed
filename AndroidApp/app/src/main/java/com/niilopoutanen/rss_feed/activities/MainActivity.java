@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.fragments.ContentFragment;
-import com.niilopoutanen.rss_feed.models.Content;
+import com.niilopoutanen.rss_feed.fragments.SourceFragment;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
@@ -26,7 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Preferences preferences;
-    List<Content> contents = new ArrayList<>();
+    List<Source> sources = new ArrayList<>();
     private Fragment currentFragment;
 
     @Override
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
         }
-        contents = SaveSystem.loadContent(MainActivity.this);
+        sources = SaveSystem.loadContent(MainActivity.this);
 
 
         // Navigation bar init
@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = new FeedFragment(contents, preferences);
+                    currentFragment = new FeedFragment(sources, preferences);
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
-                    currentFragment = new ContentFragment(this, preferences);
+                    currentFragment = new SourceFragment(this, preferences);
                     bottomNav.setSelectedItemId(R.id.nav_content);
                     break;
                 case DISCOVER:
@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
                     currentFragment = new SettingsFragment(MainActivity.this);
                 }
                 else if (itemId == R.id.nav_feed) {
-                    contents = SaveSystem.loadContent(MainActivity.this);
-                    currentFragment = new FeedFragment(contents, preferences);
+                    sources = SaveSystem.loadContent(MainActivity.this);
+                    currentFragment = new FeedFragment(sources, preferences);
                 }
                 else if (itemId == R.id.nav_content) {
-                    currentFragment = new ContentFragment(MainActivity.this, preferences);
+                    currentFragment = new SourceFragment(MainActivity.this, preferences);
                 }
                 else if (itemId == R.id.nav_discover) {
                     currentFragment = new DiscoverFragment(MainActivity.this, preferences);

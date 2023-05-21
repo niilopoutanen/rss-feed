@@ -20,7 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
-import com.niilopoutanen.rss_feed.models.Content;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
@@ -41,7 +41,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     public static final int CARDMARGIN_DP = 10;
     public static final int CARDGAP_DP = 20;
-    List<Content> contents = new ArrayList<>();
+    List<Source> sources = new ArrayList<>();
     List<RSSPost> feed = new ArrayList<>();
     String viewTitle;
     RecyclerView recyclerView;
@@ -53,15 +53,15 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     @ColorInt
     int colorAccent;
 
-    public FeedFragment(List<Content> contents, Preferences preferences) {
-        this.contents = contents;
+    public FeedFragment(List<Source> sources, Preferences preferences) {
+        this.sources = sources;
         this.preferences = preferences;
     }
 
-    public FeedFragment(Content content, Preferences preferences) {
+    public FeedFragment(Source source, Preferences preferences) {
         //single source view
-        contents.add(content);
-        viewTitle = content.getName();
+        sources.add(source);
+        viewTitle = source.getName();
         this.preferences = preferences;
     }
 
@@ -75,7 +75,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
-            contents = (List<Content>) savedInstanceState.getSerializable("sources");
+            sources = (List<Source>) savedInstanceState.getSerializable("sources");
         }
 
         assert appContext != null;
@@ -111,7 +111,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private boolean checkValidity() {
-        if (contents.size() == 0) {
+        if (sources.size() == 0) {
             Toast.makeText(appContext, appContext.getString(R.string.nocontent), Toast.LENGTH_LONG).show();
             return false;
         }
@@ -137,14 +137,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         // Submit each update to the executor
         executor.execute(() -> {
-            for (Content content : contents) {
-                WebHelper.getFeedData(content.getFeedUrl(), new WebCallBack<String>() {
+            for (Source source : sources) {
+                WebHelper.getFeedData(source.getFeedUrl(), new WebCallBack<String>() {
                     @Override
                     public void onResult(String result) {
                         List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
                         for (RSSPost post : posts) {
-                            post.setSourceName(content.getName());
+                            post.setSourceName(source.getName());
                             feed.add(post);
                         }
 
@@ -234,7 +234,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
-        outState.putSerializable("sources", new ArrayList<>(contents));
+        outState.putSerializable("sources", new ArrayList<>(sources));
     }
 
     @Override

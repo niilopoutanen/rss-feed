@@ -4,8 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.Publisher;
-import com.niilopoutanen.rss_feed.models.Content;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.json.JSONArray;
@@ -20,19 +19,21 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class SaveSystem {
     private static final String FILENAME = "rssfeed.content";
-    private static final String URL_CATEGORIES = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/release/categories.json";
-    private static final String URL_PUBLISHERS= "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/release/publishers.json";
+    private static final String BASEURL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/";
+    private static final String CATEGORIES_EN = "categories.json";
+    private static final String CATEGORIES_FI = "categories-fi.json";
 
-    public static void saveContent(Context context, List<Content> contents) {
+    public static void saveContent(Context context, List<Source> sources) {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(contents);
+            oos.writeObject(sources);
             oos.close();
             fos.close();
         } catch (IOException e) {
@@ -40,17 +41,17 @@ public class SaveSystem {
         }
     }
 
-    public static void saveContent(Context context, Content content) {
-        List<Content> contents;
+    public static void saveContent(Context context, Source source) {
+        List<Source> sources;
         try {
-            contents = loadContent(context);
+            sources = loadContent(context);
 
-            contents.removeIf(contentObj -> contentObj.getFeedUrl().equals(content.getFeedUrl()));
+            sources.removeIf(contentObj -> contentObj.getFeedUrl().equals(source.getFeedUrl()));
 
-            contents.add(content);
+            sources.add(source);
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(contents);
+            oos.writeObject(sources);
             oos.close();
             fos.close();
         } catch (IOException e) {
@@ -58,14 +59,14 @@ public class SaveSystem {
         }
     }
 
-    public static List<Content> loadContent(Context context) {
-        List<Content> contents = new ArrayList<>();
+    public static List<Source> loadContent(Context context) {
+        List<Source> sources = new ArrayList<>();
         try {
             File file = context.getFileStreamPath(FILENAME);
             if (file != null && file.exists()) {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                contents = (List<Content>) ois.readObject();
+                sources = (List<Source>) ois.readObject();
                 ois.close();
                 fis.close();
             }
@@ -74,26 +75,40 @@ public class SaveSystem {
             e.printStackTrace();
         }
 
-        return contents;
+        return sources;
     }
 
     public static void loadCategories(final WebCallBack<List<Category>> callBack) {
+        String locale = Locale.getDefault().getLanguage();
+        String selectedLocale;
+        switch (locale){
+            default:
+                selectedLocale = CATEGORIES_EN;
+                break;
+            case "fi":
+                selectedLocale = CATEGORIES_FI;
+                break;
+        }
         Executor executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
 
             List<Category> categories = new ArrayList<>();
             try {
-                URL url = new URL(URL_CATEGORIES);
+                URL url = new URL(BASEURL + selectedLocale);
                 String result = WebHelper.fetchUrlData(url);
 
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonCategory = jsonArray.getJSONObject(i);
                     String categoryName = jsonCategory.getString("name");
-                    int categoryId = jsonCategory.getInt("id");
-
-                    Category category = new Category(categoryName, categoryId);
+                    String categoryQuery = jsonCategory.getString("query");
+                    String categoryImgUrl = null;
+                    try{
+                        categoryImgUrl = jsonCategory.getString("img");
+                    }
+                    catch (Exception ignored){}
+                    Category category = new Category(categoryName, categoryImgUrl, categoryQuery);
                     categories.add(category);
                 }
             } catch (Exception e) {
@@ -103,33 +118,4 @@ public class SaveSystem {
             callBack.onResult(categories);
         });
     }
-    public static void loadPublishers(final WebCallBack<List<Publisher>> callBack) {
-        Executor executor = Executors.newSingleThreadExecutor();
-
-        executor.execute(() -> {
-
-            List<Publisher> publishers = new ArrayList<>();
-            try {
-                URL url = new URL(URL_PUBLISHERS);
-                String result = WebHelper.fetchUrlData(url);
-
-                JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonCategory = jsonArray.getJSONObject(i);
-                    String name = jsonCategory.getString("name");
-                    String feedurl = jsonCategory.getString("url");
-                    int categoryId = jsonCategory.getInt("categoryId");
-
-                    Publisher publisher = new Publisher(name, feedurl, categoryId);
-                    publishers.add(publisher);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            callBack.onResult(publishers);
-        });
-    }
-
-
 }
