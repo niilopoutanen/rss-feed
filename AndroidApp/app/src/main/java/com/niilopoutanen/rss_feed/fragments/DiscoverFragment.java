@@ -38,7 +38,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     DiscoverCategoryAdapter categoryAdapter;
     DiscoverResultAdapter resultAdapter;
     RecyclerView categoryRecyclerView;
-    RelativeLayout loader;
+    View loader;
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
