@@ -138,15 +138,18 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         // Submit each update to the executor
         executor.execute(() -> {
             for (Source source : sources) {
-                WebHelper.getFeedData(source.getFeedUrl(), result -> {
-                    List<RSSPost> posts = RSSParser.parseRssFeed(result);
+                WebHelper.getFeedData(source.getFeedUrl(), new WebCallBack<String>() {
+                    @Override
+                    public void onResult(String result) {
+                        List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
-                    for (RSSPost post : posts) {
-                        post.setSourceName(source.getName());
-                        feed.add(post);
+                        for (RSSPost post : posts) {
+                            post.setSourceName(source.getName());
+                            feed.add(post);
+                        }
+
+                        Collections.sort(feed);
                     }
-
-                    Collections.sort(feed);
                 });
 
             }
@@ -183,20 +186,32 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         recyclerviewRefresh = rootView.findViewById(R.id.recyclerview_refresher);
         recyclerviewRefresh.setColorSchemeColors(colorAccent);
         recyclerviewRefresh.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
-        recyclerviewRefresh.setOnRefreshListener(() -> updateFeed(() -> {
-            if (adapter != null) {
-                adapter.notifyDataSetChanged();
+        recyclerviewRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateFeed(new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (adapter != null) {
+                            adapter.notifyDataSetChanged();
+                        }
+                        recyclerviewRefresh.setRefreshing(false);
+                    }
+                });
+
             }
-            recyclerviewRefresh.setRefreshing(false);
-        }));
+        });
 
 
         boolean canLoad = checkValidity();
         if (canLoad) {
-            updateFeed(() -> {
-                adapter.notifyDataSetChanged();
-                recyclerviewRefresh.setRefreshing(false);
+            updateFeed(new Callback() {
+                @Override
+                public void onSuccess() {
+                    adapter.notifyDataSetChanged();
+                    recyclerviewRefresh.setRefreshing(false);
 
+                }
             });
         }
 

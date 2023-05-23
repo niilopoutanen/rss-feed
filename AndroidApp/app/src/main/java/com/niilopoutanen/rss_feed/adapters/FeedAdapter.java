@@ -24,11 +24,10 @@ import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 
-public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolder> {
 
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
-    private static final int VIEW_TYPE_INFO = 2;
     private static final int IMAGE_MARGIN_PX = 20;
     private static int imageWidth;
     private final RecyclerViewInterface recyclerViewInterface;
@@ -59,17 +58,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
         }
     }
-    public void setInfoData(String infoMessage) {
-        RSSPost infoPost = new RSSPost();
-        infoPost.setDescription(infoMessage);
-        feed.clear();
-        feed.add(infoPost);
-        notifyItemInserted(0);
-    }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LargeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
@@ -83,10 +75,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case VIEW_TYPE_ITEM:
                 view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
                 setViewMargins(view, margin, 0, margin, gap);
-                return new FeedCardHolder(view, recyclerViewInterface);
-            case VIEW_TYPE_INFO:
-                view = inflater.inflate(R.layout.recyclerview_info, parent, false);
-                return new InfoViewHolder(view);
+                return new LargeViewHolder(view, recyclerViewInterface);
             default:
                 throw new IllegalArgumentException("Invalid view type: " + viewType);
         }
@@ -99,36 +88,27 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && feed.isEmpty()) {
-            return VIEW_TYPE_INFO;
-        } else if (position == 0) {
+        if (position == 0) {
             return VIEW_TYPE_HEADER;
         } else {
             return VIEW_TYPE_ITEM;
         }
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        RSSPost post = feed.get(position - 1);
-
+    public void onBindViewHolder(@NonNull LargeViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.header.setText(viewTitle);
             return;
         }
-        else if(getItemViewType(position) == VIEW_TYPE_INFO){
-            InfoViewHolder infoViewHolder = (InfoViewHolder) holder;
-            infoViewHolder.text.setText(post.getDescription());
-        }
-        FeedCardHolder feedCardHolder = ((FeedCardHolder) holder);
-        TextView title = feedCardHolder.titleTextView;
-        TextView desc = feedCardHolder.descTextView;
-        TextView author = feedCardHolder.author;
-        TextView date = feedCardHolder.date;
-        View container = feedCardHolder.container;
-        ImageView image = feedCardHolder.image;
+        RSSPost post = feed.get(position - 1);
+        TextView title = holder.titleTextView;
+        TextView desc = holder.descTextView;
+        TextView author = holder.author;
+        TextView date = holder.date;
+        View container = holder.container;
+        ImageView image = holder.image;
 
         if (!preferences.s_feedcard_authorvisible || !preferences.s_feedcard_datevisible) {
             desc.setMaxLines(3);
@@ -139,7 +119,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         desc.setVisibility(preferences.s_feedcard_descvisible ? View.VISIBLE : View.GONE);
         date.setVisibility(preferences.s_feedcard_datevisible ? View.VISIBLE : View.GONE);
 
-        date.setText(PreferencesManager.formatDate(post.getPublishTime(), preferences.s_feedcard_datestyle, feedCardHolder.titleTextView.getContext()));
+        date.setText(PreferencesManager.formatDate(post.getPublishTime(), preferences.s_feedcard_datestyle, holder.titleTextView.getContext()));
         title.setText(post.getTitle());
         desc.setText(post.getDescription());
         if (post.getAuthor() != null && !preferences.s_feedcard_authorname) {
@@ -168,7 +148,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             int targetHeight = 0;
             if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.SMALL) {
-                targetHeight = PreferencesManager.dpToPx(100, feedCardHolder.titleTextView.getContext());
+                targetHeight = PreferencesManager.dpToPx(100, holder.titleTextView.getContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -199,7 +179,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public static class FeedCardHolder extends RecyclerView.ViewHolder {
+    public static class LargeViewHolder extends RecyclerView.ViewHolder {
 
         public TextView titleTextView;
         public TextView descTextView;
@@ -208,7 +188,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public ImageView image;
         public View container;
 
-        public FeedCardHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
+        public LargeViewHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             itemView.setOnClickListener(v -> {
@@ -231,20 +211,14 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    public static class HeaderViewHolder extends LargeViewHolder {
+
         public TextView header;
 
         public HeaderViewHolder(View itemView) {
-            super(itemView);
-            header = itemView.findViewById(R.id.feed_header);
-        }
-    }
-    public static class InfoViewHolder extends RecyclerView.ViewHolder {
-        public TextView text;
+            super(itemView, null);
 
-        public InfoViewHolder(View itemView) {
-            super(itemView);
-            text = itemView.findViewById(R.id.recyclerview_info_text);
+            header = itemView.findViewById(R.id.feed_header);
         }
     }
 }
