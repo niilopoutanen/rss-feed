@@ -117,14 +117,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     private boolean checkValidity() {
         if (sources.size() == 0) {
-            showError(appContext.getString(R.string.nosources), appContext.getString(R.string.nosourcesmsg), ERROR_TYPES.NOSOURCES);
+            showError(ERROR_TYPES.NOSOURCES);
             return false;
         }
 
         ConnectivityManager connectionManager = appContext.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
-            showError(appContext.getString(R.string.nointernet), appContext.getString(R.string.nointernetmsg), ERROR_TYPES.NOINTERNET);
+            showError(ERROR_TYPES.NOINTERNET);
             return false;
         } else {
             return true;
@@ -167,17 +167,19 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         executor = null;
     }
-    private void showError(String message, String desc, ERROR_TYPES type){
+    private void showError(ERROR_TYPES type){
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
-        dialog.setTitle(message);
-        dialog.setMessage(desc);
         dialog.setNegativeButton(appContext.getString(R.string.cancel), (dialog1, which) -> dialog1.dismiss());
         switch (type){
             case NOSOURCES:
-                dialog.setPositiveButton(appContext.getString(R.string.add), (dialog1, which) -> dialog1.dismiss());
+                dialog.setPositiveButton("OK", (dialog1, which) -> dialog1.dismiss());
+                dialog.setTitle(appContext.getString(R.string.nosources));
+                dialog.setMessage(appContext.getString(R.string.nosourcesmsg));
                 break;
 
             case NOINTERNET:
+                dialog.setTitle(appContext.getString(R.string.nointernet));
+                dialog.setMessage(appContext.getString(R.string.nointernetmsg));
                 dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
                     dialog1.dismiss();
                     updateFeed();
@@ -238,9 +240,5 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (executor != null) {
             executor.shutdownNow();
         }
-    }
-
-    interface Callback {
-        void onSuccess();
     }
 }
