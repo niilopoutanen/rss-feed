@@ -169,7 +169,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
     private void showError(ERROR_TYPES type){
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
-        dialog.setNegativeButton(appContext.getString(R.string.cancel), (dialog1, which) -> dialog1.dismiss());
+        dialog.setNegativeButton(appContext.getString(R.string.close), (dialog1, which) -> dialog1.dismiss());
         switch (type){
             case NOSOURCES:
                 dialog.setPositiveButton("OK", (dialog1, which) -> dialog1.dismiss());
