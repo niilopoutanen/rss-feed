@@ -114,7 +114,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             recyclerView.smoothScrollToPosition(0);
         }
     }
-
     private boolean checkValidity() {
         if (sources.size() == 0) {
             showError(ERROR_TYPES.NOSOURCES);
@@ -167,6 +166,11 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         executor = null;
     }
+
+    /**
+     * This method shows a error message on screen
+     * @param type Type of the error message that will show
+     */
     private void showError(ERROR_TYPES type){
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
         dialog.setNegativeButton(appContext.getString(R.string.close), (dialog1, which) -> dialog1.dismiss());
@@ -205,12 +209,10 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
-
         recyclerviewRefresh = rootView.findViewById(R.id.recyclerview_refresher);
         recyclerviewRefresh.setColorSchemeColors(colorAccent);
         recyclerviewRefresh.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
         recyclerviewRefresh.setOnRefreshListener(() -> updateFeed());
-
 
         updateFeed();
         return rootView;
@@ -236,6 +238,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onPause() {
+        //stop the thread loading when exiting the fragment
         super.onPause();
         if (executor != null) {
             executor.shutdownNow();
