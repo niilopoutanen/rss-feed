@@ -27,7 +27,7 @@
     <string name="feed_url">Feed url</string>
 
     <string name="nointernet">No internet connection available.</string>
-    <string name="nocontent">No sources added.</string>
+    <string name="nosources">No sources added.</string>
 
     <plurals name="minutes_ago">
         <item quantity="one">%d minute ago</item>
@@ -128,4 +128,8 @@
     <string name="results">Results</string>
     <string name="search">Search</string>
     <string name="sourceadded">Source added.</string>
+    <string name="sourcealreadyadded">Source already added.</string>
+    <string name="nointernetmsg">Feed can\'t be loaded. Connect to internet and try again.</string>
+    <string name="nosourcesmsg">You have not added any sources to your feed yet. Go to the content- or discover-tab to add some.</string>
+    <string name="tryagain">Try again</string>
 </resources>

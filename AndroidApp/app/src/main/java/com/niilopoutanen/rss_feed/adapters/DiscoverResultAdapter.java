@@ -67,6 +67,12 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             if(!result.alreadyAdded){
                 SaveSystem.saveContent(v.getContext(), new Source(result.title, WebHelper.formatUrl(result.feedId).toString(), result.iconUrl));
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
+                View icon = add.findViewById(R.id.discover_result_add_icon);
+                Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
+                icon.setBackground(checkmark);
+            }
+            else{
+                Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourcealreadyadded), Toast.LENGTH_LONG).show();
             }
         });
         holder.itemView.setOnClickListener(v -> {

@@ -22,7 +22,7 @@
     <string name="feed_name_autofill">Valinnainen: Jätä nimi tyhjäksi automaattista täyttöä varten.</string>
     <string name="feed_url">Syötteen URL-osoite</string>
     <string name="nointernet">Ei internet-yhteyttä.</string>
-    <string name="nocontent">Yhtään lähdettä ei ole lisätty.</string>
+    <string name="nosources">Yhtään lähdettä ei ole lisätty.</string>
     <string name="justnow">Juuri nyt</string>
     <string name="imagefrom">Kuva lähteestä</string>
     <string name="imagesaved">Kuva tallennettu galleriaan</string>
@@ -105,4 +105,8 @@
     <string name="categories">Kategoriat</string>
     <string name="search">Hae</string>
     <string name="sourceadded">Lähde lisätty.</string>
+    <string name="sourcealreadyadded">Lähde on jo lisätty.</string>
+    <string name="nointernetmsg">Syötettä ei voitu ladata. Yhdistä internettiin ja yritä uudelleen.</string>
+    <string name="nosourcesmsg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
+    <string name="tryagain">Yritä uudelleen</string>
 </resources>

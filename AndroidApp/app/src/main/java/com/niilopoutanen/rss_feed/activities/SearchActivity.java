@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
@@ -27,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     EditText searchField;
     RecyclerView searchRecyclerView;
     int activeType;
+    ProgressBar loader;
 
     //Discover type
     public static final int DISCOVER = 1;
@@ -34,18 +36,15 @@ public class SearchActivity extends AppCompatActivity {
     private List<FeedResult> discoverResults = new ArrayList<>();
 
     //Feed type
-    public static final int FEED = 2;
-    private FeedActivity feedAdapter;
-    private List<RSSPost> feedPosts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
         PreferencesManager.setSavedTheme(this, PreferencesManager.loadPreferences(this));
+        setContentView(R.layout.activity_search);
         searchRecyclerView = findViewById(R.id.search_recyclerview);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        loader = findViewById(R.id.search_progress);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             switch (extras.getInt("type")) {
@@ -53,10 +52,6 @@ public class SearchActivity extends AppCompatActivity {
                     discoverResultAdapter = new DiscoverResultAdapter(discoverResults);
                     searchRecyclerView.setAdapter(discoverResultAdapter);
                     activeType = DISCOVER;
-                    break;
-                case FEED:
-                    // Code for handling Feed type
-                    activeType = FEED;
                     break;
             }
         }
@@ -84,14 +79,16 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void search(String query){
+        loader.setVisibility(View.VISIBLE);
         if(activeType == DISCOVER){
             if(query.length() > 0){
                 WebHelper.fetchFeedQuery(query, result -> {
-                    discoverResults = FeedResult.parseResult(result);
+                    discoverResults = result;
 
                     if(discoverResultAdapter != null){
                         runOnUiThread(() -> {
                             discoverResultAdapter.setResults(discoverResults);
+                            loader.setVisibility(View.GONE);
                         });
                     }
                 });
