@@ -24,7 +24,7 @@ import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
 
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
@@ -61,7 +61,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
 
     @NonNull
     @Override
-    public LargeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
@@ -75,7 +75,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
             case VIEW_TYPE_ITEM:
                 view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
                 setViewMargins(view, margin, 0, margin, gap);
-                return new LargeViewHolder(view, recyclerViewInterface);
+                return new ItemViewHolder(view, recyclerViewInterface);
             default:
                 throw new IllegalArgumentException("Invalid view type: " + viewType);
         }
@@ -96,7 +96,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LargeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.header.setText(viewTitle);
@@ -179,7 +179,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         }
     }
 
-    public static class LargeViewHolder extends RecyclerView.ViewHolder {
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         public TextView titleTextView;
         public TextView descTextView;
@@ -188,7 +188,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
         public ImageView image;
         public View container;
 
-        public LargeViewHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
+        public ItemViewHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             itemView.setOnClickListener(v -> {
@@ -211,7 +211,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.LargeViewHolde
 
     }
 
-    public static class HeaderViewHolder extends LargeViewHolder {
+    public static class HeaderViewHolder extends ItemViewHolder {
 
         public TextView header;
 
