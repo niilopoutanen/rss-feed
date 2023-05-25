@@ -31,6 +31,12 @@ public class WebHelper {
 
     public static final String FEEDLY_ENDPOINT = "https://cloud.feedly.com/v3/search/feeds?query=";
     public static final int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
+
+    /**
+     * Format's a URL to valid format. (HTTP to HTTPS, extra chars removed)
+     * @param url URL to format
+     * @return formatted URL object
+     */
     public static URL formatUrl(String url) {
         try {
             String regex = "https?://\\S+";
@@ -65,7 +71,11 @@ public class WebHelper {
         }
     }
 
-
+    /**
+     * Finds the host of a url.
+     * @param url URL to parse
+     * @return URL object with host parameters
+     */
     public static URL getBaseUrl(URL url) {
         try {
             return new URL(url.getProtocol() + "://" + url.getHost());
@@ -75,6 +85,11 @@ public class WebHelper {
 
     }
 
+    /**
+     * Loads RSS feed data from a URL
+     * @param rssFeedUrl URL to load
+     * @param callback Callback that returns the feed data
+     */
     public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(new Callable<String>() {
@@ -92,6 +107,11 @@ public class WebHelper {
         }
     }
 
+    /**
+     * Loads data from a URL no matter the type
+     * @param url URL to load
+     * @return String data from the URL
+     */
     public static String fetchUrlData(URL url) throws IOException {
         // Create a new HTTP connection
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -140,6 +160,11 @@ public class WebHelper {
         return result.toString();
     }
 
+    /**
+     * Tries to find icon of the website provided
+     * @param url URL to check
+     * @return String URL for the img icon
+     */
     public static String getFaviconUrl(final URL url) throws IOException {
         // check if the URL is the homepage and return the base URL in that case
         String baseUrl = url.getProtocol() + "://" + url.getHost();
@@ -167,6 +192,12 @@ public class WebHelper {
 
         return faviconUrl;
     }
+
+    /**
+     * Search Feedly API with the provided query
+     * @param query Query to search with
+     * @param callBack Returns a list of FeedResult objects that were found
+     */
     public static void fetchFeedQuery(String query, WebCallBack<List<FeedResult>> callBack) {
         Executor executor = Executors.newSingleThreadExecutor();
 

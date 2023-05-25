@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.models;
 import java.io.Serializable;
 
 public class Source implements Serializable {
+    //Saved data version
     private static final long serialVersionUID = 1L;
     private final String name;
     private final String feedUrl;

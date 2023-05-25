@@ -30,6 +30,7 @@ public class SourceValidator {
     public static void validate(String contentUrl, String contentName, WebCallBack<Source> contentCallBack, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
+        //List of RSS URLs to check. Also in localized format
         List<URL> urlsToCheck = new ArrayList<>();
         urlsToCheck.add(WebHelper.formatUrl(contentUrl));
         urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/feed"));
