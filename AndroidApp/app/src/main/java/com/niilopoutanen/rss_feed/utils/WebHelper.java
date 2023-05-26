@@ -138,7 +138,7 @@ public class WebHelper {
 
         // Set request method
         connection.setRequestMethod("GET");
-
+        connection.setInstanceFollowRedirects(true);
         // Set connection timeout and read timeout
         connection.setConnectTimeout(15000);
         connection.setReadTimeout(15000);

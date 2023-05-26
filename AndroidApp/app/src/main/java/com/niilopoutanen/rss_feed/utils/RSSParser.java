@@ -185,6 +185,7 @@ public class RSSParser {
     private static boolean rssExists(URL url) throws IOException {
         HttpURLConnection.setFollowRedirects(false);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setInstanceFollowRedirects(true);
         httpURLConnection.setRequestMethod("HEAD");
         String contentType = httpURLConnection.getContentType();
         if (contentType != null) {
