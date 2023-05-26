@@ -2,7 +2,9 @@ package com.niilopoutanen.rss_feed.models;
 
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Class for RSS posts from feed
+ */
 public class RSSPost implements Comparable<RSSPost> {
     private String postLink;
     private String author;

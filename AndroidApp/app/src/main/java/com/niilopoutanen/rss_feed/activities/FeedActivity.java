@@ -17,6 +17,9 @@ import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
+/**
+ * Used when viewing a single feed source only.
+ */
 public class FeedActivity extends AppCompatActivity {
 
     private Preferences preferences;

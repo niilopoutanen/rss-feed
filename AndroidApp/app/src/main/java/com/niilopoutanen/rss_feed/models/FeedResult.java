@@ -5,7 +5,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Class for parsing Feedly result data to
+ */
 public class FeedResult {
     public String language;
     public String description;

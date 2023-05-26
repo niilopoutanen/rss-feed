@@ -1,5 +1,7 @@
 package com.niilopoutanen.rss_feed.models;
-
+/**
+ * Category class for parsing RSS categories from GitHub
+ */
 public class Category {
     private final String name;
     private final String imageUrl;
