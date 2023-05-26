@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -144,16 +146,23 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         // Submit each update to the executor
         executor.execute(() -> {
             for (Source source : sources) {
-                WebHelper.getFeedData(source.getFeedUrl(), result -> {
-                    List<RSSPost> posts = RSSParser.parseRssFeed(result);
+                try{
+                    WebHelper.getFeedData(source.getFeedUrl(), result -> {
+                        List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
-                    for (RSSPost post : posts) {
-                        post.setSourceName(source.getName());
-                        feed.add(post);
+                        for (RSSPost post : posts) {
+                            post.setSourceName(source.getName());
+                            feed.add(post);
+                        }
+
+                        Collections.sort(feed);
+                    });
+                }
+                catch (Exception e){
+                    if(WebHelper.isErrorCode(e.getMessage())){
+                        updateFeed(source.getName(), RSSParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
                     }
-
-                    Collections.sort(feed);
-                });
+                }
 
             }
             if (getActivity() != null) {
@@ -166,7 +175,28 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         executor = null;
     }
+    private void updateFeed(String name, String url){
+        try {
+            WebHelper.getFeedData(url, result -> {
+                List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
+                for (RSSPost post : posts) {
+                    post.setSourceName(name);
+                    feed.add(post);
+                }
+
+                Collections.sort(feed);
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        adapter.notifyDataSetChanged();
+                        recyclerviewRefresh.setRefreshing(false);
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * This method shows a error message on screen
      * @param type Type of the error message that will show

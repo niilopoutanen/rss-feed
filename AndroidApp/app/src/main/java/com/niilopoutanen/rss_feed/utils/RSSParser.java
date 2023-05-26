@@ -171,11 +171,10 @@ public class RSSParser {
     private static boolean urlExists(URL url) throws IOException {
         HttpURLConnection.setFollowRedirects(false);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setInstanceFollowRedirects(true);
         httpURLConnection.setRequestMethod("HEAD");
         int responseCode = httpURLConnection.getResponseCode();
-        return responseCode != HttpURLConnection.HTTP_NOT_FOUND &&
-                responseCode != HttpURLConnection.HTTP_GONE &&
-                responseCode != HttpURLConnection.HTTP_FORBIDDEN;
+        return !WebHelper.isErrorCode(responseCode);
     }
 
     /**
