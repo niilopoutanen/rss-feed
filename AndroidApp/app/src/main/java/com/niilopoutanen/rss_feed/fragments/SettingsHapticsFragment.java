@@ -29,7 +29,6 @@ import java.util.List;
 public class SettingsHapticsFragment extends Fragment {
     List<RelativeLayout> types;
     private Context appContext;
-    private int selectedIndex;
 
     public SettingsHapticsFragment() {
     }

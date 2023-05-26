@@ -83,6 +83,11 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         });
         return rootView;
     }
+
+    /**
+     * Dialog for asking user's input when adding a source
+     * @param source Leave null if adding a new source. Add a source if updating a existing one.
+     */
     public void askForSourceInput(Source source) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(appContext, R.style.BottomSheetStyle);
         bottomSheetDialog.setContentView(R.layout.dialog_addsource);

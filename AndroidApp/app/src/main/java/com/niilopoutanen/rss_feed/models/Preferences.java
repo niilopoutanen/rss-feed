@@ -1,7 +1,9 @@
 package com.niilopoutanen.rss_feed.models;
 
 import java.io.Serializable;
-
+/**
+ * Data model with all user customizable preferences
+ */
 public class Preferences implements Serializable {
     public static final String SP_THEME = "theme";
     public static final ThemeMode SP_THEME_DEFAULT = ThemeMode.FOLLOWSYSTEM;

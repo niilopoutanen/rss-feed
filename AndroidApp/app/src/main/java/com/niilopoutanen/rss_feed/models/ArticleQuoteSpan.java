@@ -14,6 +14,9 @@ import androidx.core.content.ContextCompat;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
+/**
+ * Custom quote span element for article view
+ */
 public class ArticleQuoteSpan extends QuoteSpan {
 
     private final @ColorInt int quoteColor;

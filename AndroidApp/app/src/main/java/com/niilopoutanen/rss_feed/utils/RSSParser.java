@@ -17,9 +17,13 @@ import java.util.regex.Pattern;
 
 
 public class RSSParser {
-    public static List<RSSPost> parseRssFeed(String rssFeedCode) {
+    /**
+     * Finds posts from a RSS Feed.
+     * @param outputData String data of the RSS output
+     */
+    public static List<RSSPost> parseRssFeed(String outputData) {
         List<RSSPost> itemList = new ArrayList<>();
-        Document doc = Jsoup.parse(rssFeedCode, "", Parser.xmlParser());
+        Document doc = Jsoup.parse(outputData, "", Parser.xmlParser());
         Elements itemElements = doc.select("item");
         for (Element itemElement : itemElements) {
             RSSPost post = new RSSPost();
@@ -82,7 +86,11 @@ public class RSSParser {
         }
         return itemList;
     }
-
+    /**
+     * Tries to find img url from a HTML String
+     * @param description String data where the img url can be found
+     * @return returns the parsed url. If nothing is found then returns null
+     */
     private static String parseImageURL(String description) {
         int startIndex = description.indexOf("<img");
         if (startIndex == -1) {

@@ -81,6 +81,11 @@ public class PreferencesManager {
     public static final int FEED_IMAGE_SMALL = 3;
     public static final int ARTICLE_IMAGE = 2;
 
+    /**
+     * Loads the saved themes. Required before each activity's setContentView()
+     * @param activity Required to set the theme
+     * @param preferences Required to get the selected theme
+     */
     public static void setSavedTheme(Activity activity, Preferences preferences) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             switch (preferences.s_coloraccent) {
@@ -126,7 +131,10 @@ public class PreferencesManager {
         }
 
     }
-
+    /**
+     * Returns the user's selected font
+     * @return Typeface object of the font
+     */
     public static Typeface getSavedFont(Preferences preferences, Context context) {
         switch (preferences.s_font) {
             case ROBOTO_SANS:
@@ -140,16 +148,32 @@ public class PreferencesManager {
         }
     }
 
-    //Haptic methods
+    /**
+     * Call performVibrate() with parameters
+     * @param view View to vibrate
+     * @param preferences required for loading the preferred haptic type
+     */
     public static void vibrate(View view, Preferences preferences, Context context) {
         performVibrate(view, preferences, HapticFeedbackConstants.KEYBOARD_TAP, context);
     }
 
+    /**
+     * Call performVibrate() with parameters & stage parameter
+     * @param view View to vibrate
+     * @param preferences required for loading the preferred haptic type
+     * @param stage Stage of the vibration
+     */
     public static void vibrate(View view, Preferences preferences, int stage, Context context) {
         performVibrate(view, preferences, stage, context);
     }
 
-    public static void performVibrate(View view, Preferences preferences, int stage, Context context) {
+    /**
+     * Performs the vibration. Can be called through vibrate() methods
+     * @param view View to vibrate
+     * @param preferences required for loading the preferred haptic type
+     * @param stage Stage of the vibration
+     */
+    private static void performVibrate(View view, Preferences preferences, int stage, Context context) {
         if (!preferences.s_haptics || view == null) {
             return;
         }
@@ -173,11 +197,18 @@ public class PreferencesManager {
 
     }
 
+    /**
+     * Returns the last version of the app user has accessed
+     * @return int code of the version
+     */
     public static int getLastVersionUsed(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
         return prefs.getInt(SP_VERSION, 0);
     }
 
+    /**
+     * Sets the latest version when user accesses it.
+     */
     public static void setLatestVersion(Context context) {
         int versionCode = BuildConfig.VERSION_CODE;
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
@@ -187,6 +218,10 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    /**
+     * Checks if the user is launching the version for the first time
+     * @return true if is, false if not
+     */
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = BuildConfig.VERSION_CODE;
         int lastVersionUsed = getLastVersionUsed(context);
@@ -194,6 +229,10 @@ public class PreferencesManager {
         return currentVersion > lastVersionUsed;
     }
 
+    /**
+     * Loads the saved preferences from disk
+     * @return Preferences object with parsed data
+     */
     public static Preferences loadPreferences(Context context) {
         Preferences preferences = new Preferences();
 
@@ -219,6 +258,12 @@ public class PreferencesManager {
         return preferences;
     }
 
+    /**
+     * Saves a ENUM type preference to disk
+     * @param key Key of the preference to be edited
+     * @param category SharedPreference category of the key
+     * @param value ENUM value that gets saved
+     */
     public static void saveEnumPreference(String key, String category, Enum<?> value, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -228,6 +273,14 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    /**
+     * Loads a ENUM type preference from disk
+     * @param key Key of the preference to be loaded
+     * @param category SharedPreference category of the key
+     * @param enumClass ENUM class for parsing the loaded data
+     * @param defValue Default value if nothing is saved yet
+     * @return ENUM object with loaded data
+     */
     public static <T extends Enum<T>> T getEnumPreference(String key, String category, Class<T> enumClass, T defValue, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         String valueName = prefs.getString(key, defValue.name());
@@ -235,6 +288,12 @@ public class PreferencesManager {
         return Enum.valueOf(enumClass, valueName);
     }
 
+    /**
+     * Saves a boolean type preference to disk
+     * @param key Key of the preference to be edited
+     * @param category SharedPreference category of the key
+     * @param value boolean value that gets saved
+     */
     public static void saveBooleanPreference(String key, String category, boolean value, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -244,11 +303,22 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    /**
+     * Loads a boolean type preference from disk
+     * @param key Key of the preference to be loaded
+     * @param category SharedPreference category of the key
+     * @param defValue Default value if nothing is saved yet
+     * @return boolean object with loaded data
+     */
     public static boolean getBooleanPreference(String key, String category, boolean defValue, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         return prefs.getBoolean(key, defValue);
     }
 
+    /**
+     * Calculates image width for feed & article elements
+     * @return pixel value that can be used in code
+     */
     public static int getImageWidth(int imageType, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
@@ -266,12 +336,20 @@ public class PreferencesManager {
         }
     }
 
+    /**
+     * Loads the accent color user has selected
+     * @return TypedValue object that can be used in code
+     */
     public static int getAccentColor(Context context) {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorAccent, typedValue, true);
         return typedValue.data;
     }
 
+    /**
+     * Formats Date object to user's preferred format
+     * @return String representation of the date
+     */
     public static String formatDate(Date date, DateStyle dateStyle, Context context) {
         Instant now = Instant.now();
         Instant postTime = date.toInstant();
@@ -305,6 +383,10 @@ public class PreferencesManager {
         return "";
     }
 
+    /**
+     * Calculates DP value from PX(pixel)
+     * @return Pixel representation of the DP value
+     */
     public static int dpToPx(int dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();

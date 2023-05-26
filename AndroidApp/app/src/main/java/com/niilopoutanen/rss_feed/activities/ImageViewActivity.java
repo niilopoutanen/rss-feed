@@ -72,6 +72,9 @@ public class ImageViewActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Loads the bitmap from internet
+     */
     private void saveImage() {
         String filename = String.format("%s %s", getString(R.string.imagefrom), getString(R.string.app_name));
         try {
@@ -118,6 +121,9 @@ public class ImageViewActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Saves a bitmap to user's gallery
+     */
     private void saveToGallery(Bitmap image, String filename) {
         String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), image, filename, null);
         Uri uri = Uri.parse(filepath);

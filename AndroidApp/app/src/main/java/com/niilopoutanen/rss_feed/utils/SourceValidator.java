@@ -21,9 +21,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SourceValidator {
+    /**
+     * Validates user input when adding a source
+     * @param contentUrl URL provided
+     * @param contentName Name provided. Autofill will be tried if empty
+     * @param contentCallBack Returns the validated source
+     */
     public static void validate(String contentUrl, String contentName, WebCallBack<Source> contentCallBack, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
+        //List of RSS URLs to check. Also in localized format
         List<URL> urlsToCheck = new ArrayList<>();
         urlsToCheck.add(WebHelper.formatUrl(contentUrl));
         urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/feed"));
@@ -82,7 +89,11 @@ public class SourceValidator {
         }, executor);
     }
 
-
+    /**
+     * Checks if the provided URL is valid/exists
+     * @param url URL to check
+     * @return true if yes, false if no
+     */
     private static boolean urlExists(URL url) throws IOException {
         HttpURLConnection.setFollowRedirects(false);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -93,6 +104,11 @@ public class SourceValidator {
                 responseCode != HttpURLConnection.HTTP_FORBIDDEN;
     }
 
+    /**
+     * Checks if the provided URL is a RSS url
+     * @param url URL to check
+     * @return true if yes, false if no
+     */
     private static boolean rssExists(URL url) throws IOException {
         HttpURLConnection.setFollowRedirects(false);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -115,6 +131,11 @@ public class SourceValidator {
         return tagname.equals("xml") || tagname.equals("rss");
     }
 
+    /**
+     * Finds the HTML site title from a URL
+     * @param siteUrl URL to load
+     * @return Site title in String format
+     */
     public static String getSiteTitle(URL siteUrl) {
         try {
             Document doc = Jsoup.connect(WebHelper.getBaseUrl(siteUrl).toString()).get();
@@ -132,7 +153,11 @@ public class SourceValidator {
             return siteUrl.toString();
         }
     }
-
+    /**
+     * Creates a error message that can be show to the user
+     * @param errorMessage Message to show
+     * @return Returns a TextView with the error message
+     */
     public static TextView createErrorMessage(Context context, String errorMessage) {
         TextView errorText = new TextView(context);
         errorText.setText(errorMessage);

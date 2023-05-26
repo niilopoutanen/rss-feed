@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
@@ -89,7 +88,7 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            ReadabilityThread(postUrl, result -> runOnUiThread(() -> {
+            readabilityProcessor(postUrl, result -> runOnUiThread(() -> {
                 articleLoader.setVisibility(View.GONE);
 
                 if (result.equals("404")) {
@@ -168,14 +167,18 @@ public class ArticleActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Adds a image to article recyclerview
+     */
     private void createImageView(ImageSpan span) {
         int itemIndex = views.size();
         views.add(itemIndex, new ArticleAdapter.ImageItem(span.getSource()));
         adapter.notifyItemInserted(itemIndex);
     }
 
-
+    /**
+     * Adds a textview to article recyclerview
+     */
     private void createTextView(Spanned text) {
         if (text.length() > 0 && !TextUtils.isEmpty(text) && !text.toString().matches("\\A\\s*\\z")) {
             //remove excess line breaks from start and end
@@ -228,6 +231,11 @@ public class ArticleActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Opens a WebView sheet
+     * @param url URL to open
+     * @param titleText Text to show on header. Gets replaced when the URL is fully loaded
+     */
     @SuppressLint("SetJavaScriptEnabled")
     private void openWebView(String url, String titleText) {
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this, R.style.BottomSheetStyle);
@@ -273,7 +281,10 @@ public class ArticleActivity extends AppCompatActivity {
         webViewSheet.show();
     }
 
-    private void ReadabilityThread(URL url, WebCallBack<String> callback) {
+    /**
+     * Starts the JReadability thread
+     */
+    private void readabilityProcessor(URL url, WebCallBack<String> callback) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {

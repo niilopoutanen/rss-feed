@@ -45,7 +45,7 @@ public class SaveSystem {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Saves a source to disk. Updates the source if it already exists
      * @param context Required to get file save path
@@ -55,7 +55,7 @@ public class SaveSystem {
         List<Source> sources;
         try {
             sources = loadContent(context);
-
+            //Check if the source already exists
             sources.removeIf(contentObj -> contentObj.getFeedUrl().equals(source.getFeedUrl()));
 
             sources.add(source);
