@@ -23,38 +23,15 @@ import java.util.concurrent.Executors;
 public class SourceValidator {
     /**
      * Validates user input when adding a source
-     * @param contentUrl URL provided
-     * @param contentName Name provided. Autofill will be tried if empty
-     * @param contentCallBack Returns the validated source
+     * @param inputUrl URL provided
+     * @param inputName Name provided. Autofill will be tried if empty
+     * @param sourceCallback Returns the validated source
      */
-    public static void validate(String contentUrl, String contentName, WebCallBack<Source> contentCallBack, Context context) {
+    public static void validate(String inputUrl, String inputName, WebCallBack<Source> sourceCallback, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        //List of RSS URLs to check. Also in localized format
-        List<URL> urlsToCheck = new ArrayList<>();
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/feed"));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss"));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss/" + context.getString(R.string.rsslocale_news) + ".xml"));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss/news.xml"));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss.xml"));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/rss/rss.xml"));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/atom"));
-        urlsToCheck.add(WebHelper.formatUrl(contentUrl + "/atom.xml"));
-
         CompletableFuture.supplyAsync(() -> {
-            for (URL url : urlsToCheck) {
-                try {
-                    boolean urlExists = urlExists(url);
-                    boolean rssExists = rssExists(url);
-                    if (rssExists && urlExists) {
-                        return url;
-                    }
-                } catch (IOException e) {
-                    // Ignore exceptions and try the next URL
-                }
-            }
-            return null;
+            return RSSParser.feedFinder(inputUrl, context);
         }, executor).thenComposeAsync(finalUrl -> {
             if (finalUrl == null) {
                 return CompletableFuture.completedFuture(null);
@@ -68,10 +45,10 @@ public class SourceValidator {
                 }, executor);
 
                 CompletableFuture<String> contentNameFuture = CompletableFuture.supplyAsync(() -> {
-                    if (contentName.isEmpty()) {
+                    if (inputName.isEmpty()) {
                         return getSiteTitle(finalUrl);
                     } else {
-                        return contentName;
+                        return inputName;
                     }
                 }, executor);
 
@@ -84,52 +61,12 @@ public class SourceValidator {
                 }, executor);
             }
         }, executor).whenCompleteAsync((validatedContent, throwable) -> {
-            contentCallBack.onResult(validatedContent);
+            sourceCallback.onResult(validatedContent);
             executor.shutdown();
         }, executor);
     }
 
-    /**
-     * Checks if the provided URL is valid/exists
-     * @param url URL to check
-     * @return true if yes, false if no
-     */
-    private static boolean urlExists(URL url) throws IOException {
-        HttpURLConnection.setFollowRedirects(false);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("HEAD");
-        int responseCode = httpURLConnection.getResponseCode();
-        return responseCode != HttpURLConnection.HTTP_NOT_FOUND &&
-                responseCode != HttpURLConnection.HTTP_GONE &&
-                responseCode != HttpURLConnection.HTTP_FORBIDDEN;
-    }
 
-    /**
-     * Checks if the provided URL is a RSS url
-     * @param url URL to check
-     * @return true if yes, false if no
-     */
-    private static boolean rssExists(URL url) throws IOException {
-        HttpURLConnection.setFollowRedirects(false);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("HEAD");
-        String contentType = httpURLConnection.getContentType();
-        if (contentType != null) {
-            boolean hasRssHeader = contentType.startsWith("application/rss+xml") || contentType.startsWith("application/xml");
-            if (hasRssHeader) {
-                //if rss headers are detected
-                return true;
-            }
-        }
-
-        Document document = Jsoup.connect(url.toString()).ignoreContentType(true).get();
-        Element rootElement = document.select(":root").first();
-        if (rootElement == null) {
-            return false;
-        }
-        String tagname = rootElement.tagName();
-        return tagname.equals("xml") || tagname.equals("rss");
-    }
 
     /**
      * Finds the HTML site title from a URL
