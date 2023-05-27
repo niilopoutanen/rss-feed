@@ -1,14 +1,11 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.ArticleColor;
 import static com.niilopoutanen.rss_feed.models.Preferences.ColorAccent;
 import static com.niilopoutanen.rss_feed.models.Preferences.Font;
 import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLECOLOR;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLECOLOR_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER;
@@ -59,7 +56,6 @@ public class SettingsFragment extends Fragment {
     TextView themeSelected;
     TextView fontSelected;
     TextView launchwindowSelected;
-    TextView articleColorSelected;
     SwitchCompat articlesInBrowser;
     SwitchCompat articleFullScreen;
     SwitchCompat imagecache;
@@ -200,16 +196,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        articleColorSelected = rootView.findViewById(R.id.articlecolor_selected);
-        RelativeLayout articleColorSettings = rootView.findViewById(R.id.settings_articlecolorsettings);
-        articleColorSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDropDownSettings(ArticleColor.class, getString(R.string.article_background_color), getString(R.string.article_background_color_desc));
-                PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), appContext);
-            }
-        });
-
         setSavedData();
 
         articlesInBrowser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -276,9 +262,6 @@ public class SettingsFragment extends Fragment {
 
         ThemeMode selectedTheme = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, appContext);
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
-
-        ArticleColor selectedColor = PreferencesManager.getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, appContext);
-        articleColorSelected.setText(getResources().getStringArray(R.array.article_backgrounds)[selectedColor.ordinal()]);
 
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
 

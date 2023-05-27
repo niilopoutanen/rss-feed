@@ -19,8 +19,6 @@ public class Preferences implements Serializable {
     public static final boolean SP_IMAGECACHE_DEFAULT = true;
     public static final String SP_ARTICLEFULLSCREEN = "article_fullscreen";
     public static final boolean SP_ARTICLEFULLSCREEN_DEFAULT = false;
-    public static final String SP_ARTICLECOLOR = "article_backgroundcolor";
-    public static final ArticleColor SP_ARTICLECOLOR_DEFAULT = ArticleColor.STAGE1;
     public static final String SP_LAUNCHWINDOW = "launch_window";
     public static final LaunchWindow SP_LAUNCHWINDOW_DEFAULT = LaunchWindow.FEED;
     public static final String SP_FEEDCARD_STYLE = "feedcard_style";
@@ -55,7 +53,6 @@ public class Preferences implements Serializable {
     public boolean s_feedcard_titlevisible;
     public boolean s_feedcard_descvisible;
     public boolean s_feedcard_datevisible;
-    public ArticleColor s_articlecolor;
     public boolean s_articlefullscreen;
     public boolean s_imagecache;
     public boolean s_haptics;
@@ -67,10 +64,6 @@ public class Preferences implements Serializable {
 
     public enum ThemeMode {
         LIGHT, DARK, FOLLOWSYSTEM
-    }
-
-    public enum ArticleColor {
-        STAGE1, STAGE2, STAGE3, STAGE4
     }
 
     public enum Font {

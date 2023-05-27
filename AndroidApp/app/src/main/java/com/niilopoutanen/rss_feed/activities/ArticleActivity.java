@@ -106,26 +106,6 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
-        View background = findViewById(R.id.article_base);
-        Window window = getWindow();
-        int color = getColor(R.color.article1);
-
-        switch (preferences.s_articlecolor) {
-            case STAGE2:
-                color = getColor(R.color.article2);
-                break;
-            case STAGE3:
-                color = getColor(R.color.article3);
-                break;
-            case STAGE4:
-                color = getColor(R.color.article4);
-                break;
-        }
-
-        window.setNavigationBarColor(color);
-        window.setStatusBarColor(color);
-        background.setBackgroundColor(color);
-
         if (preferences.s_articlefullscreen) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }

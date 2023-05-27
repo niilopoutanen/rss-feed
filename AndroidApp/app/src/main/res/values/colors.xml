@@ -11,7 +11,7 @@
     <color name="surface_border">#e6e6e6</color>
 
     <color name="textPrimary">#000000</color>
-    <color name="textSecondary">#121212</color>
+    <color name="textSecondary">#1E1E1E</color>
 
     <color name="windowBg">#f2f1f7</color>
 
@@ -22,9 +22,4 @@
     <color name="accentOrange">#f6801f</color>
     <color name="accentYellow">#fcb82a</color>
     <color name="accentGreen">#055c39</color>
-
-    <color name="article1">#FFFFFF</color>
-    <color name="article2">#f2f2f7</color>
-    <color name="article3">#DFDFE5</color>
-    <color name="article4">#D4D4DB</color>
 </resources>

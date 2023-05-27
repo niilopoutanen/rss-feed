@@ -1,13 +1,10 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.ArticleColor;
 import static com.niilopoutanen.rss_feed.models.Preferences.Font;
 import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLECOLOR;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLECOLOR_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
@@ -108,10 +105,6 @@ public class SettingsDropDownFragment extends Fragment {
             }
             return index == selected.ordinal();
         }
-        if (ArticleColor.class.equals(type)) {
-            ArticleColor selected = PreferencesManager.getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, context);
-            return index == selected.ordinal();
-        }
 
         return false;
     }
@@ -128,13 +121,11 @@ public class SettingsDropDownFragment extends Fragment {
                 boolean isLast = i == windowNames.length - 1;
                 RelativeLayout item = addViews(windowNames[i], verifySelected(i, LaunchWindow.class), isLast, null);
                 final int index = i;
-                item.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        LaunchWindow selectedWindow = Preferences.LaunchWindow.values()[index];
-                        PreferencesManager.saveEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, selectedWindow, context);
-                        closeFragment(view);
-                    }
+
+                item.setOnClickListener(view -> {
+                    LaunchWindow selectedWindow = LaunchWindow.values()[index];
+                    PreferencesManager.saveEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, selectedWindow, context);
+                    closeFragment(view);
                 });
             }
         } else if (Preferences.Font.class.equals(type)) {
@@ -151,12 +142,10 @@ public class SettingsDropDownFragment extends Fragment {
                 }
 
                 RelativeLayout item = addViews(fontNames[i], verifySelected(i, Font.class), isLast, font);
-                item.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        PreferencesManager.saveEnumPreference(SP_FONT, PREFS_LANG, selectedFont, context);
-                        closeFragment(view);
-                    }
+
+                item.setOnClickListener(view -> {
+                    PreferencesManager.saveEnumPreference(SP_FONT, PREFS_LANG, selectedFont, context);
+                    closeFragment(view);
                 });
             }
         } else if (Preferences.ThemeMode.class.equals(type)) {
@@ -165,28 +154,11 @@ public class SettingsDropDownFragment extends Fragment {
                 boolean isLast = i == themeNames.length - 1;
                 RelativeLayout item = addViews(themeNames[i], verifySelected(i, ThemeMode.class), isLast, null);
                 final int index = i;
-                item.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Preferences.ThemeMode selectedTheme = Preferences.ThemeMode.values()[index];
-                        PreferencesManager.saveEnumPreference(SP_THEME, PREFS_UI, selectedTheme, context);
-                        closeFragment(view);
-                    }
-                });
-            }
-        } else if (Preferences.ArticleColor.class.equals(type)) {
-            String[] articleColors = context.getResources().getStringArray(R.array.article_backgrounds);
-            for (int i = 0; i < articleColors.length; i++) {
-                boolean isLast = i == articleColors.length - 1;
-                RelativeLayout item = addViews(articleColors[i], verifySelected(i, ArticleColor.class), isLast, null);
-                final int index = i;
-                item.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Preferences.ArticleColor selectedColor = Preferences.ArticleColor.values()[index];
-                        PreferencesManager.saveEnumPreference(SP_ARTICLECOLOR, PREFS_UI, selectedColor, context);
-                        closeFragment(view);
-                    }
+
+                item.setOnClickListener(view -> {
+                    ThemeMode selectedTheme = ThemeMode.values()[index];
+                    PreferencesManager.saveEnumPreference(SP_THEME, PREFS_UI, selectedTheme, context);
+                    closeFragment(view);
                 });
             }
         }
