@@ -3,7 +3,6 @@
         <item name="colorPrimary">?attr/colorAccent</item>
 
         <item name="android:statusBarColor">@color/windowBg</item>
-        <item name="android:windowLightStatusBar">false</item>
 
         <item name="android:windowBackground">@color/windowBg</item>
         <item name="android:navigationBarColor">@color/windowBg</item>

@@ -1,10 +1,12 @@
 <resources>
-    <!-- Base application theme. Dark mode only by default -->
     <style name="RSSFeedStyle" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">?attr/colorAccent</item>
 
         <item name="android:statusBarColor">@color/windowBg</item>
+        <item name="android:windowLightStatusBar">false</item>
+
         <item name="android:windowBackground">@color/windowBg</item>
+        <item name="android:navigationBarColor">@color/windowBg</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
@@ -17,6 +19,5 @@
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">@color/surface_border</item>
-        <item name="colorOnPrimary">@color/white</item>
     </style>
 </resources>

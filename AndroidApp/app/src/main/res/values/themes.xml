@@ -4,7 +4,10 @@
         <item name="colorPrimary">?attr/colorAccent</item>
 
         <item name="android:statusBarColor">@color/windowBg</item>
+        <item name="android:windowLightStatusBar">true</item>
+
         <item name="android:windowBackground">@color/windowBg</item>
+        <item name="android:navigationBarColor">@color/windowBg</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
@@ -16,7 +19,7 @@
 
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
-        <item name="colorOutline">#46464B</item>
+        <item name="colorOutline">#CBC9D1</item>
     </style>
 
 
