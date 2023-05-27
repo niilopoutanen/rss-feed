@@ -4,7 +4,10 @@
         <item name="colorPrimary">?attr/colorAccent</item>
 
         <item name="android:statusBarColor">@color/windowBg</item>
+        <item name="android:windowLightStatusBar">true</item>
+
         <item name="android:windowBackground">@color/windowBg</item>
+        <item name="android:navigationBarColor">@color/windowBg</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
@@ -16,7 +19,7 @@
 
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
-        <item name="colorOutline">#46464B</item>
+        <item name="colorOutline">#CBC9D1</item>
     </style>
 
 
@@ -48,12 +51,12 @@
         <item name="colorAccent">@color/accentGreen</item>
     </style>
 
-    <style name="BottomSheetStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="BottomSheetStyle" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetDialog</item>
     </style>
 
-    <style name="BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="backgroundTint">@color/transparent</item>
+    <style name="BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
 </resources>

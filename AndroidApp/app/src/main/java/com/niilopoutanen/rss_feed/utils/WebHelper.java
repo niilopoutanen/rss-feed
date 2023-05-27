@@ -3,6 +3,8 @@ package com.niilopoutanen.rss_feed.utils;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
+import org.jsoup.Connection;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -82,7 +85,14 @@ public class WebHelper {
         } catch (MalformedURLException m) {
             return url;
         }
-
+    }
+    public static URL getBaseUrl(String url) {
+        try {
+            URL urlToParse = new URL(url);
+            return new URL(urlToParse.getProtocol() + "://" + urlToParse.getHost());
+        } catch (MalformedURLException m) {
+            return null;
+        }
     }
 
     /**
@@ -90,22 +100,32 @@ public class WebHelper {
      * @param rssFeedUrl URL to load
      * @param callback Callback that returns the feed data
      */
-    public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) {
+    public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) throws Exception {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                // Open a connection to the website URL
-                return Jsoup.connect(rssFeedUrl).ignoreContentType(true).get().toString();
-
+                try {
+                    // Open a connection to the website URL
+                    Connection.Response response = Jsoup.connect(rssFeedUrl)
+                            .ignoreContentType(true)
+                            .execute();
+                    int statusCode = response.statusCode();
+                    String responseBody = response.body();
+                    if (statusCode == 200) {
+                        return responseBody;
+                    } else {
+                        throw new Exception(String.valueOf(statusCode));
+                    }
+                } catch (HttpStatusException e) {
+                    throw new Exception(String.valueOf(e.getStatusCode()));
+                }
             }
         });
-        try {
-            callback.onResult(future.get());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        callback.onResult(future.get());
     }
+
+
 
     /**
      * Loads data from a URL no matter the type
@@ -118,7 +138,7 @@ public class WebHelper {
 
         // Set request method
         connection.setRequestMethod("GET");
-
+        connection.setInstanceFollowRedirects(true);
         // Set connection timeout and read timeout
         connection.setConnectTimeout(15000);
         connection.setReadTimeout(15000);
@@ -214,4 +234,24 @@ public class WebHelper {
 
         });
     }
+    public static boolean isErrorCode(String errorMessage) {
+        if(errorMessage == null){
+            return false;
+        }
+        String statusCodeString = errorMessage.replaceFirst("java\\.lang\\.Exception:", "").trim();
+        if (!statusCodeString.isEmpty()) {
+            char firstDigit = statusCodeString.charAt(0);
+            return (firstDigit == '4' || firstDigit == '5' || firstDigit == '3');
+        }
+        return false;
+    }
+    public static boolean isErrorCode(int statusCode) {
+        String statusCodeString = String.valueOf(statusCode);
+        if (!statusCodeString.isEmpty()) {
+            char firstDigit = statusCodeString.charAt(0);
+            return (firstDigit == '4' || firstDigit == '5' || firstDigit == '3');
+        }
+        return false;
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.niilopoutanen.rss_feed.utils;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.ArticleColor;
 import static com.niilopoutanen.rss_feed.models.Preferences.ColorAccent;
 import static com.niilopoutanen.rss_feed.models.Preferences.DateStyle;
 import static com.niilopoutanen.rss_feed.models.Preferences.FeedCardStyle;
@@ -10,8 +9,6 @@ import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLECOLOR;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLECOLOR_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER;
@@ -87,6 +84,7 @@ public class PreferencesManager {
      * @param preferences Required to get the selected theme
      */
     public static void setSavedTheme(Activity activity, Preferences preferences) {
+        //Accent color for devices that don't support dark mode
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             switch (preferences.s_coloraccent) {
                 case BLUE:
@@ -112,10 +110,11 @@ public class PreferencesManager {
                     break;
             }
         } else {
+            //> Android 10
             activity.setTheme(R.style.RSSFeedStyle);
         }
 
-        //dark/light
+        //Dark-Light theme for devices that support it
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             switch (preferences.s_ThemeMode) {
                 case DARK:
@@ -244,7 +243,6 @@ public class PreferencesManager {
         preferences.s_font = getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
         preferences.s_launchwindow = getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
         preferences.s_articlesinbrowser = getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context);
-        preferences.s_articlecolor = getEnumPreference(SP_ARTICLECOLOR, PREFS_UI, ArticleColor.class, SP_ARTICLECOLOR_DEFAULT, context);
         preferences.s_articlefullscreen = getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context);
         preferences.s_imagecache = getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context);
 

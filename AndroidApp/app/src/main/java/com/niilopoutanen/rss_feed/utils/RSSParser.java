@@ -1,5 +1,8 @@
 package com.niilopoutanen.rss_feed.utils;
 
+import android.content.Context;
+
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.RSSPost;
 
 import org.jsoup.Jsoup;
@@ -8,8 +11,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -64,6 +71,12 @@ public class RSSParser {
                 post.setAuthor(author.first().text());
             }
 
+            Element mediaThumbnail = itemElement.selectFirst("media|thumbnail");
+            if (mediaThumbnail != null) {
+                String imageUrl = mediaThumbnail.attr("url");
+                post.setImageUrl(imageUrl);
+            }
+
             Elements contentEncoded = itemElement.select("content\\:encoded");
             if (!contentEncoded.isEmpty()) {
                 String contentHtml = contentEncoded.first().html();
@@ -102,4 +115,93 @@ public class RSSParser {
         return description.substring(startIndex, endIndex);
     }
 
+    /**
+     * Tries to find a valid RSS feed from a given URL
+     * @return first encountered URL that is valid
+     */
+    public static URL feedFinder(String baseUrl, Context context) {
+        //Popular RSS url paths
+        List<String> urlPaths = Arrays.asList(
+                "",
+                "/feed",
+                "/rss",
+                "/blog",
+                "/atom",
+
+                "/rss/" + context.getString(R.string.rsslocale_news) + ".xml",
+                "/rss/" + context.getString(R.string.rsslocale_news),
+                "/rss/news.xml",
+                "/rss.xml",
+                "/rss/rss.xml",
+                "/rss/feed",
+
+                "/atom.xml",
+
+                "/feed/home",
+                "/feed/rss",
+                "/feed/rss.xml",
+                "/feed/news",
+
+                "/news/rss.xml"
+        );
+
+        for (String path : urlPaths) {
+            String urlStr = baseUrl + path;
+            URL url = WebHelper.formatUrl(urlStr);
+
+            try {
+                boolean urlExists = urlExists(url);
+                boolean rssExists = rssExists(url);
+                if (rssExists && urlExists) {
+                    return url;
+                }
+            } catch (IOException ignore) {
+                // Ignore exceptions and try the next URL
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Checks if the provided URL is valid/exists
+     * @param url URL to check
+     * @return true if yes, false if no
+     */
+    private static boolean urlExists(URL url) throws IOException {
+        HttpURLConnection.setFollowRedirects(false);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setInstanceFollowRedirects(true);
+        httpURLConnection.setRequestMethod("HEAD");
+        int responseCode = httpURLConnection.getResponseCode();
+        return !WebHelper.isErrorCode(responseCode);
+    }
+
+    /**
+     * Checks if the provided URL is a RSS url
+     * @param url URL to check
+     * @return true if yes, false if no
+     */
+    private static boolean rssExists(URL url) throws IOException {
+        HttpURLConnection.setFollowRedirects(false);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setInstanceFollowRedirects(true);
+        httpURLConnection.setRequestMethod("HEAD");
+        String contentType = httpURLConnection.getContentType();
+        if (contentType != null) {
+            boolean hasRssHeader = contentType.startsWith("application/rss+xml") || contentType.startsWith("application/xml");
+            if (hasRssHeader) {
+                //if rss headers are detected
+                return true;
+            }
+        }
+
+        Document document = Jsoup.connect(url.toString()).ignoreContentType(true).get();
+        Element rootElement = document.select(":root").first();
+        if (rootElement == null) {
+            return false;
+        }
+        String tagname = rootElement.tagName();
+        return tagname.equals("xml") || tagname.equals("rss");
+    }
 }
