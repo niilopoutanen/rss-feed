@@ -1,26 +1,16 @@
 package com.niilopoutanen.rss_feed.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,30 +19,24 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
-import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.models.MaskTransformation;
-import com.niilopoutanen.rss_feed.utils.SourceValidator;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Objects;
 
 public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder> {
+    private final Preferences preferences;
+    private final RecyclerView recyclerView;
     private List<Source> sources;
     private Context context;
-    private final Preferences preferences;
-
-    private final RecyclerView recyclerView;
     private Source tempSource;
-    private View.OnLongClickListener onLongClickListener;
     private final Runnable undoDelete = new Runnable() {
         @Override
         public void run() {
@@ -65,6 +49,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             }
         }
     };
+    private final View.OnLongClickListener onLongClickListener;
 
 
     public SourceAdapter(List<Source> sources, Preferences preferences, RecyclerView recyclerView, View.OnLongClickListener onClickListener) {
@@ -90,10 +75,11 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         return new SourceAdapter.ViewHolder(sourceItemView);
     }
 
-    public void updateSources(List<Source> sources){
+    public void updateSources(List<Source> sources) {
         this.sources = sources;
         notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(@NonNull SourceAdapter.ViewHolder holder, int position) {
         Source source = sources.get(position);
@@ -215,7 +201,6 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             }
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
-
 
 
     }

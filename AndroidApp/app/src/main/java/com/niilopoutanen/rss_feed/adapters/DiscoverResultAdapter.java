@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
-import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.FeedResult;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
@@ -26,9 +26,11 @@ import java.util.List;
 
 public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<FeedResult> results;
-    public DiscoverResultAdapter(List<FeedResult> results){
+
+    public DiscoverResultAdapter(List<FeedResult> results) {
         this.results = results;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,26 +40,28 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         return new ItemViewHolder(view);
     }
-    public void setResults(List<FeedResult> results){
+
+    public void setResults(List<FeedResult> results) {
         this.results = results;
         notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         FeedResult result = results.get(position);
         Context context = holder.itemView.getContext();
 
-        TextView title = ((ItemViewHolder)holder).title;
-        TextView desc = ((ItemViewHolder)holder).desc;
-        RelativeLayout add = ((ItemViewHolder)holder).addBtn;
+        TextView title = ((ItemViewHolder) holder).title;
+        TextView desc = ((ItemViewHolder) holder).desc;
+        RelativeLayout add = ((ItemViewHolder) holder).addBtn;
 
         View icon = add.findViewById(R.id.discover_result_add_icon);
         Drawable plus = AppCompatResources.getDrawable(context, R.drawable.icon_plus);
         icon.setBackground(plus);
 
         List<Source> savedSources = SaveSystem.loadContent(context);
-        for(Source source : savedSources){
-            if(source.getFeedUrl().equalsIgnoreCase(WebHelper.formatUrl(result.feedId).toString())){
+        for (Source source : savedSources) {
+            if (source.getFeedUrl().equalsIgnoreCase(WebHelper.formatUrl(result.feedId).toString())) {
                 result.alreadyAdded = true;
                 Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
                 icon.setBackground(checkmark);
@@ -67,13 +71,12 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         title.setText(result.title);
         desc.setText(result.description);
         add.setOnClickListener(v -> {
-            if(!result.alreadyAdded){
+            if (!result.alreadyAdded) {
                 SaveSystem.saveContent(v.getContext(), new Source(result.title, WebHelper.formatUrl(result.feedId).toString(), result.iconUrl));
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
                 Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
                 icon.setBackground(checkmark);
-            }
-            else{
+            } else {
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourcealreadyadded), Toast.LENGTH_LONG).show();
             }
         });
@@ -95,6 +98,7 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView title;
         TextView desc;
         RelativeLayout addBtn;
+
         ItemViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.discover_result_title);

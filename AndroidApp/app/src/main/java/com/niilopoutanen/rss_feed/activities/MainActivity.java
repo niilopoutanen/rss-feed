@@ -9,16 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
+import com.niilopoutanen.rss_feed.fragments.FeedFragment;
+import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
-import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
-import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,15 +82,12 @@ public class MainActivity extends AppCompatActivity {
                 preferences = PreferencesManager.loadPreferences(MainActivity.this);
                 if (itemId == R.id.nav_settings) {
                     currentFragment = new SettingsFragment(MainActivity.this);
-                }
-                else if (itemId == R.id.nav_feed) {
+                } else if (itemId == R.id.nav_feed) {
                     sources = SaveSystem.loadContent(MainActivity.this);
                     currentFragment = new FeedFragment(sources, preferences);
-                }
-                else if (itemId == R.id.nav_content) {
+                } else if (itemId == R.id.nav_content) {
                     currentFragment = new SourceFragment(MainActivity.this, preferences);
-                }
-                else if (itemId == R.id.nav_discover) {
+                } else if (itemId == R.id.nav_discover) {
                     currentFragment = new DiscoverFragment(MainActivity.this, preferences);
                 }
 

@@ -1,4 +1,5 @@
 package com.niilopoutanen.rss_feed.models;
+
 /**
  * Callback to return data
  */

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,11 +40,13 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     RecyclerView categoryRecyclerView;
     NestedScrollView nestedScrollView;
     View loader;
+
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
     }
-    public DiscoverFragment(){
+
+    public DiscoverFragment() {
     }
 
     @Override
@@ -52,20 +55,21 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
-        if(appContext == null){
+        if (appContext == null) {
             appContext = getContext();
         }
         loadData();
     }
-    private void loadData(){
-        if(loader != null){
+
+    private void loadData() {
+        if (loader != null) {
             loader.setVisibility(View.VISIBLE);
         }
         SaveSystem.loadCategories(result -> {
             categories = result;
 
-            if(categoryAdapter != null){
-                ((Activity)appContext).runOnUiThread(() -> {
+            if (categoryAdapter != null) {
+                ((Activity) appContext).runOnUiThread(() -> {
                     categoryAdapter.setCategories(categories);
                     loader.setVisibility(View.GONE);
                 });
@@ -73,18 +77,20 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         });
 
     }
-    private void search(String query){
+
+    private void search(String query) {
         loader.setVisibility(View.VISIBLE);
         WebHelper.fetchFeedQuery(query, result -> {
             results = result;
-            if(resultAdapter != null){
-                ((Activity)appContext).runOnUiThread(() -> {
+            if (resultAdapter != null) {
+                ((Activity) appContext).runOnUiThread(() -> {
                     resultAdapter.setResults(results);
                     loader.setVisibility(View.GONE);
                 });
             }
         });
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
@@ -113,7 +119,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     }
 
 
-
     @Override
     public void onClick(View v) {
         int position = categoryRecyclerView.getChildAdapterPosition(v);
@@ -123,7 +128,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
     }

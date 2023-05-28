@@ -20,17 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.models.Source;
-import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.utils.SourceValidator;
 
 import java.util.List;
 import java.util.Objects;
 
-public class SourceFragment extends Fragment implements View.OnLongClickListener{
+public class SourceFragment extends Fragment implements View.OnLongClickListener {
 
     private List<Source> sources;
     private SourceAdapter adapter;
@@ -86,6 +86,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
 
     /**
      * Dialog for asking user's input when adding a source
+     *
      * @param source Leave null if adding a new source. Add a source if updating a existing one.
      */
     public void askForSourceInput(Source source) {

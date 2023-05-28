@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Class for parsing Feedly result data to
  */
@@ -21,8 +22,9 @@ public class FeedResult {
 
     /**
      * Parses a search result to object format
+     *
      * @param result String data of the URL fetch result
-     * @return  List with parsed FeedResult objects
+     * @return List with parsed FeedResult objects
      */
     public static List<FeedResult> parseResult(String result) {
         List<FeedResult> results = new ArrayList<>();

@@ -1,4 +1,5 @@
 package com.niilopoutanen.rss_feed.models;
+
 /**
  * Category class for parsing RSS categories from GitHub
  */
@@ -12,12 +13,15 @@ public class Category {
         this.imageUrl = imageUrl;
         this.query = query;
     }
+
     public String getName() {
         return name;
     }
+
     public String getQuery() {
         return query;
     }
+
     public String getImageUrl() {
         return imageUrl;
     }

@@ -17,13 +17,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public List<Category> categories;
-    private View.OnClickListener onClickListener;
+    private final View.OnClickListener onClickListener;
+
     public DiscoverCategoryAdapter(List<Category> categories, View.OnClickListener onClickListener) {
         this.categories = categories;
         this.onClickListener = onClickListener;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -33,20 +35,22 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         return new ItemViewHolder(view);
     }
+
     public void setCategories(List<Category> categories) {
         this.categories = categories;
         notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Category category = categories.get(position);
-        ImageView itemImage = ((ItemViewHolder)holder).imageView;
-        TextView itemTitle = ((ItemViewHolder)holder).textView;
+        ImageView itemImage = ((ItemViewHolder) holder).imageView;
+        TextView itemTitle = ((ItemViewHolder) holder).textView;
         itemTitle.setText(category.getName());
         if (category.getImageUrl() == null) {
             return;
         }
-        Picasso.get().load(category.getImageUrl()).resize(0,PreferencesManager.dpToPx(200, holder.itemView.getContext())).into(itemImage);
+        Picasso.get().load(category.getImageUrl()).resize(0, PreferencesManager.dpToPx(200, holder.itemView.getContext())).into(itemImage);
         holder.itemView.setOnClickListener(onClickListener);
 
         //Fade the text
@@ -56,11 +60,13 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
             ((ItemViewHolder) holder).textView.setAlpha(alpha);
         });
     }
+
     private float interpolateFade(float value) {
         float range = 65.0f - 0.0f;
         float progress = (value - 0.0f) / range;
-        return 1.0f + ( 0.0f - 1.0f) * progress;
+        return 1.0f + (0.0f - 1.0f) * progress;
     }
+
     @Override
     public int getItemCount() {
         return categories.size();
@@ -70,6 +76,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
+
         ItemViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.discover_category_image);

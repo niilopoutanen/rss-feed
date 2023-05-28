@@ -1,23 +1,19 @@
 package com.niilopoutanen.rss_feed.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.FeedResult;
-import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
 
@@ -65,21 +61,20 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    private void search(String query){
+    private void search(String query) {
         loader.setVisibility(View.VISIBLE);
-        if(query.length() > 0){
+        if (query.length() > 0) {
             WebHelper.fetchFeedQuery(query, result -> {
                 discoverResults = result;
 
-                if(discoverResultAdapter != null){
+                if (discoverResultAdapter != null) {
                     runOnUiThread(() -> {
                         discoverResultAdapter.setResults(discoverResults);
                         loader.setVisibility(View.GONE);
                     });
                 }
             });
-        }
-        else{
+        } else {
             discoverResultAdapter.setResults(new ArrayList<>());
         }
     }

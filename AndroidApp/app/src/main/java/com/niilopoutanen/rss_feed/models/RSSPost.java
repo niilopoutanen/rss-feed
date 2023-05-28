@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.models;
 
 import java.util.Calendar;
 import java.util.Date;
+
 /**
  * Class for RSS posts from feed
  */

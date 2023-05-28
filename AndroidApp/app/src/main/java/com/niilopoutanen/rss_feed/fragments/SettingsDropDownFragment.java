@@ -55,12 +55,12 @@ public class SettingsDropDownFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             title = savedInstanceState.getString("title");
             additionalMessage = savedInstanceState.getString("additionalMessage");
             type = (Class<?>) savedInstanceState.getSerializable("class");
         }
-        if(context == null){
+        if (context == null) {
             context = getContext();
         }
         super.onCreate(savedInstanceState);
@@ -209,6 +209,7 @@ public class SettingsDropDownFragment extends Fragment {
         optionsContainer.addView(parent);
         return parent;
     }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);

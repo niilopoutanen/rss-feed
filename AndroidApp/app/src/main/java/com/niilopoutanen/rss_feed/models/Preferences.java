@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.models;
 
 import java.io.Serializable;
+
 /**
  * Data model with all user customizable preferences
  */
