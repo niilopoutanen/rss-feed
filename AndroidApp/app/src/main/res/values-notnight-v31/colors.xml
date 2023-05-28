@@ -3,12 +3,12 @@
     <color name="white">#000000</color>
     <color name="transparent">#00FFFFFF</color>
 
-    <color name="element">@android:color/system_accent2_100</color>
-    <color name="element_pressed">@android:color/system_accent2_200</color>
-    <color name="element_border">@android:color/system_accent1_500</color>
+    <color name="element">@android:color/system_accent2_10</color>
+    <color name="element_pressed">@android:color/system_accent2_100</color>
+    <color name="element_border">@android:color/system_accent1_200</color>
 
-    <color name="surface">@android:color/system_accent1_300</color>
-    <color name="surface_border">@android:color/system_accent1_500</color>
+    <color name="surface">@android:color/system_accent1_100</color>
+    <color name="surface_border">@android:color/system_accent1_200</color>
 
     <color name="textPrimary">@android:color/system_accent1_800</color>
     <color name="textSecondary">@android:color/system_accent1_600</color>
