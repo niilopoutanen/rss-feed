@@ -55,8 +55,6 @@
 
     <string name="view_in_browser">View in browser</string>
     <string name="open_articles_in_browser">Open articles in browser</string>
-    <string name="article_background_color">Article background color</string>
-    <string name="article_background_color_desc">Sets the background color when reading articles. Stage 1 provides higher contrast between text and background, while stage 4 reduces eye strain and has less contrast.</string>
     <string name="articles_fullscreen">View articles in fullscreen</string>
     <string name="cache_images">Cache images to disk</string>
 
@@ -77,12 +75,6 @@
         <item>Light</item>
         <item>Dark</item>
         <item>Follow system</item>
-    </string-array>
-    <string-array name="article_backgrounds">
-        <item>Stage 1</item>
-        <item>Stage 2</item>
-        <item>Stage 3</item>
-        <item>Stage 4</item>
     </string-array>
     <string-array name="fonts">
         <item>Inter</item>
