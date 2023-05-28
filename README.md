@@ -1,5 +1,5 @@
 
-<p align="center"><img align="center" src="https://user-images.githubusercontent.com/60819607/235200570-0820dc29-e20e-400c-bcea-adc77c9dc96b.png" width=200/></p>
+<p align="center"><img align="center" src="https://github.com/niilopoutanen/RSS-Feed/assets/60819607/642b9c3a-9e16-4df3-bc6d-4ee318733259" width=200/></p>
 <h1 align="center">RSS Feed</h1>
 
 
