@@ -1,6 +1,5 @@
 package com.niilopoutanen.rss_feed.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.carousel.MaskableFrameLayout;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -51,8 +48,19 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
         Picasso.get().load(category.getImageUrl()).resize(0,PreferencesManager.dpToPx(200, holder.itemView.getContext())).into(itemImage);
         holder.itemView.setOnClickListener(onClickListener);
-    }
 
+        //Fade the text
+        ((MaskableFrameLayout) holder.itemView).setOnMaskChangedListener(maskRect -> {
+            ((ItemViewHolder) holder).textView.setTranslationX(maskRect.left);
+            float alpha = interpolateFade(maskRect.left);
+            ((ItemViewHolder) holder).textView.setAlpha(alpha);
+        });
+    }
+    private float interpolateFade(float value) {
+        float range = 65.0f - 0.0f;
+        float progress = (value - 0.0f) / range;
+        return 1.0f + ( 0.0f - 1.0f) * progress;
+    }
     @Override
     public int getItemCount() {
         return categories.size();

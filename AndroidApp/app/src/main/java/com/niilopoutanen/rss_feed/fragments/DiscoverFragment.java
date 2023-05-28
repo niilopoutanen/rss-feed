@@ -5,15 +5,14 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.niilopoutanen.rss_feed.R;
@@ -38,6 +37,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     DiscoverCategoryAdapter categoryAdapter;
     DiscoverResultAdapter resultAdapter;
     RecyclerView categoryRecyclerView;
+    NestedScrollView nestedScrollView;
     View loader;
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
@@ -58,15 +58,16 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         loadData();
     }
     private void loadData(){
+        if(loader != null){
+            loader.setVisibility(View.VISIBLE);
+        }
         SaveSystem.loadCategories(result -> {
             categories = result;
 
             if(categoryAdapter != null){
                 ((Activity)appContext).runOnUiThread(() -> {
                     categoryAdapter.setCategories(categories);
-                    if(loader != null){
-                        loader.setVisibility(View.GONE);
-                    }
+                    loader.setVisibility(View.GONE);
                 });
             }
         });
@@ -82,14 +83,14 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
                     loader.setVisibility(View.GONE);
                 });
             }
-
-
         });
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
         loader = rootView.findViewById(R.id.discover_progress);
+
+        nestedScrollView = rootView.findViewById(R.id.discover_scrollview);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
         categoryAdapter = new DiscoverCategoryAdapter(categories, this);
@@ -119,6 +120,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         Category categoryClicked = categories.get(position);
         search(categoryClicked.getQuery());
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
