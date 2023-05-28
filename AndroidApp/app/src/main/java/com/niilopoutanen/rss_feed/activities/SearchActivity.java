@@ -27,11 +27,8 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
     EditText searchField;
     RecyclerView searchRecyclerView;
-    int activeType;
     ProgressBar loader;
 
-    //Discover type
-    public static final int DISCOVER = 1;
     private DiscoverResultAdapter discoverResultAdapter;
     private List<FeedResult> discoverResults = new ArrayList<>();
 
@@ -45,19 +42,9 @@ public class SearchActivity extends AppCompatActivity {
         searchRecyclerView = findViewById(R.id.search_recyclerview);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         loader = findViewById(R.id.search_progress);
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            switch (extras.getInt("type")) {
-                case DISCOVER:
-                    discoverResultAdapter = new DiscoverResultAdapter(discoverResults);
-                    searchRecyclerView.setAdapter(discoverResultAdapter);
-                    activeType = DISCOVER;
-                    break;
-            }
-        }
-        else{
-            finish();
-        }
+
+        discoverResultAdapter = new DiscoverResultAdapter(discoverResults);
+        searchRecyclerView.setAdapter(discoverResultAdapter);
 
         searchField = findViewById(R.id.search);
         searchField.addTextChangedListener(new TextWatcher() {
@@ -80,22 +67,20 @@ public class SearchActivity extends AppCompatActivity {
 
     private void search(String query){
         loader.setVisibility(View.VISIBLE);
-        if(activeType == DISCOVER){
-            if(query.length() > 0){
-                WebHelper.fetchFeedQuery(query, result -> {
-                    discoverResults = result;
+        if(query.length() > 0){
+            WebHelper.fetchFeedQuery(query, result -> {
+                discoverResults = result;
 
-                    if(discoverResultAdapter != null){
-                        runOnUiThread(() -> {
-                            discoverResultAdapter.setResults(discoverResults);
-                            loader.setVisibility(View.GONE);
-                        });
-                    }
-                });
-            }
-            else{
-                discoverResultAdapter.setResults(new ArrayList<>());
-            }
+                if(discoverResultAdapter != null){
+                    runOnUiThread(() -> {
+                        discoverResultAdapter.setResults(discoverResults);
+                        loader.setVisibility(View.GONE);
+                    });
+                }
+            });
+        }
+        else{
+            discoverResultAdapter.setResults(new ArrayList<>());
         }
     }
 }

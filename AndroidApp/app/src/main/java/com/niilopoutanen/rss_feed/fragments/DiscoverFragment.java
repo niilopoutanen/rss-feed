@@ -104,7 +104,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         View searchBtn = rootView.findViewById(R.id.discover_search);
         searchBtn.setOnClickListener(v -> {
             Intent searchIntent = new Intent(appContext, SearchActivity.class);
-            searchIntent.putExtra("type", SearchActivity.DISCOVER);
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, searchBtn, "search");
             appContext.startActivity(searchIntent, options.toBundle());
         });
