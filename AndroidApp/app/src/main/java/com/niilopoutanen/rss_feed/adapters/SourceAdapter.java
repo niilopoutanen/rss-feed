@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -176,7 +178,9 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             TextView snackbarActionTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_action);
             snackbarActionTextView.setAllCaps(false);
             snackbarActionTextView.setTypeface(ResourcesCompat.getFont(context, R.font.inter));
+            snackbarActionTextView.setTextColor(ContextCompat.getColor(context, R.color.surface));
             snackbarActionTextView.setLetterSpacing(0.0f);
+
             snackbar.show();
         }
 
@@ -184,15 +188,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                 View itemView = viewHolder.itemView;
-                Paint paint = new Paint();
-                RectF background;
                 if (dX < 0) {
                     // Swiping left
-                    paint.setColor(Color.parseColor("#FF0000"));
-                    background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),
-                            (float) itemView.getRight(), (float) itemView.getBottom());
-                    c.drawRoundRect(background, 25, 25, paint);
-
                     Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_trash);
 
                     int intrinsicHeight = drawable.getIntrinsicHeight();
@@ -201,12 +198,26 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                     int top = itemView.getTop() + (itemView.getHeight() - intrinsicHeight) / 2;
                     int right = itemView.getRight() - iconMargin;
                     int bottom = top + intrinsicHeight;
+
+                    int startColor = ContextCompat.getColor(context, R.color.textSecondary);
+                    int endColor = Color.RED;
+
+                    int redIntensity = (int) (Color.red(startColor) + (Color.red(endColor) - Color.red(startColor)) * Math.abs(dX) / itemView.getWidth());
+                    int greenIntensity = (int) (Color.green(startColor) + (Color.green(endColor) - Color.green(startColor)) * Math.abs(dX) / itemView.getWidth());
+                    int blueIntensity = (int) (Color.blue(startColor) + (Color.blue(endColor) - Color.blue(startColor)) * Math.abs(dX) / itemView.getWidth());
+                    int interpolatedColor = Color.rgb(redIntensity, greenIntensity, blueIntensity);
+
+                    drawable.setColorFilter(interpolatedColor, PorterDuff.Mode.SRC_IN);
+
                     drawable.setBounds(left, top, right, bottom);
                     drawable.draw(c);
                 }
             }
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
+
+
+
     }
 
 }
