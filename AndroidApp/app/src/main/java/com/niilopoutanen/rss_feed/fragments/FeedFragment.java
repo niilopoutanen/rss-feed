@@ -202,13 +202,21 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
      * @param type Type of the error message that will show
      */
     private void showError(ERROR_TYPES type){
+        boolean sourceAlertHidden = PreferencesManager.loadPreferences(appContext).s_hide_sourcealert;
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
-        dialog.setNegativeButton(appContext.getString(R.string.close), (dialog1, which) -> dialog1.dismiss());
+        dialog.setNegativeButton(appContext.getString(R.string.cancel), (dialog1, which) -> dialog1.dismiss());
         switch (type){
             case NOSOURCES:
                 dialog.setPositiveButton("OK", (dialog1, which) -> dialog1.dismiss());
                 dialog.setTitle(appContext.getString(R.string.nosources));
                 dialog.setMessage(appContext.getString(R.string.nosourcesmsg));
+                if(sourceAlertHidden){
+                    return;
+                }
+                dialog.setNegativeButton(appContext.getString(R.string.donot_show_again), (dialog1, which) -> {
+                    dialog1.dismiss();
+                    PreferencesManager.saveBooleanPreference(Preferences.SP_HIDE_SOURCE_ALERT, Preferences.PREFS_FUNCTIONALITY, true, appContext);
+                });
                 break;
 
             case NOINTERNET:

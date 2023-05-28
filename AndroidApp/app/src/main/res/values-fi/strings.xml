@@ -109,4 +109,5 @@
     <string name="nointernetmsg">Syötettä ei voitu ladata. Yhdistä internettiin ja yritä uudelleen.</string>
     <string name="nosourcesmsg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
     <string name="tryagain">Yritä uudelleen</string>
+    <string name="donot_show_again">Älä näytä uudelleen</string>
 </resources>
