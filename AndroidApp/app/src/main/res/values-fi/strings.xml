@@ -102,4 +102,6 @@
     <string name="nosourcesmsg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
     <string name="tryagain">Yritä uudelleen</string>
     <string name="donot_show_again">Älä näytä uudelleen</string>
+    <string name="invalidfeed">RSS-syötteen url-osoite on virheellinen.</string>
+    <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
 </resources>

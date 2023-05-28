@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -152,8 +153,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                     });
                 } catch (Exception e) {
                     if (WebHelper.isErrorCode(e.getMessage())) {
-                        updateFeed(source.getName(), RSSParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
+                        try{
+                            updateFeed(source.getName(), RSSParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
+                            return;
+                        }
+                        catch (Exception ignored){}
                     }
+                    ((Activity)appContext).runOnUiThread(() -> showError(ERROR_TYPES.INVALIDTYPE));
+
                 }
 
             }
@@ -199,7 +206,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void showError(ERROR_TYPES type) {
         boolean sourceAlertHidden = PreferencesManager.loadPreferences(appContext).s_hide_sourcealert;
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
-        dialog.setNegativeButton(appContext.getString(R.string.cancel), (dialog1, which) -> dialog1.dismiss());
+        dialog.setNegativeButton(appContext.getString(R.string.close), (dialog1, which) -> dialog1.dismiss());
         switch (type) {
             case NOSOURCES:
                 dialog.setPositiveButton("OK", (dialog1, which) -> dialog1.dismiss());
@@ -217,6 +224,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             case NOINTERNET:
                 dialog.setTitle(appContext.getString(R.string.nointernet));
                 dialog.setMessage(appContext.getString(R.string.nointernetmsg));
+                dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
+                    dialog1.dismiss();
+                    updateFeed();
+                });
+                break;
+            case INVALIDTYPE:
+                dialog.setTitle(appContext.getString(R.string.invalidfeed));
+                dialog.setMessage(appContext.getString(R.string.invalidfeedmsg));
                 dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
                     dialog1.dismiss();
                     updateFeed();
@@ -280,6 +295,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     enum ERROR_TYPES {
-        NOSOURCES, NOINTERNET
+        NOSOURCES, NOINTERNET, INVALIDTYPE
     }
 }
