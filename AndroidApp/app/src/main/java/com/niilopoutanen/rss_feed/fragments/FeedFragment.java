@@ -112,14 +112,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     private boolean checkValidity() {
         if (sources.size() == 0) {
-            showError(ERROR_TYPES.NOSOURCES);
+            showError(ERROR_TYPES.NOSOURCES, null);
             return false;
         }
 
         ConnectivityManager connectionManager = appContext.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
-            showError(ERROR_TYPES.NOINTERNET);
+            showError(ERROR_TYPES.NOINTERNET, null);
             return false;
         } else {
             return true;
@@ -159,7 +159,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                         }
                         catch (Exception ignored){}
                     }
-                    ((Activity)appContext).runOnUiThread(() -> showError(ERROR_TYPES.INVALIDTYPE));
+                    ((Activity)appContext).runOnUiThread(() -> showError(ERROR_TYPES.INVALIDTYPE, source));
 
                 }
 
@@ -203,7 +203,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
      *
      * @param type Type of the error message that will show
      */
-    private void showError(ERROR_TYPES type) {
+    private void showError(ERROR_TYPES type, Source errorCause) {
         boolean sourceAlertHidden = PreferencesManager.loadPreferences(appContext).s_hide_sourcealert;
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
         dialog.setNegativeButton(appContext.getString(R.string.close), (dialog1, which) -> dialog1.dismiss());
@@ -231,7 +231,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 break;
             case INVALIDTYPE:
                 dialog.setTitle(appContext.getString(R.string.invalidfeed));
-                dialog.setMessage(appContext.getString(R.string.invalidfeedmsg));
+                dialog.setMessage(appContext.getString(R.string.invalidfeedmsg) +" " + errorCause.getFeedUrl());
                 dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
                     dialog1.dismiss();
                     updateFeed();

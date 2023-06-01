@@ -101,7 +101,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
         categoryAdapter = new DiscoverCategoryAdapter(categories, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
-        categoryRecyclerView.setLayoutManager(new CarouselLayoutManager());
 
         RecyclerView resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);

@@ -62,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:clipToPadding="false"
-            android:nestedScrollingEnabled="false" />
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
