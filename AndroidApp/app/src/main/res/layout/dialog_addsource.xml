@@ -93,6 +93,7 @@
             android:background="@color/textSecondary" />
 
         <EditText
+            android:importantForAutofill="no"
             android:id="@+id/sourcedialog_feedName"
             android:layout_width="match_parent"
             android:layout_height="40dp"

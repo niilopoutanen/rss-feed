@@ -12,6 +12,7 @@
 
     <ImageView
         android:id="@+id/feedcard_image"
+        android:contentDescription="@string/feed_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp" />

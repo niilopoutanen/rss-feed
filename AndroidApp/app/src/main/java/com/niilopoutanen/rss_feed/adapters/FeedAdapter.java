@@ -214,7 +214,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
     public static class HeaderViewHolder extends ItemViewHolder {
 
-        public TextView header;
+        public final TextView header;
 
         public HeaderViewHolder(View itemView) {
             super(itemView, null);

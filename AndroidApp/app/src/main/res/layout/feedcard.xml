@@ -9,6 +9,7 @@
     android:paddingBottom="10dp">
 
     <ImageView
+        android:contentDescription="@string/feed_header"
         android:id="@+id/feedcard_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
