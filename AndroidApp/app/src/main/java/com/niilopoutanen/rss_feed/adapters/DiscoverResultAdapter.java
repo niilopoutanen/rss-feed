@@ -95,9 +95,9 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView desc;
-        RelativeLayout addBtn;
+        final TextView title;
+        final TextView desc;
+        final RelativeLayout addBtn;
 
         ItemViewHolder(View itemView) {
             super(itemView);

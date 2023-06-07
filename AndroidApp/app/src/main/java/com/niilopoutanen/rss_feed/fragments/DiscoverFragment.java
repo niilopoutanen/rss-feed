@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.carousel.CarouselLayoutManager;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
@@ -38,7 +37,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     DiscoverCategoryAdapter categoryAdapter;
     DiscoverResultAdapter resultAdapter;
     RecyclerView categoryRecyclerView;
-    NestedScrollView nestedScrollView;
     View loader;
 
     public DiscoverFragment(Context context, Preferences preferences) {
@@ -95,8 +93,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
         loader = rootView.findViewById(R.id.discover_progress);
-
-        nestedScrollView = rootView.findViewById(R.id.discover_scrollview);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
         categoryAdapter = new DiscoverCategoryAdapter(categories, this);

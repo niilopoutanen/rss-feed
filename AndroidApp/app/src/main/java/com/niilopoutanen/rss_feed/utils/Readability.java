@@ -25,6 +25,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -377,7 +378,7 @@ public class Readability {
         }
 
         Elements allParagraphs = mDocument.getElementsByTag("p");
-        ArrayList<Element> candidates = new ArrayList<Element>();
+        ArrayList<Element> candidates = new ArrayList<>();
         for (Element node : allParagraphs) {
             Element parentNode = node.parent();
             Element grandParentNode = parentNode.parent();
@@ -402,7 +403,7 @@ public class Readability {
 
             contentScore += innerText.split(",").length;
 
-            contentScore += Math.min(Math.floor(innerText.length() / 100), 3);
+            contentScore += Math.min(Math.floor((double) innerText.length() / 100.0), 3);
 
             incrementContentScore(parentNode, contentScore);
             incrementContentScore(grandParentNode, contentScore / 2);
@@ -460,7 +461,6 @@ public class Readability {
                 dbg("Appending node: " + siblingNode);
 
                 articleContent.appendChild(siblingNode);
-                continue;
             }
         }
 
@@ -499,7 +499,7 @@ public class Readability {
                 } else if (li > p && !"ul".equalsIgnoreCase(tag)
                         && !"ol".equalsIgnoreCase(tag)) {
                     toRemove = true;
-                } else if (input > Math.floor(p / 3)) {
+                } else if (input > Math.floor((double)p / 3)) {
                     toRemove = true;
                 } else if (contentLength < 25 && (img == 0 || img > 2)) {
                     toRemove = true;
@@ -524,7 +524,7 @@ public class Readability {
 
     protected void dbg(String msg, Throwable t) {
         System.out.println(msg + (t != null ? ("\n" + t.getMessage()) : "")
-                + (t != null ? ("\n" + t.getStackTrace()) : ""));
+                + (t != null ? ("\n" + Arrays.toString(t.getStackTrace())) : ""));
     }
 
     private static class Patterns {

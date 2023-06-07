@@ -17,7 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -102,24 +101,21 @@ public class WebHelper {
      */
     public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) throws Exception {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<String> future = executor.submit(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                try {
-                    // Open a connection to the website URL
-                    Connection.Response response = Jsoup.connect(rssFeedUrl)
-                            .ignoreContentType(true)
-                            .execute();
-                    int statusCode = response.statusCode();
-                    String responseBody = response.body();
-                    if (statusCode == 200) {
-                        return responseBody;
-                    } else {
-                        throw new Exception(String.valueOf(statusCode));
-                    }
-                } catch (HttpStatusException e) {
-                    throw new Exception(String.valueOf(e.getStatusCode()));
+        Future<String> future = executor.submit(() -> {
+            try {
+                // Open a connection to the website URL
+                Connection.Response response = Jsoup.connect(rssFeedUrl)
+                        .ignoreContentType(true)
+                        .execute();
+                int statusCode = response.statusCode();
+                String responseBody = response.body();
+                if (statusCode == 200) {
+                    return responseBody;
+                } else {
+                    throw new Exception(String.valueOf(statusCode));
                 }
+            } catch (HttpStatusException e) {
+                throw new Exception(String.valueOf(e.getStatusCode()));
             }
         });
         callback.onResult(future.get());

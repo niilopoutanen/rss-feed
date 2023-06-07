@@ -51,8 +51,6 @@ public class SettingsHapticsFragment extends Fragment {
             getParentFragmentManager().popBackStack();
         });
 
-        Preferences.HapticTypes selected = PreferencesManager.getEnumPreference(Preferences.SP_HAPTICS_TYPE, Preferences.PREFS_FUNCTIONALITY, Preferences.HapticTypes.class, Preferences.SP_HAPTICS_TYPE_DEFAULT, appContext);
-
         types = Arrays.asList(
                 rootView.findViewById(R.id.vibration_type1),
                 rootView.findViewById(R.id.vibration_type2),

@@ -74,8 +74,8 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
+        final ImageView imageView;
+        final TextView textView;
 
         ItemViewHolder(View itemView) {
             super(itemView);

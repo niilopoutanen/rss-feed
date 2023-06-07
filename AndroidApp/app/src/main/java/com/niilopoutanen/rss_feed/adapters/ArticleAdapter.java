@@ -152,12 +152,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     break;
                 case VIEW_TYPE_HEADER:
                     LinearLayout returnBtn = ((HeaderFooterViewHolder) holder).returnBtn;
-                    returnBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ((Activity) appContext).finish();
-                        }
-                    });
+                    returnBtn.setOnClickListener(v -> ((Activity) appContext).finish());
 
                     TextView title = ((HeaderFooterViewHolder) holder).articleTitle;
                     title.setText(((TitleItem) item).getTitle());

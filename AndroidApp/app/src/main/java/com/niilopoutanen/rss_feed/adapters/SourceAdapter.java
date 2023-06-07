@@ -89,17 +89,15 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         View container = holder.itemView;
 
         container.setOnLongClickListener(onLongClickListener);
-        container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("source", source);
-                bundle.putSerializable("preferences", preferences);
-                Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
-                feedIntent.putExtras(bundle);
-                PreferencesManager.vibrate(v, preferences, context);
-                v.getContext().startActivity(feedIntent);
-            }
+
+        container.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("source", source);
+            bundle.putSerializable("preferences", preferences);
+            Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
+            feedIntent.putExtras(bundle);
+            PreferencesManager.vibrate(v, preferences, context);
+            v.getContext().startActivity(feedIntent);
         });
 
         sourceName.setText(source.getName());
@@ -130,8 +128,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView sourceName;
-        public ImageView sourceImage;
+        public final TextView sourceName;
+        public final ImageView sourceImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

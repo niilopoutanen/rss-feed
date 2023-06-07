@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,7 +43,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
-    List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
+    final List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
     ArticleAdapter adapter;
     private RecyclerView articleContainer;
     private String title;
@@ -285,7 +286,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("content", resultData);
         outState.putString("title", title);

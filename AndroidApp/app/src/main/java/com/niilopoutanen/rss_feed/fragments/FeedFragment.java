@@ -261,7 +261,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         recyclerviewRefresh = rootView.findViewById(R.id.recyclerview_refresher);
         recyclerviewRefresh.setColorSchemeColors(colorAccent);
         recyclerviewRefresh.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
-        recyclerviewRefresh.setOnRefreshListener(() -> updateFeed());
+        recyclerviewRefresh.setOnRefreshListener(this::updateFeed);
 
         updateFeed();
         return rootView;
@@ -279,7 +279,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
         outState.putSerializable("sources", new ArrayList<>(sources));

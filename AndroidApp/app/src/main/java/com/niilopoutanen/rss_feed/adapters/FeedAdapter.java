@@ -182,12 +182,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView titleTextView;
-        public TextView descTextView;
-        public TextView author;
-        public TextView date;
-        public ImageView image;
-        public View container;
+        public final TextView titleTextView;
+        public final TextView descTextView;
+        public final TextView author;
+        public final TextView date;
+        public final ImageView image;
+        public final View container;
 
         public ItemViewHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);

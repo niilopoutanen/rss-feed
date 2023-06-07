@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,12 +76,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
 
 
         RelativeLayout addBtn = rootView.findViewById(R.id.addNewButton);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                askForSourceInput(null);
-            }
-        });
+        addBtn.setOnClickListener(v -> askForSourceInput(null));
         return rootView;
     }
 
@@ -107,67 +103,64 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
             TextView title = bottomSheetDialog.findViewById(R.id.sourcedialog_title);
             title.setText(appContext.getString(R.string.updatesource));
         }
-        sourceAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        sourceAdd.setOnClickListener(view -> {
 
-                InputMethodManager imm = (InputMethodManager) appContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(urlInput.getWindowToken(), 0);
+            InputMethodManager imm = (InputMethodManager) appContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(urlInput.getWindowToken(), 0);
 
-                for (int i = 0; i < sheetLayout.getChildCount(); i++) {
-                    View childView = sheetLayout.getChildAt(i);
-                    Object tag = childView.getTag();
-                    if (tag != null && tag.equals("error-message")) {
-                        sheetLayout.removeView(childView);
-                    }
+            for (int i = 0; i < sheetLayout.getChildCount(); i++) {
+                View childView = sheetLayout.getChildAt(i);
+                Object tag = childView.getTag();
+                if (tag != null && tag.equals("error-message")) {
+                    sheetLayout.removeView(childView);
                 }
-                ProgressBar progress = bottomSheetDialog.findViewById(R.id.sourcedialog_progress);
-
-
-                String inputUrl = urlInput.getText().toString();
-                String inputName = nameInput.getText().toString();
-                if (inputUrl.isEmpty()) {
-                    sheetLayout.addView(SourceValidator.createErrorMessage(appContext, "URL can't be empty"));
-                    return;
-                }
-                sourceCancel.setOnClickListener(null);
-
-                sourceAdd.setVisibility(View.GONE);
-                progress.setVisibility(View.VISIBLE);
-                bottomSheetDialog.setCancelable(false);
-                SourceValidator.validate(inputUrl, inputName, new WebCallBack<Source>() {
-                    @Override
-                    public void onResult(Source result) {
-                        Activity activity = (Activity) appContext;
-                        if (result != null) {
-                            if (source == null) {
-                                SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
-                            } else {
-                                sources = SaveSystem.loadContent(appContext);
-                                sources.removeIf(oldSource -> Objects.equals(oldSource.getName(), source.getName()));
-                                sources.add(new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
-                                SaveSystem.saveContent(appContext, sources);
-                            }
-                            sources = SaveSystem.loadContent(appContext);
-                            bottomSheetDialog.dismiss();
-
-                            activity.runOnUiThread(() -> adapter.updateSources(sources));
-                        } else {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progress.setVisibility(View.GONE);
-                                    sourceAdd.setVisibility(View.VISIBLE);
-                                    bottomSheetDialog.setCancelable(true);
-                                    sheetLayout.addView(SourceValidator.createErrorMessage(appContext, "Error with adding source. Please try again"));
-                                }
-                            });
-
-                        }
-
-                    }
-                }, appContext);
             }
+            ProgressBar progress = bottomSheetDialog.findViewById(R.id.sourcedialog_progress);
+
+
+            String inputUrl = urlInput.getText().toString();
+            String inputName = nameInput.getText().toString();
+            if (inputUrl.isEmpty()) {
+                sheetLayout.addView(SourceValidator.createErrorMessage(appContext, "URL can't be empty"));
+                return;
+            }
+            sourceCancel.setOnClickListener(null);
+
+            sourceAdd.setVisibility(View.GONE);
+            progress.setVisibility(View.VISIBLE);
+            bottomSheetDialog.setCancelable(false);
+            SourceValidator.validate(inputUrl, inputName, new WebCallBack<Source>() {
+                @Override
+                public void onResult(Source result) {
+                    Activity activity = (Activity) appContext;
+                    if (result != null) {
+                        if (source == null) {
+                            SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
+                        } else {
+                            sources = SaveSystem.loadContent(appContext);
+                            sources.removeIf(oldSource -> Objects.equals(oldSource.getName(), source.getName()));
+                            sources.add(new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
+                            SaveSystem.saveContent(appContext, sources);
+                        }
+                        sources = SaveSystem.loadContent(appContext);
+                        bottomSheetDialog.dismiss();
+
+                        activity.runOnUiThread(() -> adapter.updateSources(sources));
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progress.setVisibility(View.GONE);
+                                sourceAdd.setVisibility(View.VISIBLE);
+                                bottomSheetDialog.setCancelable(true);
+                                sheetLayout.addView(SourceValidator.createErrorMessage(appContext, "Error with adding source. Please try again"));
+                            }
+                        });
+
+                    }
+
+                }
+            }, appContext);
         });
 
         sourceCancel.setOnClickListener(view -> bottomSheetDialog.dismiss());
@@ -176,7 +169,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
     }
