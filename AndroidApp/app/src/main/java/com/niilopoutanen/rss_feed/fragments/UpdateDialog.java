@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+
 /**
  * Dialog that is shown on launch if user launches the version for first time
  */

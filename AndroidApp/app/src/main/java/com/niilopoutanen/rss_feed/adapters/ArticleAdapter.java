@@ -18,11 +18,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
+import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -152,12 +152,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     break;
                 case VIEW_TYPE_HEADER:
                     LinearLayout returnBtn = ((HeaderFooterViewHolder) holder).returnBtn;
-                    returnBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ((Activity) appContext).finish();
-                        }
-                    });
+                    returnBtn.setOnClickListener(v -> ((Activity) appContext).finish());
 
                     TextView title = ((HeaderFooterViewHolder) holder).articleTitle;
                     title.setText(((TitleItem) item).getTitle());

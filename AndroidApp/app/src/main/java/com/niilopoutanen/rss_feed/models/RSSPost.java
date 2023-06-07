@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.models;
 
 import java.util.Calendar;
 import java.util.Date;
+
 /**
  * Class for RSS posts from feed
  */
@@ -14,16 +15,6 @@ public class RSSPost implements Comparable<RSSPost> {
     private String description;
     private Date publishTime;
 
-
-    public RSSPost(String postLink, String author, String sourceName, String imageUrl, String title, String description, Date publishTime) {
-        this.postLink = postLink;
-        this.author = author;
-        this.sourceName = sourceName;
-        this.imageUrl = imageUrl;
-        this.title = title;
-        this.description = description;
-        this.publishTime = publishTime;
-    }
 
     public RSSPost() {
 

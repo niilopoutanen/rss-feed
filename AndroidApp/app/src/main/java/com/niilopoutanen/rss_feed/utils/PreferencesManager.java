@@ -35,6 +35,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_TYPE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_TYPE_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
@@ -61,8 +63,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.models.Preferences;
 
 import java.text.DateFormat;
@@ -80,7 +82,8 @@ public class PreferencesManager {
 
     /**
      * Loads the saved themes. Required before each activity's setContentView()
-     * @param activity Required to set the theme
+     *
+     * @param activity    Required to set the theme
      * @param preferences Required to get the selected theme
      */
     public static void setSavedTheme(Activity activity, Preferences preferences) {
@@ -130,8 +133,10 @@ public class PreferencesManager {
         }
 
     }
+
     /**
      * Returns the user's selected font
+     *
      * @return Typeface object of the font
      */
     public static Typeface getSavedFont(Preferences preferences, Context context) {
@@ -149,7 +154,8 @@ public class PreferencesManager {
 
     /**
      * Call performVibrate() with parameters
-     * @param view View to vibrate
+     *
+     * @param view        View to vibrate
      * @param preferences required for loading the preferred haptic type
      */
     public static void vibrate(View view, Preferences preferences, Context context) {
@@ -158,9 +164,10 @@ public class PreferencesManager {
 
     /**
      * Call performVibrate() with parameters & stage parameter
-     * @param view View to vibrate
+     *
+     * @param view        View to vibrate
      * @param preferences required for loading the preferred haptic type
-     * @param stage Stage of the vibration
+     * @param stage       Stage of the vibration
      */
     public static void vibrate(View view, Preferences preferences, int stage, Context context) {
         performVibrate(view, preferences, stage, context);
@@ -168,9 +175,10 @@ public class PreferencesManager {
 
     /**
      * Performs the vibration. Can be called through vibrate() methods
-     * @param view View to vibrate
+     *
+     * @param view        View to vibrate
      * @param preferences required for loading the preferred haptic type
-     * @param stage Stage of the vibration
+     * @param stage       Stage of the vibration
      */
     private static void performVibrate(View view, Preferences preferences, int stage, Context context) {
         if (!preferences.s_haptics || view == null) {
@@ -198,6 +206,7 @@ public class PreferencesManager {
 
     /**
      * Returns the last version of the app user has accessed
+     *
      * @return int code of the version
      */
     public static int getLastVersionUsed(Context context) {
@@ -219,6 +228,7 @@ public class PreferencesManager {
 
     /**
      * Checks if the user is launching the version for the first time
+     *
      * @return true if is, false if not
      */
     public static boolean isFirstLaunch(Context context) {
@@ -230,6 +240,7 @@ public class PreferencesManager {
 
     /**
      * Loads the saved preferences from disk
+     *
      * @return Preferences object with parsed data
      */
     public static Preferences loadPreferences(Context context) {
@@ -245,6 +256,7 @@ public class PreferencesManager {
         preferences.s_articlesinbrowser = getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context);
         preferences.s_articlefullscreen = getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context);
         preferences.s_imagecache = getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context);
+        preferences.s_hide_sourcealert = getBooleanPreference(SP_HIDE_SOURCE_ALERT, PREFS_FUNCTIONALITY, SP_HIDE_SOURCE_ALERT_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_authorname = getBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, SP_FEEDCARD_AUTHORNAME_DEFAULT, context);
@@ -258,9 +270,10 @@ public class PreferencesManager {
 
     /**
      * Saves a ENUM type preference to disk
-     * @param key Key of the preference to be edited
+     *
+     * @param key      Key of the preference to be edited
      * @param category SharedPreference category of the key
-     * @param value ENUM value that gets saved
+     * @param value    ENUM value that gets saved
      */
     public static void saveEnumPreference(String key, String category, Enum<?> value, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
@@ -273,10 +286,11 @@ public class PreferencesManager {
 
     /**
      * Loads a ENUM type preference from disk
-     * @param key Key of the preference to be loaded
-     * @param category SharedPreference category of the key
+     *
+     * @param key       Key of the preference to be loaded
+     * @param category  SharedPreference category of the key
      * @param enumClass ENUM class for parsing the loaded data
-     * @param defValue Default value if nothing is saved yet
+     * @param defValue  Default value if nothing is saved yet
      * @return ENUM object with loaded data
      */
     public static <T extends Enum<T>> T getEnumPreference(String key, String category, Class<T> enumClass, T defValue, Context context) {
@@ -288,9 +302,10 @@ public class PreferencesManager {
 
     /**
      * Saves a boolean type preference to disk
-     * @param key Key of the preference to be edited
+     *
+     * @param key      Key of the preference to be edited
      * @param category SharedPreference category of the key
-     * @param value boolean value that gets saved
+     * @param value    boolean value that gets saved
      */
     public static void saveBooleanPreference(String key, String category, boolean value, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
@@ -303,7 +318,8 @@ public class PreferencesManager {
 
     /**
      * Loads a boolean type preference from disk
-     * @param key Key of the preference to be loaded
+     *
+     * @param key      Key of the preference to be loaded
      * @param category SharedPreference category of the key
      * @param defValue Default value if nothing is saved yet
      * @return boolean object with loaded data
@@ -315,6 +331,7 @@ public class PreferencesManager {
 
     /**
      * Calculates image width for feed & article elements
+     *
      * @return pixel value that can be used in code
      */
     public static int getImageWidth(int imageType, Context context) {
@@ -336,6 +353,7 @@ public class PreferencesManager {
 
     /**
      * Loads the accent color user has selected
+     *
      * @return TypedValue object that can be used in code
      */
     public static int getAccentColor(Context context) {
@@ -346,6 +364,7 @@ public class PreferencesManager {
 
     /**
      * Formats Date object to user's preferred format
+     *
      * @return String representation of the date
      */
     public static String formatDate(Date date, DateStyle dateStyle, Context context) {
@@ -383,6 +402,7 @@ public class PreferencesManager {
 
     /**
      * Calculates DP value from PX(pixel)
+     *
      * @return Pixel representation of the DP value
      */
     public static int dpToPx(int dp, Context context) {

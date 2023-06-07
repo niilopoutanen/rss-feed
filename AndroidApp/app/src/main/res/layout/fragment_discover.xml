@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/discover_scrollview"
     tools:context=".fragments.DiscoverFragment">
 
     <LinearLayout
@@ -27,7 +28,7 @@
             android:id="@+id/discover_search"
             android:transitionName="search"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
@@ -61,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:clipToPadding="false"
-            android:nestedScrollingEnabled="false" />
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
@@ -82,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:indeterminateTint="?attr/colorAccent"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"

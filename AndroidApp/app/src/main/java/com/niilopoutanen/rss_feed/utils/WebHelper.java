@@ -16,12 +16,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,6 +32,7 @@ public class WebHelper {
 
     /**
      * Format's a URL to valid format. (HTTP to HTTPS, extra chars removed)
+     *
      * @param url URL to format
      * @return formatted URL object
      */
@@ -76,6 +72,7 @@ public class WebHelper {
 
     /**
      * Finds the host of a url.
+     *
      * @param url URL to parse
      * @return URL object with host parameters
      */
@@ -86,6 +83,7 @@ public class WebHelper {
             return url;
         }
     }
+
     public static URL getBaseUrl(String url) {
         try {
             URL urlToParse = new URL(url);
@@ -97,38 +95,36 @@ public class WebHelper {
 
     /**
      * Loads RSS feed data from a URL
+     *
      * @param rssFeedUrl URL to load
-     * @param callback Callback that returns the feed data
+     * @param callback   Callback that returns the feed data
      */
     public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) throws Exception {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<String> future = executor.submit(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                try {
-                    // Open a connection to the website URL
-                    Connection.Response response = Jsoup.connect(rssFeedUrl)
-                            .ignoreContentType(true)
-                            .execute();
-                    int statusCode = response.statusCode();
-                    String responseBody = response.body();
-                    if (statusCode == 200) {
-                        return responseBody;
-                    } else {
-                        throw new Exception(String.valueOf(statusCode));
-                    }
-                } catch (HttpStatusException e) {
-                    throw new Exception(String.valueOf(e.getStatusCode()));
+        Future<String> future = executor.submit(() -> {
+            try {
+                // Open a connection to the website URL
+                Connection.Response response = Jsoup.connect(rssFeedUrl)
+                        .ignoreContentType(true)
+                        .execute();
+                int statusCode = response.statusCode();
+                String responseBody = response.body();
+                if (statusCode == 200) {
+                    return responseBody;
+                } else {
+                    throw new Exception(String.valueOf(statusCode));
                 }
+            } catch (HttpStatusException e) {
+                throw new Exception(String.valueOf(e.getStatusCode()));
             }
         });
         callback.onResult(future.get());
     }
 
 
-
     /**
      * Loads data from a URL no matter the type
+     *
      * @param url URL to load
      * @return String data from the URL
      */
@@ -182,6 +178,7 @@ public class WebHelper {
 
     /**
      * Tries to find icon of the website provided
+     *
      * @param url URL to check
      * @return String URL for the img icon
      */
@@ -215,7 +212,8 @@ public class WebHelper {
 
     /**
      * Search Feedly API with the provided query
-     * @param query Query to search with
+     *
+     * @param query    Query to search with
      * @param callBack Returns a list of FeedResult objects that were found
      */
     public static void fetchFeedQuery(String query, WebCallBack<List<FeedResult>> callBack) {
@@ -227,15 +225,15 @@ public class WebHelper {
                 String result = fetchUrlData(queryUrl);
                 List<FeedResult> results = FeedResult.parseResult(result);
                 callBack.onResult(results);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         });
     }
+
     public static boolean isErrorCode(String errorMessage) {
-        if(errorMessage == null){
+        if (errorMessage == null) {
             return false;
         }
         String statusCodeString = errorMessage.replaceFirst("java\\.lang\\.Exception:", "").trim();
@@ -245,6 +243,7 @@ public class WebHelper {
         }
         return false;
     }
+
     public static boolean isErrorCode(int statusCode) {
         String statusCodeString = String.valueOf(statusCode);
         if (!statusCodeString.isEmpty()) {

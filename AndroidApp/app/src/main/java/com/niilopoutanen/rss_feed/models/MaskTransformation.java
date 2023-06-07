@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Transformation;
+
 /**
  * Custom mask for Picasso images. Specifically for images with rounded corners
  */

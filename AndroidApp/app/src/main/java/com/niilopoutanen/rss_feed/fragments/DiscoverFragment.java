@@ -5,17 +5,16 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-
-import com.google.android.material.carousel.CarouselLayoutManager;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
@@ -39,11 +38,13 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     DiscoverResultAdapter resultAdapter;
     RecyclerView categoryRecyclerView;
     View loader;
+
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
         this.preferences = preferences;
     }
-    public DiscoverFragment(){
+
+    public DiscoverFragment() {
     }
 
     @Override
@@ -52,40 +53,42 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
-        if(appContext == null){
+        if (appContext == null) {
             appContext = getContext();
         }
         loadData();
     }
-    private void loadData(){
+
+    private void loadData() {
+        if (loader != null) {
+            loader.setVisibility(View.VISIBLE);
+        }
         SaveSystem.loadCategories(result -> {
             categories = result;
 
-            if(categoryAdapter != null){
-                ((Activity)appContext).runOnUiThread(() -> {
+            if (categoryAdapter != null) {
+                ((Activity) appContext).runOnUiThread(() -> {
                     categoryAdapter.setCategories(categories);
-                    if(loader != null){
-                        loader.setVisibility(View.GONE);
-                    }
+                    loader.setVisibility(View.GONE);
                 });
             }
         });
 
     }
-    private void search(String query){
+
+    private void search(String query) {
         loader.setVisibility(View.VISIBLE);
         WebHelper.fetchFeedQuery(query, result -> {
             results = result;
-            if(resultAdapter != null){
-                ((Activity)appContext).runOnUiThread(() -> {
+            if (resultAdapter != null) {
+                ((Activity) appContext).runOnUiThread(() -> {
                     resultAdapter.setResults(results);
                     loader.setVisibility(View.GONE);
                 });
             }
-
-
         });
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
@@ -94,7 +97,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
         categoryAdapter = new DiscoverCategoryAdapter(categories, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
-        categoryRecyclerView.setLayoutManager(new CarouselLayoutManager());
 
         RecyclerView resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
@@ -104,14 +106,12 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         View searchBtn = rootView.findViewById(R.id.discover_search);
         searchBtn.setOnClickListener(v -> {
             Intent searchIntent = new Intent(appContext, SearchActivity.class);
-            searchIntent.putExtra("type", SearchActivity.DISCOVER);
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, searchBtn, "search");
             appContext.startActivity(searchIntent, options.toBundle());
         });
 
         return rootView;
     }
-
 
 
     @Override
@@ -121,8 +121,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         search(categoryClicked.getQuery());
     }
 
+
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
     }

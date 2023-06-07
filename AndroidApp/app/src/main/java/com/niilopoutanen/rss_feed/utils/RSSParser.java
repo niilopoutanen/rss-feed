@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 public class RSSParser {
     /**
      * Finds posts from a RSS Feed.
+     *
      * @param outputData String data of the RSS output
      */
     public static List<RSSPost> parseRssFeed(String outputData) {
@@ -99,8 +100,10 @@ public class RSSParser {
         }
         return itemList;
     }
+
     /**
      * Tries to find img url from a HTML String
+     *
      * @param description String data where the img url can be found
      * @return returns the parsed url. If nothing is found then returns null
      */
@@ -117,6 +120,7 @@ public class RSSParser {
 
     /**
      * Tries to find a valid RSS feed from a given URL
+     *
      * @return first encountered URL that is valid
      */
     public static URL feedFinder(String baseUrl, Context context) {
@@ -165,6 +169,7 @@ public class RSSParser {
 
     /**
      * Checks if the provided URL is valid/exists
+     *
      * @param url URL to check
      * @return true if yes, false if no
      */
@@ -179,6 +184,7 @@ public class RSSParser {
 
     /**
      * Checks if the provided URL is a RSS url
+     *
      * @param url URL to check
      * @return true if yes, false if no
      */

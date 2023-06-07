@@ -1,24 +1,22 @@
 package com.niilopoutanen.rss_feed.activities;
 
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
+import com.niilopoutanen.rss_feed.fragments.FeedFragment;
+import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
-import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
-import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,43 +69,34 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.frame_container, currentFragment)
                     .commit();
         }
-        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == bottomNav.getSelectedItemId()) {
-                    // The selected item is already active, do nothing
-                    return true;
-                }
-                preferences = PreferencesManager.loadPreferences(MainActivity.this);
-                if (itemId == R.id.nav_settings) {
-                    currentFragment = new SettingsFragment(MainActivity.this);
-                }
-                else if (itemId == R.id.nav_feed) {
-                    sources = SaveSystem.loadContent(MainActivity.this);
-                    currentFragment = new FeedFragment(sources, preferences);
-                }
-                else if (itemId == R.id.nav_content) {
-                    currentFragment = new SourceFragment(MainActivity.this, preferences);
-                }
-                else if (itemId == R.id.nav_discover) {
-                    currentFragment = new DiscoverFragment(MainActivity.this, preferences);
-                }
-
-                return loadFragment(currentFragment);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == bottomNav.getSelectedItemId()) {
+                // The selected item is already active, do nothing
+                return true;
             }
+            preferences = PreferencesManager.loadPreferences(MainActivity.this);
+            if (itemId == R.id.nav_settings) {
+                currentFragment = new SettingsFragment(MainActivity.this);
+            } else if (itemId == R.id.nav_feed) {
+                sources = SaveSystem.loadContent(MainActivity.this);
+                currentFragment = new FeedFragment(sources, preferences);
+            } else if (itemId == R.id.nav_content) {
+                currentFragment = new SourceFragment(MainActivity.this, preferences);
+            } else if (itemId == R.id.nav_discover) {
+                currentFragment = new DiscoverFragment(MainActivity.this, preferences);
+            }
+
+            return loadFragment(currentFragment);
         });
 
-        bottomNav.findViewById(R.id.nav_feed).setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (currentFragment instanceof FeedFragment) {
-                    FeedFragment feedFragment = (FeedFragment) currentFragment;
-                    feedFragment.scrollToTop();
-                    return true; // Event has been consumed
-                }
-                return false; // Event has not been consumed
+        bottomNav.findViewById(R.id.nav_feed).setOnLongClickListener(v -> {
+            if (currentFragment instanceof FeedFragment) {
+                FeedFragment feedFragment = (FeedFragment) currentFragment;
+                feedFragment.scrollToTop();
+                return true; // Event has been consumed
             }
+            return false; // Event has not been consumed
         });
 
     }

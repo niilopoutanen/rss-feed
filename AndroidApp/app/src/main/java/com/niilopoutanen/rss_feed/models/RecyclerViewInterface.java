@@ -1,4 +1,5 @@
 package com.niilopoutanen.rss_feed.models;
+
 /**
  * Interface for recyclerview item clicks with position
  */

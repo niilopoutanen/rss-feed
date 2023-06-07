@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.models;
 
 import java.io.Serializable;
+
 /**
  * Data model with all user customizable preferences
  */
@@ -17,6 +18,8 @@ public class Preferences implements Serializable {
     public static final HapticTypes SP_HAPTICS_TYPE_DEFAULT = HapticTypes.VIEW;
     public static final String SP_IMAGECACHE = "imagecache";
     public static final boolean SP_IMAGECACHE_DEFAULT = true;
+    public static final String SP_HIDE_SOURCE_ALERT = "hide_source_alert";
+    public static final boolean SP_HIDE_SOURCE_ALERT_DEFAULT = false;
     public static final String SP_ARTICLEFULLSCREEN = "article_fullscreen";
     public static final boolean SP_ARTICLEFULLSCREEN_DEFAULT = false;
     public static final String SP_LAUNCHWINDOW = "launch_window";
@@ -36,11 +39,12 @@ public class Preferences implements Serializable {
     public static final String SP_FEEDCARD_DATESTYLE = "feedcard_date_style";
     public static final DateStyle SP_FEEDCARD_DATESTYLE_DEFAULT = DateStyle.TIMESINCE;
     public static final String SP_COLORACCENT = "coloraccent";
-    public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.GREEN;
+    public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.BLUE;
     public static final String SP_VERSION = "version";
     public static final String PREFS_UI = "preferences_ui";
     public static final String PREFS_LANG = "preferences_language";
     public static final String PREFS_FUNCTIONALITY = "preferences_functionality";
+
     //saved data
     public ThemeMode s_ThemeMode;
     public ColorAccent s_coloraccent;
@@ -54,6 +58,7 @@ public class Preferences implements Serializable {
     public boolean s_feedcard_descvisible;
     public boolean s_feedcard_datevisible;
     public boolean s_articlefullscreen;
+    public boolean s_hide_sourcealert;
     public boolean s_imagecache;
     public boolean s_haptics;
     public HapticTypes s_hapticstype;

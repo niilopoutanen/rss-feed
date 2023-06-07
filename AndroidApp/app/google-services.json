@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "16770996984",
-    "project_id": "rss-feed-385217",
-    "storage_bucket": "rss-feed-385217.appspot.com"
+    "project_number": "552234013596",
+    "project_id": "rss-feed-niilopoutanen",
+    "storage_bucket": "rss-feed-niilopoutanen.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:16770996984:android:d10a89a6c41c0605d8f90d",
+        "mobilesdk_app_id": "1:552234013596:android:31bfd18f146bf94bf8ee59",
         "android_client_info": {
           "package_name": "com.niilopoutanen.rss_feed"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "16770996984-2cpgohnsmf8b5u7l7dqadq60b56dc64l.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD_PdkE89DP-JsP4DHocpG7z9cvtfLwlu8"
+          "current_key": "AIzaSyBg2-48ynKbLc53hBlzZ1EXqmRJKzvW36w"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "16770996984-2cpgohnsmf8b5u7l7dqadq60b56dc64l.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

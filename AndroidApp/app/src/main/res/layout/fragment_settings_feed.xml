@@ -69,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_below="@id/feedcardstyle_header"
-                android:weightSum="6">
+                android:weightSum="6"
+                android:baselineAligned="false">
 
                 <RelativeLayout
                     android:id="@+id/feedcard_largeimage"
@@ -79,6 +80,7 @@
                     android:layout_weight="2">
 
                     <ImageView
+                        android:contentDescription=""
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/feedcard_largeimage" />
@@ -101,6 +103,7 @@
                     android:layout_weight="2">
 
                     <ImageView
+                        android:contentDescription=""
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/feedcard_smallimage" />
@@ -122,6 +125,7 @@
                     android:layout_weight="2">
 
                     <ImageView
+                        android:contentDescription=""
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/feedcard_noimage" />

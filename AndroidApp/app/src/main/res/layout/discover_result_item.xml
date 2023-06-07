@@ -2,14 +2,13 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:id="@+id/carousel_item_container"
     android:background="@drawable/element_background"
     android:padding="10dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:baselineAligned="false">
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

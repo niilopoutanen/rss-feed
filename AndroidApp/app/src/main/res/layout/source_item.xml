@@ -8,6 +8,7 @@
     android:padding="10dp">
 
     <ImageView
+        android:contentDescription="@string/content_header"
         android:id="@+id/source_image"
         android:layout_width="35dp"
         android:layout_height="35dp"

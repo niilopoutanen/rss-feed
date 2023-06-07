@@ -7,4 +7,4 @@
     android:paddingRight="15dp"
     android:paddingBottom="5dp"
     android:textColor="@color/textPrimary"
-    android:textSize="15sp"></TextView>
+    android:textSize="15sp"/>

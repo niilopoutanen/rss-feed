@@ -12,7 +12,6 @@ import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,12 +28,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
 import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
-import com.niilopoutanen.rss_feed.utils.Readability;
+import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.utils.Readability;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
-    List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
+    final List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
     ArticleAdapter adapter;
     private RecyclerView articleContainer;
     private String title;
@@ -213,7 +213,8 @@ public class ArticleActivity extends AppCompatActivity {
 
     /**
      * Opens a WebView sheet
-     * @param url URL to open
+     *
+     * @param url       URL to open
      * @param titleText Text to show on header. Gets replaced when the URL is fully loaded
      */
     @SuppressLint("SetJavaScriptEnabled")
@@ -285,7 +286,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("content", resultData);
         outState.putString("title", title);

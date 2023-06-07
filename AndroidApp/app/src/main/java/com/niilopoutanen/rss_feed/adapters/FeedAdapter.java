@@ -11,13 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
+import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -86,6 +86,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         layoutParams.setMargins(left, top, right, bottom);
         view.setLayoutParams(layoutParams);
     }
+
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
@@ -181,12 +182,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView titleTextView;
-        public TextView descTextView;
-        public TextView author;
-        public TextView date;
-        public ImageView image;
-        public View container;
+        public final TextView titleTextView;
+        public final TextView descTextView;
+        public final TextView author;
+        public final TextView date;
+        public final ImageView image;
+        public final View container;
 
         public ItemViewHolder(View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
@@ -213,7 +214,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
     public static class HeaderViewHolder extends ItemViewHolder {
 
-        public TextView header;
+        public final TextView header;
 
         public HeaderViewHolder(View itemView) {
             super(itemView, null);

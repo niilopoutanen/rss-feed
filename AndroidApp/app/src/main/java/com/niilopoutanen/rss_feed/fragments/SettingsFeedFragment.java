@@ -27,11 +27,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
@@ -53,7 +53,6 @@ public class SettingsFeedFragment extends Fragment {
     private SwitchCompat dateSwitch;
     private Spinner dateSpinner;
     private Context appContext;
-    private View currentCard;
 
 
     public SettingsFeedFragment(Context context) {
@@ -69,8 +68,8 @@ public class SettingsFeedFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(appContext == null){
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (appContext == null) {
             appContext = getContext();
         }
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
@@ -111,36 +110,11 @@ public class SettingsFeedFragment extends Fragment {
             feedcardContainers.get(i).setOnClickListener(v -> onCardStyleChange(feedcardStyleButtons.get(finalI), feedcardStyleButtons));
         }
 
-        authorSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, b, appContext);
-            }
-        });
-        authorNameSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, b, appContext);
-            }
-        });
-        titleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                PreferencesManager.saveBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, b, appContext);
-            }
-        });
-        descSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, b, appContext);
-            }
-        });
-        dateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, b, appContext);
-            }
-        });
+        authorSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, b, appContext));
+        authorNameSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, b, appContext));
+        titleSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, b, appContext));
+        descSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, b, appContext));
+        dateSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, b, appContext));
 
 
         dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

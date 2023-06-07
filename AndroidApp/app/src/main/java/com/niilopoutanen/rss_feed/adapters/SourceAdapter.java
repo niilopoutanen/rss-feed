@@ -1,24 +1,16 @@
 package com.niilopoutanen.rss_feed.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,30 +19,24 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
-import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.models.MaskTransformation;
-import com.niilopoutanen.rss_feed.utils.SourceValidator;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Objects;
 
 public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder> {
+    private final Preferences preferences;
+    private final RecyclerView recyclerView;
     private List<Source> sources;
     private Context context;
-    private final Preferences preferences;
-
-    private final RecyclerView recyclerView;
     private Source tempSource;
-    private View.OnLongClickListener onLongClickListener;
     private final Runnable undoDelete = new Runnable() {
         @Override
         public void run() {
@@ -63,6 +49,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             }
         }
     };
+    private final View.OnLongClickListener onLongClickListener;
 
 
     public SourceAdapter(List<Source> sources, Preferences preferences, RecyclerView recyclerView, View.OnLongClickListener onClickListener) {
@@ -88,10 +75,11 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         return new SourceAdapter.ViewHolder(sourceItemView);
     }
 
-    public void updateSources(List<Source> sources){
+    public void updateSources(List<Source> sources) {
         this.sources = sources;
         notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(@NonNull SourceAdapter.ViewHolder holder, int position) {
         Source source = sources.get(position);
@@ -101,17 +89,15 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         View container = holder.itemView;
 
         container.setOnLongClickListener(onLongClickListener);
-        container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("source", source);
-                bundle.putSerializable("preferences", preferences);
-                Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
-                feedIntent.putExtras(bundle);
-                PreferencesManager.vibrate(v, preferences, context);
-                v.getContext().startActivity(feedIntent);
-            }
+
+        container.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("source", source);
+            bundle.putSerializable("preferences", preferences);
+            Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
+            feedIntent.putExtras(bundle);
+            PreferencesManager.vibrate(v, preferences, context);
+            v.getContext().startActivity(feedIntent);
         });
 
         sourceName.setText(source.getName());
@@ -142,8 +128,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView sourceName;
-        public ImageView sourceImage;
+        public final TextView sourceName;
+        public final ImageView sourceImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -176,7 +162,9 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             TextView snackbarActionTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_action);
             snackbarActionTextView.setAllCaps(false);
             snackbarActionTextView.setTypeface(ResourcesCompat.getFont(context, R.font.inter));
+            snackbarActionTextView.setTextColor(ContextCompat.getColor(context, R.color.surface));
             snackbarActionTextView.setLetterSpacing(0.0f);
+
             snackbar.show();
         }
 
@@ -184,15 +172,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                 View itemView = viewHolder.itemView;
-                Paint paint = new Paint();
-                RectF background;
                 if (dX < 0) {
                     // Swiping left
-                    paint.setColor(Color.parseColor("#FF0000"));
-                    background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),
-                            (float) itemView.getRight(), (float) itemView.getBottom());
-                    c.drawRoundRect(background, 25, 25, paint);
-
                     Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_trash);
 
                     int intrinsicHeight = drawable.getIntrinsicHeight();
@@ -201,12 +182,25 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                     int top = itemView.getTop() + (itemView.getHeight() - intrinsicHeight) / 2;
                     int right = itemView.getRight() - iconMargin;
                     int bottom = top + intrinsicHeight;
+
+                    int startColor = ContextCompat.getColor(context, R.color.textSecondary);
+                    int endColor = Color.RED;
+
+                    int redIntensity = (int) (Color.red(startColor) + (Color.red(endColor) - Color.red(startColor)) * Math.abs(dX) / itemView.getWidth());
+                    int greenIntensity = (int) (Color.green(startColor) + (Color.green(endColor) - Color.green(startColor)) * Math.abs(dX) / itemView.getWidth());
+                    int blueIntensity = (int) (Color.blue(startColor) + (Color.blue(endColor) - Color.blue(startColor)) * Math.abs(dX) / itemView.getWidth());
+                    int interpolatedColor = Color.rgb(redIntensity, greenIntensity, blueIntensity);
+
+                    drawable.setColorFilter(interpolatedColor, PorterDuff.Mode.SRC_IN);
+
                     drawable.setBounds(left, top, right, bottom);
                     drawable.draw(c);
                 }
             }
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
+
+
     }
 
 }

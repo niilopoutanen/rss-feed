@@ -31,6 +31,7 @@ public class SaveSystem {
 
     /**
      * Saves a list of sources to disk
+     *
      * @param context Required to get file save path
      * @param sources List of the sources to save
      */
@@ -48,8 +49,9 @@ public class SaveSystem {
 
     /**
      * Saves a source to disk. Updates the source if it already exists
+     *
      * @param context Required to get file save path
-     * @param source The source to save
+     * @param source  The source to save
      */
     public static void saveContent(Context context, Source source) {
         List<Source> sources;
@@ -68,8 +70,10 @@ public class SaveSystem {
             Log.d("SAVESYSTEM", "Content database not found");
         }
     }
+
     /**
      * Loads saved sources from disk
+     *
      * @param context Required to get file save path
      */
     public static List<Source> loadContent(Context context) {
@@ -90,20 +94,19 @@ public class SaveSystem {
 
         return sources;
     }
+
     /**
      * Loads the latest categories from web
+     *
      * @param callBack Returns the result when thread execution is finished
      */
     public static void loadCategories(final WebCallBack<List<Category>> callBack) {
         String locale = Locale.getDefault().getLanguage();
         String selectedLocale;
-        switch (locale){
-            default:
-                selectedLocale = CATEGORIES_EN;
-                break;
-            case "fi":
-                selectedLocale = CATEGORIES_FI;
-                break;
+        if ("fi".equals(locale)) {
+            selectedLocale = CATEGORIES_FI;
+        } else {
+            selectedLocale = CATEGORIES_EN;
         }
         Executor executor = Executors.newSingleThreadExecutor();
 
@@ -120,10 +123,10 @@ public class SaveSystem {
                     String categoryName = jsonCategory.getString("name");
                     String categoryQuery = jsonCategory.getString("query");
                     String categoryImgUrl = null;
-                    try{
+                    try {
                         categoryImgUrl = jsonCategory.getString("img");
+                    } catch (Exception ignored) {
                     }
-                    catch (Exception ignored){}
                     Category category = new Category(categoryName, categoryImgUrl, categoryQuery);
                     categories.add(category);
                 }

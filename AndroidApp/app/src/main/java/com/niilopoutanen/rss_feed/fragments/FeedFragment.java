@@ -1,13 +1,12 @@
 package com.niilopoutanen.rss_feed.fragments;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +17,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
-import com.niilopoutanen.rss_feed.models.Source;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
-import com.niilopoutanen.rss_feed.utils.RSSParser;
+import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
+import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.utils.RSSParser;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,9 +50,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
     ExecutorService executor = null;
-    enum ERROR_TYPES{
-        NOSOURCES, NOINTERNET
-    }
     @ColorInt
     int colorAccent;
 
@@ -116,16 +109,17 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             recyclerView.smoothScrollToPosition(0);
         }
     }
+
     private boolean checkValidity() {
         if (sources.size() == 0) {
-            showError(ERROR_TYPES.NOSOURCES);
+            showError(ERROR_TYPES.NOSOURCES, null);
             return false;
         }
 
         ConnectivityManager connectionManager = appContext.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
-            showError(ERROR_TYPES.NOINTERNET);
+            showError(ERROR_TYPES.NOINTERNET, null);
             return false;
         } else {
             return true;
@@ -133,7 +127,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private void updateFeed() {
-        if(!checkValidity()){
+        if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
             return;
         }
@@ -146,7 +140,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         // Submit each update to the executor
         executor.execute(() -> {
             for (Source source : sources) {
-                try{
+                try {
                     WebHelper.getFeedData(source.getFeedUrl(), result -> {
                         List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
@@ -157,11 +151,16 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
                         Collections.sort(feed);
                     });
-                }
-                catch (Exception e){
-                    if(WebHelper.isErrorCode(e.getMessage())){
-                        updateFeed(source.getName(), RSSParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
+                } catch (Exception e) {
+                    if (WebHelper.isErrorCode(e.getMessage())) {
+                        try{
+                            updateFeed(source.getName(), RSSParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
+                            return;
+                        }
+                        catch (Exception ignored){}
                     }
+                    ((Activity)appContext).runOnUiThread(() -> showError(ERROR_TYPES.INVALIDTYPE, source));
+
                 }
 
             }
@@ -175,7 +174,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         executor = null;
     }
-    private void updateFeed(String name, String url){
+
+    private void updateFeed(String name, String url) {
         try {
             WebHelper.getFeedData(url, result -> {
                 List<RSSPost> posts = RSSParser.parseRssFeed(result);
@@ -197,18 +197,28 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             e.printStackTrace();
         }
     }
+
     /**
      * This method shows a error message on screen
+     *
      * @param type Type of the error message that will show
      */
-    private void showError(ERROR_TYPES type){
+    private void showError(ERROR_TYPES type, Source errorCause) {
+        boolean sourceAlertHidden = PreferencesManager.loadPreferences(appContext).s_hide_sourcealert;
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
         dialog.setNegativeButton(appContext.getString(R.string.close), (dialog1, which) -> dialog1.dismiss());
-        switch (type){
+        switch (type) {
             case NOSOURCES:
                 dialog.setPositiveButton("OK", (dialog1, which) -> dialog1.dismiss());
                 dialog.setTitle(appContext.getString(R.string.nosources));
                 dialog.setMessage(appContext.getString(R.string.nosourcesmsg));
+                if (sourceAlertHidden) {
+                    return;
+                }
+                dialog.setNegativeButton(appContext.getString(R.string.donot_show_again), (dialog1, which) -> {
+                    dialog1.dismiss();
+                    PreferencesManager.saveBooleanPreference(Preferences.SP_HIDE_SOURCE_ALERT, Preferences.PREFS_FUNCTIONALITY, true, appContext);
+                });
                 break;
 
             case NOINTERNET:
@@ -219,9 +229,18 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                     updateFeed();
                 });
                 break;
+            case INVALIDTYPE:
+                dialog.setTitle(appContext.getString(R.string.invalidfeed));
+                dialog.setMessage(appContext.getString(R.string.invalidfeedmsg) +" " + errorCause.getFeedUrl());
+                dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
+                    dialog1.dismiss();
+                    updateFeed();
+                });
+                break;
         }
         dialog.show();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
@@ -242,7 +261,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         recyclerviewRefresh = rootView.findViewById(R.id.recyclerview_refresher);
         recyclerviewRefresh.setColorSchemeColors(colorAccent);
         recyclerviewRefresh.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
-        recyclerviewRefresh.setOnRefreshListener(() -> updateFeed());
+        recyclerviewRefresh.setOnRefreshListener(this::updateFeed);
 
         updateFeed();
         return rootView;
@@ -260,7 +279,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
         outState.putSerializable("sources", new ArrayList<>(sources));
@@ -273,5 +292,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (executor != null) {
             executor.shutdownNow();
         }
+    }
+
+    enum ERROR_TYPES {
+        NOSOURCES, NOINTERNET, INVALIDTYPE
     }
 }

@@ -39,8 +39,6 @@
     <string name="haptics_troubleshoot_desc">Vanhemmat Android-laitteet eivät tue kaikkia haptisia ominaisuuksia. Jos sinulla on ongelmia värinän kanssa sovelluksen käytön aikana tai haptiikka ei toimi ollenkaan, kokeile eri tyyppejä alla.</string>
     <string name="view_in_browser">Avaa selaimessa</string>
     <string name="open_articles_in_browser">Avaa artikkelit selaimessa</string>
-    <string name="article_background_color">Artikkelin taustaväri</string>
-    <string name="article_background_color_desc">Asettaa taustavärin artikkeleita luettaessa. Vaihe 1 tarjoaa suuremman kontrastin tekstin ja taustan välillä, kun taas vaihe 4 vähentää silmien rasitusta ja siinä on vähemmän kontrastia.</string>
     <string name="articles_fullscreen">Lue artikkelit koko näytön-tilassa</string>
     <string name="cache_images">Tallenna kuvat välimuistiin</string>
     <string name="settingsheader_feed">Syöte</string>
@@ -68,12 +66,6 @@
         <item>Vaalea</item>
         <item>Tumma</item>
         <item>Käytä järjestelmän teemaa</item>
-    </string-array>
-    <string-array name="article_backgrounds">
-        <item>Taso 1</item>
-        <item>Taso 2</item>
-        <item>Taso 3</item>
-        <item>Taso 4</item>
     </string-array>
     <string-array name="launch_windows">
         <item>Asetukset</item>
@@ -109,4 +101,7 @@
     <string name="nointernetmsg">Syötettä ei voitu ladata. Yhdistä internettiin ja yritä uudelleen.</string>
     <string name="nosourcesmsg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
     <string name="tryagain">Yritä uudelleen</string>
+    <string name="donot_show_again">Älä näytä uudelleen</string>
+    <string name="invalidfeed">RSS-syötteen url-osoite on virheellinen.</string>
+    <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
 </resources>

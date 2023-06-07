@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.models;
 
 import java.io.Serializable;
+
 /**
  * Class for saving user's sources to disk
  */

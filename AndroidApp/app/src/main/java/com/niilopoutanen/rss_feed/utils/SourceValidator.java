@@ -9,13 +9,9 @@ import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,16 +19,15 @@ import java.util.concurrent.Executors;
 public class SourceValidator {
     /**
      * Validates user input when adding a source
-     * @param inputUrl URL provided
-     * @param inputName Name provided. Autofill will be tried if empty
+     *
+     * @param inputUrl       URL provided
+     * @param inputName      Name provided. Autofill will be tried if empty
      * @param sourceCallback Returns the validated source
      */
     public static void validate(String inputUrl, String inputName, WebCallBack<Source> sourceCallback, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        CompletableFuture.supplyAsync(() -> {
-            return RSSParser.feedFinder(inputUrl, context);
-        }, executor).thenComposeAsync(finalUrl -> {
+        CompletableFuture.supplyAsync(() -> RSSParser.feedFinder(inputUrl, context), executor).thenComposeAsync(finalUrl -> {
             if (finalUrl == null) {
                 return CompletableFuture.completedFuture(null);
             } else {
@@ -67,9 +62,9 @@ public class SourceValidator {
     }
 
 
-
     /**
      * Finds the HTML site title from a URL
+     *
      * @param siteUrl URL to load
      * @return Site title in String format
      */
@@ -90,8 +85,10 @@ public class SourceValidator {
             return siteUrl.toString();
         }
     }
+
     /**
      * Creates a error message that can be show to the user
+     *
      * @param errorMessage Message to show
      * @return Returns a TextView with the error message
      */
