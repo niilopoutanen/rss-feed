@@ -28,6 +28,7 @@
                     app:fontFamily="@font/inter_semibold" />
 
                 <RelativeLayout
+                    android:contentDescription="@string/addsource"
                     android:id="@+id/addNewButton"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
