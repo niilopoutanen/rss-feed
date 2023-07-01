@@ -89,6 +89,10 @@ public class PreferencesManager {
     public static void setSavedTheme(Activity activity, Preferences preferences) {
         //Accent color for devices that don't support dark mode
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            if(preferences.s_coloraccent == null){
+                activity.setTheme((R.style.AccentBlue));
+                return;
+            }
             switch (preferences.s_coloraccent) {
                 case BLUE:
                     activity.setTheme(R.style.AccentBlue);
