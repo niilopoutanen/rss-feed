@@ -238,7 +238,11 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 });
                 break;
         }
-        dialog.show();
+        if(!((Activity) appContext).isFinishing())
+        {
+            dialog.show();
+        }
+
     }
 
     @Override

@@ -52,19 +52,6 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
         Picasso.get().load(category.getImageUrl()).resize(0, PreferencesManager.dpToPx(200, holder.itemView.getContext())).into(itemImage);
         holder.itemView.setOnClickListener(onClickListener);
-
-        //Fade the text
-        ((MaskableFrameLayout) holder.itemView).setOnMaskChangedListener(maskRect -> {
-            ((ItemViewHolder) holder).textView.setTranslationX(maskRect.left);
-            float alpha = interpolateFade(maskRect.left);
-            ((ItemViewHolder) holder).textView.setAlpha(alpha);
-        });
-    }
-
-    private float interpolateFade(float value) {
-        float range = 65.0f - 0.0f;
-        float progress = (value - 0.0f) / range;
-        return 1.0f + (0.0f - 1.0f) * progress;
     }
 
     @Override
