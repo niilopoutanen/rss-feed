@@ -101,7 +101,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         RecyclerView resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);
-        resultsRecyclerView.setLayoutManager(new LinearLayoutManager(appContext));
 
         View searchBtn = rootView.findViewById(R.id.discover_search);
         searchBtn.setOnClickListener(v -> {
