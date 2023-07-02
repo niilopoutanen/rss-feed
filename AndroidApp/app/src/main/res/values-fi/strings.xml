@@ -52,12 +52,12 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
-    <string name="feature1">RSS-syötteet</string>
-    <string name="feature1desc">Lisää lähteisiisi julkaisijat, joita haluat seurata, ja lue heidän julkaisuja syötteestäsi.</string>
-    <string name="feature2">Mukauta sovellustasi</string>
-    <string name="feature2desc">Asetukset-valikko tarjoaa monia mukautusvaihtoehtoja, kuten väri-, fontti- ja toiminnallisuuden muutoksia.</string>
+    <string name="feature1">Virhekorjauksia</string>
+    <string name="feature1desc">Kaatuiliko sovelluksesi? Huomasitko ongelmia sovellusta käyttäessäsi? Niitä ei enään ole niin paljon. Tämä versio sisältää paljon virhekorjauksia.</string>
+    <string name="feature2">-</string>
+    <string name="feature2desc">-</string>
     <string name="feature3">Anna palautetta</string>
-    <string name="feature3desc">Tämä on sovelluksen ensimmäinen versio, joten virheitä on odotettavissa. Lähetä palautetta tai pyydä ominaisuuksia asetuksista!</string>
+    <string name="feature3desc">Sovellus on edelleen kehityksessä. Lähetä palautetta jos huomaat ongelmia sovelluksessa!</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
     <string name="rsslocale_news">Uutiset</string>
