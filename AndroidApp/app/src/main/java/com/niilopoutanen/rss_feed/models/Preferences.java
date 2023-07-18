@@ -41,7 +41,7 @@ public class Preferences implements Serializable {
     public static final String SP_COLORACCENT = "coloraccent";
     public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.BLUE;
     public static final String SP_FONTSIZE = "font_size";
-    public static final int SP_FONTSIZE_DEFAULT = 13;
+    public static final int SP_FONTSIZE_DEFAULT = 15;
     public static final String SP_VERSION = "version";
     public static final String PREFS_UI = "preferences_ui";
     public static final String PREFS_LANG = "preferences_language";

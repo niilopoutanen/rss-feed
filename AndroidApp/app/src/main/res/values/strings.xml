@@ -96,10 +96,10 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">Crash fixes</string>
-    <string name="feature1desc">Did your app crash often? Noticed some issues when using the app? Not so much anymore. This version includes many bug fixes.</string>
+    <string name="feature1">Bug fixes</string>
+    <string name="feature1desc">Minor bug fixes and improving app stability</string>
 
-    <string name="feature2">-</string>
+    <string name="feature2">Font size customization</string>
 
     <string name="feature3">Provide feedback</string>
     <string name="feature3desc">The app is still under development. Send feedback if you notice any issues!</string>
@@ -126,6 +126,6 @@
     <string name="donot_show_again">Do not show again</string>
     <string name="invalidfeed">The RSS Feed url is invalid.</string>
     <string name="invalidfeedmsg">The publisher\'s RSS feed may be out of date, or the url may have changed. The feed could not be opened.</string>
-    <string name="feature2desc">-</string>
+    <string name="feature2desc">Text too small or big for you to read? You can now customize the article font size.</string>
     <string name="settings_fontsize">Font size</string>
 </resources>

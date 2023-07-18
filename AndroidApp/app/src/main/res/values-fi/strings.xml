@@ -53,9 +53,9 @@
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
     <string name="feature1">Virhekorjauksia</string>
-    <string name="feature1desc">Kaatuiliko sovelluksesi? Huomasitko ongelmia sovellusta käyttäessäsi? Niitä ei enään ole niin paljon. Tämä versio sisältää paljon virhekorjauksia.</string>
-    <string name="feature2">-</string>
-    <string name="feature2desc">-</string>
+    <string name="feature1desc">Pieniä virhekorjauksia ja sovelluksen vakauden parantelua</string>
+    <string name="feature2">Fonttikoon muokkaaminen</string>
+    <string name="feature2desc">Oliko teksti liian isoa tai pientä luettavaksi? Voit nyt vaihtaa tekstin kokoa asetuksissa.</string>
     <string name="feature3">Anna palautetta</string>
     <string name="feature3desc">Sovellus on edelleen kehityksessä. Lähetä palautetta jos huomaat ongelmia sovelluksessa!</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
