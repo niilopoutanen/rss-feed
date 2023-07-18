@@ -30,6 +30,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_STYLE_DE
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
@@ -261,6 +263,7 @@ public class PreferencesManager {
         preferences.s_articlefullscreen = getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context);
         preferences.s_imagecache = getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context);
         preferences.s_hide_sourcealert = getBooleanPreference(SP_HIDE_SOURCE_ALERT, PREFS_FUNCTIONALITY, SP_HIDE_SOURCE_ALERT_DEFAULT, context);
+        preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_authorname = getBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, SP_FEEDCARD_AUTHORNAME_DEFAULT, context);
@@ -304,6 +307,32 @@ public class PreferencesManager {
         return Enum.valueOf(enumClass, valueName);
     }
 
+    /**
+     * Loads a int type preference from disk
+     *
+     * @param key      Key of the preference to be loaded
+     * @param category SharedPreference category of the key
+     * @param defValue Default value if nothing is saved yet
+     * @return int value with loaded data
+     */
+    public static int getIntPreference(String key, String category, int defValue, Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
+        return prefs.getInt(key, defValue);
+    }
+    /**
+     * Saves a int number preference to disk
+     *
+     * @param key      Key of the preference to be edited
+     * @param category SharedPreference category of the key
+     * @param value    int value that gets saved
+     */
+    public static void saveIntPreference(String key, String category, int value, Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt(key, value);
+        editor.apply();
+    }
     /**
      * Saves a boolean type preference to disk
      *

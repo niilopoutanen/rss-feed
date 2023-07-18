@@ -127,4 +127,5 @@
     <string name="invalidfeed">The RSS Feed url is invalid.</string>
     <string name="invalidfeedmsg">The publisher\'s RSS feed may be out of date, or the url may have changed. The feed could not be opened.</string>
     <string name="feature2desc">-</string>
+    <string name="settings_fontsize">Font size</string>
 </resources>
