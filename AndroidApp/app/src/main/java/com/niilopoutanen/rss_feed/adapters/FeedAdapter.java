@@ -176,7 +176,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         if (feed.isEmpty()) {
             return 1;
         } else {
-            return feed.size();
+            return feed.size() + 1;
         }
     }
 

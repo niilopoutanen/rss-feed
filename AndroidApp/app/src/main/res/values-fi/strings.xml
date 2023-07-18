@@ -52,12 +52,12 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
-    <string name="feature1">RSS-syötteet</string>
-    <string name="feature1desc">Lisää lähteisiisi julkaisijat, joita haluat seurata, ja lue heidän julkaisuja syötteestäsi.</string>
-    <string name="feature2">Mukauta sovellustasi</string>
-    <string name="feature2desc">Asetukset-valikko tarjoaa monia mukautusvaihtoehtoja, kuten väri-, fontti- ja toiminnallisuuden muutoksia.</string>
+    <string name="feature1">Virhekorjauksia</string>
+    <string name="feature1desc">Pieniä virhekorjauksia ja sovelluksen vakauden parantelua</string>
+    <string name="feature2">Fonttikoon muokkaaminen</string>
+    <string name="feature2desc">Oliko teksti liian isoa tai pientä luettavaksi? Voit nyt vaihtaa tekstin kokoa asetuksissa.</string>
     <string name="feature3">Anna palautetta</string>
-    <string name="feature3desc">Tämä on sovelluksen ensimmäinen versio, joten virheitä on odotettavissa. Lähetä palautetta tai pyydä ominaisuuksia asetuksista!</string>
+    <string name="feature3desc">Sovellus on edelleen kehityksessä. Lähetä palautetta jos huomaat ongelmia sovelluksessa!</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
     <string name="rsslocale_news">Uutiset</string>
@@ -104,4 +104,5 @@
     <string name="donot_show_again">Älä näytä uudelleen</string>
     <string name="invalidfeed">RSS-syötteen url-osoite on virheellinen.</string>
     <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
+    <string name="settings_fontsize">Fonttikoko</string>
 </resources>

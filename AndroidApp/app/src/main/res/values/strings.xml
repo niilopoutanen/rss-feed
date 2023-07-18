@@ -96,14 +96,13 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">RSS feeds</string>
-    <string name="feature1desc">Add publishers that you would like to follow to your sources and read posts from them in your feed.</string>
+    <string name="feature1">Bug fixes</string>
+    <string name="feature1desc">Minor bug fixes and improving app stability</string>
 
-    <string name="feature2">Customize your app</string>
-    <string name="feature2desc">Settings menu provides many customization options such as color-, font-, and functionality changes.</string>
+    <string name="feature2">Font size customization</string>
 
     <string name="feature3">Provide feedback</string>
-    <string name="feature3desc">This is the first version of the app so bugs are expected. Send feedback or request features from settings!</string>
+    <string name="feature3desc">The app is still under development. Send feedback if you notice any issues!</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
@@ -127,4 +126,6 @@
     <string name="donot_show_again">Do not show again</string>
     <string name="invalidfeed">The RSS Feed url is invalid.</string>
     <string name="invalidfeedmsg">The publisher\'s RSS feed may be out of date, or the url may have changed. The feed could not be opened.</string>
+    <string name="feature2desc">Text too small or big for you to read? You can now customize the article font size.</string>
+    <string name="settings_fontsize">Font size</string>
 </resources>
