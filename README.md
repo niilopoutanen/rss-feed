@@ -3,10 +3,11 @@
 <h1 align="center">RSS Feed</h1>
 
 
-<h3 align="center">An open source RSS reader for android.</h2>
-
+<h3 align="center">An open source RSS reader for android.</h3>
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.niilopoutanen.rss_feed">Download on Google Play</a>
+</p>
 <br>
-
 <h3>Techonologies and Frameworks</h3>
 
 [![Java](https://github.com/niilopoutanen/RSS-Feed/blob/a10aad952ac605ed48ec6a681c9299667350521b/readme-images/java.png)](https://www.java.com)[![Android](https://github.com/niilopoutanen/RSS-Feed/blob/a10aad952ac605ed48ec6a681c9299667350521b/readme-images/android.png)](https://developer.android.com/)[![Material Design 3](https://github.com/niilopoutanen/RSS-Feed/blob/a10aad952ac605ed48ec6a681c9299667350521b/readme-images/material3.png)](https://m3.material.io/)[![Firebase](https://github.com/niilopoutanen/RSS-Feed/blob/38ac6250449adb5ac454a7492377e1ef68cedb36/readme-images/firebase.png)](https://firebase.google.com/)
