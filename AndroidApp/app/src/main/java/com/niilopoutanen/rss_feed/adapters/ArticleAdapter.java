@@ -100,7 +100,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 textView.setTextColor(appContext.getColor(R.color.textPrimary));
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
                 textView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
-
+                textView.setTextSize(preferences.s_fontsize);
                 return new ContentViewHolder(textView);
             case VIEW_TYPE_TITLE:
                 TextView titleTextView = new TextView(appContext);
