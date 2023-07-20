@@ -146,10 +146,11 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
                         for (RSSPost post : posts) {
                             post.setSourceName(source.getName());
-                            feed.add(post);
+
+                            requireActivity().runOnUiThread(() -> feed.add(post));
                         }
 
-                        Collections.sort(feed);
+                        requireActivity().runOnUiThread(() -> Collections.sort(feed));
                     });
                 } catch (Exception e) {
                     if (WebHelper.isErrorCode(e.getMessage())) {
