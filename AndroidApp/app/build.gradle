@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace 'com.niilopoutanen.rss_feed'
-    compileSdk 33
+    compileSdk 34
     ndkVersion "25.2.9519653"
 
     defaultConfig {
         applicationId "com.niilopoutanen.rss_feed"
         resourceConfigurations += ["en", "fi"]
         minSdk 26
-        targetSdk 33
+        targetSdk 34
         versionCode 10
         versionName "1.1.9"
         ndk {
@@ -42,12 +42,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'
 
-    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
+    implementation 'com.github.MikeOrtiz:TouchImageView:2.3.0'
     implementation "androidx.core:core-splashscreen:1.0.1"
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation files('libs/jsoup-1.15.4.jar')
 }
