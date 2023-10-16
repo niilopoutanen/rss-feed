@@ -171,7 +171,7 @@ public class SettingsFragment extends Fragment {
         launchwindowSelected = rootView.findViewById(R.id.launchwindow_selected);
         RelativeLayout launchWindowSettings = rootView.findViewById(R.id.settings_launchwindowsettings);
         launchWindowSettings.setOnClickListener(v -> {
-            openDropDownSettings(LaunchWindow.class, getString(R.string.settings_launchwindow), "");
+            openDropDownSettings(LaunchWindow.class, getString(R.string.settings_launchwindow), getString(R.string.settings_launchwindow_additional));
             PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), appContext);
         });
 

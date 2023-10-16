@@ -48,6 +48,7 @@
     <string name="accentcolor">Accent color</string>
     <string name="settings_font">Font used in articles</string>
     <string name="settings_launchwindow">Launch window</string>
+    <string name="settings_launchwindow_additional">The selected window opens when starting the app.</string>
     <string name="haptics">Haptics</string>
 
     <string name="view_in_browser">View in browser</string>
