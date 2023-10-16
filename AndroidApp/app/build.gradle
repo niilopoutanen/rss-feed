@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'
 
-    implementation 'com.github.MikeOrtiz:TouchImageView:2.3.0'
+    implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
     implementation "androidx.core:core-splashscreen:1.0.1"
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.squareup.picasso:picasso:2.8'
