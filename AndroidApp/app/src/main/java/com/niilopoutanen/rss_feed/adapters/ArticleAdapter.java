@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
@@ -109,8 +111,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 titleTextView.setPadding(0, 0, 0, PreferencesManager.dpToPx(10, appContext));
                 titleTextView.setTextColor(appContext.getColor(R.color.textPrimary));
-                titleTextView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
+                Typeface font = PreferencesManager.getSavedFont(preferences, appContext);
+                Typeface boldFont = Typeface.create(font, Typeface.BOLD);
+                titleTextView.setTypeface(boldFont);
                 titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+
                 return new ContentViewHolder(titleTextView, true);
             default:
                 throw new IllegalArgumentException("Invalid view type");

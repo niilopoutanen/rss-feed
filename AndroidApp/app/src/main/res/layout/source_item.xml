@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/element_background"
     android:gravity="center_vertical"
     android:orientation="horizontal"
@@ -19,5 +20,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/textPrimary"
+        app:fontFamily="@font/inter_medium"
         android:textSize="15sp" />
 </LinearLayout>
