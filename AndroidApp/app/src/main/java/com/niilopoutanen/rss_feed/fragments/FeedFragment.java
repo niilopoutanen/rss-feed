@@ -115,7 +115,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             showError(ERROR_TYPES.NOSOURCES, null);
             return false;
         }
-
+        if(!isAdded()){
+            return false;
+        }
         ConnectivityManager connectionManager = appContext.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
@@ -145,12 +147,19 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                         List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
                         for (RSSPost post : posts) {
+                            // Handle the case where the fragment is no longer active
+                            if(!isAdded()){
+                                break;
+                            }
                             post.setSourceName(source.getName());
 
                             requireActivity().runOnUiThread(() -> feed.add(post));
+
+                        }
+                        if(isAdded()){
+                            requireActivity().runOnUiThread(() -> Collections.sort(feed));
                         }
 
-                        requireActivity().runOnUiThread(() -> Collections.sort(feed));
                     });
                 } catch (Exception e) {
                     if (WebHelper.isErrorCode(e.getMessage())) {
