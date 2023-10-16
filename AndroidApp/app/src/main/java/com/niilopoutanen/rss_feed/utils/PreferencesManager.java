@@ -89,6 +89,9 @@ public class PreferencesManager {
      * @param preferences Required to get the selected theme
      */
     public static void setSavedTheme(Activity activity, Preferences preferences) {
+        if(preferences == null){
+            preferences = PreferencesManager.loadPreferences(activity.getApplicationContext());
+        }
         //Accent color for devices that don't support dark mode
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             if(preferences.s_coloraccent == null){
