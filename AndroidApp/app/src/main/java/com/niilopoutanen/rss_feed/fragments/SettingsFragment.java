@@ -129,17 +129,6 @@ public class SettingsFragment extends Fragment {
             transaction.commit();
             PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(appContext), appContext);
         });
-        rootView.findViewById(R.id.troubleshoot_haptics).setOnLongClickListener(v -> {
-            SettingsHapticsFragment hapticsFragment = new SettingsHapticsFragment(appContext);
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            transaction.replace(R.id.frame_container, hapticsFragment);
-            transaction.addToBackStack(null);
-            PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), HapticFeedbackConstants.LONG_PRESS, appContext);
-            transaction.commit();
-
-            return true;
-        });
 
         colorAccentButtons = Arrays.asList(
                 rootView.findViewById(R.id.checkboxblue_accentcolor),

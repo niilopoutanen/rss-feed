@@ -215,7 +215,7 @@ public class PreferencesManager {
      *
      * @return int code of the version
      */
-    public static int getLastVersionUsed(Context context) {
+    private static int getLastVersionUsed(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
         return prefs.getInt(SP_VERSION, 0);
     }
@@ -238,10 +238,19 @@ public class PreferencesManager {
      * @return true if is, false if not
      */
     public static boolean isFirstLaunch(Context context) {
+        // set to true if you do not want the user to see update dialog.
+        // for example on a very minor update
+        boolean doNotShowDialog = false;
+
         int currentVersion = BuildConfig.VERSION_CODE;
         int lastVersionUsed = getLastVersionUsed(context);
 
-        return currentVersion > lastVersionUsed;
+        if(doNotShowDialog){
+            return false;
+        }
+        else{
+            return currentVersion > lastVersionUsed;
+        }
     }
 
     /**

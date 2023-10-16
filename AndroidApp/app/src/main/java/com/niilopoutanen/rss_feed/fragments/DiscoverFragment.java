@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
@@ -37,7 +35,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     DiscoverCategoryAdapter categoryAdapter;
     DiscoverResultAdapter resultAdapter;
     RecyclerView categoryRecyclerView;
-    View loader;
+    View progressBar;
 
     public DiscoverFragment(Context context, Preferences preferences) {
         this.appContext = context;
@@ -60,8 +58,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loadData() {
-        if (loader != null) {
-            loader.setVisibility(View.VISIBLE);
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
         }
         SaveSystem.loadCategories(result -> {
             categories = result;
@@ -69,7 +67,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             if (categoryAdapter != null) {
                 ((Activity) appContext).runOnUiThread(() -> {
                     categoryAdapter.setCategories(categories);
-                    loader.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 });
             }
         });
@@ -77,13 +75,13 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     }
 
     private void search(String query) {
-        loader.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         WebHelper.fetchFeedQuery(query, result -> {
             results = result;
             if (resultAdapter != null) {
                 ((Activity) appContext).runOnUiThread(() -> {
                     resultAdapter.setResults(results);
-                    loader.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 });
             }
         });
@@ -92,7 +90,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
-        loader = rootView.findViewById(R.id.discover_progress);
+        progressBar = rootView.findViewById(R.id.discover_progress);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
         categoryAdapter = new DiscoverCategoryAdapter(categories, this);
