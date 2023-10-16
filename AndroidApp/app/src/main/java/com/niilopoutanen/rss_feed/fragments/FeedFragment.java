@@ -85,6 +85,10 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
+        // Index out of bounds catch
+        if(position > feed.size()){
+            return;
+        }
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
         articleIntent.putExtra("postUrl", feed.get(position).getPostLink());
         if (!preferences.s_feedcard_authorname) {
