@@ -152,7 +152,8 @@ public class PreferencesManager {
         switch (preferences.s_font) {
             case ROBOTO_SANS:
                 return ResourcesCompat.getFont(context, R.font.roboto_serif);
-
+            case POPPINS:
+                return  ResourcesCompat.getFont(context, R.font.poppins);
             case ROBOTO_MONO:
                 return ResourcesCompat.getFont(context, R.font.roboto_mono);
             default:
