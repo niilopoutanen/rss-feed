@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -157,16 +158,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
                 image.setLayoutParams(layoutParams);
 
             }
-            RequestCreator requestCreator = Picasso.get().load(post.getImageUrl())
-                    .resize(imageWidth, targetHeight)
-                    .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
-                    .centerCrop();
 
-            if (!preferences.s_imagecache) {
-                requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+            // Handle nonexistent image
+            String imageUrl = post.getImageUrl();
+            if(!TextUtils.isEmpty(imageUrl)){
+                RequestCreator requestCreator = Picasso.get().load(imageUrl)
+                        .resize(imageWidth, targetHeight)
+                        .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
+                        .centerCrop();
+
+                if (!preferences.s_imagecache) {
+                    requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+                }
+
+                requestCreator.into(image);
             }
 
-            requestCreator.into(image);
         }
     }
 
