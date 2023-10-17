@@ -81,7 +81,8 @@
                 android:id="@+id/settings_openFeedSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:minHeight="50dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -151,7 +152,8 @@
                 android:id="@+id/settings_themesettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:minHeight="50dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -368,7 +370,8 @@
                 android:id="@+id/settings_launchwindowsettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:minHeight="50dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -430,16 +433,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/haptics_troubleshoot"
-            android:textColor="@color/textSecondary"
-            android:textSize="13sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -461,7 +454,8 @@
                 android:id="@+id/settings_fontsettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:minHeight="50dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -504,7 +498,8 @@
                 android:id="@+id/settings_fontsize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"

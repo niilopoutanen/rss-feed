@@ -5,10 +5,6 @@
         android:fontStyle="normal"
         android:fontWeight="400" />
     <font
-        android:font="@font/roboto_serif_medium"
-        android:fontStyle="normal"
-        android:fontWeight="500" />
-    <font
         android:font="@font/roboto_serif_bold"
         android:fontStyle="normal"
         android:fontWeight="700" />

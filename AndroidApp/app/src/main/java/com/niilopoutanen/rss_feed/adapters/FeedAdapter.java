@@ -1,9 +1,13 @@
 package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +39,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     private final String viewTitle;
     private final Preferences preferences;
     private final Context appContext;
+    private boolean headerVisible = false;
+    private Animation scaleUp, scaleDown;
 
     public FeedAdapter(Preferences preferences, List<RSSPost> posts, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface) {
         feed = posts;
@@ -59,12 +65,23 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         }
     }
 
+    public void complete(boolean empty){
+        this.notifyDataSetChanged();
+        this.notifyItemChanged(0);
+        if(empty){
+            this.headerVisible = true;
+        }
+
+    }
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
+        scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+        scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+
         int margin = PreferencesManager.dpToPx(FeedFragment.CARDMARGIN_DP, context);
         int gap = PreferencesManager.dpToPx(FeedFragment.CARDGAP_DP, context);
         switch (viewType) {
@@ -79,6 +96,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
             default:
                 throw new IllegalArgumentException("Invalid view type: " + viewType);
         }
+
     }
 
     private void setViewMargins(View view, int left, int top, int right, int bottom) {
@@ -101,6 +119,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.header.setText(viewTitle);
+            if (feed.isEmpty() & !headerVisible) {
+                headerViewHolder.itemView.setVisibility(View.GONE);
+            } else {
+                headerViewHolder.itemView.setVisibility(View.VISIBLE);
+            }
             return;
         }
         RSSPost post = feed.get(position - 1);
@@ -111,6 +134,19 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         View container = holder.container;
         ImageView image = holder.image;
 
+        container.setOnTouchListener((view, motionEvent) -> {
+            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                container.startAnimation(scaleDown);
+            }
+            else if(motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
+                container.startAnimation(scaleUp);
+            }
+            else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                container.startAnimation(scaleUp);
+                view.performClick();
+            }
+            return false;
+        });
         if (!preferences.s_feedcard_authorvisible || !preferences.s_feedcard_datevisible) {
             desc.setMaxLines(3);
         }
@@ -157,16 +193,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
                 image.setLayoutParams(layoutParams);
 
             }
-            RequestCreator requestCreator = Picasso.get().load(post.getImageUrl())
-                    .resize(imageWidth, targetHeight)
-                    .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
-                    .centerCrop();
 
-            if (!preferences.s_imagecache) {
-                requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+            // Handle nonexistent image
+            String imageUrl = post.getImageUrl();
+            if(!TextUtils.isEmpty(imageUrl)){
+                RequestCreator requestCreator = Picasso.get().load(imageUrl)
+                        .resize(imageWidth, targetHeight)
+                        .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
+                        .centerCrop();
+
+                if (!preferences.s_imagecache) {
+                    requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+                }
+
+                requestCreator.into(image);
             }
 
-            requestCreator.into(image);
         }
     }
 

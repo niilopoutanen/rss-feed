@@ -63,7 +63,7 @@
             android:layout_height="200dp"
             android:clipToPadding="false"
             android:nestedScrollingEnabled="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
             android:orientation="horizontal"/>
         <TextView
             android:layout_marginLeft="10dp"

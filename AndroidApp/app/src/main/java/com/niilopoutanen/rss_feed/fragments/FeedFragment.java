@@ -85,6 +85,10 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
+        // Index out of bounds catch
+        if(position > feed.size()){
+            return;
+        }
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
         articleIntent.putExtra("postUrl", feed.get(position).getPostLink());
         if (!preferences.s_feedcard_authorname) {
@@ -95,7 +99,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         articleIntent.putExtra("postPublishTime", feed.get(position).getPublishTime());
         articleIntent.putExtra("title", feed.get(position).getTitle());
         articleIntent.putExtra("preferences", preferences);
-        PreferencesManager.vibrate(recyclerView.getChildAt(0), PreferencesManager.loadPreferences(appContext), appContext);
+        PreferencesManager.vibrate(recyclerView.getChildAt(0));
         appContext.startActivity(articleIntent);
     }
 
@@ -115,7 +119,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             showError(ERROR_TYPES.NOSOURCES, null);
             return false;
         }
-
+        if(!isAdded()){
+            return false;
+        }
         ConnectivityManager connectionManager = appContext.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
@@ -129,6 +135,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void updateFeed() {
         if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
+            adapter.complete(true);
             return;
         }
         recyclerviewRefresh.setRefreshing(true);
@@ -145,11 +152,19 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                         List<RSSPost> posts = RSSParser.parseRssFeed(result);
 
                         for (RSSPost post : posts) {
+                            // Handle the case where the fragment is no longer active
+                            if(!isAdded()){
+                                break;
+                            }
                             post.setSourceName(source.getName());
-                            feed.add(post);
+
+                            requireActivity().runOnUiThread(() -> feed.add(post));
+
+                        }
+                        if(isAdded()){
+                            requireActivity().runOnUiThread(() -> Collections.sort(feed));
                         }
 
-                        Collections.sort(feed);
                     });
                 } catch (Exception e) {
                     if (WebHelper.isErrorCode(e.getMessage())) {
@@ -166,7 +181,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             }
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
-                    adapter.notifyDataSetChanged();
+                    adapter.complete(false);
+                    recyclerView.scheduleLayoutAnimation();
                     recyclerviewRefresh.setRefreshing(false);
                 });
             }
@@ -188,7 +204,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 Collections.sort(feed);
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        adapter.notifyDataSetChanged();
+                        adapter.complete(false);
+                        recyclerView.scheduleLayoutAnimation();
                         recyclerviewRefresh.setRefreshing(false);
                     });
                 }

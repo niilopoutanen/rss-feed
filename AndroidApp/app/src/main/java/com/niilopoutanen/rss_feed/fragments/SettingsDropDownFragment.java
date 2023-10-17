@@ -111,7 +111,7 @@ public class SettingsDropDownFragment extends Fragment {
 
     private void closeFragment(View view) {
         getParentFragmentManager().popBackStack();
-        PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(context), context);
+        PreferencesManager.vibrate(view);
     }
 
     private void addOptions(Class<?> type) {
@@ -137,8 +137,12 @@ public class SettingsDropDownFragment extends Fragment {
                 Typeface font = ResourcesCompat.getFont(context, R.font.inter);
                 if (selectedFont == Font.ROBOTO_MONO) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_mono);
-                } else if (selectedFont == Font.ROBOTO_SANS) {
+                }
+                else if (selectedFont == Font.ROBOTO_SANS) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_serif);
+                }
+                else if (selectedFont == Font.POPPINS){
+                    font = ResourcesCompat.getFont(context, R.font.poppins);
                 }
 
                 RelativeLayout item = addViews(fontNames[i], verifySelected(i, Font.class), isLast, font);

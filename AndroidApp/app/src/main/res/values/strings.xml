@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RSS-Feed</string>
-    <string name="app_version">Version: 1.0</string>
+    <string name="app_version">Version: 1.1.9</string>
     <string name="copyright" translatable="false">©2023 Niilo Poutanen</string>
 
     <string name="feed_header">Feed</string>
@@ -48,10 +48,8 @@
     <string name="accentcolor">Accent color</string>
     <string name="settings_font">Font used in articles</string>
     <string name="settings_launchwindow">Launch window</string>
+    <string name="settings_launchwindow_additional">The selected window opens when starting the app.</string>
     <string name="haptics">Haptics</string>
-    <string name="haptics_troubleshoot">Haptics not working for you? Long press the haptics setting to open troubleshooting menu.</string>
-    <string name="haptics_troubleshoot_header">Troubleshoot haptics</string>
-    <string name="haptics_troubleshoot_desc">Older Android devices do not support all the haptic features. If you experience issues with vibrations while using the app or the haptics don\'t work at all, try different types below.</string>
 
     <string name="view_in_browser">View in browser</string>
     <string name="open_articles_in_browser">Open articles in browser</string>
@@ -80,6 +78,7 @@
         <item>Inter</item>
         <item>Roboto Serif</item>
         <item>Roboto Mono</item>
+        <item>Poppins</item>
     </string-array>
     <string-array name="launch_windows">
         <item>Settings</item>
@@ -96,13 +95,14 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">Bug fixes</string>
-    <string name="feature1desc">Minor bug fixes and improving app stability</string>
+    <string name="feature1">Stability fixes</string>
+    <string name="feature1desc">Improved app stability, less crashes</string>
 
-    <string name="feature2">Font size customization</string>
+    <string name="feature2">Better performance</string>
+    <string name="feature2desc">Enhanced performance across the app.</string>
 
-    <string name="feature3">Provide feedback</string>
-    <string name="feature3desc">The app is still under development. Send feedback if you notice any issues!</string>
+    <string name="feature3">Small UI tweaks</string>
+    <string name="feature3desc">Improved overall user interface.</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
@@ -126,6 +126,5 @@
     <string name="donot_show_again">Do not show again</string>
     <string name="invalidfeed">The RSS Feed url is invalid.</string>
     <string name="invalidfeedmsg">The publisher\'s RSS feed may be out of date, or the url may have changed. The feed could not be opened.</string>
-    <string name="feature2desc">Text too small or big for you to read? You can now customize the article font size.</string>
     <string name="settings_fontsize">Font size</string>
 </resources>

@@ -14,8 +14,6 @@ public class Preferences implements Serializable {
     public static final boolean SP_ARTICLESINBROWSER_DEFAULT = false;
     public static final String SP_HAPTICS = "haptics";
     public static final boolean SP_HAPTICS_DEFAULT = true;
-    public static final String SP_HAPTICS_TYPE = "haptics_type";
-    public static final HapticTypes SP_HAPTICS_TYPE_DEFAULT = HapticTypes.VIEW;
     public static final String SP_IMAGECACHE = "imagecache";
     public static final boolean SP_IMAGECACHE_DEFAULT = true;
     public static final String SP_HIDE_SOURCE_ALERT = "hide_source_alert";
@@ -64,7 +62,6 @@ public class Preferences implements Serializable {
     public boolean s_imagecache;
     public boolean s_haptics;
     public int s_fontsize;
-    public HapticTypes s_hapticstype;
     public DateStyle s_feedcard_datestyle;
 
     public Preferences() {
@@ -75,7 +72,7 @@ public class Preferences implements Serializable {
     }
 
     public enum Font {
-        INTER, ROBOTO_SANS, ROBOTO_MONO
+        INTER, ROBOTO_SANS, ROBOTO_MONO, POPPINS
     }
 
     public enum LaunchWindow {
@@ -92,9 +89,5 @@ public class Preferences implements Serializable {
 
     public enum ColorAccent {
         BLUE, VIOLET, PINK, RED, ORANGE, YELLOW, GREEN
-    }
-
-    public enum HapticTypes {
-        VIEW, VIBRATE, FALLBACK
     }
 }

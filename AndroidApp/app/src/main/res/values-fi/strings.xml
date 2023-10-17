@@ -34,9 +34,6 @@
     <string name="settings_font">Fontti jota käytetään artikkeleissa</string>
     <string name="settings_launchwindow">Ikkuna joka avataan käynnistäessä</string>
     <string name="haptics">Värinä</string>
-    <string name="haptics_troubleshoot">Eikö värinä toimi? Avaa vianmääritysvalikko painamalla pitkään värinä-asetusta.</string>
-    <string name="haptics_troubleshoot_header">Värinän vianetsintä</string>
-    <string name="haptics_troubleshoot_desc">Vanhemmat Android-laitteet eivät tue kaikkia haptisia ominaisuuksia. Jos sinulla on ongelmia värinän kanssa sovelluksen käytön aikana tai haptiikka ei toimi ollenkaan, kokeile eri tyyppejä alla.</string>
     <string name="view_in_browser">Avaa selaimessa</string>
     <string name="open_articles_in_browser">Avaa artikkelit selaimessa</string>
     <string name="articles_fullscreen">Lue artikkelit koko näytön-tilassa</string>
@@ -53,11 +50,11 @@
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
     <string name="feature1">Virhekorjauksia</string>
-    <string name="feature1desc">Pieniä virhekorjauksia ja sovelluksen vakauden parantelua</string>
-    <string name="feature2">Fonttikoon muokkaaminen</string>
-    <string name="feature2desc">Oliko teksti liian isoa tai pientä luettavaksi? Voit nyt vaihtaa tekstin kokoa asetuksissa.</string>
-    <string name="feature3">Anna palautetta</string>
-    <string name="feature3desc">Sovellus on edelleen kehityksessä. Lähetä palautetta jos huomaat ongelmia sovelluksessa!</string>
+    <string name="feature1desc">Sovelluksen toimivuuden parantelua, vähemmän kaatumisia.</string>
+    <string name="feature2">Suorituskyvyn parantaminen</string>
+    <string name="feature2desc">Sovelluksen suorituskykyä on parannettu kaikkialla sovelluksessa.</string>
+    <string name="feature3">Käyttöliittymän parantelua</string>
+    <string name="feature3desc">Pieniä muutoksia sovelluksen ulkoasuun.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
     <string name="rsslocale_news">Uutiset</string>
@@ -105,4 +102,5 @@
     <string name="invalidfeed">RSS-syötteen url-osoite on virheellinen.</string>
     <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
     <string name="settings_fontsize">Fonttikoko</string>
+    <string name="settings_launchwindow_additional">Valittu välilehti aukeaa kun käynnistät sovelluksen.</string>
 </resources>

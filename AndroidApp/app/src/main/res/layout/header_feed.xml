@@ -11,5 +11,5 @@
         android:text="@string/feed_header"
         android:textColor="@color/textPrimary"
         android:textSize="40sp"
-        app:fontFamily="@font/inter_semibold" />
+        app:fontFamily="@font/inter_semibold"/>
 </LinearLayout>

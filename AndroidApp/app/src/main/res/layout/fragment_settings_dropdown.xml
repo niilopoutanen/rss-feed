@@ -55,16 +55,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/element_background"
             android:minHeight="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/dropdownsettings_details"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:textColor="@color/textSecondary"
+            android:gravity="center"
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
     </LinearLayout>
