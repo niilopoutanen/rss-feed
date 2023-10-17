@@ -135,6 +135,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void updateFeed() {
         if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
+            adapter.complete(true);
             return;
         }
         recyclerviewRefresh.setRefreshing(true);
@@ -180,7 +181,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             }
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
-                    adapter.notifyDataSetChanged();
+                    adapter.complete(false);
                     recyclerView.scheduleLayoutAnimation();
                     recyclerviewRefresh.setRefreshing(false);
                 });
@@ -203,7 +204,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 Collections.sort(feed);
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        adapter.notifyDataSetChanged();
+                        adapter.complete(false);
                         recyclerView.scheduleLayoutAnimation();
                         recyclerviewRefresh.setRefreshing(false);
                     });

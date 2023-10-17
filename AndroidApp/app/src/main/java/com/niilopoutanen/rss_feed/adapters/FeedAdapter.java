@@ -36,6 +36,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     private final String viewTitle;
     private final Preferences preferences;
     private final Context appContext;
+    private boolean headerVisible = false;
 
     public FeedAdapter(Preferences preferences, List<RSSPost> posts, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface) {
         feed = posts;
@@ -60,6 +61,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         }
     }
 
+    public void complete(boolean empty){
+        this.notifyDataSetChanged();
+        this.notifyItemChanged(0);
+        if(empty){
+            this.headerVisible = true;
+        }
+
+    }
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -102,6 +111,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.header.setText(viewTitle);
+            if (feed.isEmpty() & !headerVisible) {
+                headerViewHolder.itemView.setVisibility(View.GONE);
+            } else {
+                headerViewHolder.itemView.setVisibility(View.VISIBLE);
+            }
             return;
         }
         RSSPost post = feed.get(position - 1);

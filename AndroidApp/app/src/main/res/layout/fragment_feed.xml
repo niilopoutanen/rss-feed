@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:layoutAnimation="@anim/layout_animation"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layoutAnimation="@anim/layout_animation" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
