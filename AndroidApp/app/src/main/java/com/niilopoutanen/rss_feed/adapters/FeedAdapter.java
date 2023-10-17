@@ -145,7 +145,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
                 container.startAnimation(scaleUp);
                 view.performClick();
             }
-            return false;
+            return true;
         });
         if (!preferences.s_feedcard_authorvisible || !preferences.s_feedcard_datevisible) {
             desc.setMaxLines(3);
