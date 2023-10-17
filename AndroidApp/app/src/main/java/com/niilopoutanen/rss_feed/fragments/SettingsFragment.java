@@ -47,6 +47,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.slider.Slider;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -80,6 +81,9 @@ public class SettingsFragment extends Fragment {
         if (appContext == null) {
             appContext = getContext();
         }
+
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }
 
     @Override
@@ -219,7 +223,6 @@ public class SettingsFragment extends Fragment {
     private <T extends Enum<T>> void openDropDownSettings(Class<?> type, String title, String additionalMessage) {
         SettingsDropDownFragment dropDownFragment = new SettingsDropDownFragment(title, additionalMessage, type, appContext);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
         transaction.replace(R.id.frame_container, dropDownFragment);
         transaction.addToBackStack(null);
         transaction.commit();
