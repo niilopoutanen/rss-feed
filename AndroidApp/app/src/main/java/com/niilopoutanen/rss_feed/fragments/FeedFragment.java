@@ -99,7 +99,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         articleIntent.putExtra("postPublishTime", feed.get(position).getPublishTime());
         articleIntent.putExtra("title", feed.get(position).getTitle());
         articleIntent.putExtra("preferences", preferences);
-        PreferencesManager.vibrate(recyclerView.getChildAt(0), PreferencesManager.loadPreferences(appContext), appContext);
+        PreferencesManager.vibrate(recyclerView.getChildAt(0));
         appContext.startActivity(articleIntent);
     }
 

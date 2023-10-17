@@ -4,7 +4,6 @@ import static com.niilopoutanen.rss_feed.models.Preferences.ColorAccent;
 import static com.niilopoutanen.rss_feed.models.Preferences.DateStyle;
 import static com.niilopoutanen.rss_feed.models.Preferences.FeedCardStyle;
 import static com.niilopoutanen.rss_feed.models.Preferences.Font;
-import static com.niilopoutanen.rss_feed.models.Preferences.HapticTypes;
 import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
@@ -35,8 +34,6 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_TYPE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_TYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
@@ -163,55 +160,11 @@ public class PreferencesManager {
     }
 
     /**
-     * Call performVibrate() with parameters
-     *
-     * @param view        View to vibrate
-     * @param preferences required for loading the preferred haptic type
+     * Performs device vibration
+     * @param view View to target
      */
-    public static void vibrate(View view, Preferences preferences, Context context) {
-        performVibrate(view, preferences, HapticFeedbackConstants.KEYBOARD_TAP, context);
-    }
-
-    /**
-     * Call performVibrate() with parameters & stage parameter
-     *
-     * @param view        View to vibrate
-     * @param preferences required for loading the preferred haptic type
-     * @param stage       Stage of the vibration
-     */
-    public static void vibrate(View view, Preferences preferences, int stage, Context context) {
-        performVibrate(view, preferences, stage, context);
-    }
-
-    /**
-     * Performs the vibration. Can be called through vibrate() methods
-     *
-     * @param view        View to vibrate
-     * @param preferences required for loading the preferred haptic type
-     * @param stage       Stage of the vibration
-     */
-    private static void performVibrate(View view, Preferences preferences, int stage, Context context) {
-        if (!preferences.s_haptics || view == null) {
-            return;
-        }
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        switch (preferences.s_hapticstype) {
-            case VIEW:
-                view.performHapticFeedback(stage);
-                break;
-            case VIBRATE:
-                vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
-                break;
-            case FALLBACK:
-                try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_CLICK));
-                    }
-                } catch (Exception ignored) {
-                }
-                break;
-        }
-
+    public static void vibrate(View view) {
+        view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
     }
 
     /**
@@ -266,7 +219,6 @@ public class PreferencesManager {
         Preferences preferences = new Preferences();
 
         preferences.s_haptics = getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context);
-        preferences.s_hapticstype = getEnumPreference(SP_HAPTICS_TYPE, PREFS_FUNCTIONALITY, HapticTypes.class, SP_HAPTICS_TYPE_DEFAULT, context);
         preferences.s_ThemeMode = getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
         preferences.s_coloraccent = getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
         preferences.s_feedcardstyle = getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, context);

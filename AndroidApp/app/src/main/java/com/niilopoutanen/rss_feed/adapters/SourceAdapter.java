@@ -96,7 +96,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             bundle.putSerializable("preferences", preferences);
             Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
             feedIntent.putExtras(bundle);
-            PreferencesManager.vibrate(v, preferences, context);
+            PreferencesManager.vibrate(v);
             v.getContext().startActivity(feedIntent);
         });
 

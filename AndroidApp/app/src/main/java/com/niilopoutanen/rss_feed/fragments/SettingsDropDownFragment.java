@@ -111,7 +111,7 @@ public class SettingsDropDownFragment extends Fragment {
 
     private void closeFragment(View view) {
         getParentFragmentManager().popBackStack();
-        PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(context), context);
+        PreferencesManager.vibrate(view);
     }
 
     private void addOptions(Class<?> type) {

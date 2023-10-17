@@ -127,7 +127,7 @@ public class SettingsFragment extends Fragment {
             transaction.replace(R.id.frame_container, settingsFeedFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-            PreferencesManager.vibrate(view, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(view);
         });
 
         colorAccentButtons = Arrays.asList(
@@ -156,7 +156,7 @@ public class SettingsFragment extends Fragment {
         RelativeLayout themeSettings = rootView.findViewById(R.id.settings_themesettings);
         themeSettings.setOnClickListener(v -> {
             openDropDownSettings(ThemeMode.class, getString(R.string.settings_theme), appContext.getString(R.string.settings_theme_additional));
-            PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(v);
         });
 
 
@@ -164,7 +164,7 @@ public class SettingsFragment extends Fragment {
         RelativeLayout fontSettings = rootView.findViewById(R.id.settings_fontsettings);
         fontSettings.setOnClickListener(v -> {
             openDropDownSettings(Font.class, getString(R.string.settings_font), "");
-            PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(v);
         });
 
 
@@ -172,7 +172,7 @@ public class SettingsFragment extends Fragment {
         RelativeLayout launchWindowSettings = rootView.findViewById(R.id.settings_launchwindowsettings);
         launchWindowSettings.setOnClickListener(v -> {
             openDropDownSettings(LaunchWindow.class, getString(R.string.settings_launchwindow), getString(R.string.settings_launchwindow_additional));
-            PreferencesManager.vibrate(v, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(v);
         });
 
 
@@ -180,19 +180,19 @@ public class SettingsFragment extends Fragment {
 
         articlesInBrowser.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, isChecked, appContext);
-            PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(buttonView);
         });
         articleFullScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
-            PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(buttonView);
         });
         haptics.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, appContext);
-            PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(buttonView);
         });
         imagecache.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, isChecked, appContext);
-            PreferencesManager.vibrate(buttonView, PreferencesManager.loadPreferences(appContext), appContext);
+            PreferencesManager.vibrate(buttonView);
         });
         fontSizeSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
