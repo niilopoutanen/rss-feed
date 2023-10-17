@@ -204,6 +204,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
                         adapter.notifyDataSetChanged();
+                        recyclerView.scheduleLayoutAnimation();
                         recyclerviewRefresh.setRefreshing(false);
                     });
                 }
