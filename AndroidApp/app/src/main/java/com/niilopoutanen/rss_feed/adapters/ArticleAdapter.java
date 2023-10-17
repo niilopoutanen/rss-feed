@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -152,6 +154,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         Intent imageIntent = new Intent(appContext, ImageViewActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, imageviewHolder.imageView, "img");
                         imageIntent.putExtra("imageurl", ((ImageItem) item).getUrl());
+
+                        imageviewHolder.imageView.setDrawingCacheEnabled(true);
+                        Bitmap b = imageviewHolder.imageView.getDrawingCache();
+                        int w = b.getWidth();
+                        int h = b.getHeight();
+
+                        imageIntent.putExtra("width", w);
+                        imageIntent.putExtra("height", h);
                         appContext.startActivity(imageIntent, options.toBundle());
                     });
 
