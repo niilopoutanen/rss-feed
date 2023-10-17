@@ -16,11 +16,6 @@
         <item name="colorAccent">@android:color/system_accent1_400</item>
         <item name="colorSecondaryContainer">@color/element</item>
 
-
-        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_icon</item>
-        <item name="android:windowSplashScreenBackground">@color/white</item>
-        <item name="android:windowSplashScreenAnimationDuration">1000</item>
-
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">@color/surface_border</item>
