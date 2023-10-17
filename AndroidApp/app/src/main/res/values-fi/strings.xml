@@ -53,8 +53,8 @@
     <string name="feature1desc">Sovelluksen toimivuuden parantelua, vähemmän kaatumisia.</string>
     <string name="feature2">Suorituskyvyn parantaminen</string>
     <string name="feature2desc">Sovelluksen suorituskykyä on parannettu kaikkialla sovelluksessa.</string>
-    <string name="feature3">Anna palautetta</string>
-    <string name="feature3desc">Sovellus on edelleen kehityksessä. Lähetä palautetta jos huomaat ongelmia sovelluksessa!</string>
+    <string name="feature3">Käyttöliittymän parantelua</string>
+    <string name="feature3desc">Pieniä muutoksia sovelluksen ulkoasuun.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
     <string name="rsslocale_news">Uutiset</string>

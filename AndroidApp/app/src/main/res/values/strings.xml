@@ -101,8 +101,8 @@
     <string name="feature2">Better performance</string>
     <string name="feature2desc">Enhanced performance across the app.</string>
 
-    <string name="feature3">Provide feedback</string>
-    <string name="feature3desc">The app is still under development. Send feedback if you notice any issues!</string>
+    <string name="feature3">Small UI tweaks</string>
+    <string name="feature3desc">Improved overall user interface.</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
