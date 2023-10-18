@@ -17,6 +17,7 @@
         android:localeConfig="@xml/locales_config"
         android:supportsRtl="false"
         android:theme="@style/RSSFeedStyle"
+        android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
             android:name=".activities.SearchActivity"
