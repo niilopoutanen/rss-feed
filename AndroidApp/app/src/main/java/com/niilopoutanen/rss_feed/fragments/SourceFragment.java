@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.transition.MaterialFadeThrough;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.models.Preferences;
@@ -53,6 +55,11 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         if (appContext == null) {
             appContext = getContext();
         }
+
+        setEnterTransition(new MaterialFadeThrough());
+        setReenterTransition(new MaterialFadeThrough());
+        postponeEnterTransition();
+
         sources = SaveSystem.loadContent(appContext);
         if (adapter != null) {
             adapter.notifyDataSetChanged();
@@ -70,7 +77,8 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         adapter = new SourceAdapter(sources, preferences, sourcesRecyclerView, this);
         sourcesRecyclerView.setAdapter(adapter);
         sourcesRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-
+        
+        startPostponedEnterTransition();
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(adapter.new SwipeToDeleteCallback(getContext()));
         itemTouchHelper.attachToRecyclerView(sourcesRecyclerView);
 

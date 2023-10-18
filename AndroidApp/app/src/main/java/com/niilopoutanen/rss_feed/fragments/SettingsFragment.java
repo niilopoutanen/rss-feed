@@ -47,6 +47,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.slider.Slider;
+import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
@@ -82,7 +83,7 @@ public class SettingsFragment extends Fragment {
             appContext = getContext();
         }
 
-        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
+        setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }
 
@@ -127,7 +128,6 @@ public class SettingsFragment extends Fragment {
         feedSettings.setOnClickListener(view -> {
             SettingsFeedFragment settingsFeedFragment = new SettingsFeedFragment(appContext);
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
             transaction.replace(R.id.frame_container, settingsFeedFragment);
             transaction.addToBackStack(null);
             transaction.commit();

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.transition.MaterialFadeThrough;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
@@ -54,6 +55,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if (appContext == null) {
             appContext = getContext();
         }
+
+        setEnterTransition(new MaterialFadeThrough());
+        setReenterTransition(new MaterialFadeThrough());
+
+        postponeEnterTransition();
         loadData();
     }
 
@@ -68,6 +74,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
                 ((Activity) appContext).runOnUiThread(() -> {
                     categoryAdapter.setCategories(categories);
                     progressBar.setVisibility(View.GONE);
+                    startPostponedEnterTransition();
                 });
             }
         });
