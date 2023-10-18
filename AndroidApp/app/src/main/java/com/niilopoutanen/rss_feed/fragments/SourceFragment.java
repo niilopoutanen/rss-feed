@@ -77,7 +77,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         adapter = new SourceAdapter(sources, preferences, sourcesRecyclerView, this);
         sourcesRecyclerView.setAdapter(adapter);
         sourcesRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        
+
         startPostponedEnterTransition();
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(adapter.new SwipeToDeleteCallback(getContext()));
         itemTouchHelper.attachToRecyclerView(sourcesRecyclerView);

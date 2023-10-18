@@ -49,7 +49,8 @@
                 android:id="@+id/sources_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false">
+                android:nestedScrollingEnabled="false"
+                android:layoutAnimation="@anim/layout_animation">
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
