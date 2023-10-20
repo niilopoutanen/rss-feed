@@ -33,7 +33,10 @@ import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.Readability;
+import com.niilopoutanen.rss_feed.utils.WebHelper;
+
+import net.dankito.readability4j.Article;
+import net.dankito.readability4j.Readability4J;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public class ArticleActivity extends AppCompatActivity {
     private String resultData;
     private String publisher;
     private Date publishTime;
-    private URL postUrl;
+    private String postUrl;
     private Preferences preferences;
 
     @Override
@@ -63,19 +66,15 @@ public class ArticleActivity extends AppCompatActivity {
             return;
         }
 
-        try {
-            postUrl = new URL(extras.getString("postUrl"));
-            publisher = extras.getString("postPublisher");
-            publishTime = (Date) extras.get("postPublishTime");
-            preferences = (Preferences) extras.get("preferences");
-            title = extras.getString("title");
+        postUrl = extras.getString("postUrl");
+        publisher = extras.getString("postPublisher");
+        publishTime = (Date) extras.get("postPublishTime");
+        preferences = (Preferences) extras.get("preferences");
+        title = extras.getString("title");
 
-            if (savedInstanceState != null) {
-                resultData = savedInstanceState.getString("content");
-                title = savedInstanceState.getString("title");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (savedInstanceState != null) {
+            resultData = savedInstanceState.getString("content");
+            title = savedInstanceState.getString("title");
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
@@ -262,29 +261,23 @@ public class ArticleActivity extends AppCompatActivity {
         webViewSheet.show();
     }
 
-    /**
-     * Starts the JReadability thread
-     */
-    private void readabilityProcessor(URL url, WebCallBack<String> callback) {
+
+    private void readabilityProcessor(String url, WebCallBack<String> callBack){
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            try {
-                Readability readability = new Readability(url, 100000);
-                readability.init(false, this);
-                title = readability.separateTitle();
-                callback.onResult(readability.outerHtml());
-            } catch (Exception e) {
-                if (e.getClass() == java.net.UnknownHostException.class) {
-                    callback.onResult("408");
-                    e.printStackTrace();
-                } else {
-                    callback.onResult("404");
-                    e.printStackTrace();
-                }
+            try{
+                URL urlObject = new URL(url);
+                String html = WebHelper.fetchUrlData(urlObject);
+
+                Readability4J readability = new Readability4J(url, html);
+                Article article = readability.parse();
+                callBack.onResult(article.getContent());
+            }
+            catch (Exception e){
+
             }
         });
     }
-
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);

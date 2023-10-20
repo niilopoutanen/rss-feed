@@ -78,9 +78,13 @@ public class RSSParser {
                 post.setImageUrl(imageUrl);
             }
 
-            Elements contentEncoded = itemElement.select("content\\:encoded");
+            Elements contentEncoded = itemElement.getElementsByTag("content:encoded");
             if (!contentEncoded.isEmpty()) {
                 String contentHtml = contentEncoded.first().html();
+                contentHtml = contentHtml
+                        .replace("&lt;", "<")
+                        .replace("&gt;", ">");
+
                 String cdataRegex = "<!\\[CDATA\\[(.*?)\\]\\]>";
                 Pattern pattern = Pattern.compile(cdataRegex, Pattern.DOTALL);
                 Matcher matcher = pattern.matcher(contentHtml);

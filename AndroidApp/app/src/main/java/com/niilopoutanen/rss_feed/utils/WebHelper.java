@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -99,7 +100,7 @@ public class WebHelper {
      * @param rssFeedUrl URL to load
      * @param callback   Callback that returns the feed data
      */
-    public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) throws Exception {
+    public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(() -> {
             try {
