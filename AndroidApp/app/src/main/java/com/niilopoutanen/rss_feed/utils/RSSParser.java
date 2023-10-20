@@ -52,7 +52,7 @@ public class RSSParser {
                 plainDescription = org.jsoup.parser.Parser.unescapeEntities(plainDescription, true); // unescape HTML entities
                 post.setDescription(plainDescription);
                 try {
-                    post.setImageUrl(parseImageURL(htmlDescription));
+                    post.setImageUrl(parseImageURL(escapeHtml(htmlDescription)));
                 } catch (Exception ignored) {
                 }
             }
@@ -81,9 +81,7 @@ public class RSSParser {
             Elements contentEncoded = itemElement.getElementsByTag("content:encoded");
             if (!contentEncoded.isEmpty()) {
                 String contentHtml = contentEncoded.first().html();
-                contentHtml = contentHtml
-                        .replace("&lt;", "<")
-                        .replace("&gt;", ">");
+                contentHtml = escapeHtml(contentHtml);
 
                 String cdataRegex = "<!\\[CDATA\\[(.*?)\\]\\]>";
                 Pattern pattern = Pattern.compile(cdataRegex, Pattern.DOTALL);
@@ -111,6 +109,7 @@ public class RSSParser {
      * @param description String data where the img url can be found
      * @return returns the parsed url. If nothing is found then returns null
      */
+
     private static String parseImageURL(String description) {
         int startIndex = description.indexOf("<img");
         if (startIndex == -1) {
@@ -120,6 +119,13 @@ public class RSSParser {
         startIndex = description.indexOf("src=\"", startIndex) + 5;
         int endIndex = description.indexOf("\"", startIndex);
         return description.substring(startIndex, endIndex);
+    }
+
+
+    private static String escapeHtml(String html){
+        return html
+                .replace("&lt;", "<")
+                .replace("&gt;", ">");
     }
 
     /**
