@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.niilopoutanen.RSSParser.Feed;
+import com.niilopoutanen.RSSParser.Item;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
@@ -29,6 +31,7 @@ import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.OldParser;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
+import com.niilopoutanen.RSSParser.Parser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +45,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public static final int CARDMARGIN_DP = 10;
     public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
-    List<RSSPost> feed = new ArrayList<>();
+    List<Item> feed = new ArrayList<>();
     String viewTitle;
     RecyclerView recyclerView;
     FeedAdapter adapter;
@@ -90,13 +93,13 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             return;
         }
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
-        articleIntent.putExtra("postUrl", feed.get(position).getPostLink());
+        articleIntent.putExtra("postUrl", feed.get(position).getLink());
         if (!preferences.s_feedcard_authorname) {
             articleIntent.putExtra("postPublisher", feed.get(position).getAuthor());
         } else {
-            articleIntent.putExtra("postPublisher", feed.get(position).getSourceName());
+            articleIntent.putExtra("postPublisher", feed.get(position).getAuthor());
         }
-        articleIntent.putExtra("postPublishTime", feed.get(position).getPublishTime());
+        articleIntent.putExtra("postPublishTime", feed.get(position).getPubDate());
         articleIntent.putExtra("title", feed.get(position).getTitle());
         articleIntent.putExtra("preferences", preferences);
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
@@ -147,35 +150,19 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         // Submit each update to the executor
         executor.execute(() -> {
             for (Source source : sources) {
-                try {
-                    WebHelper.getFeedData(source.getFeedUrl(), result -> {
-                        List<RSSPost> posts = OldParser.parseRssFeed(result);
-
-                        for (RSSPost post : posts) {
-                            // Handle the case where the fragment is no longer active
-                            if(!isAdded()){
-                                break;
-                            }
-                            post.setSourceName(source.getName());
-
-                            requireActivity().runOnUiThread(() -> feed.add(post));
-
-                        }
-                        if(isAdded()){
-                            requireActivity().runOnUiThread(() -> Collections.sort(feed));
-                        }
-
-                    });
-                } catch (Exception e) {
-                    if (WebHelper.isErrorCode(e.getMessage())) {
-                        try{
-                            updateFeed(source.getName(), OldParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
-                            return;
-                        }
-                        catch (Exception ignored){}
+                Parser parser = new Parser();
+                Feed loadedFeed = parser.load(source.getFeedUrl());
+                for (Item item : loadedFeed.getItems()) {
+                    // Handle the case where the fragment is no longer active
+                    if(!isAdded()){
+                        break;
                     }
-                    ((Activity)appContext).runOnUiThread(() -> showError(ERROR_TYPES.INVALIDTYPE, source));
 
+                    requireActivity().runOnUiThread(() -> feed.add(item));
+
+                }
+                if(isAdded()){
+                    requireActivity().runOnUiThread(() -> Collections.sort(feed));
                 }
 
             }
@@ -189,30 +176,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         });
 
         executor = null;
-    }
-
-    private void updateFeed(String name, String url) {
-        try {
-            WebHelper.getFeedData(url, result -> {
-                List<RSSPost> posts = OldParser.parseRssFeed(result);
-
-                for (RSSPost post : posts) {
-                    post.setSourceName(name);
-                    feed.add(post);
-                }
-
-                Collections.sort(feed);
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(() -> {
-                        adapter.complete(false);
-                        recyclerView.scheduleLayoutAnimation();
-                        recyclerviewRefresh.setRefreshing(false);
-                    });
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
