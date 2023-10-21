@@ -15,11 +15,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.RSSParser.Enclosure;
+import com.niilopoutanen.RSSParser.Item;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.squareup.picasso.NetworkPolicy;
@@ -27,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
+import java.util.Optional;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
 
@@ -35,15 +37,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     private static final int IMAGE_MARGIN_PX = 20;
     private static int imageWidth;
     private final RecyclerViewInterface recyclerViewInterface;
-    private final List<RSSPost> feed;
+    private final List<Item> items;
     private final String viewTitle;
     private final Preferences preferences;
     private final Context appContext;
     private boolean headerVisible = false;
     private Animation scaleUp, scaleDown;
 
-    public FeedAdapter(Preferences preferences, List<RSSPost> posts, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface) {
-        feed = posts;
+    public FeedAdapter(Preferences preferences, List<Item> items, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface) {
+        this.items = items;
         this.viewTitle = viewTitle;
         this.recyclerViewInterface = recyclerViewInterface;
         this.preferences = preferences;
@@ -119,14 +121,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.header.setText(viewTitle);
-            if (feed.isEmpty() & !headerVisible) {
+            if (items.isEmpty() & !headerVisible) {
                 headerViewHolder.itemView.setVisibility(View.GONE);
             } else {
                 headerViewHolder.itemView.setVisibility(View.VISIBLE);
             }
             return;
         }
-        RSSPost post = feed.get(position - 1);
+        Item post = items.get(position - 1);
         TextView title = holder.titleTextView;
         TextView desc = holder.descTextView;
         TextView author = holder.author;
@@ -156,13 +158,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         desc.setVisibility(preferences.s_feedcard_descvisible ? View.VISIBLE : View.GONE);
         date.setVisibility(preferences.s_feedcard_datevisible ? View.VISIBLE : View.GONE);
 
-        date.setText(PreferencesManager.formatDate(post.getPublishTime(), preferences.s_feedcard_datestyle, holder.titleTextView.getContext()));
+        date.setText(PreferencesManager.formatDate(post.getPubDate(), preferences.s_feedcard_datestyle, holder.titleTextView.getContext()));
         title.setText(post.getTitle());
         desc.setText(post.getDescription());
         if (post.getAuthor() != null && !preferences.s_feedcard_authorname) {
             author.setText(post.getAuthor());
         } else {
-            author.setText(post.getSourceName());
+            author.setText(post.getAuthor());
         }
         image.setImageDrawable(null);
 
@@ -170,7 +172,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
             image.setVisibility(View.GONE);
-        } else if (post.getImageUrl() == null) {
+        }
+        else if (!post.getEnclosure().isPresent()) {
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             image.setLayoutParams(layoutParams);
@@ -183,7 +186,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
                 image.setLayoutParams(layoutParams);
             }
 
-            int targetHeight = 0;
+            int targetHeight;
             if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.SMALL) {
                 targetHeight = PreferencesManager.dpToPx(100, holder.titleTextView.getContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -192,22 +195,27 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
                 layoutParams.setMargins(0, 0, IMAGE_MARGIN_PX, 0);
                 image.setLayoutParams(layoutParams);
 
+            } else {
+                targetHeight = 0;
             }
 
             // Handle nonexistent image
-            String imageUrl = post.getImageUrl();
-            if(!TextUtils.isEmpty(imageUrl)){
-                RequestCreator requestCreator = Picasso.get().load(imageUrl)
-                        .resize(imageWidth, targetHeight)
-                        .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
-                        .centerCrop();
+            post.getEnclosure().ifPresent(enclosure -> {
+                String imageUrl = enclosure.getUrl();
+                if(!TextUtils.isEmpty(imageUrl)){
+                    RequestCreator requestCreator = Picasso.get().load(imageUrl)
+                            .resize(imageWidth, targetHeight)
+                            .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
+                            .centerCrop();
 
-                if (!preferences.s_imagecache) {
-                    requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+                    if (!preferences.s_imagecache) {
+                        requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+                    }
+
+                    requestCreator.into(image);
                 }
+            });
 
-                requestCreator.into(image);
-            }
 
         }
     }
@@ -215,10 +223,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
     @Override
     public int getItemCount() {
-        if (feed.isEmpty()) {
+        if (items.isEmpty()) {
             return 1;
         } else {
-            return feed.size() + 1;
+            return items.size() + 1;
         }
     }
 

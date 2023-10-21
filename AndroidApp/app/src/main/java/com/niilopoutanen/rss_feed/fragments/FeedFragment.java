@@ -178,6 +178,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         executor = null;
     }
 
+
     /**
      * This method shows a error message on screen
      *
