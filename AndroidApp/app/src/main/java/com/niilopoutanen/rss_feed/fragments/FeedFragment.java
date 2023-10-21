@@ -27,7 +27,7 @@ import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.RSSParser;
+import com.niilopoutanen.rss_feed.utils.OldParser;
 import com.niilopoutanen.rss_feed.utils.WebHelper;
 
 import java.util.ArrayList;
@@ -149,7 +149,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             for (Source source : sources) {
                 try {
                     WebHelper.getFeedData(source.getFeedUrl(), result -> {
-                        List<RSSPost> posts = RSSParser.parseRssFeed(result);
+                        List<RSSPost> posts = OldParser.parseRssFeed(result);
 
                         for (RSSPost post : posts) {
                             // Handle the case where the fragment is no longer active
@@ -169,7 +169,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 } catch (Exception e) {
                     if (WebHelper.isErrorCode(e.getMessage())) {
                         try{
-                            updateFeed(source.getName(), RSSParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
+                            updateFeed(source.getName(), OldParser.feedFinder(WebHelper.getBaseUrl(source.getFeedUrl()).toString(), appContext).toString());
                             return;
                         }
                         catch (Exception ignored){}
@@ -194,7 +194,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void updateFeed(String name, String url) {
         try {
             WebHelper.getFeedData(url, result -> {
-                List<RSSPost> posts = RSSParser.parseRssFeed(result);
+                List<RSSPost> posts = OldParser.parseRssFeed(result);
 
                 for (RSSPost post : posts) {
                     post.setSourceName(name);

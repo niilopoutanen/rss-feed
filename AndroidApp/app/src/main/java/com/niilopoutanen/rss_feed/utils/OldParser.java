@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class RSSParser {
+public class OldParser {
     /**
      * Finds posts from a RSS Feed.
      *
