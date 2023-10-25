@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.niilopoutanen.RSSParser.Feed;
 import com.niilopoutanen.RSSParser.Item;
+import com.niilopoutanen.RSSParser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
@@ -151,19 +152,25 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         executor.execute(() -> {
             for (Source source : sources) {
                 Parser parser = new Parser();
-                Feed loadedFeed = parser.load(source.getFeedUrl());
-                for (Item item : loadedFeed.getItems()) {
-                    // Handle the case where the fragment is no longer active
-                    if(!isAdded()){
-                        break;
+                try{
+                    Feed loadedFeed = parser.load(source.getFeedUrl());
+                    for (Item item : loadedFeed.getItems()) {
+                        // Handle the case where the fragment is no longer active
+                        if(!isAdded()){
+                            break;
+                        }
+
+                        requireActivity().runOnUiThread(() -> feed.add(item));
+
                     }
-
-                    requireActivity().runOnUiThread(() -> feed.add(item));
-
+                    if(isAdded()){
+                        requireActivity().runOnUiThread(() -> Collections.sort(feed));
+                    }
                 }
-                if(isAdded()){
-                    requireActivity().runOnUiThread(() -> Collections.sort(feed));
+                catch (RSSException e){
+                    e.printStackTrace();
                 }
+
 
             }
             if (getActivity() != null) {

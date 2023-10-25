@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.RSSParser.Enclosure;
 import com.niilopoutanen.RSSParser.Item;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
@@ -173,7 +172,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
             image.setVisibility(View.GONE);
         }
-        else if (!post.getEnclosure().isPresent()) {
+        else if (post.getImageUrl() != null) {
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             image.setLayoutParams(layoutParams);
@@ -200,21 +199,19 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
             }
 
             // Handle nonexistent image
-            post.getEnclosure().ifPresent(enclosure -> {
-                String imageUrl = enclosure.getUrl();
-                if(!TextUtils.isEmpty(imageUrl)){
-                    RequestCreator requestCreator = Picasso.get().load(imageUrl)
-                            .resize(imageWidth, targetHeight)
-                            .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
-                            .centerCrop();
+            String imageUrl = post.getImageUrl();
+            if(!TextUtils.isEmpty(imageUrl)){
+                RequestCreator requestCreator = Picasso.get().load(imageUrl)
+                        .resize(imageWidth, targetHeight)
+                        .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
+                        .centerCrop();
 
-                    if (!preferences.s_imagecache) {
-                        requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
-                    }
-
-                    requestCreator.into(image);
+                if (!preferences.s_imagecache) {
+                    requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
                 }
-            });
+
+                requestCreator.into(image);
+            }
 
 
         }
