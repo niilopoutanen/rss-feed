@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'org.jsoup:jsoup:1.16.2'
 
     implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
     implementation "androidx.core:core-splashscreen:1.0.1"

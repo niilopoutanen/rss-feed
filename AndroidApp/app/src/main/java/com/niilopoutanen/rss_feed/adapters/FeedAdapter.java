@@ -172,7 +172,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
             image.setVisibility(View.GONE);
         }
-        else if (post.getImageUrl() != null) {
+        else if (post.getImageUrl() == null) {
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             image.setLayoutParams(layoutParams);
@@ -205,11 +205,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
                         .resize(imageWidth, targetHeight)
                         .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
                         .centerCrop();
-
                 if (!preferences.s_imagecache) {
                     requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
                 }
-
                 requestCreator.into(image);
             }
 
