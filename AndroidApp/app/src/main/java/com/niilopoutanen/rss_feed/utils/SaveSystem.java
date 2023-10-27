@@ -59,7 +59,7 @@ public class SaveSystem {
         try {
             sources = loadContent(context);
             //Check if the source already exists
-            sources.removeIf(contentObj -> contentObj.getFeedUrl().equals(source.getFeedUrl()));
+            sources.removeIf(contentObj -> contentObj.getId().equals(source.getId()));
 
             sources.add(source);
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);

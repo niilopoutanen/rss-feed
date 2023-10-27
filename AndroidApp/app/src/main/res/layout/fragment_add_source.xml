@@ -8,6 +8,7 @@
     android:padding="10dp"
     android:orientation="vertical">
 
+
     <RelativeLayout
         android:id="@+id/addsource_header"
         android:layout_width="match_parent"
@@ -62,8 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_background"
-            android:backgroundTint="@color/surface"
+            android:background="@drawable/element_background"
             android:orientation="vertical">
 
             <EditText
@@ -85,8 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_background"
-            android:backgroundTint="@color/surface"
+            android:background="@drawable/element_background"
             android:orientation="vertical">
 
             <EditText
@@ -135,4 +134,14 @@
             android:textSize="15sp"
             app:fontFamily="@font/inter_medium" />
     </RelativeLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/addsource_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

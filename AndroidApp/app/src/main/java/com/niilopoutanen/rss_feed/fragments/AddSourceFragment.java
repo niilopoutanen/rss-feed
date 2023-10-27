@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,18 +24,20 @@ import com.niilopoutanen.rss_feed.utils.SourceValidator;
 
 public class AddSourceFragment extends Fragment {
 
-    private final Source source;
+    private Source source;
 
     private EditText feedUrl;
     private EditText feedName;
     private TextView title;
     private LinearLayout viewContainer;
-    private final Context appContext;
+    private ProgressBar progressBar;
+    private Context appContext;
 
     public AddSourceFragment(Source source, Context context) {
         this.source = source;
         this.appContext = context;
     }
+    public AddSourceFragment() {}
 
     private void loadData(){
         if(source == null){
@@ -45,14 +49,25 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void saveData(){
+        Activity activity = (Activity) appContext;
+        progressBar.setVisibility(View.VISIBLE);
         SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), result -> {
 
             if (result != null) {
-                SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
-                closeFragment(null);
+                if(this.source != null){
+                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), source.getId()));
+                }
+                else{
+                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
+                }
+                activity.runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    closeFragment(null);
+                });
             }
             else {
                 viewContainer.addView(SourceValidator.createErrorMessage(appContext, "Error with adding source. Please try again"));
+                activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
             }
 
         }, appContext);
@@ -77,6 +92,7 @@ public class AddSourceFragment extends Fragment {
         title = rootView.findViewById(R.id.addsource_title);
 
         viewContainer = rootView.findViewById(R.id.sourceadd_layout);
+        progressBar = rootView.findViewById(R.id.addsource_progress);
 
         feedUrl = rootView.findViewById(R.id.sourceadd_feedUrl);
         feedName = rootView.findViewById(R.id.sourceadd_feedName);
