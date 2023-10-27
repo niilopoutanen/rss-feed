@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Source;
@@ -28,6 +29,7 @@ public class AddSourceFragment extends Fragment {
 
     private EditText feedUrl;
     private EditText feedName;
+    private MaterialSwitch showInFeed;
     private TextView title;
     private LinearLayout viewContainer;
     private ProgressBar progressBar;
@@ -45,6 +47,7 @@ public class AddSourceFragment extends Fragment {
         }
         feedUrl.setText(source.getFeedUrl());
         feedName.setText(source.getName());
+        showInFeed.setChecked(source.isVisibleInFeed());
         title.setText(appContext.getString(R.string.updatesource));
     }
 
@@ -55,10 +58,10 @@ public class AddSourceFragment extends Fragment {
 
             if (result != null) {
                 if(this.source != null){
-                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), source.getId()));
+                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
                 }
                 else{
-                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
+                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
                 }
                 activity.runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
@@ -96,6 +99,7 @@ public class AddSourceFragment extends Fragment {
 
         feedUrl = rootView.findViewById(R.id.sourceadd_feedUrl);
         feedName = rootView.findViewById(R.id.sourceadd_feedName);
+        showInFeed = rootView.findViewById(R.id.switch_showInFeed);
 
         loadData();
 

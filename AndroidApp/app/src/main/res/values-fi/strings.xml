@@ -102,4 +102,5 @@
     <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
     <string name="settings_fontsize">Fonttikoko</string>
     <string name="settings_launchwindow_additional">Valittu välilehti aukeaa kun käynnistät sovelluksen.</string>
+    <string name="show_in_feed">Näytä syötteessä</string>
 </resources>

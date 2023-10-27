@@ -148,6 +148,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         // Submit each update to the executor
         executor.execute(() -> {
             for (Source source : sources) {
+                if(!source.isVisibleInFeed()){
+                    continue;
+                }
                 Parser parser = new Parser();
                 try{
                     Feed loadedFeed = parser.load(source.getFeedUrl());

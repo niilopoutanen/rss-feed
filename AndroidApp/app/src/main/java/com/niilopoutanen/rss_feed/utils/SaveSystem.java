@@ -85,6 +85,11 @@ public class SaveSystem {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 sources = (List<Source>) ois.readObject();
+                for (Source source : sources){
+                    if(source.getId() == null){
+                        source.generateId();
+                    }
+                }
                 ois.close();
                 fis.close();
             }

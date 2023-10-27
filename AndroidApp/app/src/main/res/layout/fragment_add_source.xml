@@ -99,7 +99,8 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/textPrimary"
-                android:textColorHint="@color/textSecondary" />
+                android:textColorHint="@color/textSecondary"
+                />
 
         </LinearLayout>
 
@@ -114,6 +115,32 @@
             android:textColor="@color/textSecondary"
             android:textSize="13sp" />
 
+        <RelativeLayout
+            android:id="@+id/troubleshoot_haptics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/show_in_feed"
+                android:textColor="@color/textPrimary"
+                android:textSize="16sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_showInFeed"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"/>
+
+
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
