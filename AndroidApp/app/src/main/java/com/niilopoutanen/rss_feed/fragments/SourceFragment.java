@@ -90,7 +90,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     }
 
     public void openSourceDialog(Source source){
-        AddSourceFragment addSourceFragment = new AddSourceFragment();
+        AddSourceFragment addSourceFragment = new AddSourceFragment(source, appContext);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, addSourceFragment);
         transaction.addToBackStack(null);

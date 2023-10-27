@@ -36,7 +36,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/settings_dropdown_title"
+            android:id="@+id/addsource_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -50,6 +50,7 @@
 
 
     <LinearLayout
+        android:id="@+id/sourceadd_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -66,7 +67,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/sourcedialog_feedUrl"
+                android:id="@+id/sourceadd_feedUrl"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:autofillHints="url"
@@ -89,7 +90,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/sourcedialog_feedName"
+                android:id="@+id/sourceadd_feedName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:autofillHints="url"
