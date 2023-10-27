@@ -49,6 +49,7 @@ public class AddSourceFragment extends Fragment {
 
             if (result != null) {
                 SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl()));
+                closeFragment(null);
             }
             else {
                 viewContainer.addView(SourceValidator.createErrorMessage(appContext, "Error with adding source. Please try again"));
@@ -74,9 +75,12 @@ public class AddSourceFragment extends Fragment {
         LinearLayout returnBtn = rootView.findViewById(R.id.addsource_return);
         returnBtn.setOnClickListener(view -> closeFragment(returnBtn));
         title = rootView.findViewById(R.id.addsource_title);
+
         viewContainer = rootView.findViewById(R.id.sourceadd_layout);
+
         feedUrl = rootView.findViewById(R.id.sourceadd_feedUrl);
         feedName = rootView.findViewById(R.id.sourceadd_feedName);
+
         loadData();
 
         rootView.findViewById(R.id.addsource_continue).setOnClickListener(view -> saveData());
@@ -86,7 +90,9 @@ public class AddSourceFragment extends Fragment {
 
     private void closeFragment(View view) {
         getParentFragmentManager().popBackStack();
-        PreferencesManager.vibrate(view);
+        if(view != null){
+            PreferencesManager.vibrate(view);
+        }
     }
 
 

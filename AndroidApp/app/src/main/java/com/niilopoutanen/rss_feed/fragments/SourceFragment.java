@@ -61,15 +61,19 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         setReenterTransition(new MaterialFadeThrough());
         postponeEnterTransition();
 
-        sources = SaveSystem.loadContent(appContext);
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
+        update();
+
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
     }
 
+    public void update(){
+        sources = SaveSystem.loadContent(appContext);
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sources, container, false);
@@ -92,7 +96,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     public void openSourceDialog(Source source){
         AddSourceFragment addSourceFragment = new AddSourceFragment(source, appContext);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, addSourceFragment);
+        transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
         transaction.addToBackStack(null);
         transaction.commit();
     }
