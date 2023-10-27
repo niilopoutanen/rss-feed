@@ -26,12 +26,9 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.OldParser;
-import com.niilopoutanen.rss_feed.utils.WebHelper;
 import com.niilopoutanen.RSSParser.Parser;
 
 import java.util.ArrayList;

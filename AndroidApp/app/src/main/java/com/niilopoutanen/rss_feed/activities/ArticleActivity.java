@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
 import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
@@ -267,7 +268,7 @@ public class ArticleActivity extends AppCompatActivity {
         executor.execute(() -> {
             try{
                 URL urlObject = new URL(url);
-                String html = WebHelper.fetchUrlData(urlObject);
+                String html = WebUtils.connect(urlObject).toString();
 
                 Readability4J readability = new Readability4J(url, html);
                 Article article = readability.parse();

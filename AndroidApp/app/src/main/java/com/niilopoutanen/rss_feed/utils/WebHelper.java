@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.utils;
 
+import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
@@ -70,147 +71,7 @@ public class WebHelper {
             return null;
         }
     }
-
-    /**
-     * Finds the host of a url.
-     *
-     * @param url URL to parse
-     * @return URL object with host parameters
-     */
-    public static URL getBaseUrl(URL url) {
-        try {
-            return new URL(url.getProtocol() + "://" + url.getHost());
-        } catch (MalformedURLException m) {
-            return url;
-        }
-    }
-
-    public static URL getBaseUrl(String url) {
-        try {
-            URL urlToParse = new URL(url);
-            return new URL(urlToParse.getProtocol() + "://" + urlToParse.getHost());
-        } catch (MalformedURLException m) {
-            return null;
-        }
-    }
-
-    /**
-     * Loads RSS feed data from a URL
-     *
-     * @param rssFeedUrl URL to load
-     * @param callback   Callback that returns the feed data
-     */
-    public static void getFeedData(String rssFeedUrl, final WebCallBack<String> callback) throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<String> future = executor.submit(() -> {
-            try {
-                // Open a connection to the website URL
-                Connection.Response response = Jsoup.connect(rssFeedUrl)
-                        .ignoreContentType(true)
-                        .execute();
-                int statusCode = response.statusCode();
-                String responseBody = response.body();
-                if (statusCode == 200) {
-                    return responseBody;
-                } else {
-                    throw new Exception(String.valueOf(statusCode));
-                }
-            } catch (HttpStatusException e) {
-                throw new Exception(String.valueOf(e.getStatusCode()));
-            }
-        });
-        callback.onResult(future.get());
-    }
-
-
-    /**
-     * Loads data from a URL no matter the type
-     *
-     * @param url URL to load
-     * @return String data from the URL
-     */
-    public static String fetchUrlData(URL url) throws IOException {
-        // Create a new HTTP connection
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        // Set request method
-        connection.setRequestMethod("GET");
-        connection.setInstanceFollowRedirects(true);
-        // Set connection timeout and read timeout
-        connection.setConnectTimeout(15000);
-        connection.setReadTimeout(15000);
-
-        // Follow HTTP 301 redirection
-        boolean redirect = false;
-        int status = connection.getResponseCode();
-        if (status != HttpURLConnection.HTTP_OK) {
-            if (status == HttpURLConnection.HTTP_MOVED_TEMP
-                    || status == HttpURLConnection.HTTP_MOVED_PERM
-                    || status == HttpURLConnection.HTTP_SEE_OTHER) {
-                redirect = true;
-            }
-        }
-
-        if (redirect) {
-            String newUrl = connection.getHeaderField("Location");
-            connection = (HttpURLConnection) new URL(newUrl).openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-        }
-
-        // Get the input stream from the connection
-        InputStream inputStream = connection.getInputStream();
-
-        // Read the input stream and convert it to a string
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder result = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            result.append(line);
-        }
-
-        // Close the input stream and disconnect the connection
-        inputStream.close();
-        connection.disconnect();
-
-        // Return the fetched data as a string
-        return result.toString();
-    }
-
-    /**
-     * Tries to find icon of the website provided
-     *
-     * @param url URL to check
-     * @return String URL for the img icon
-     */
-    public static String getFaviconUrl(final URL url) throws IOException {
-        // check if the URL is the homepage and return the base URL in that case
-        String baseUrl = url.getProtocol() + "://" + url.getHost();
-        String urlToUse = url.toString();
-        if (!url.toString().equals(baseUrl + "/")) {
-            urlToUse = baseUrl;
-        }
-        // create an HTTP connection for the website's homepage
-        Document doc = Jsoup.parse(fetchUrlData(new URL(urlToUse)));
-
-        Elements link = doc.select("link[href~=.*\\.(png|webp|jpg|jpeg)][rel~=icon|apple-touch-icon|shortcut icon]");
-        String faviconUrl = link.attr("href");
-        if (link.isEmpty()) {
-            link = doc.select("meta[property~=og:image], meta[name~=twitter:image]");
-            faviconUrl = link.attr("content");
-        }
-        if (link.isEmpty() || faviconUrl.isEmpty()) {
-            return null;
-        }
-
-        // make sure the favicon URL is an absolute URL
-        if (!faviconUrl.startsWith("http")) {
-            faviconUrl = urlToUse + faviconUrl;
-        }
-
-        return faviconUrl;
-    }
-
+    
     /**
      * Search Feedly API with the provided query
      *
@@ -223,7 +84,7 @@ public class WebHelper {
         executor.execute(() -> {
             try {
                 URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
-                String result = fetchUrlData(queryUrl);
+                String result = WebUtils.connect(queryUrl).toString();
                 List<FeedResult> results = FeedResult.parseResult(result);
                 callBack.onResult(results);
             } catch (Exception e) {
@@ -232,26 +93,4 @@ public class WebHelper {
 
         });
     }
-
-    public static boolean isErrorCode(String errorMessage) {
-        if (errorMessage == null) {
-            return false;
-        }
-        String statusCodeString = errorMessage.replaceFirst("java\\.lang\\.Exception:", "").trim();
-        if (!statusCodeString.isEmpty()) {
-            char firstDigit = statusCodeString.charAt(0);
-            return (firstDigit == '4' || firstDigit == '5' || firstDigit == '3');
-        }
-        return false;
-    }
-
-    public static boolean isErrorCode(int statusCode) {
-        String statusCodeString = String.valueOf(statusCode);
-        if (!statusCodeString.isEmpty()) {
-            char firstDigit = statusCodeString.charAt(0);
-            return (firstDigit == '4' || firstDigit == '5' || firstDigit == '3');
-        }
-        return false;
-    }
-
 }
