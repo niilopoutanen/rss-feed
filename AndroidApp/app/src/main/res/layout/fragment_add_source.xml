@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/addsource_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -45,5 +46,60 @@
     </RelativeLayout>
 
 
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_background"
+        android:backgroundTint="@color/surface"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/sourcedialog_feedUrl"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:autofillHints="url"
+            android:background="@null"
+            android:hint="@string/feed_url"
+            android:inputType="textUri"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_background"
+        android:backgroundTint="@color/surface"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/sourcedialog_feedName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:autofillHints="url"
+            android:background="@null"
+            android:hint="@string/feed_name"
+            android:inputType="textUri"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/feed_name_autofill"
+        android:textColor="@color/textSecondary"
+        android:textSize="13sp" />
 
 </LinearLayout>
