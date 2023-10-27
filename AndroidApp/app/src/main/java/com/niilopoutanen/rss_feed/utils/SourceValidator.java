@@ -28,7 +28,7 @@ public class SourceValidator {
     public static void validate(String inputUrl, String inputName, WebCallBack<Source> sourceCallback, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        CompletableFuture.supplyAsync(() -> WebUtils.findFeed(inputUrl), executor).thenComposeAsync(finalUrl -> {
+        CompletableFuture.supplyAsync(() -> WebUtils.findFeed(WebUtils.formatUrl(inputUrl)), executor).thenComposeAsync(finalUrl -> {
             if (finalUrl == null) {
                 return CompletableFuture.completedFuture(null);
             } else {

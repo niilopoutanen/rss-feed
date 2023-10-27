@@ -34,7 +34,6 @@ import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.WebHelper;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;

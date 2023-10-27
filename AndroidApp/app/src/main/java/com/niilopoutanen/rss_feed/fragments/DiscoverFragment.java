@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
+import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
@@ -21,11 +22,14 @@ import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.utils.WebHelper;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
@@ -83,7 +87,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
     private void search(String query) {
         progressBar.setVisibility(View.VISIBLE);
-        WebHelper.fetchFeedQuery(query, result -> {
+        fetchFeedQuery(query, result -> {
             results = result;
             if (resultAdapter != null) {
                 ((Activity) appContext).runOnUiThread(() -> {
@@ -94,6 +98,31 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+
+    /**
+     * Search Feedly API with the provided query
+     *
+     * @param query    Query to search with
+     * @param callBack Returns a list of FeedResult objects that were found
+     */
+    public static void fetchFeedQuery(String query, WebCallBack<List<FeedResult>> callBack) {
+        String FEEDLY_ENDPOINT = "https://cloud.feedly.com/v3/search/feeds?query=";
+        int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
+
+        Executor executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
+                String result = WebUtils.connect(queryUrl).toString();
+                List<FeedResult> results = FeedResult.parseResult(result);
+                callBack.onResult(results);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);

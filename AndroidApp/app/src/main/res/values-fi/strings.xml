@@ -57,7 +57,6 @@
     <string name="feature3desc">Pieniä muutoksia sovelluksen ulkoasuun.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
-    <string name="rsslocale_news">Uutiset</string>
 
     <string-array name="theme_modes">
         <item>Vaalea</item>

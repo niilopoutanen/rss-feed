@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
+import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.WebHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
     private void search(String query) {
         loader.setVisibility(View.VISIBLE);
         if (query.length() > 0) {
-            WebHelper.fetchFeedQuery(query, result -> {
+            DiscoverFragment.fetchFeedQuery(query, result -> {
                 discoverResults = result;
 
                 if (discoverResultAdapter != null) {

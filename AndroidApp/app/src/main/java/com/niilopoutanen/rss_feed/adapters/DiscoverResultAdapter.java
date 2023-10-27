@@ -14,13 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.utils.WebHelper;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         List<Source> savedSources = SaveSystem.loadContent(context);
         for (Source source : savedSources) {
-            if (source.getFeedUrl().equalsIgnoreCase(WebHelper.formatUrl(result.feedId).toString())) {
+            if (source.getFeedUrl().equalsIgnoreCase(WebUtils.formatUrl(result.feedId).toString())) {
                 result.alreadyAdded = true;
                 Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
                 icon.setBackground(checkmark);
@@ -72,7 +72,7 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         desc.setText(result.description);
         add.setOnClickListener(v -> {
             if (!result.alreadyAdded) {
-                SaveSystem.saveContent(v.getContext(), new Source(result.title, WebHelper.formatUrl(result.feedId).toString(), result.iconUrl));
+                SaveSystem.saveContent(v.getContext(), new Source(result.title, WebUtils.formatUrl(result.feedId).toString(), result.iconUrl));
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
                 Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
                 icon.setBackground(checkmark);
@@ -82,7 +82,7 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         });
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FeedActivity.class);
-            Source tempSource = new Source(result.title, WebHelper.formatUrl(result.feedId).toString(), result.visualUrl);
+            Source tempSource = new Source(result.title, WebUtils.formatUrl(result.feedId).toString(), result.visualUrl);
             intent.putExtra("source", tempSource);
             intent.putExtra("preferences", PreferencesManager.loadPreferences(v.getContext()));
             v.getContext().startActivity(intent);
