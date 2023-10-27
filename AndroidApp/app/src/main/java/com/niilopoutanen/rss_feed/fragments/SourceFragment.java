@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,10 +85,17 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
 
 
         RelativeLayout addBtn = rootView.findViewById(R.id.addNewButton);
-        addBtn.setOnClickListener(v -> askForSourceInput(null));
+        addBtn.setOnClickListener(v -> openSourceDialog(null));
         return rootView;
     }
 
+    public void openSourceDialog(Source source){
+        AddSourceFragment addSourceFragment = new AddSourceFragment();
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, addSourceFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     /**
      * Dialog for asking user's input when adding a source
      *
@@ -187,7 +195,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     public boolean onLongClick(View v) {
         int position = sourcesRecyclerView.getChildAdapterPosition(v);
         Source clickedSource = sources.get(position);
-        askForSourceInput(clickedSource);
+        openSourceDialog(clickedSource);
         return false;
     }
 }
