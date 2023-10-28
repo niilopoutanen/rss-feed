@@ -7,8 +7,10 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -31,7 +33,7 @@ public class AddSourceFragment extends Fragment {
     private EditText feedName;
     private MaterialSwitch showInFeed;
     private TextView title;
-    private LinearLayout viewContainer;
+    private LinearLayout bottomContainer;
     private ProgressBar progressBar;
     private Context appContext;
 
@@ -69,8 +71,14 @@ public class AddSourceFragment extends Fragment {
                 });
             }
             else {
-                viewContainer.addView(SourceValidator.createErrorMessage(appContext, "Error with adding source. Please try again"));
-                activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+                activity.runOnUiThread(() -> {
+                    if(bottomContainer.getChildCount() > 1){
+                        bottomContainer.removeViewAt(0);
+                    }
+                    bottomContainer.addView(SourceValidator.createErrorMessage(appContext, "Error with adding source. Please try again"), 0);
+                    activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+                });
+
             }
 
         }, appContext);
@@ -94,7 +102,7 @@ public class AddSourceFragment extends Fragment {
         returnBtn.setOnClickListener(view -> closeFragment(returnBtn));
         title = rootView.findViewById(R.id.addsource_title);
 
-        viewContainer = rootView.findViewById(R.id.sourceadd_layout);
+        bottomContainer = rootView.findViewById(R.id.sourceadd_bottomlayout);
         progressBar = rootView.findViewById(R.id.addsource_progress);
 
         feedUrl = rootView.findViewById(R.id.sourceadd_feedUrl);
@@ -103,8 +111,21 @@ public class AddSourceFragment extends Fragment {
 
         loadData();
 
-        rootView.findViewById(R.id.addsource_continue).setOnClickListener(view -> saveData());
-
+        View addSourceButton = rootView.findViewById(R.id.addsource_continue);
+        addSourceButton.setOnClickListener(view -> saveData());
+        addSourceButton.setOnTouchListener((view, event) -> {
+            if(event.getAction() == MotionEvent.ACTION_DOWN){
+                addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_down));
+            }
+            else if(event.getAction() == MotionEvent.ACTION_CANCEL){
+                addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+            }
+            else if(event.getAction() == MotionEvent.ACTION_UP){
+                addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+                view.performClick();
+            }
+            return true;
+        });
         return rootView;
     }
 

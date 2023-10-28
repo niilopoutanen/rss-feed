@@ -1,6 +1,8 @@
 package com.niilopoutanen.rss_feed.utils;
 
 import android.content.Context;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.niilopoutanen.RSSParser.WebUtils;
@@ -98,6 +100,7 @@ public class SourceValidator {
         errorText.setText(errorMessage);
         errorText.setTextColor(context.getColor(R.color.textSecondary));
         errorText.setTag("error-message");
+        errorText.setGravity(Gravity.CENTER);
         return errorText;
     }
 

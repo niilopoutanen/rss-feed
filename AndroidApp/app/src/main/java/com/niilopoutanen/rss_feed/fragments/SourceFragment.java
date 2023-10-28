@@ -71,7 +71,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     public void update(){
         sources = SaveSystem.loadContent(appContext);
         if (adapter != null) {
-            adapter.notifyDataSetChanged();
+            adapter.updateSources(sources);
         }
     }
     @Override
@@ -201,5 +201,12 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         Source clickedSource = sources.get(position);
         openSourceDialog(clickedSource);
         return false;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        update();
     }
 }

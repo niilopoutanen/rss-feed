@@ -51,7 +51,6 @@
 
 
     <LinearLayout
-        android:id="@+id/sourceadd_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -137,30 +136,40 @@
                 android:id="@+id/switch_showInFeed"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:checked="true"/>
 
 
         </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/addsource_continue"
+    <LinearLayout
+        android:id="@+id/sourceadd_bottomlayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/input_background"
-        android:backgroundTint="?attr/colorAccent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="20dp">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/continua"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            app:fontFamily="@font/inter_medium" />
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/addsource_continue"
+            android:layout_width="match_parent"
+            android:backgroundTint="?attr/colorAccent"
+            android:background="@drawable/input_background"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/continua"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_medium" />
+        </RelativeLayout>
+    </LinearLayout>
+
 
     <ProgressBar
         android:visibility="gone"
