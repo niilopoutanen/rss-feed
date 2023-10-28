@@ -103,4 +103,6 @@
     <string name="settings_fontsize">Fonttikoko</string>
     <string name="settings_launchwindow_additional">Valittu välilehti aukeaa kun käynnistät sovelluksen.</string>
     <string name="show_in_feed">Näytä syötteessä</string>
+    <string name="errro_toomanyrequests">Liian monta pyyntöä.</string>
+    <string name="toomanyrequestsmsg">Olet lähettänyt liian monta pyyntöä osoitteesen %s. Odota hetki ja yritä uudelleen.</string>
 </resources>

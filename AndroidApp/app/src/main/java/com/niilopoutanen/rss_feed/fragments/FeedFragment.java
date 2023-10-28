@@ -31,6 +31,7 @@ import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.RSSParser.Parser;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,6 +52,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
     ExecutorService executor = null;
+
+    //used to identify single source view
+    private boolean singleView = false;
     @ColorInt
     int colorAccent;
 
@@ -64,6 +68,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         sources.add(source);
         viewTitle = source.getName();
         this.preferences = preferences;
+        this.singleView = true;
     }
 
     public FeedFragment() {
@@ -117,7 +122,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     private boolean checkValidity() {
         if (sources.size() == 0) {
-            showError(ERROR_TYPES.NOSOURCES, null);
+            showError(0, null);
             return false;
         }
         if(!isAdded()){
@@ -126,7 +131,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         ConnectivityManager connectionManager = appContext.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
-            showError(ERROR_TYPES.NOINTERNET, null);
+            showError(1, null);
             return false;
         } else {
             return true;
@@ -141,8 +146,11 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         }
         //if all sources are hidden, show the title
         if(sources.stream().noneMatch(Source::isVisibleInFeed)){
-            recyclerviewRefresh.setRefreshing(false);
-            adapter.complete(true);
+            if(!singleView){
+                recyclerviewRefresh.setRefreshing(false);
+                adapter.complete(true);
+            }
+
         }
 
         recyclerviewRefresh.setRefreshing(true);
@@ -154,7 +162,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         // Submit each update to the executor
         executor.execute(() -> {
             for (Source source : sources) {
-                if(!source.isVisibleInFeed()){
+                if(!source.isVisibleInFeed() && !singleView){
                     continue;
                 }
                 Parser parser = new Parser();
@@ -174,7 +182,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                     }
                 }
                 catch (RSSException e){
-                    e.printStackTrace();
+                    showError(e.getErrorType(), source);
                 }
 
 
@@ -192,17 +200,26 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
 
-    /**
-     * This method shows a error message on screen
-     *
-     * @param type Type of the error message that will show
-     */
-    private void showError(ERROR_TYPES type, Source errorCause) {
+    private void showError(int errorCode, Source errorCause){
         boolean sourceAlertHidden = PreferencesManager.loadPreferences(appContext).s_hide_sourcealert;
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(appContext);
         dialog.setNegativeButton(appContext.getString(R.string.close), (dialog1, which) -> dialog1.dismiss());
-        switch (type) {
-            case NOSOURCES:
+
+        switch (errorCode){
+            case HttpURLConnection.HTTP_NOT_FOUND:
+                dialog.setTitle(appContext.getString(R.string.invalidfeed));
+                dialog.setMessage(appContext.getString(R.string.invalidfeedmsg) +" " + errorCause.getFeedUrl());
+                dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
+                    dialog1.dismiss();
+                    updateFeed();
+                });
+                break;
+
+            case 429:
+                dialog.setTitle(appContext.getString(R.string.errro_toomanyrequests));
+                dialog.setMessage(String.format(appContext.getString(R.string.toomanyrequestsmsg), errorCause.getFeedUrl()));
+                break;
+            case 0:
                 dialog.setPositiveButton("OK", (dialog1, which) -> dialog1.dismiss());
                 dialog.setTitle(appContext.getString(R.string.nosources));
                 dialog.setMessage(appContext.getString(R.string.nosourcesmsg));
@@ -215,7 +232,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 });
                 break;
 
-            case NOINTERNET:
+            case 1:
                 dialog.setTitle(appContext.getString(R.string.nointernet));
                 dialog.setMessage(appContext.getString(R.string.nointernetmsg));
                 dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
@@ -223,20 +240,12 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                     updateFeed();
                 });
                 break;
-            case INVALIDTYPE:
-                dialog.setTitle(appContext.getString(R.string.invalidfeed));
-                dialog.setMessage(appContext.getString(R.string.invalidfeedmsg) +" " + errorCause.getFeedUrl());
-                dialog.setPositiveButton(appContext.getString(R.string.tryagain), (dialog1, which) -> {
-                    dialog1.dismiss();
-                    updateFeed();
-                });
-                break;
         }
-        if(!((Activity) appContext).isFinishing())
+        Activity activity = (Activity) appContext;
+        if(!activity.isFinishing())
         {
-            dialog.show();
+            activity.runOnUiThread(dialog::show);
         }
-
     }
 
     @Override
