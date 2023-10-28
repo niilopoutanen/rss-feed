@@ -89,19 +89,4 @@ public class SourceValidator {
         }
     }
 
-    /**
-     * Creates a error message that can be show to the user
-     *
-     * @param errorMessage Message to show
-     * @return Returns a TextView with the error message
-     */
-    public static TextView createErrorMessage(Context context, String errorMessage) {
-        TextView errorText = new TextView(context);
-        errorText.setText(errorMessage);
-        errorText.setTextColor(context.getColor(R.color.textSecondary));
-        errorText.setTag("error-message");
-        errorText.setGravity(Gravity.CENTER);
-        return errorText;
-    }
-
 }

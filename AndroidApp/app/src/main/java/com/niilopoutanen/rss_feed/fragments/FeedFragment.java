@@ -139,6 +139,12 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             adapter.complete(true);
             return;
         }
+        //if all sources are hidden, show the title
+        if(sources.stream().noneMatch(Source::isVisibleInFeed)){
+            recyclerviewRefresh.setRefreshing(false);
+            adapter.complete(true);
+        }
+
         recyclerviewRefresh.setRefreshing(true);
         feed.clear();
 

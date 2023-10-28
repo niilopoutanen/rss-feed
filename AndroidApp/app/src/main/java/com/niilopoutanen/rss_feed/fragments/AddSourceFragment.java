@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,6 +55,7 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void saveData(){
+        showError("");
         Activity activity = (Activity) appContext;
         progressBar.setVisibility(View.VISIBLE);
         SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), result -> {
@@ -72,10 +74,7 @@ public class AddSourceFragment extends Fragment {
             }
             else {
                 activity.runOnUiThread(() -> {
-                    if(bottomContainer.getChildCount() > 1){
-                        bottomContainer.removeViewAt(0);
-                    }
-                    bottomContainer.addView(SourceValidator.createErrorMessage(appContext, "Error with adding source. Please try again"), 0);
+                    showError("Error with adding source. Please try again");
                     activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
                 });
 
@@ -129,6 +128,28 @@ public class AddSourceFragment extends Fragment {
         return rootView;
     }
 
+    private void showError(String errorMessage){
+        for (int i = 0; i < bottomContainer.getChildCount(); i++) {
+            View childView = bottomContainer.getChildAt(i);
+            if (childView != null && childView.getTag() != null && childView.getTag().equals("error-message")) {
+                bottomContainer.removeViewAt(i);
+            }
+        }
+
+        if(errorMessage.equals("")){
+            return;
+        }
+
+        TextView errorText = new TextView(appContext);
+        errorText.setText(errorMessage);
+        errorText.setTextColor(appContext.getColor(R.color.textSecondary));
+        errorText.setTag("error-message");
+        errorText.setGravity(Gravity.CENTER);
+
+
+
+        bottomContainer.addView(errorText, 0);
+    }
     private void closeFragment(View view) {
         getParentFragmentManager().popBackStack();
         if(view != null){
