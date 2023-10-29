@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -61,7 +60,7 @@ public class SaveSystem {
             sources = loadContent(context);
             //Check if the source already exists
             sources.removeIf(sourceObj -> {
-                if(source.getId() == null || sourceObj.getId() == null){
+                if (source.getId() == null || sourceObj.getId() == null) {
                     // If id not present
                     return sourceObj.getFeedUrl().equals(source.getFeedUrl());
                 }

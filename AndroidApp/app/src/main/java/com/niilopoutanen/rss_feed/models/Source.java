@@ -22,6 +22,7 @@ public class Source implements Serializable {
         this.showInFeed = true;
         this.id = UUID.randomUUID();
     }
+
     public Source(String name, String feedUrl, String imageUrl, boolean showInFeed) {
         this.name = name;
         this.feedUrl = feedUrl;
@@ -50,14 +51,16 @@ public class Source implements Serializable {
         return imageUrl;
     }
 
-    public boolean isVisibleInFeed(){
+    public boolean isVisibleInFeed() {
         return this.showInFeed == null || this.showInFeed;
 
     }
-    public UUID getId(){
+
+    public UUID getId() {
         return this.id;
     }
-    public void generateId(){
+
+    public void generateId() {
         this.id = UUID.randomUUID();
     }
 }

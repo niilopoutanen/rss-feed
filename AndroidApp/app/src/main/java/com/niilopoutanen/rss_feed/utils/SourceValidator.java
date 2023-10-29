@@ -1,12 +1,8 @@
 package com.niilopoutanen.rss_feed.utils;
 
 import android.content.Context;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
 
 import com.niilopoutanen.RSSParser.WebUtils;
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 

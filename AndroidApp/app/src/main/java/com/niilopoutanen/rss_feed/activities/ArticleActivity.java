@@ -111,7 +111,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeContent(String result) {
-        adapter = new ArticleAdapter(views, preferences, this, postUrl.toString(), publishTime, publisher);
+        adapter = new ArticleAdapter(views, preferences, this, postUrl, publishTime, publisher);
         articleContainer.setAdapter(adapter);
         articleContainer.setLayoutManager(new LinearLayoutManager(this));
 
@@ -262,22 +262,22 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    private void readabilityProcessor(String url, WebCallBack<String> callBack){
+    private void readabilityProcessor(String url, WebCallBack<String> callBack) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            try{
+            try {
                 URL urlObject = new URL(url);
                 String html = WebUtils.connect(urlObject).toString();
 
                 Readability4J readability = new Readability4J(url, html);
                 Article article = readability.parse();
                 callBack.onResult(article.getContent());
-            }
-            catch (Exception e){
+            } catch (Exception e) {
 
             }
         });
     }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);

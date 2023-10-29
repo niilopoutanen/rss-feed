@@ -1,12 +1,10 @@
 package com.niilopoutanen.rss_feed.adapters;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -22,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
@@ -167,13 +164,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     imageviewHolder.imageView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View view, MotionEvent motionEvent) {
-                            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                                 imageviewHolder.imageView.startAnimation(scaleDown);
-                            }
-                            else if(motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
+                            } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
                                 imageviewHolder.imageView.startAnimation(scaleUp);
-                            }
-                            else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                                 imageviewHolder.imageView.startAnimation(scaleUp);
                                 view.performClick();
                             }

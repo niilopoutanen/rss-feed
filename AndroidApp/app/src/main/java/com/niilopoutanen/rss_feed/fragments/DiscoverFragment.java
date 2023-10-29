@@ -26,7 +26,6 @@ import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 
 import org.json.JSONObject;
-import org.jsoup.nodes.Document;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -126,6 +125,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
         });
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);

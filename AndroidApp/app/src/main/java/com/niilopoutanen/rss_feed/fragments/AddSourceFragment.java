@@ -3,9 +3,6 @@ package com.niilopoutanen.rss_feed.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,8 +12,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -42,10 +40,12 @@ public class AddSourceFragment extends Fragment {
         this.source = source;
         this.appContext = context;
     }
-    public AddSourceFragment() {}
 
-    private void loadData(){
-        if(source == null){
+    public AddSourceFragment() {
+    }
+
+    private void loadData() {
+        if (source == null) {
             return;
         }
         feedUrl.setText(source.getFeedUrl());
@@ -54,25 +54,23 @@ public class AddSourceFragment extends Fragment {
         title.setText(appContext.getString(R.string.updatesource));
     }
 
-    private void saveData(){
+    private void saveData() {
         showError("");
         Activity activity = (Activity) appContext;
         progressBar.setVisibility(View.VISIBLE);
         SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), result -> {
 
             if (result != null) {
-                if(this.source != null){
+                if (this.source != null) {
                     SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
-                }
-                else{
+                } else {
                     SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
                 }
                 activity.runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
                     closeFragment(null);
                 });
-            }
-            else {
+            } else {
                 activity.runOnUiThread(() -> {
                     showError("Error with adding source. Please try again");
                     activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
@@ -113,13 +111,11 @@ public class AddSourceFragment extends Fragment {
         View addSourceButton = rootView.findViewById(R.id.addsource_continue);
         addSourceButton.setOnClickListener(view -> saveData());
         addSourceButton.setOnTouchListener((view, event) -> {
-            if(event.getAction() == MotionEvent.ACTION_DOWN){
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_down));
-            }
-            else if(event.getAction() == MotionEvent.ACTION_CANCEL){
+            } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
                 addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
-            }
-            else if(event.getAction() == MotionEvent.ACTION_UP){
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
                 view.performClick();
             }
@@ -128,7 +124,7 @@ public class AddSourceFragment extends Fragment {
         return rootView;
     }
 
-    private void showError(String errorMessage){
+    private void showError(String errorMessage) {
         for (int i = 0; i < bottomContainer.getChildCount(); i++) {
             View childView = bottomContainer.getChildAt(i);
             if (childView != null && childView.getTag() != null && childView.getTag().equals("error-message")) {
@@ -136,7 +132,7 @@ public class AddSourceFragment extends Fragment {
             }
         }
 
-        if(errorMessage.equals("")){
+        if (errorMessage.equals("")) {
             return;
         }
 
@@ -147,12 +143,12 @@ public class AddSourceFragment extends Fragment {
         errorText.setGravity(Gravity.CENTER);
 
 
-
         bottomContainer.addView(errorText, 0);
     }
+
     private void closeFragment(View view) {
         getParentFragmentManager().popBackStack();
-        if(view != null){
+        if (view != null) {
             PreferencesManager.vibrate(view);
         }
     }

@@ -27,7 +27,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
-import java.util.Optional;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder> {
 
@@ -66,14 +65,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         }
     }
 
-    public void complete(boolean empty){
+    public void complete(boolean empty) {
         this.notifyDataSetChanged();
         this.notifyItemChanged(0);
-        if(empty){
+        if (empty) {
             this.headerVisible = true;
         }
 
     }
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -119,13 +119,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             bindHeader(holder);
-        }
-        else{
+        } else {
             bindItem(holder, items.get(position - 1));
         }
     }
 
-    private void bindItem(ItemViewHolder holder, Item item){
+    private void bindItem(ItemViewHolder holder, Item item) {
         TextView title = holder.titleTextView;
         TextView desc = holder.descTextView;
         TextView author = holder.author;
@@ -136,13 +135,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
         //region Touch listener
         container.setOnTouchListener((view, motionEvent) -> {
-            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 container.startAnimation(scaleDown);
-            }
-            else if(motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
                 container.startAnimation(scaleUp);
-            }
-            else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 container.startAnimation(scaleUp);
                 view.performClick();
             }
@@ -179,17 +176,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         //region Load image
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
             image.setVisibility(View.GONE);
-        }
-        else if (item.getImageUrl() == null) {
+        } else if (item.getImageUrl() == null) {
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             image.setLayoutParams(layoutParams);
-        }
-        else {
+        } else {
             loadImage(image, holder, item);
         }
         //endregion
     }
-    private void loadImage(ImageView image, ItemViewHolder holder, Item item){
+
+    private void loadImage(ImageView image, ItemViewHolder holder, Item item) {
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -213,7 +209,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
 
         // Handle nonexistent image
         String imageUrl = item.getImageUrl();
-        if(!TextUtils.isEmpty(imageUrl)){
+        if (!TextUtils.isEmpty(imageUrl)) {
             RequestCreator requestCreator = Picasso.get().load(imageUrl)
                     .resize(imageWidth, targetHeight)
                     .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
@@ -224,7 +220,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
             requestCreator.into(image);
         }
     }
-    private void bindHeader(ItemViewHolder holder){
+
+    private void bindHeader(ItemViewHolder holder) {
         HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
         headerViewHolder.header.setText(viewTitle);
         if (items.isEmpty() & !headerVisible) {
@@ -233,6 +230,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
             headerViewHolder.itemView.setVisibility(View.VISIBLE);
         }
     }
+
     @Override
     public int getItemCount() {
         if (items.isEmpty()) {

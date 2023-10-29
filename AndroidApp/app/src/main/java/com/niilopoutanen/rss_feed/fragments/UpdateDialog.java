@@ -46,13 +46,11 @@ public class UpdateDialog {
         View continueButton = sheet.findViewById(R.id.updatedialog_continue);
         continueButton.setOnClickListener(v -> sheet.dismiss());
         continueButton.setOnTouchListener((view, event) -> {
-            if(event.getAction() == MotionEvent.ACTION_DOWN){
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_down));
-            }
-            else if(event.getAction() == MotionEvent.ACTION_CANCEL){
+            } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
                 continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
-            }
-            else if(event.getAction() == MotionEvent.ACTION_UP){
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
                 view.performClick();
             }

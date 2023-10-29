@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.carousel.MaskableFrameLayout;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;

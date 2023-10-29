@@ -1,17 +1,11 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,19 +14,14 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.transition.MaterialFadeThrough;
-import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.Source;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.utils.SourceValidator;
 
 import java.util.List;
-import java.util.Objects;
 
 public class SourceFragment extends Fragment implements View.OnLongClickListener {
 
@@ -68,12 +57,13 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         }
     }
 
-    public void update(){
+    public void update() {
         sources = SaveSystem.loadContent(appContext);
         if (adapter != null) {
             adapter.updateSources(sources);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sources, container, false);
@@ -93,7 +83,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         return rootView;
     }
 
-    public void openSourceDialog(Source source){
+    public void openSourceDialog(Source source) {
         AddSourceFragment addSourceFragment = new AddSourceFragment(source, appContext);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");

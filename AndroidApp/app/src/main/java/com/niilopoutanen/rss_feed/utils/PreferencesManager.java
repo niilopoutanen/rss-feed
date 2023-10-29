@@ -51,8 +51,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
@@ -86,12 +84,12 @@ public class PreferencesManager {
      * @param preferences Required to get the selected theme
      */
     public static void setSavedTheme(Activity activity, Preferences preferences) {
-        if(preferences == null){
+        if (preferences == null) {
             preferences = PreferencesManager.loadPreferences(activity.getApplicationContext());
         }
         //Accent color for devices that don't support dark mode
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            if(preferences.s_coloraccent == null){
+            if (preferences.s_coloraccent == null) {
                 activity.setTheme((R.style.AccentBlue));
                 return;
             }
@@ -150,7 +148,7 @@ public class PreferencesManager {
             case ROBOTO_SANS:
                 return ResourcesCompat.getFont(context, R.font.roboto_serif);
             case POPPINS:
-                return  ResourcesCompat.getFont(context, R.font.poppins);
+                return ResourcesCompat.getFont(context, R.font.poppins);
             case ROBOTO_MONO:
                 return ResourcesCompat.getFont(context, R.font.roboto_mono);
             default:
@@ -161,6 +159,7 @@ public class PreferencesManager {
 
     /**
      * Performs device vibration
+     *
      * @param view View to target
      */
     public static void vibrate(View view) {
@@ -202,10 +201,9 @@ public class PreferencesManager {
         int currentVersion = BuildConfig.VERSION_CODE;
         int lastVersionUsed = getLastVersionUsed(context);
 
-        if(doNotShowDialog){
+        if (doNotShowDialog) {
             return false;
-        }
-        else{
+        } else {
             return currentVersion > lastVersionUsed;
         }
     }
@@ -284,6 +282,7 @@ public class PreferencesManager {
         SharedPreferences prefs = context.getSharedPreferences(category, Context.MODE_PRIVATE);
         return prefs.getInt(key, defValue);
     }
+
     /**
      * Saves a int number preference to disk
      *
@@ -298,6 +297,7 @@ public class PreferencesManager {
         editor.putInt(key, value);
         editor.apply();
     }
+
     /**
      * Saves a boolean type preference to disk
      *
