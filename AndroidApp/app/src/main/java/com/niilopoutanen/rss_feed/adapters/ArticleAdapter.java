@@ -152,7 +152,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     imageviewHolder.imageView.setOnClickListener(v -> {
                         Intent imageIntent = new Intent(appContext, ImageViewActivity.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, imageviewHolder.imageView, "img");
                         imageIntent.putExtra("imageurl", ((ImageItem) item).getUrl());
 
                         imageviewHolder.imageView.setDrawingCacheEnabled(true);
@@ -162,7 +161,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                         imageIntent.putExtra("width", w);
                         imageIntent.putExtra("height", h);
-                        appContext.startActivity(imageIntent, options.toBundle());
+                        appContext.startActivity(imageIntent);
                     });
 
                     imageviewHolder.imageView.setOnTouchListener(new View.OnTouchListener() {

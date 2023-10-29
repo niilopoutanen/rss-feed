@@ -74,6 +74,7 @@ public class ImageViewActivity extends AppCompatActivity {
         LinearLayout saveBtn = findViewById(R.id.saveimg);
         saveBtn.setOnClickListener(v -> saveImage());
 
+        
     }
 
     /**
