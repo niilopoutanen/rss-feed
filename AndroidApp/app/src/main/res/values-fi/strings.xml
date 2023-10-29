@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RSS-Syöte</string>
-    <string name="app_version">Versio: 1.0</string>
     <string name="feed_header">Syöte</string>
     <string name="settings_header">Asetukset</string>
     <string name="feedsettings_header">Syötteen muokkaaminen</string>
@@ -49,10 +48,10 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
-    <string name="feature1">Virhekorjauksia</string>
-    <string name="feature1desc">Sovelluksen toimivuuden parantelua, vähemmän kaatumisia.</string>
-    <string name="feature2">Suorituskyvyn parantaminen</string>
-    <string name="feature2desc">Sovelluksen suorituskykyä on parannettu kaikkialla sovelluksessa.</string>
+    <string name="feature1">Päivitetty ydin</string>
+    <string name="feature1desc">Sovelluksen koodi uusittu, parempi suorituskyky ja vakaus</string>
+    <string name="feature2">Parempi käyttäjäkokemus</string>
+    <string name="feature2desc">Pieniä muutoksia jotta sinun olisi helpompi käyttää sovellusta.</string>
     <string name="feature3">Käyttöliittymän parantelua</string>
     <string name="feature3desc">Pieniä muutoksia sovelluksen ulkoasuun.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>

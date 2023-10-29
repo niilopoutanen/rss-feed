@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RSS-Feed</string>
-    <string name="app_version">Version: 1.1.9</string>
+    <string name="app_version" translatable="false">Version: 1.2.0</string>
     <string name="copyright" translatable="false">©2023 Niilo Poutanen</string>
 
     <string name="feed_header">Feed</string>
@@ -95,11 +95,11 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">Stability fixes</string>
-    <string name="feature1desc">Improved app stability, less crashes</string>
+    <string name="feature1">Updated core</string>
+    <string name="feature1desc">Reworked app internals, better functionality and performance</string>
 
-    <string name="feature2">Better performance</string>
-    <string name="feature2desc">Enhanced performance across the app.</string>
+    <string name="feature2">Better user experience</string>
+    <string name="feature2desc">Small tweaks to make the app easier for you</string>
 
     <string name="feature3">Small UI tweaks</string>
     <string name="feature3desc">Improved overall user interface.</string>

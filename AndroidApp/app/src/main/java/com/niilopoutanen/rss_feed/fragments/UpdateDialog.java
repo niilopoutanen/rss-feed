@@ -2,6 +2,9 @@ package com.niilopoutanen.rss_feed.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -40,7 +43,21 @@ public class UpdateDialog {
         sheet.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(appContext));
         sheet.setOnDismissListener(dialog -> PreferencesManager.setLatestVersion(appContext));
 
-        sheet.findViewById(R.id.updatedialog_continue).setOnClickListener(v -> sheet.dismiss());
+        View continueButton = sheet.findViewById(R.id.updatedialog_continue);
+        continueButton.setOnClickListener(v -> sheet.dismiss());
+        continueButton.setOnTouchListener((view, event) -> {
+            if(event.getAction() == MotionEvent.ACTION_DOWN){
+                continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_down));
+            }
+            else if(event.getAction() == MotionEvent.ACTION_CANCEL){
+                continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+            }
+            else if(event.getAction() == MotionEvent.ACTION_UP){
+                continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+                view.performClick();
+            }
+            return true;
+        });
     }
 
     /**
