@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -59,7 +60,13 @@ public class SaveSystem {
         try {
             sources = loadContent(context);
             //Check if the source already exists
-            sources.removeIf(contentObj -> contentObj.getId().equals(source.getId()));
+            sources.removeIf(sourceObj -> {
+                if(source.getId() == null || sourceObj.getId() == null){
+                    // If id not present
+                    return sourceObj.getFeedUrl().equals(source.getFeedUrl());
+                }
+                return sourceObj.getId().equals(source.getId());
+            });
 
             sources.add(source);
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -85,11 +92,6 @@ public class SaveSystem {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 sources = (List<Source>) ois.readObject();
-                for (Source source : sources){
-                    if(source.getId() == null){
-                        source.generateId();
-                    }
-                }
                 ois.close();
                 fis.close();
             }
