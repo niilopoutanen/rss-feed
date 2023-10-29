@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.utils;
 import android.content.Context;
 import android.util.Log;
 
+import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
@@ -58,7 +59,13 @@ public class SaveSystem {
         try {
             sources = loadContent(context);
             //Check if the source already exists
-            sources.removeIf(contentObj -> contentObj.getFeedUrl().equals(source.getFeedUrl()));
+            sources.removeIf(sourceObj -> {
+                if (source.getId() == null || sourceObj.getId() == null) {
+                    // If id not present
+                    return sourceObj.getFeedUrl().equals(source.getFeedUrl());
+                }
+                return sourceObj.getId().equals(source.getId());
+            });
 
             sources.add(source);
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -115,7 +122,7 @@ public class SaveSystem {
             List<Category> categories = new ArrayList<>();
             try {
                 URL url = new URL(BASEURL + selectedLocale);
-                String result = WebHelper.fetchUrlData(url);
+                String result = WebUtils.connect(url).toString();
 
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {

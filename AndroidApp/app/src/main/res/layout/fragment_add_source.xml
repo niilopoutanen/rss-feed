@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AddSourceFragment"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/addsource_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp">
+
+        <LinearLayout
+            android:id="@+id/addsource_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="12dp"
+                android:layout_height="21dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goback"
+                android:textColor="?attr/colorAccent" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/addsource_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/addsource"
+            android:textColor="@color/textPrimary"
+            android:textSize="15sp"
+            app:fontFamily="@font/inter_semibold" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/addsource_header"
+        tools:layout_editor_absoluteX="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/element_background"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/sourceadd_feedUrl"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:autofillHints="url"
+                android:background="@null"
+                android:hint="@string/feed_url"
+                android:inputType="textUri"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/element_background"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/sourceadd_feedName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:autofillHints="url"
+                android:background="@null"
+                android:hint="@string/feed_name"
+                android:inputType="textUri"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/feed_name_autofill"
+            android:textColor="@color/textSecondary"
+            android:textSize="13sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/show_in_feed"
+                android:textColor="@color/textPrimary"
+                android:textSize="16sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_showInFeed"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:checked="true"/>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sourceadd_bottomlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:id="@+id/addsource_continue"
+            android:layout_width="match_parent"
+            android:backgroundTint="?attr/colorAccent"
+            android:background="@drawable/input_background"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/add"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_medium" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/addsource_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

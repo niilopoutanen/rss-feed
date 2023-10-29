@@ -1,23 +1,25 @@
 package com.niilopoutanen.rss_feed.adapters;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
@@ -45,6 +47,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final Date postDate;
     private final String publisher;
     private String title = "";
+    private Animation scaleUp, scaleDown;
 
     public ArticleAdapter(List<ArticleItem> data, Preferences preferences, Context context, String postUrl, Date postDate, String publisher) {
         this.adapterData = data;
@@ -60,6 +63,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(appContext);
         View view;
+
+        scaleDown = AnimationUtils.loadAnimation(appContext, R.anim.scale_down);
+        scaleUp = AnimationUtils.loadAnimation(appContext, R.anim.scale_up);
+
         switch (viewType) {
             case VIEW_TYPE_HEADER:
                 view = inflater.inflate(R.layout.header_article, parent, false);
@@ -99,6 +106,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 textView.setLayoutParams(new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+                textView.setTextIsSelectable(true);
                 textView.setTextColor(appContext.getColor(R.color.textPrimary));
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
                 textView.setTypeface(PreferencesManager.getSavedFont(preferences, appContext));
@@ -141,10 +149,34 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     imageviewHolder.imageView.setOnClickListener(v -> {
                         Intent imageIntent = new Intent(appContext, ImageViewActivity.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, imageviewHolder.imageView, "img");
                         imageIntent.putExtra("imageurl", ((ImageItem) item).getUrl());
-                        appContext.startActivity(imageIntent, options.toBundle());
+
+                        imageviewHolder.imageView.setDrawingCacheEnabled(true);
+                        Bitmap b = imageviewHolder.imageView.getDrawingCache();
+                        int w = b.getWidth();
+                        int h = b.getHeight();
+
+                        imageIntent.putExtra("width", w);
+                        imageIntent.putExtra("height", h);
+                        appContext.startActivity(imageIntent);
                     });
+
+                    imageviewHolder.imageView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                                imageviewHolder.imageView.startAnimation(scaleDown);
+                            } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                                imageviewHolder.imageView.startAnimation(scaleUp);
+                            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                                imageviewHolder.imageView.startAnimation(scaleUp);
+                                view.performClick();
+                            }
+                            return true;
+                        }
+
+                    });
+
                     break;
                 case VIEW_TYPE_TEXT:
                     ContentViewHolder textviewHolder = (ContentViewHolder) holder;

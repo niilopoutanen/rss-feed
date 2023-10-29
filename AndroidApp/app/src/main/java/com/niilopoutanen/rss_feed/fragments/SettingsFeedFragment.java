@@ -36,6 +36,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -65,6 +66,8 @@ public class SettingsFeedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
+        setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }
 
     @Override

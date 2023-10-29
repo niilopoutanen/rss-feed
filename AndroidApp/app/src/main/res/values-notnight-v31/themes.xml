@@ -15,11 +15,14 @@
         <item name="android:textColorLink">?attr/colorAccent</item>
 
         <item name="colorAccent">@android:color/system_accent1_400</item>
-        <item name="android:windowSplashScreenAnimationDuration">5000</item>
         <item name="colorSecondaryContainer">@color/element</item>
 
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">@color/surface_border</item>
+
+        <!-- Splash screen -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/animated_icon</item>
+        <item name="android:windowSplashScreenAnimationDuration">1500</item>
     </style>
 </resources>

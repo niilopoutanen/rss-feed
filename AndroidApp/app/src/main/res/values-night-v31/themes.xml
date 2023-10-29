@@ -20,5 +20,9 @@
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">@color/surface_border</item>
         <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Splash screen -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/animated_icon_light</item>
+        <item name="android:windowSplashScreenAnimationDuration">1500</item>
     </style>
 </resources>

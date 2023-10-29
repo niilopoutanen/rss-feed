@@ -23,13 +23,12 @@ public class FeedResult {
     /**
      * Parses a search result to object format
      *
-     * @param result String data of the URL fetch result
+     * @param jsonObject JSONObject data of the URL fetch result
      * @return List with parsed FeedResult objects
      */
-    public static List<FeedResult> parseResult(String result) {
+    public static List<FeedResult> parseResult(JSONObject jsonObject) {
         List<FeedResult> results = new ArrayList<>();
         try {
-            JSONObject jsonObject = new JSONObject(result);
             JSONArray resultsArray = jsonObject.getJSONArray("results");
 
             for (int i = 0; i < resultsArray.length(); i++) {

@@ -6,7 +6,7 @@
     android:toYScale="0.95"
     android:pivotX="50%"
     android:pivotY="50%"
-    android:duration="100"
+    android:duration="200"
     android:fillAfter="true">
 
 </scale>

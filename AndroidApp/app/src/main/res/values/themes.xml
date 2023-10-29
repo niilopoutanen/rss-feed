@@ -11,6 +11,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
+
         <item name="android:fontFamily">@font/inter</item>
         <item name="fontFamily">@font/inter</item>
         <item name="android:textColorLink">?attr/colorAccent</item>

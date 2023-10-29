@@ -1,9 +1,8 @@
 package com.niilopoutanen.rss_feed.utils;
 
 import android.content.Context;
-import android.widget.TextView;
 
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 
@@ -27,13 +26,13 @@ public class SourceValidator {
     public static void validate(String inputUrl, String inputName, WebCallBack<Source> sourceCallback, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        CompletableFuture.supplyAsync(() -> RSSParser.feedFinder(inputUrl, context), executor).thenComposeAsync(finalUrl -> {
+        CompletableFuture.supplyAsync(() -> WebUtils.findFeed(WebUtils.formatUrl(inputUrl)), executor).thenComposeAsync(finalUrl -> {
             if (finalUrl == null) {
                 return CompletableFuture.completedFuture(null);
             } else {
                 CompletableFuture<String> faviconUrlFuture = CompletableFuture.supplyAsync(() -> {
                     try {
-                        return WebHelper.getFaviconUrl(finalUrl);
+                        return WebUtils.getFaviconUrl(finalUrl);
                     } catch (IOException e) {
                         return null;
                     }
@@ -70,7 +69,7 @@ public class SourceValidator {
      */
     public static String getSiteTitle(URL siteUrl) {
         try {
-            Document doc = Jsoup.connect(WebHelper.getBaseUrl(siteUrl).toString()).get();
+            Document doc = Jsoup.connect(WebUtils.getBaseUrl(siteUrl).toString()).get();
             String title = doc.title();
 
             // Check if the title has a separator
@@ -84,20 +83,6 @@ public class SourceValidator {
         } catch (IOException e) {
             return siteUrl.toString();
         }
-    }
-
-    /**
-     * Creates a error message that can be show to the user
-     *
-     * @param errorMessage Message to show
-     * @return Returns a TextView with the error message
-     */
-    public static TextView createErrorMessage(Context context, String errorMessage) {
-        TextView errorText = new TextView(context);
-        errorText.setText(errorMessage);
-        errorText.setTextColor(context.getColor(R.color.textSecondary));
-        errorText.setTag("error-message");
-        return errorText;
     }
 
 }

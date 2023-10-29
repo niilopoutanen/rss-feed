@@ -15,11 +15,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.RSSParser.Item;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.RSSPost;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.squareup.picasso.NetworkPolicy;
@@ -35,15 +35,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     private static final int IMAGE_MARGIN_PX = 20;
     private static int imageWidth;
     private final RecyclerViewInterface recyclerViewInterface;
-    private final List<RSSPost> feed;
+    private final List<Item> items;
     private final String viewTitle;
     private final Preferences preferences;
     private final Context appContext;
     private boolean headerVisible = false;
     private Animation scaleUp, scaleDown;
 
-    public FeedAdapter(Preferences preferences, List<RSSPost> posts, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface) {
-        feed = posts;
+    public FeedAdapter(Preferences preferences, List<Item> items, Context context, String viewTitle, RecyclerViewInterface recyclerViewInterface) {
+        this.items = items;
         this.viewTitle = viewTitle;
         this.recyclerViewInterface = recyclerViewInterface;
         this.preferences = preferences;
@@ -65,14 +65,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         }
     }
 
-    public void complete(boolean empty){
+    public void complete(boolean empty) {
         this.notifyDataSetChanged();
         this.notifyItemChanged(0);
-        if(empty){
+        if (empty) {
             this.headerVisible = true;
         }
 
     }
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -117,16 +118,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
-            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.header.setText(viewTitle);
-            if (feed.isEmpty() & !headerVisible) {
-                headerViewHolder.itemView.setVisibility(View.GONE);
-            } else {
-                headerViewHolder.itemView.setVisibility(View.VISIBLE);
-            }
-            return;
+            bindHeader(holder);
+        } else {
+            bindItem(holder, items.get(position - 1));
         }
-        RSSPost post = feed.get(position - 1);
+    }
+
+    private void bindItem(ItemViewHolder holder, Item item) {
         TextView title = holder.titleTextView;
         TextView desc = holder.descTextView;
         TextView author = holder.author;
@@ -134,19 +132,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         View container = holder.container;
         ImageView image = holder.image;
 
+
+        //region Touch listener
         container.setOnTouchListener((view, motionEvent) -> {
-            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 container.startAnimation(scaleDown);
-            }
-            else if(motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
                 container.startAnimation(scaleUp);
-            }
-            else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 container.startAnimation(scaleUp);
                 view.performClick();
             }
-            return false;
+            return true;
         });
+        //endregion
+
+        //region Set element visibilities
         if (!preferences.s_feedcard_authorvisible || !preferences.s_feedcard_datevisible) {
             desc.setMaxLines(3);
         }
@@ -155,70 +156,87 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         title.setVisibility(preferences.s_feedcard_titlevisible ? View.VISIBLE : View.GONE);
         desc.setVisibility(preferences.s_feedcard_descvisible ? View.VISIBLE : View.GONE);
         date.setVisibility(preferences.s_feedcard_datevisible ? View.VISIBLE : View.GONE);
+        //endregion
 
-        date.setText(PreferencesManager.formatDate(post.getPublishTime(), preferences.s_feedcard_datestyle, holder.titleTextView.getContext()));
-        title.setText(post.getTitle());
-        desc.setText(post.getDescription());
-        if (post.getAuthor() != null && !preferences.s_feedcard_authorname) {
-            author.setText(post.getAuthor());
+        //region Set data
+        date.setText(PreferencesManager.formatDate(item.getPubDate(), preferences.s_feedcard_datestyle, holder.titleTextView.getContext()));
+        title.setText(item.getTitle());
+        desc.setText(item.getDescription());
+        if (item.getAuthor() != null && !preferences.s_feedcard_authorname) {
+            author.setText(item.getAuthor());
         } else {
-            author.setText(post.getSourceName());
+            author.setText(item.getAuthor());
         }
         image.setImageDrawable(null);
 
         Picasso.get().cancelRequest(image);
+        //endregion
 
+
+        //region Load image
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
             image.setVisibility(View.GONE);
-        } else if (post.getImageUrl() == null) {
+        } else if (item.getImageUrl() == null) {
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
             image.setLayoutParams(layoutParams);
         } else {
-            if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE) {
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, 0, IMAGE_MARGIN_PX);
-                image.setLayoutParams(layoutParams);
+            loadImage(image, holder, item);
+        }
+        //endregion
+    }
+
+    private void loadImage(ImageView image, ItemViewHolder holder, Item item) {
+        if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, 0, IMAGE_MARGIN_PX);
+            image.setLayoutParams(layoutParams);
+        }
+
+        int targetHeight;
+        if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.SMALL) {
+            targetHeight = PreferencesManager.dpToPx(100, holder.titleTextView.getContext());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, IMAGE_MARGIN_PX, 0);
+            image.setLayoutParams(layoutParams);
+
+        } else {
+            targetHeight = 0;
+        }
+
+        // Handle nonexistent image
+        String imageUrl = item.getImageUrl();
+        if (!TextUtils.isEmpty(imageUrl)) {
+            RequestCreator requestCreator = Picasso.get().load(imageUrl)
+                    .resize(imageWidth, targetHeight)
+                    .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
+                    .centerCrop();
+            if (!preferences.s_imagecache) {
+                requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
             }
-
-            int targetHeight = 0;
-            if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.SMALL) {
-                targetHeight = PreferencesManager.dpToPx(100, holder.titleTextView.getContext());
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, IMAGE_MARGIN_PX, 0);
-                image.setLayoutParams(layoutParams);
-
-            }
-
-            // Handle nonexistent image
-            String imageUrl = post.getImageUrl();
-            if(!TextUtils.isEmpty(imageUrl)){
-                RequestCreator requestCreator = Picasso.get().load(imageUrl)
-                        .resize(imageWidth, targetHeight)
-                        .transform(new MaskTransformation(container.getContext(), R.drawable.image_rounded))
-                        .centerCrop();
-
-                if (!preferences.s_imagecache) {
-                    requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
-                }
-
-                requestCreator.into(image);
-            }
-
+            requestCreator.into(image);
         }
     }
 
+    private void bindHeader(ItemViewHolder holder) {
+        HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
+        headerViewHolder.header.setText(viewTitle);
+        if (items.isEmpty() & !headerVisible) {
+            headerViewHolder.itemView.setVisibility(View.GONE);
+        } else {
+            headerViewHolder.itemView.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     public int getItemCount() {
-        if (feed.isEmpty()) {
+        if (items.isEmpty()) {
             return 1;
         } else {
-            return feed.size() + 1;
+            return items.size() + 1;
         }
     }
 

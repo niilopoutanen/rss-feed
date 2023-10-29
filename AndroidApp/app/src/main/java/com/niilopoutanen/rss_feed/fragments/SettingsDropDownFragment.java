@@ -31,6 +31,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -64,6 +65,9 @@ public class SettingsDropDownFragment extends Fragment {
             context = getContext();
         }
         super.onCreate(savedInstanceState);
+
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
+        setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }
 
     @Override
@@ -137,11 +141,9 @@ public class SettingsDropDownFragment extends Fragment {
                 Typeface font = ResourcesCompat.getFont(context, R.font.inter);
                 if (selectedFont == Font.ROBOTO_MONO) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_mono);
-                }
-                else if (selectedFont == Font.ROBOTO_SANS) {
+                } else if (selectedFont == Font.ROBOTO_SANS) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_serif);
-                }
-                else if (selectedFont == Font.POPPINS){
+                } else if (selectedFont == Font.POPPINS) {
                     font = ResourcesCompat.getFont(context, R.font.poppins);
                 }
 

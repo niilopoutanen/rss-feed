@@ -15,8 +15,8 @@ android {
         resourceConfigurations += ["en", "fi"]
         minSdk 26
         targetSdk 34
-        versionCode 11
-        versionName "1.1.9"
+        versionCode 13
+        versionName "1.2.0"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -27,6 +27,9 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            firebaseCrashlytics {
+                mappingFileUploadEnabled true
+            }
         }
     }
     compileOptions {
@@ -37,10 +40,12 @@ android {
 
 dependencies {
 
+    implementation 'net.dankito.readability4j:readability4j:1.0.8'
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'org.jsoup:jsoup:1.16.2'
 
     implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
     implementation "androidx.core:core-splashscreen:1.0.1"
@@ -49,5 +54,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation files('libs/jsoup-1.15.4.jar')
+
+    implementation files('libs/RSSParser.jar')
 }

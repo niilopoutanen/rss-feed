@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RSS-Syöte</string>
-    <string name="app_version">Versio: 1.0</string>
     <string name="feed_header">Syöte</string>
     <string name="settings_header">Asetukset</string>
     <string name="feedsettings_header">Syötteen muokkaaminen</string>
@@ -10,7 +9,6 @@
     <string name="continua">Jatka</string>
     <string name="cancel">Peruuta</string>
     <string name="close">Sulje</string>
-    <string name="update">Päivitä</string>
     <string name="goback">Takaisin</string>
     <string name="save">Tallenna</string>
     <string name="share">Jaa</string>
@@ -49,15 +47,14 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
-    <string name="feature1">Virhekorjauksia</string>
-    <string name="feature1desc">Sovelluksen toimivuuden parantelua, vähemmän kaatumisia.</string>
-    <string name="feature2">Suorituskyvyn parantaminen</string>
-    <string name="feature2desc">Sovelluksen suorituskykyä on parannettu kaikkialla sovelluksessa.</string>
+    <string name="feature1">Päivitetty ydin</string>
+    <string name="feature1desc">Sovelluksen koodi uusittu, parempi suorituskyky ja vakaus</string>
+    <string name="feature2">Parempi käyttäjäkokemus</string>
+    <string name="feature2desc">Pieniä muutoksia jotta sinun olisi helpompi käyttää sovellusta.</string>
     <string name="feature3">Käyttöliittymän parantelua</string>
     <string name="feature3desc">Pieniä muutoksia sovelluksen ulkoasuun.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
-    <string name="rsslocale_news">Uutiset</string>
 
     <string-array name="theme_modes">
         <item>Vaalea</item>
@@ -87,7 +84,6 @@
     <string name="sendmail">Lähetä sähköpostia</string>
     <string name="noemailfound">Sähköpostisovellusta ei löydetty. Lähetä palautetta osoitteeseen niilo.poutanen@gmail.com</string>
     <string name="emailquide">Kirjoita palautteesi tähän. Jätä valmiiksi täytetyt tiedot viestiin mukaan. (Viestin pohjalla olevat numerot)</string>
-    <string name="failed_to_parse">Artikkelin avaaminen ei onnistunut. Avaa artikkeli selaimessa lukeaksesi se.</string>
     <string name="themechange_desc">Muutokset sovelluksen teemaan tulevat näkyviin kun avaat sovelluksen seuraavan kerran.</string>
     <string name="discover_header">Tutki</string>
     <string name="results">Tulokset</string>
@@ -103,4 +99,7 @@
     <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
     <string name="settings_fontsize">Fonttikoko</string>
     <string name="settings_launchwindow_additional">Valittu välilehti aukeaa kun käynnistät sovelluksen.</string>
+    <string name="show_in_feed">Näytä syötteessä</string>
+    <string name="errro_toomanyrequests">Liian monta pyyntöä.</string>
+    <string name="toomanyrequestsmsg">Olet lähettänyt liian monta pyyntöä osoitteesen %s. Odota hetki ja yritä uudelleen.</string>
 </resources>
