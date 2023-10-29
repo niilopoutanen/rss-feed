@@ -25,6 +25,9 @@ import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 
+import org.json.JSONObject;
+import org.jsoup.nodes.Document;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,8 +117,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         executor.execute(() -> {
             try {
                 URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
-                String result = WebUtils.connect(queryUrl).toString();
-                List<FeedResult> results = FeedResult.parseResult(result);
+                String result = WebUtils.connect(queryUrl, true);
+                List<FeedResult> results = FeedResult.parseResult(new JSONObject(result));
                 callBack.onResult(results);
             } catch (Exception e) {
                 e.printStackTrace();
