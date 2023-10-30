@@ -51,8 +51,8 @@
     <string name="feature1desc">Sovelluksen koodi uusittu, parempi suorituskyky ja vakaus</string>
     <string name="feature2">Parempi käyttäjäkokemus</string>
     <string name="feature2desc">Pieniä muutoksia jotta sinun olisi helpompi käyttää sovellusta.</string>
-    <string name="feature3">Käyttöliittymän parantelua</string>
-    <string name="feature3desc">Pieniä muutoksia sovelluksen ulkoasuun.</string>
+    <string name="feature3">Pieni virhekorjaus</string>
+    <string name="feature3desc">Joissakin tapauksissa sovellus kaatui kun luit syötettä. Ei enään.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
 

@@ -100,8 +100,8 @@
     <string name="feature2">Better user experience</string>
     <string name="feature2desc">Small tweaks to make the app easier for you</string>
 
-    <string name="feature3">Small UI tweaks</string>
-    <string name="feature3desc">Improved overall user interface.</string>
+    <string name="feature3">Small crash fix</string>
+    <string name="feature3desc">Fixed a case where app crashed when reading the feed.</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
