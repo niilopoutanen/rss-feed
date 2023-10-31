@@ -34,6 +34,7 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
 import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.utils.ArticleProcessor;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import net.dankito.readability4j.Article;
@@ -89,6 +90,12 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
+            try{
+                ArticleProcessor.process(postUrl, null);
+            }
+            catch (RSSException r){
+                r.printStackTrace();
+            }
             readabilityProcessor(postUrl, new Callback<String>() {
                 @Override
                 public void onResult(String result) {
