@@ -90,12 +90,12 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            try{
+            /*try{
                 ArticleProcessor.process(postUrl, null);
             }
             catch (RSSException r){
                 r.printStackTrace();
-            }
+            }*/
             readabilityProcessor(postUrl, new Callback<String>() {
                 @Override
                 public void onResult(String result) {
@@ -286,10 +286,11 @@ public class ArticleActivity extends AppCompatActivity {
 
                 Readability4J readability = new Readability4J(url, html);
                 Article article = readability.parse();
-                callBack.onResult(article.getContent());
+                runOnUiThread(() -> callBack.onResult(article.getContent()));
+
             }
             catch (RSSException r){
-                callBack.onError(r);
+                runOnUiThread(() ->  callBack.onError(r));
             }
             catch (Exception ignored) {}
         });
