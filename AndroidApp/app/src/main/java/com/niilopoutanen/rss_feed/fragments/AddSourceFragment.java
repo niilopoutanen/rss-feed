@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.RSSParser.Callback;
+import com.niilopoutanen.RSSParser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -58,26 +60,33 @@ public class AddSourceFragment extends Fragment {
         showError("");
         Activity activity = (Activity) appContext;
         progressBar.setVisibility(View.VISIBLE);
-        SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), result -> {
-
-            if (result != null) {
-                if (this.source != null) {
-                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
+        SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), new Callback<Source>() {
+            @Override
+            public void onResult(Source result) {
+                if (result != null) {
+                    if (source != null) {
+                        SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
+                    } else {
+                        SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
+                    }
+                    activity.runOnUiThread(() -> {
+                        progressBar.setVisibility(View.GONE);
+                        closeFragment(null);
+                    });
                 } else {
-                    SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
+                    activity.runOnUiThread(() -> {
+                        showError("Error with adding source. Please try again");
+                        activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+                    });
+
                 }
-                activity.runOnUiThread(() -> {
-                    progressBar.setVisibility(View.GONE);
-                    closeFragment(null);
-                });
-            } else {
-                activity.runOnUiThread(() -> {
-                    showError("Error with adding source. Please try again");
-                    activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
-                });
 
             }
 
+            @Override
+            public void onError(RSSException e) {
+
+            }
         }, appContext);
     }
 

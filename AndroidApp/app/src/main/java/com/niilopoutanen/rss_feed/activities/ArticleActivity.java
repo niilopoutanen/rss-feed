@@ -27,17 +27,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.niilopoutanen.RSSParser.Callback;
+import com.niilopoutanen.RSSParser.RSSException;
 import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
 import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
 
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,18 +89,24 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            readabilityProcessor(postUrl, result -> runOnUiThread(() -> {
-                articleLoader.setVisibility(View.GONE);
-
-                if (result.equals("404")) {
-                    initializeContent(getString(R.string.error_url));
-                } else if (result.equals("408")) {
-                    initializeContent(getString(R.string.error_host));
-                } else {
+            readabilityProcessor(postUrl, new Callback<String>() {
+                @Override
+                public void onResult(String result) {
+                    articleLoader.setVisibility(View.GONE);
                     resultData = result;
                     initializeContent(result);
+
                 }
-            }));
+
+                @Override
+                public void onError(RSSException e) {
+                    if (e.getErrorType() == HttpURLConnection.HTTP_NOT_FOUND) {
+                        initializeContent(getString(R.string.error_url));
+                    } else if (e.getErrorType() == HttpURLConnection.HTTP_CLIENT_TIMEOUT) {
+                        initializeContent(getString(R.string.error_host));
+                    }
+                }
+            });
         } else {
             initializeContent(resultData);
         }
@@ -262,7 +270,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    private void readabilityProcessor(String url, WebCallBack<String> callBack) {
+    private void readabilityProcessor(String url, Callback<String> callBack) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
@@ -272,9 +280,11 @@ public class ArticleActivity extends AppCompatActivity {
                 Readability4J readability = new Readability4J(url, html);
                 Article article = readability.parse();
                 callBack.onResult(article.getContent());
-            } catch (Exception e) {
-
             }
+            catch (RSSException r){
+                callBack.onError(r);
+            }
+            catch (Exception ignored) {}
         });
     }
 

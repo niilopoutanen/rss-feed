@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.RSSParser.Callback;
+import com.niilopoutanen.RSSParser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
@@ -64,14 +66,22 @@ public class SearchActivity extends AppCompatActivity {
     private void search(String query) {
         loader.setVisibility(View.VISIBLE);
         if (query.length() > 0) {
-            DiscoverFragment.fetchFeedQuery(query, result -> {
-                discoverResults = result;
+            DiscoverFragment.fetchFeedQuery(query, new Callback<List<FeedResult>>() {
+                @Override
+                public void onResult(List<FeedResult> result) {
+                    discoverResults = result;
 
-                if (discoverResultAdapter != null) {
-                    runOnUiThread(() -> {
-                        discoverResultAdapter.setResults(discoverResults);
-                        loader.setVisibility(View.GONE);
-                    });
+                    if (discoverResultAdapter != null) {
+                        runOnUiThread(() -> {
+                            discoverResultAdapter.setResults(discoverResults);
+                            loader.setVisibility(View.GONE);
+                        });
+                    }
+                }
+
+                @Override
+                public void onError(RSSException e) {
+
                 }
             });
         } else {

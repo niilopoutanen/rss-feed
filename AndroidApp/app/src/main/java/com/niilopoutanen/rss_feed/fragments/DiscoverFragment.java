@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
+import com.niilopoutanen.RSSParser.Callback;
+import com.niilopoutanen.RSSParser.RSSException;
 import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
@@ -22,7 +24,6 @@ import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 
 import org.json.JSONObject;
@@ -73,15 +74,23 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if (progressBar != null) {
             progressBar.setVisibility(View.VISIBLE);
         }
-        SaveSystem.loadCategories(result -> {
-            categories = result;
+        SaveSystem.loadCategories(new Callback<List<Category>>() {
+            @Override
+            public void onResult(List<Category> result) {
+                categories = result;
 
-            if (categoryAdapter != null) {
-                ((Activity) appContext).runOnUiThread(() -> {
-                    categoryAdapter.setCategories(categories);
-                    progressBar.setVisibility(View.GONE);
-                    startPostponedEnterTransition();
-                });
+                if (categoryAdapter != null) {
+                    ((Activity) appContext).runOnUiThread(() -> {
+                        categoryAdapter.setCategories(categories);
+                        progressBar.setVisibility(View.GONE);
+                        startPostponedEnterTransition();
+                    });
+                }
+            }
+
+            @Override
+            public void onError(RSSException e) {
+
             }
         });
 
@@ -89,13 +98,21 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
     private void search(String query) {
         progressBar.setVisibility(View.VISIBLE);
-        fetchFeedQuery(query, result -> {
-            results = result;
-            if (resultAdapter != null) {
-                ((Activity) appContext).runOnUiThread(() -> {
-                    resultAdapter.setResults(results);
-                    progressBar.setVisibility(View.GONE);
-                });
+        fetchFeedQuery(query, new Callback<List<FeedResult>>() {
+            @Override
+            public void onResult(List<FeedResult> result) {
+                results = result;
+                if (resultAdapter != null) {
+                    ((Activity) appContext).runOnUiThread(() -> {
+                        resultAdapter.setResults(results);
+                        progressBar.setVisibility(View.GONE);
+                    });
+                }
+            }
+
+            @Override
+            public void onError(RSSException e) {
+
             }
         });
     }
@@ -107,7 +124,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
      * @param query    Query to search with
      * @param callBack Returns a list of FeedResult objects that were found
      */
-    public static void fetchFeedQuery(String query, WebCallBack<List<FeedResult>> callBack) {
+    public static void fetchFeedQuery(String query, Callback<List<FeedResult>> callBack) {
         String FEEDLY_ENDPOINT = "https://cloud.feedly.com/v3/search/feeds?query=";
         int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
 

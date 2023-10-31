@@ -2,9 +2,9 @@ package com.niilopoutanen.rss_feed.utils;
 
 import android.content.Context;
 
+import com.niilopoutanen.RSSParser.Callback;
 import com.niilopoutanen.RSSParser.WebUtils;
 import com.niilopoutanen.rss_feed.models.Source;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,7 +23,7 @@ public class SourceValidator {
      * @param inputName      Name provided. Autofill will be tried if empty
      * @param sourceCallback Returns the validated source
      */
-    public static void validate(String inputUrl, String inputName, WebCallBack<Source> sourceCallback, Context context) {
+    public static void validate(String inputUrl, String inputName, Callback<Source> sourceCallback, Context context) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
         CompletableFuture.supplyAsync(() -> WebUtils.findFeed(WebUtils.formatUrl(inputUrl)), executor).thenComposeAsync(finalUrl -> {
