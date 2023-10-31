@@ -188,8 +188,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     private void loadImage(ImageView image, ItemViewHolder holder, Item item) {
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+                      LinearLayout.LayoutParams.MATCH_PARENT,
+                      ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 0, 0, IMAGE_MARGIN_PX);
             image.setLayoutParams(layoutParams);
         }
@@ -198,8 +198,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.SMALL) {
             targetHeight = PreferencesManager.dpToPx(100, holder.titleTextView.getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+                      LinearLayout.LayoutParams.WRAP_CONTENT,
+                      ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 0, IMAGE_MARGIN_PX, 0);
             image.setLayoutParams(layoutParams);
 
@@ -211,9 +211,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
         String imageUrl = item.getImageUrl();
         if (!TextUtils.isEmpty(imageUrl)) {
             RequestCreator requestCreator = Picasso.get().load(imageUrl)
-                    .resize(imageWidth, targetHeight)
-                    .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
-                    .centerCrop();
+                      .resize(imageWidth, targetHeight)
+                      .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
+                      .centerCrop();
             if (!preferences.s_imagecache) {
                 requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
             }

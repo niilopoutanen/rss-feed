@@ -95,8 +95,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case VIEW_TYPE_IMAGE:
                 ImageView imageView = new ImageView(appContext);
                 imageView.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                          ViewGroup.LayoutParams.MATCH_PARENT,
+                          ViewGroup.LayoutParams.WRAP_CONTENT));
                 int marginPx = PreferencesManager.dpToPx(15, appContext);
                 imageView.setPadding(0, marginPx, 0, marginPx);
 
@@ -104,8 +104,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case VIEW_TYPE_TEXT:
                 TextView textView = new TextView(appContext);
                 textView.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                          ViewGroup.LayoutParams.MATCH_PARENT,
+                          ViewGroup.LayoutParams.WRAP_CONTENT));
                 textView.setTextIsSelectable(true);
                 textView.setTextColor(appContext.getColor(R.color.textPrimary));
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -115,8 +115,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case VIEW_TYPE_TITLE:
                 TextView titleTextView = new TextView(appContext);
                 titleTextView.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                          ViewGroup.LayoutParams.MATCH_PARENT,
+                          ViewGroup.LayoutParams.WRAP_CONTENT));
                 titleTextView.setPadding(0, 0, 0, PreferencesManager.dpToPx(10, appContext));
                 titleTextView.setTextColor(appContext.getColor(R.color.textPrimary));
                 Typeface font = PreferencesManager.getSavedFont(preferences, appContext);
@@ -138,9 +138,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case VIEW_TYPE_IMAGE:
                     ContentViewHolder imageviewHolder = (ContentViewHolder) holder;
                     RequestCreator requestCreator = Picasso.get().load(((ImageItem) item).getUrl())
-                            .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, appContext), 0)
-                            .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
-                            .centerCrop();
+                              .resize(PreferencesManager.getImageWidth(PreferencesManager.ARTICLE_IMAGE, appContext), 0)
+                              .transform(new MaskTransformation(appContext, R.drawable.image_rounded))
+                              .centerCrop();
                     if (!preferences.s_imagecache) {
                         requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
                     }

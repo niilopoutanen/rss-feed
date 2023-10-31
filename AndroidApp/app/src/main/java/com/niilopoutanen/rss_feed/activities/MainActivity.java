@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frame_container, currentFragment)
-                    .commit();
+                      .replace(R.id.frame_container, currentFragment)
+                      .commit();
         }
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         if (fragment != null) {
             currentFragment = fragment;
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frame_container, fragment)
-                    .commit();
+                      .replace(R.id.frame_container, fragment)
+                      .commit();
             return true;
         }
         return false;

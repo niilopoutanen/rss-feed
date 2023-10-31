@@ -67,8 +67,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
 
         View sourceItemView = inflater.inflate(R.layout.source_item, parent, false);
         ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+                  ViewGroup.LayoutParams.MATCH_PARENT,
+                  ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(40, 0, 40, 40);
         sourceItemView.setLayoutParams(layoutParams);
 

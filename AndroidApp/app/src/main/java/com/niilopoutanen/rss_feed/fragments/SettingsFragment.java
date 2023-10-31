@@ -134,13 +134,13 @@ public class SettingsFragment extends Fragment {
         });
 
         colorAccentButtons = Arrays.asList(
-                rootView.findViewById(R.id.checkboxblue_accentcolor),
-                rootView.findViewById(R.id.checkboxviolet_accentcolor),
-                rootView.findViewById(R.id.checkboxpink_accentcolor),
-                rootView.findViewById(R.id.checkboxred_accentcolor),
-                rootView.findViewById(R.id.checkboxorange_accentcolor),
-                rootView.findViewById(R.id.checkboxyellow_accentcolor),
-                rootView.findViewById(R.id.checkboxgreen_accentcolor)
+                  rootView.findViewById(R.id.checkboxblue_accentcolor),
+                  rootView.findViewById(R.id.checkboxviolet_accentcolor),
+                  rootView.findViewById(R.id.checkboxpink_accentcolor),
+                  rootView.findViewById(R.id.checkboxred_accentcolor),
+                  rootView.findViewById(R.id.checkboxorange_accentcolor),
+                  rootView.findViewById(R.id.checkboxyellow_accentcolor),
+                  rootView.findViewById(R.id.checkboxgreen_accentcolor)
         );
 
 
