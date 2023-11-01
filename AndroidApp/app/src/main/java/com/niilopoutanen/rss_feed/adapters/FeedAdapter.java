@@ -119,7 +119,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             bindHeader(holder);
-        } else {
+        }
+        else if((position - 1) < items.size()){
             bindItem(holder, items.get(position - 1));
         }
     }
