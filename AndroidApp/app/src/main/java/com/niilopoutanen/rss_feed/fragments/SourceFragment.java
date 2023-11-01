@@ -101,8 +101,11 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
         int position = sourcesRecyclerView.getChildAdapterPosition(v);
-        Source clickedSource = sources.get(position);
-        openSourceDialog(clickedSource);
+        if(position < sources.size()){
+            Source clickedSource = sources.get(position);
+            openSourceDialog(clickedSource);
+            return true;
+        }
         return false;
     }
 

@@ -156,11 +156,9 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void closeFragment(View view) {
-        getParentFragmentManager().popBackStack();
         if (view != null) {
             PreferencesManager.vibrate(view);
         }
+        getParentFragmentManager().popBackStack();
     }
-
-
 }
