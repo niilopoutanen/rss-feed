@@ -26,13 +26,26 @@ import java.util.concurrent.Executors;
 
 public class ArticleProcessor {
     private String html;
-    private List<View> views;
+    private final List<View> views = new ArrayList<>();
     private final Context context;
 
     public ArticleProcessor(Context context){
         this.context = context;
     }
 
+    public void process(String url, Callback<List<View>> callback){
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try{
+                load(url);
+                parse();
+                callback.onResult(views);
+            }
+            catch (RSSException e) {
+                callback.onError(e);
+            }
+        });
+    }
     public String load(String url) throws RSSException {
         try {
             URL urlObject = new URL(url);

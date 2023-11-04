@@ -10,6 +10,7 @@ import android.text.style.ImageSpan;
 import android.text.style.QuoteSpan;
 import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,6 +40,8 @@ import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
+
+import org.w3c.dom.Text;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -90,12 +93,22 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            /*try{
-                ArticleProcessor.process(postUrl, null);
-            }
-            catch (RSSException r){
-                r.printStackTrace();
-            }*/
+            ArticleProcessor articleProcessor = new ArticleProcessor(this);
+            articleProcessor.process(postUrl, new Callback<List<View>>() {
+                @Override
+                public void onResult(List<View> views) {
+                    for(View view : views){
+                        if(view instanceof TextView){
+                            Log.d("Line: ", ((TextView) view).getText().toString());
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(RSSException e) {
+                    e.printStackTrace();
+                }
+            });
             readabilityProcessor(postUrl, new Callback<String>() {
                 @Override
                 public void onResult(String result) {
