@@ -1,14 +1,16 @@
-package com.niilopoutanen.rss_feed.utils;
+package com.niilopoutanen.articleprocessor;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.niilopoutanen.RSSParser.Callback;
-import com.niilopoutanen.RSSParser.RSSException;
-import com.niilopoutanen.RSSParser.WebUtils;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import com.niilopoutanen.RSSParser.*;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
@@ -16,13 +18,6 @@ import net.dankito.readability4j.Readability4J;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
 
 public class ArticleProcessor {
     private String html;
@@ -86,7 +81,7 @@ public class ArticleProcessor {
     }
     private void addImage(Element element){
         ImageView imageView = new ImageView(context);
-        
+
         views.add(imageView);
     }
 
