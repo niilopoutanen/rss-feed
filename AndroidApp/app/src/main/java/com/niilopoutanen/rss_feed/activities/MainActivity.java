@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigationrail.NavigationRailView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Navigation bar init
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_menu);
+        NavigationBarView bottomNav = findViewById(R.id.bottom_nav_menu);
         // If the current fragment is null, set the default fragment to be loaded
         if (currentFragment == null) {
             switch (preferences.s_launchwindow) {
