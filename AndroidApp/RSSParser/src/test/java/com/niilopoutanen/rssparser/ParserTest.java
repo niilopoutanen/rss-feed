@@ -1,4 +1,6 @@
-import com.niilopoutanen.RSSParser.*;
+package com.niilopoutanen.rssparser;
+
+import com.niilopoutanen.rssparser.*;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
