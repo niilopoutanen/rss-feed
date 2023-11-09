@@ -1,13 +1,12 @@
 package com.niilopoutanen.rssparser;
 
-import com.niilopoutanen.rssparser.Parser;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class Item implements Comparable<Item>{
     private String title;

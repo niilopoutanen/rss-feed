@@ -1,8 +1,5 @@
 package com.niilopoutanen.rssparser;
 
-import com.niilopoutanen.rssparser.Item;
-import com.niilopoutanen.rssparser.Parser;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
