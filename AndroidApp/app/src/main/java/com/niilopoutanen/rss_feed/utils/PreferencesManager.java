@@ -335,16 +335,17 @@ public class PreferencesManager {
     public static int getImageWidth(int imageType, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         final int columnCount = context.getResources().getInteger(R.integer.feed_columns);
+        float padding = (columnCount > 1) ? 30f : 20f;
 
         int totalWidth = displayMetrics.widthPixels / columnCount;
         if (imageType == FEED_IMAGE_LARGE) {
-            int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
-            return totalWidth - excessValue - dpToPx(FeedFragment.CARDMARGIN_DP, context);
+            int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, padding, displayMetrics);
+            return totalWidth - (excessValue * columnCount) - dpToPx(FeedFragment.CARDMARGIN_DP, context);
         } else if (imageType == FEED_IMAGE_SMALL) {
             return dpToPx(100, context);
         } else if (imageType == ARTICLE_IMAGE) {
-            int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
-            return totalWidth - excessValue;
+            int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, padding, displayMetrics);
+            return totalWidth - (excessValue * columnCount);
         } else {
             //fallback value
             return 1000;
