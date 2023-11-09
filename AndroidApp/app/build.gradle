@@ -55,5 +55,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation files('libs/RSSParser.jar')
+    implementation project(path: ':RSSParser')
 }

@@ -20,10 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.niilopoutanen.RSSParser.Feed;
-import com.niilopoutanen.RSSParser.Item;
-import com.niilopoutanen.RSSParser.Parser;
-import com.niilopoutanen.RSSParser.RSSException;
+import com.niilopoutanen.rssparser.Feed;
+import com.niilopoutanen.rssparser.Item;
+import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;

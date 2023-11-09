@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.RSSParser.Callback;
-import com.niilopoutanen.RSSParser.RSSException;
+import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;

@@ -29,9 +29,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.niilopoutanen.RSSParser.Callback;
-import com.niilopoutanen.RSSParser.RSSException;
-import com.niilopoutanen.RSSParser.WebUtils;
+import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.RSSException;
+import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
 import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;

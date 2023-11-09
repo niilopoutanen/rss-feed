@@ -2,8 +2,8 @@ package com.niilopoutanen.rss_feed.utils;
 
 import android.content.Context;
 
-import com.niilopoutanen.RSSParser.Callback;
-import com.niilopoutanen.RSSParser.WebUtils;
+import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.models.Source;
 
 import org.jsoup.Jsoup;
