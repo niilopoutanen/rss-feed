@@ -36,7 +36,6 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
 import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.articleprocessor.*;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import net.dankito.readability4j.Article;
@@ -94,29 +93,12 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            ArticleProcessor articleProcessor = new ArticleProcessor(this);
-            articleProcessor.process(postUrl, new Callback<List<View>>() {
-                @Override
-                public void onResult(List<View> views) {
-                    for(View view : views){
-                        if(view instanceof TextView){
-                            Log.d("Line: ", ((TextView) view).getText().toString());
-                        }
-                    }
-                }
-
-                @Override
-                public void onError(RSSException e) {
-                    e.printStackTrace();
-                }
-            });
             readabilityProcessor(postUrl, new Callback<String>() {
                 @Override
                 public void onResult(String result) {
                     articleLoader.setVisibility(View.GONE);
                     resultData = result;
                     initializeContent(result);
-
                 }
 
                 @Override
