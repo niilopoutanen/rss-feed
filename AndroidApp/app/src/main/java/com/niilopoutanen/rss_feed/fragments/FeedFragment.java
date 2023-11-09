@@ -263,7 +263,19 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         adapter = new FeedAdapter(preferences, feed, appContext, viewTitle, this);
         recyclerView.setAdapter(adapter);
         final int columns = getResources().getInteger(R.integer.feed_columns);
-        recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), columns));
+        GridLayoutManager manager = new GridLayoutManager(rootView.getContext(), columns);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if(position == 0) {
+                    return columns;
+                }
+                else{
+                    return 1;
+                }
+            }
+        });
+        recyclerView.setLayoutManager(manager);
 
         recyclerviewRefresh = rootView.findViewById(R.id.recyclerview_refresher);
         recyclerviewRefresh.setColorSchemeColors(colorAccent);
