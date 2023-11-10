@@ -14,15 +14,16 @@ import android.view.ViewGroup;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.niilopoutanen.RSSParser.Feed;
-import com.niilopoutanen.RSSParser.Item;
-import com.niilopoutanen.RSSParser.Parser;
-import com.niilopoutanen.RSSParser.RSSException;
+import com.niilopoutanen.rssparser.Feed;
+import com.niilopoutanen.rssparser.Item;
+import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
@@ -92,7 +93,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         // Index out of bounds catch
-        if (position > feed.size()) {
+        if (position >= feed.size()) {
             return;
         }
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
@@ -261,7 +262,20 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         }
         adapter = new FeedAdapter(preferences, feed, appContext, viewTitle, this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+        final int columns = getResources().getInteger(R.integer.feed_columns);
+        GridLayoutManager manager = new GridLayoutManager(rootView.getContext(), columns);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if(position == 0) {
+                    return columns;
+                }
+                else{
+                    return 1;
+                }
+            }
+        });
+        recyclerView.setLayoutManager(manager);
 
         recyclerviewRefresh = rootView.findViewById(R.id.recyclerview_refresher);
         recyclerviewRefresh.setColorSchemeColors(colorAccent);

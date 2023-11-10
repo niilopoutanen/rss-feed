@@ -84,14 +84,14 @@ public class SettingsFeedFragment extends Fragment {
 
 
         feedcardStyleButtons = Arrays.asList(
-                rootView.findViewById(R.id.largeimage_checkbox),
-                rootView.findViewById(R.id.smallimage_checkbox),
-                rootView.findViewById(R.id.noimage_checkbox)
+                  rootView.findViewById(R.id.largeimage_checkbox),
+                  rootView.findViewById(R.id.smallimage_checkbox),
+                  rootView.findViewById(R.id.noimage_checkbox)
         );
         List<RelativeLayout> feedcardContainers = Arrays.asList(
-                rootView.findViewById(R.id.feedcard_largeimage),
-                rootView.findViewById(R.id.feedcard_smallimage),
-                rootView.findViewById(R.id.feedcard_noimage)
+                  rootView.findViewById(R.id.feedcard_largeimage),
+                  rootView.findViewById(R.id.feedcard_smallimage),
+                  rootView.findViewById(R.id.feedcard_noimage)
         );
 
         authorSwitch = rootView.findViewById(R.id.switch_author);

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.carousel.MaskableFrameLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="220dp"
     android:layout_height="200dp"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
-    android:foreground="?attr/selectableItemBackground"
-    app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
+    app:cardCornerRadius="20dp">
 
     <ImageView
         android:id="@+id/discover_category_image"
@@ -29,4 +28,4 @@
         android:textColor="#FFFFFF"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"/>
-</com.google.android.material.carousel.MaskableFrameLayout>
+</androidx.cardview.widget.CardView>

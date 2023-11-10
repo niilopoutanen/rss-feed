@@ -3,10 +3,10 @@ package com.niilopoutanen.rss_feed.utils;
 import android.content.Context;
 import android.util.Log;
 
-import com.niilopoutanen.RSSParser.WebUtils;
+import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.Source;
-import com.niilopoutanen.rss_feed.models.WebCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -107,7 +107,7 @@ public class SaveSystem {
      *
      * @param callBack Returns the result when thread execution is finished
      */
-    public static void loadCategories(final WebCallBack<List<Category>> callBack) {
+    public static void loadCategories(final Callback<List<Category>> callBack) {
         String locale = Locale.getDefault().getLanguage();
         String selectedLocale;
         if ("fi".equals(locale)) {

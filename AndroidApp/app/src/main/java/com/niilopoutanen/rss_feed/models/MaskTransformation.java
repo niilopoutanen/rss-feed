@@ -53,7 +53,7 @@ public class MaskTransformation implements Transformation {
     @Override
     public String key() {
         return "MaskTransformation(maskId=" + mContext.getResources().getResourceEntryName(mMaskId)
-                + ")";
+                  + ")";
     }
 
     public Drawable getMaskDrawable(Context context, int maskId) {
