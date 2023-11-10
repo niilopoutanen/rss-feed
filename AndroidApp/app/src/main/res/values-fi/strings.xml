@@ -47,10 +47,10 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
-    <string name="feature1">Päivitetty ydin</string>
-    <string name="feature1desc">Sovelluksen koodi uusittu, parempi suorituskyky ja vakaus</string>
-    <string name="feature2">Parempi käyttäjäkokemus</string>
-    <string name="feature2desc">Pieniä muutoksia jotta sinun olisi helpompi käyttää sovellusta.</string>
+    <string name="feature1">Tuki tableteille</string>
+    <string name="feature1desc">Parempi käyttökokemus tableteille ja muille isokokoisille laitteille</string>
+    <string name="feature2">Pieniä virhekorjauksia</string>
+    <string name="feature2desc">Pieniä virhekorjauksia siellä sun täällä</string>
     <string name="feature3">Pieni virhekorjaus</string>
     <string name="feature3desc">Joissakin tapauksissa sovellus kaatui kun luit syötettä. Ei enään.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>

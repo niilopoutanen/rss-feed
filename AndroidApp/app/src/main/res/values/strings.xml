@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RSS-Feed</string>
-    <string name="app_version" translatable="false">v1.2.0</string>
+    <string name="app_version" translatable="false">v1.2.4</string>
     <string name="copyright" translatable="false">©2023 Niilo Poutanen</string>
 
     <string name="feed_header">Feed</string>
@@ -94,11 +94,11 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">Updated core</string>
-    <string name="feature1desc">Reworked app internals, better functionality and performance</string>
+    <string name="feature1">Support for tablets</string>
+    <string name="feature1desc">Better user experience for tablets and other widescreen devices</string>
 
-    <string name="feature2">Better user experience</string>
-    <string name="feature2desc">Small tweaks to make the app easier for you</string>
+    <string name="feature2">Small bug fixes</string>
+    <string name="feature2desc">Fixed a few bugs here and there</string>
 
     <string name="feature3">Small crash fix</string>
     <string name="feature3desc">Fixed a case where app crashed when reading the feed.</string>
