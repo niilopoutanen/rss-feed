@@ -11,7 +11,7 @@ import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Item;
 
-public class NewFeedAdapter extends RecyclerView.Adapter<FeedCard> {
+public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Feed feed;
     private final Context context;
@@ -27,15 +27,19 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedCard> {
     }
     @NonNull
     @Override
-    public FeedCard onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return FeedCard.create(parent, preferences);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeedCard holder, int position) {
-        holder.bindData(feed.getItemAt(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof FeedCard){
+            ((FeedCard)holder).bindData(feed.getItemAt(position));
+        }
+
     }
 
+    
     @Override
     public int getItemCount() {
         if(feed == null){
