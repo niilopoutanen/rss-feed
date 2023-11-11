@@ -8,18 +8,22 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="100dp"
+            android:padding="10dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <androidx.appcompat.widget.Toolbar
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="parallax"
-                app:title="@string/feed_header"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/feed_header"
+                android:textColor="@color/textPrimary"
+                android:textSize="40sp"
+                app:fontFamily="@font/inter_semibold" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
