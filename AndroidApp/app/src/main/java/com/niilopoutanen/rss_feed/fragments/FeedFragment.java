@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.niilopoutanen.rss_feed.adapters.NewFeedAdapter;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.Parser;
@@ -48,7 +49,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     List<Item> feed = new ArrayList<>();
     String viewTitle;
     RecyclerView recyclerView;
-    FeedAdapter adapter;
+    NewFeedAdapter adapter;
     Context appContext;
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
@@ -142,14 +143,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void updateFeed() {
         if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
-            adapter.complete(true);
+            //adapter.complete(true);
             return;
         }
         //if all sources are hidden, show the title
         if (sources.stream().noneMatch(Source::isVisibleInFeed)) {
             if (!singleView) {
                 recyclerviewRefresh.setRefreshing(false);
-                adapter.complete(true);
+                //adapter.complete(true);
             }
 
         }
@@ -189,7 +190,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             }
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
-                    adapter.complete(false);
+                    //adapter.complete(false);
                     recyclerView.scheduleLayoutAnimation();
                     recyclerviewRefresh.setRefreshing(false);
                 });
@@ -260,7 +261,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (viewTitle.length() > 20) {
             viewTitle = viewTitle.substring(0, 20) + "...";
         }
-        adapter = new FeedAdapter(preferences, feed, appContext, viewTitle, this);
+        Feed feedTemp = new Feed();
+        feedTemp.setItems(feed);
+        adapter = new NewFeedAdapter(feedTemp, appContext, preferences);
         recyclerView.setAdapter(adapter);
         final int columns = getResources().getInteger(R.integer.feed_columns);
         GridLayoutManager manager = new GridLayoutManager(rootView.getContext(), columns);
