@@ -3,8 +3,11 @@ package com.niilopoutanen.rss_feed.fragments;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,12 +79,12 @@ public class FeedCard extends RecyclerView.ViewHolder{
         date.setText(item.getPubDate().toString());
         author.setText(item.getAuthor());
 
-        setPreferredVisibility();
+        setPreferences();
         loadImage(item);
 
     }
 
-    private void setPreferredVisibility(){
+    private void setPreferences(){
         if (!preferences.s_feedcard_authorvisible || !preferences.s_feedcard_datevisible) {
             desc.setMaxLines(3);
         }
@@ -90,6 +93,20 @@ public class FeedCard extends RecyclerView.ViewHolder{
         title.setVisibility(preferences.s_feedcard_titlevisible ? View.VISIBLE : View.GONE);
         desc.setVisibility(preferences.s_feedcard_descvisible ? View.VISIBLE : View.GONE);
         date.setVisibility(preferences.s_feedcard_datevisible ? View.VISIBLE : View.GONE);
+
+        Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+        Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+        container.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                container.startAnimation(scaleDown);
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                container.startAnimation(scaleUp);
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                container.startAnimation(scaleUp);
+                view.performClick();
+            }
+            return true;
+        });
     }
 
     private void loadImage(Item item){

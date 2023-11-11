@@ -11,9 +11,16 @@ import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private final int TYPE_HEADER = 0;
+    private final int TYPE_ITEM = 1;
+    private final int TYPE_NOTICE = 2;
     private Feed feed;
+    private final List<String> notices = new ArrayList<>();
     private final Context context;
     private final Preferences preferences;
     public NewFeedAdapter(Feed feed, Context context, Preferences preferences){
@@ -24,6 +31,9 @@ public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void update(Feed feed){
         this.feed = feed;
         notifyDataSetChanged();
+    }
+    public void addNotification(String text){
+        notices.add(text);
     }
     @NonNull
     @Override
@@ -39,7 +49,18 @@ public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     }
 
-    
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_HEADER;
+        }
+        else if (notices.size() > 0 && feed.getItemCount() == 0){
+            return TYPE_NOTICE;
+        }
+        else {
+            return TYPE_ITEM;
+        }
+    }
     @Override
     public int getItemCount() {
         if(feed == null){
