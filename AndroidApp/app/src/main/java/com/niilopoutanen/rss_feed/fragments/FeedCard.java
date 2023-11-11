@@ -11,64 +11,45 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.Preferences.FeedCardStyle;
 import com.niilopoutanen.rssparser.Item;
 
-public class FeedCard {
-    private Context context;
-    private Item item;
-    private final FeedCardStyle cardStyle;
-    private View element;
+import org.w3c.dom.Text;
 
-    public FeedCard(FeedCardStyle cardStyle, Context context){
-        this.cardStyle = cardStyle;
-        this.context = context;
+import java.util.HashMap;
+import java.util.Map;
+
+public class FeedCard extends RecyclerView.ViewHolder{
+    private final TextView titleTextView;
+    private final TextView descTextView;
+    private final TextView author;
+    private final TextView date;
+    private final ImageView image;
+    private final View container;
+    public FeedCard(@NonNull View itemView) {
+        super(itemView);
+
+        titleTextView = itemView.findViewById(R.id.feedcard_title);
+        descTextView = itemView.findViewById(R.id.feedcard_description);
+        author = itemView.findViewById(R.id.feedcard_author);
+        date = itemView.findViewById(R.id.feedcard_date);
+        image = itemView.findViewById(R.id.feedcard_image);
+        container = itemView;
     }
 
-    public void setItem(Item item){
-        this.item = item;
+    public static FeedCard create(ViewGroup parent, Preferences preferences) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view;
+
+        view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
+        return new FeedCard(view);
     }
 
-    public View getView(){
-        return this.element;
-    }
-    private void init(ViewGroup parent){
-        if(item == null){
-            return;
-        }
-
-        element = inflate(parent);
-
-    }
-
-    private View inflate(ViewGroup parent){
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        switch (cardStyle){
-            case SMALL:
-                return layoutInflater.inflate(R.layout.feedcard_small, parent);
-            case NONE:
-                View card = layoutInflater.inflate(R.layout.feedcard_small, parent);
-                View image = card.findViewById(R.id.feedcard_image);
-                image.setVisibility(View.GONE);
-                return card;
-            case LARGE:
-            default:
-                return layoutInflater.inflate(R.layout.feedcard, parent);
-        }
-    }
-
-
-    public static class FeedCardViewHolder extends RecyclerView.ViewHolder {
-        private final FeedCard feedCard;
-
-        public FeedCardViewHolder(FeedCard feedCard) {
-            super(feedCard.getView());
-            this.feedCard = feedCard;
-        }
-
-        public void bindData(Item item) {
-            feedCard.setItem(item);
-            feedCard.init((ViewGroup) itemView);
-        }
+    public void bindData(Item item){
+        titleTextView.setText(item.getTitle());
+        descTextView.setText(item.getDescription());
+        
     }
 }

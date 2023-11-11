@@ -143,14 +143,18 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void updateFeed() {
         if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
-            //adapter.complete(true);
+            Feed temp = new Feed();
+            temp.setItems(feed);
+            adapter.update(temp);
             return;
         }
         //if all sources are hidden, show the title
         if (sources.stream().noneMatch(Source::isVisibleInFeed)) {
             if (!singleView) {
                 recyclerviewRefresh.setRefreshing(false);
-                //adapter.complete(true);
+                Feed temp = new Feed();
+                temp.setItems(feed);
+                adapter.update(temp);
             }
 
         }
@@ -190,7 +194,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             }
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
-                    //adapter.complete(false);
+                    Feed temp = new Feed();
+                    temp.setItems(feed);
+                    adapter.update(temp);
                     recyclerView.scheduleLayoutAnimation();
                     recyclerviewRefresh.setRefreshing(false);
                 });
