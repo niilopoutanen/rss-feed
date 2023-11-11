@@ -157,6 +157,9 @@ public class Feed {
     public List<Item> getItems() {
         return items;
     }
+    public int getItemCount(){
+        return items.size();
+    }
     public Item getItemAt(int index) {
         return items.get(index);
     }

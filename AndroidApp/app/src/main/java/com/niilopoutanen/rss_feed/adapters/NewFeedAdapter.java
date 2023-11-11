@@ -41,6 +41,6 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedCard> {
         if(feed == null){
             return 0;
         }
-        return feed.getItems().size();
+        return feed.getItemCount();
     }
 }
