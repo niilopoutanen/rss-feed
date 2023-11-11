@@ -12,17 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.Preferences.FeedCardStyle;
 import com.niilopoutanen.rssparser.Item;
 
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class FeedCard extends RecyclerView.ViewHolder{
-    private final TextView titleTextView;
-    private final TextView descTextView;
+    private final TextView title;
+    private final TextView desc;
     private final TextView author;
     private final TextView date;
     private final ImageView image;
@@ -30,8 +24,8 @@ public class FeedCard extends RecyclerView.ViewHolder{
     public FeedCard(@NonNull View itemView) {
         super(itemView);
 
-        titleTextView = itemView.findViewById(R.id.feedcard_title);
-        descTextView = itemView.findViewById(R.id.feedcard_description);
+        title = itemView.findViewById(R.id.feedcard_title);
+        desc = itemView.findViewById(R.id.feedcard_description);
         author = itemView.findViewById(R.id.feedcard_author);
         date = itemView.findViewById(R.id.feedcard_date);
         image = itemView.findViewById(R.id.feedcard_image);
@@ -43,13 +37,27 @@ public class FeedCard extends RecyclerView.ViewHolder{
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
 
-        view = inflater.inflate(preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE ? R.layout.feedcard : R.layout.feedcard_small, parent, false);
+        switch (preferences.s_feedcardstyle){
+            case SMALL:
+                view = inflater.inflate(R.layout.feedcard_small, parent, false);
+                break;
+            case NONE:
+                view = inflater.inflate(R.layout.feedcard_small, parent, false);
+                view.findViewById(R.id.feedcard_image).setVisibility(View.GONE);
+                break;
+
+            case LARGE:
+            default:
+                view = inflater.inflate(R.layout.feedcard, parent, false);
+                break;
+        }
         return new FeedCard(view);
     }
 
     public void bindData(Item item){
-        titleTextView.setText(item.getTitle());
-        descTextView.setText(item.getDescription());
-        
+        title.setText(item.getTitle());
+        desc.setText(item.getDescription());
+        date.setText(item.getPubDate().toString());
+        author.setText(item.getAuthor());
     }
 }
