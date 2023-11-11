@@ -11,11 +11,15 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent">
 
-        <androidx.appcompat.widget.Toolbar
+        <TextView
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll"
-            app:title="@string/feed_header"/>
+            android:layout_height="wrap_content"
+            android:text="@string/feed_header"
+            android:textColor="@color/textPrimary"
+            android:textSize="40sp"
+            app:fontFamily="@font/inter_semibold"
+            app:layout_scrollFlags="scroll"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
