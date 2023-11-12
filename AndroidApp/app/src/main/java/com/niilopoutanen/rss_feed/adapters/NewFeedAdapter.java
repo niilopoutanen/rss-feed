@@ -54,7 +54,6 @@ public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         else{
             return FeedCard.create(parent, preferences, recyclerViewInterface);
         }
-
     }
 
     private RecyclerView.ViewHolder createNotice(){

@@ -336,9 +336,14 @@ public class PreferencesManager {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         final int columnCount = context.getResources().getInteger(R.integer.feed_columns);
 
+        float sideMargin = 20f;
+        if(columnCount>1){
+            sideMargin = 30f;
+        }
+
         int totalWidth = displayMetrics.widthPixels / columnCount;
         if (imageType == FEED_IMAGE_LARGE) {
-            int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
+            int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sideMargin, displayMetrics);
             return totalWidth - (excessValue * columnCount) - dpToPx(FeedFragment.CARDMARGIN_DP, context);
         } else if (imageType == FEED_IMAGE_SMALL) {
             return dpToPx(100, context);
