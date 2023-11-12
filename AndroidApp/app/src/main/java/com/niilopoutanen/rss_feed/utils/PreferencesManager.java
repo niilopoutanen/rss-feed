@@ -344,8 +344,13 @@ public class PreferencesManager {
             return totalWidth - dpToPx(40 * columnCount, context);
         }
         if (imageType == FEED_IMAGE_LARGE_FULLSCREEN) {
-            // Works with 2 columns
-            return totalWidth - dpToPx(20 * columnCount, context);
+            if(columnCount > 1){
+                return totalWidth - dpToPx(20 * columnCount, context);
+            }
+            else{
+                // Keep the same values if vertical
+                return totalWidth - dpToPx(40 * columnCount, context);
+            }
         }
         else if (imageType == FEED_IMAGE_SMALL) {
             return dpToPx(100, context);
