@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.Feed;
 
@@ -28,10 +29,12 @@ public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final Map<String, String> notices = new HashMap<>();
     private final Context context;
     private final Preferences preferences;
-    public NewFeedAdapter(Feed feed, Context context, Preferences preferences){
+    private final RecyclerViewInterface recyclerViewInterface;
+    public NewFeedAdapter(Feed feed, Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
         this.feed = feed;
         this.context = context;
         this.preferences = preferences;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
     public void update(Feed feed){
         this.feed = feed;
@@ -50,7 +53,7 @@ public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return createNotice();
         }
         else{
-            return FeedCard.create(parent, preferences);
+            return FeedCard.create(parent, preferences, recyclerViewInterface);
         }
 
     }

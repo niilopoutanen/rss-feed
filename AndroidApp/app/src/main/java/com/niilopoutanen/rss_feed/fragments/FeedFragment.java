@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.MaterialFadeThrough;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.adapters.NewFeedAdapter;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Item;
@@ -88,23 +90,25 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         assert appContext != null;
         colorAccent = PreferencesManager.getAccentColor(appContext);
 
+        setEnterTransition(new MaterialFadeThrough());
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }
 
     @Override
     public void onItemClick(int position) {
         // Index out of bounds catch
-        if (position >= items.size()) {
+        if (position >= feed.getItemCount()) {
             return;
         }
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
-        articleIntent.putExtra("postUrl", items.get(position).getLink());
+        articleIntent.putExtra("postUrl", feed.getItemAt(position).getLink());
         if (!preferences.s_feedcard_authorname) {
-            articleIntent.putExtra("postPublisher", items.get(position).getAuthor());
+            articleIntent.putExtra("postPublisher", feed.getItemAt(position).getAuthor());
         } else {
-            articleIntent.putExtra("postPublisher", items.get(position).getAuthor());
+            articleIntent.putExtra("postPublisher", feed.getItemAt(position).getAuthor());
         }
-        articleIntent.putExtra("postPublishTime", items.get(position).getPubDate());
-        articleIntent.putExtra("title", items.get(position).getTitle());
+        articleIntent.putExtra("postPublishTime", feed.getItemAt(position).getPubDate());
+        articleIntent.putExtra("title", feed.getItemAt(position).getTitle());
         articleIntent.putExtra("preferences", preferences);
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
         appContext.startActivity(articleIntent);
@@ -197,18 +201,18 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
         switch (errorCode) {
             case HttpURLConnection.HTTP_NOT_FOUND:
-                adapter.addNotification(appContext.getString(R.string.invalidfeed));
+                adapter.addNotification(appContext.getString(R.string.invalidfeed), appContext.getString(R.string.invalidfeedmsg));
                 break;
 
             case 429:
-                adapter.addNotification(appContext.getString(R.string.error_toomanyrequests));
+                adapter.addNotification(appContext.getString(R.string.error_toomanyrequests), appContext.getString(R.string.toomanyrequestsmsg));
                 break;
             case 0:
-                adapter.addNotification(appContext.getString(R.string.nosources));
+                adapter.addNotification(appContext.getString(R.string.nosources), appContext.getString(R.string.nosourcesmsg));
                 break;
 
             case 1:
-                adapter.addNotification(appContext.getString(R.string.nointernet));
+                adapter.addNotification(appContext.getString(R.string.nointernet), appContext.getString(R.string.nointernetmsg));
                 break;
         }
 
@@ -229,7 +233,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         }
         Feed feedTemp = new Feed();
         feedTemp.setItems(items);
-        adapter = new NewFeedAdapter(feedTemp, appContext, preferences);
+        adapter = new NewFeedAdapter(feedTemp, appContext, preferences, this);
         recyclerView.setAdapter(adapter);
         final int columns = getResources().getInteger(R.integer.feed_columns);
         GridLayoutManager manager = new GridLayoutManager(rootView.getContext(), columns);

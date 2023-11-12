@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.Item;
 import com.squareup.picasso.NetworkPolicy;
@@ -34,7 +35,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
 
     private final Preferences preferences;
     private final Context context;
-    public FeedCard(@NonNull View itemView, Preferences preferences, Context context) {
+    public FeedCard(@NonNull View itemView, Preferences preferences, Context context, RecyclerViewInterface recyclerViewInterface) {
         super(itemView);
         this.preferences = preferences;
         this.context = context;
@@ -45,9 +46,18 @@ public class FeedCard extends RecyclerView.ViewHolder{
         date = itemView.findViewById(R.id.feedcard_date);
         image = itemView.findViewById(R.id.feedcard_image);
         container = itemView;
+
+        itemView.setOnClickListener(v -> {
+            if (recyclerViewInterface != null) {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    recyclerViewInterface.onItemClick(position);
+                }
+            }
+        });
     }
 
-    public static FeedCard create(ViewGroup parent, Preferences preferences) {
+    public static FeedCard create(ViewGroup parent, Preferences preferences, RecyclerViewInterface recyclerViewInterface) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         int margin = PreferencesManager.dpToPx(FeedFragment.CARDMARGIN_DP, context);
@@ -70,7 +80,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
         }
 
         setViewMargins(view, 0, 0, 0, gap);
-        return new FeedCard(view, preferences, context);
+        return new FeedCard(view, preferences, context, recyclerViewInterface);
     }
 
     public void bindData(Item item){
