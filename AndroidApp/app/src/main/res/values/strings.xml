@@ -105,7 +105,7 @@
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
-    <string name="errro_toomanyrequests">Too many requests.</string>
+    <string name="error_toomanyrequests">Too many requests.</string>
 
 
     <string name="sendmail">Send email</string>
