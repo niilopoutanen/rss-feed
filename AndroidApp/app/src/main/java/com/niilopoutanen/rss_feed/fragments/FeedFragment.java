@@ -101,15 +101,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             return;
         }
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
-        articleIntent.putExtra("postUrl", feed.getItemAt(position).getLink());
-        if (!preferences.s_feedcard_authorname) {
-            articleIntent.putExtra("postPublisher", feed.getItemAt(position).getAuthor());
-        } else {
-            articleIntent.putExtra("postPublisher", feed.getItemAt(position).getAuthor());
-        }
-        articleIntent.putExtra("postPublishTime", feed.getItemAt(position).getPubDate());
-        articleIntent.putExtra("title", feed.getItemAt(position).getTitle());
         articleIntent.putExtra("preferences", preferences);
+        articleIntent.putExtra("item", feed.getItemAt(position));
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
         appContext.startActivity(articleIntent);
     }

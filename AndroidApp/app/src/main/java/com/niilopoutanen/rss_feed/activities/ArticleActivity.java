@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
@@ -55,12 +56,9 @@ public class ArticleActivity extends AppCompatActivity {
     final List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
     ArticleAdapter adapter;
     private RecyclerView articleContainer;
-    private String title;
     private ProgressBar articleLoader;
+    private Item post;
     private String resultData;
-    private String publisher;
-    private Date publishTime;
-    private String postUrl;
     private Preferences preferences;
 
     @Override
@@ -72,15 +70,11 @@ public class ArticleActivity extends AppCompatActivity {
             return;
         }
 
-        postUrl = extras.getString("postUrl");
-        publisher = extras.getString("postPublisher");
-        publishTime = (Date) extras.get("postPublishTime");
         preferences = (Preferences) extras.get("preferences");
-        title = extras.getString("title");
+        post  = (Item)extras.get("item");
 
         if (savedInstanceState != null) {
             resultData = savedInstanceState.getString("content");
-            title = savedInstanceState.getString("title");
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
@@ -93,7 +87,7 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            readabilityProcessor(postUrl, new Callback<String>() {
+            readabilityProcessor(post.getGuid(), new Callback<String>() {
                 @Override
                 public void onResult(String result) {
                     articleLoader.setVisibility(View.GONE);
@@ -125,7 +119,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeContent(String result) {
-        adapter = new ArticleAdapter(views, preferences, this, postUrl, publishTime, publisher);
+        adapter = new ArticleAdapter(views, preferences, this, post.getGuid(), post.getPubDate(), post.getAuthor());
         articleContainer.setAdapter(adapter);
         articleContainer.setLayoutManager(new LinearLayoutManager(this));
 
@@ -134,7 +128,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void parseSpanned(Spanned spanned) {
-        views.add(new ArticleAdapter.TitleItem(title));
+        views.add(new ArticleAdapter.TitleItem(post.getTitle()));
         SpannableStringBuilder builder = new SpannableStringBuilder(spanned);
         ImageSpan[] imageSpans = builder.getSpans(0, builder.length(), ImageSpan.class);
 
@@ -299,6 +293,5 @@ public class ArticleActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("content", resultData);
-        outState.putString("title", title);
     }
 }
