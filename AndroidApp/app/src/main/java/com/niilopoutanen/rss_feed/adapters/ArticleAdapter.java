@@ -47,7 +47,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final Date postDate;
     private final String publisher;
     private String title = "";
-    private Animation scaleUp, scaleDown;
+
 
     public ArticleAdapter(List<ArticleItem> data, Preferences preferences, Context context, String postUrl, Date postDate, String publisher) {
         this.adapterData = data;
@@ -64,8 +64,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         LayoutInflater inflater = LayoutInflater.from(appContext);
         View view;
 
-        scaleDown = AnimationUtils.loadAnimation(appContext, R.anim.scale_down);
-        scaleUp = AnimationUtils.loadAnimation(appContext, R.anim.scale_up);
+
 
         switch (viewType) {
             case VIEW_TYPE_HEADER:
@@ -161,9 +160,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         appContext.startActivity(imageIntent);
                     });
 
-                    imageviewHolder.imageView.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                    if(preferences.s_animateclicks){
+                        Animation scaleUp = AnimationUtils.loadAnimation(appContext, R.anim.scale_down);
+                        Animation scaleDown = AnimationUtils.loadAnimation(appContext, R.anim.scale_up);
+
+                        ((View)imageviewHolder.imageView).setOnTouchListener((view, motionEvent) -> {
+
                             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                                 imageviewHolder.imageView.startAnimation(scaleDown);
                             } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
@@ -173,9 +176,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                 view.performClick();
                             }
                             return true;
-                        }
+                        });
+                    }
 
-                    });
 
                     break;
                 case VIEW_TYPE_TEXT:

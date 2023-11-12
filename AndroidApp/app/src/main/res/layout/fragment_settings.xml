@@ -131,6 +131,7 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
+
         </LinearLayout>
 
         <TextView
@@ -425,6 +426,36 @@
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switch_cache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/animate_clicks"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switch_animateclicks"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"/>

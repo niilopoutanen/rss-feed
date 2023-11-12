@@ -105,19 +105,22 @@ public class FeedCard extends RecyclerView.ViewHolder{
         desc.setVisibility(preferences.s_feedcard_descvisible ? View.VISIBLE : View.GONE);
         date.setVisibility(preferences.s_feedcard_datevisible ? View.VISIBLE : View.GONE);
 
-        Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
-        Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
-        container.setOnTouchListener((view, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                container.startAnimation(scaleDown);
-            } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
-                container.startAnimation(scaleUp);
-            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                container.startAnimation(scaleUp);
-                view.performClick();
-            }
-            return true;
-        });
+        if(preferences.s_animateclicks){
+            Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+            Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+            container.setOnTouchListener((view, motionEvent) -> {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    container.startAnimation(scaleDown);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    container.startAnimation(scaleUp);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    container.startAnimation(scaleUp);
+                    view.performClick();
+                }
+                return true;
+            });
+        }
+
     }
 
     private void loadImage(Item item){

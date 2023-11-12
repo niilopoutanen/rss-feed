@@ -102,4 +102,5 @@
     <string name="show_in_feed">Näytä syötteessä</string>
     <string name="error_toomanyrequests">Liian monta pyyntöä.</string>
     <string name="toomanyrequestsmsg">Olet lähettänyt liian monta pyyntöä osoitteesen %s. Odota hetki ja yritä uudelleen.</string>
+    <string name="animate_clicks">Animoi klikkaukset</string>
 </resources>

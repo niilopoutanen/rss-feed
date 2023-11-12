@@ -14,6 +14,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORNAME;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORNAME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
@@ -52,7 +54,6 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -62,7 +63,6 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.models.Preferences;
 
 import java.text.DateFormat;
@@ -229,6 +229,7 @@ public class PreferencesManager {
         preferences.s_imagecache = getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context);
         preferences.s_hide_sourcealert = getBooleanPreference(SP_HIDE_SOURCE_ALERT, PREFS_FUNCTIONALITY, SP_HIDE_SOURCE_ALERT_DEFAULT, context);
         preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
+        preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_authorname = getBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, SP_FEEDCARD_AUTHORNAME_DEFAULT, context);

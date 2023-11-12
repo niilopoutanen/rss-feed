@@ -12,6 +12,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
@@ -63,6 +65,7 @@ public class SettingsFragment extends Fragment {
     SwitchCompat articlesInBrowser;
     SwitchCompat articleFullScreen;
     SwitchCompat imagecache;
+    SwitchCompat animateClicks;
     SwitchCompat haptics;
     Slider fontSizeSlider;
     List<RelativeLayout> colorAccentButtons;
@@ -153,6 +156,7 @@ public class SettingsFragment extends Fragment {
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
         haptics = rootView.findViewById(R.id.switch_haptics);
         imagecache = rootView.findViewById(R.id.switch_cache);
+        animateClicks = rootView.findViewById(R.id.switch_animateclicks);
         fontSizeSlider = rootView.findViewById(R.id.slider_fontsize);
 
         themeSelected = rootView.findViewById(R.id.theme_selected);
@@ -195,6 +199,10 @@ public class SettingsFragment extends Fragment {
         });
         imagecache.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, isChecked, appContext);
+            PreferencesManager.vibrate(buttonView);
+        });
+        animateClicks.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            PreferencesManager.saveBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, isChecked, appContext);
             PreferencesManager.vibrate(buttonView);
         });
         fontSizeSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
@@ -251,6 +259,8 @@ public class SettingsFragment extends Fragment {
         haptics.setChecked(PreferencesManager.getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, appContext));
 
         imagecache.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, appContext));
+
+        animateClicks.setChecked(PreferencesManager.getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, appContext));
 
         fontSizeSlider.setValue(PreferencesManager.getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, appContext));
 
