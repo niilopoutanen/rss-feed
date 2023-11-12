@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.activities.MainActivity;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
@@ -173,12 +175,18 @@ public class FeedCard extends RecyclerView.ViewHolder{
     public int getImageWidth(){
         switch (preferences.s_feedcardstyle) {
             case LARGE:
-            default:
-                return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_LARGE, context);
+                if(context instanceof MainActivity){
+                    return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_LARGE, context);
+                }
+                else if(context instanceof FeedActivity){
+                    return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_LARGE_FULLSCREEN, context);
+                }
             case SMALL:
                 return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_SMALL, context);
             case NONE:
                 return  0;
+            default:
+                return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_LARGE, context);
         }
     }
     private static void setCardSpacing(View view, Context context) {

@@ -52,6 +52,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -74,8 +75,9 @@ import java.util.Locale;
 public class PreferencesManager {
 
     public static final int FEED_IMAGE_LARGE = 1;
+    public static final int FEED_IMAGE_LARGE_FULLSCREEN = 2;
     public static final int FEED_IMAGE_SMALL = 3;
-    public static final int ARTICLE_IMAGE = 2;
+    public static final int ARTICLE_IMAGE = 4;
 
     /**
      * Loads the saved themes. Required before each activity's setContentView()
@@ -336,16 +338,16 @@ public class PreferencesManager {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         final int columnCount = context.getResources().getInteger(R.integer.feed_columns);
 
-        float sideMargin = 20f;
-        if(columnCount>1){
-            sideMargin = 30f;
-        }
 
         int totalWidth = displayMetrics.widthPixels / columnCount;
         if (imageType == FEED_IMAGE_LARGE) {
-            int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sideMargin, displayMetrics);
-            return totalWidth - (excessValue * columnCount) - dpToPx(FeedFragment.CARDMARGIN_DP, context);
-        } else if (imageType == FEED_IMAGE_SMALL) {
+            return totalWidth - dpToPx(40 * columnCount, context);
+        }
+        if (imageType == FEED_IMAGE_LARGE_FULLSCREEN) {
+            // Works with 2 columns
+            return totalWidth - dpToPx(20 * columnCount, context);
+        }
+        else if (imageType == FEED_IMAGE_SMALL) {
             return dpToPx(100, context);
         } else if (imageType == ARTICLE_IMAGE) {
             int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
