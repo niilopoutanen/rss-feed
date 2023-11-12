@@ -17,17 +17,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss_feed.adapters.NewFeedAdapter;
+import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.Parser;
 import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
-import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.models.Source;
@@ -50,7 +48,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     Feed feed;
     String viewTitle;
     RecyclerView recyclerView;
-    NewFeedAdapter adapter;
+    FeedAdapter adapter;
     Context appContext;
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
@@ -219,7 +217,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (viewTitle.length() > 20) {
             viewTitle = viewTitle.substring(0, 20) + "...";
         }
-        adapter = new NewFeedAdapter(feed, appContext, preferences, this);
+        adapter = new FeedAdapter(feed, appContext, preferences, this);
         recyclerView.setAdapter(adapter);
         
         final int columns = getResources().getInteger(R.integer.feed_columns);
@@ -240,7 +238,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         super.onConfigurationChanged(newConfig);
         FeedAdapter adapter = (FeedAdapter) recyclerView.getAdapter();
         if (adapter != null) {
-            adapter.setImageWidth(appContext);
             adapter.notifyDataSetChanged();
         }
 
