@@ -60,8 +60,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
     public static FeedCard create(ViewGroup parent, Preferences preferences, RecyclerViewInterface recyclerViewInterface) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        int margin = PreferencesManager.dpToPx(FeedFragment.CARDMARGIN_DP, context);
-        int gap = PreferencesManager.dpToPx(FeedFragment.CARDGAP_DP, context);
+
         View view;
 
         switch (preferences.s_feedcardstyle){
@@ -79,14 +78,14 @@ public class FeedCard extends RecyclerView.ViewHolder{
                 break;
         }
 
-        setViewMargins(view, 0, 0, 0, gap);
+        setCardSpacing(view, context);
         return new FeedCard(view, preferences, context, recyclerViewInterface);
     }
 
     public void bindData(Item item){
         title.setText(item.getTitle());
         desc.setText(item.getDescription());
-        date.setText(item.getPubDate().toString());
+        date.setText(PreferencesManager.formatDate(item.getPubDate(), preferences.s_feedcard_datestyle, context));
         author.setText(item.getAuthor());
 
         setPreferences();
@@ -138,7 +137,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                           LinearLayout.LayoutParams.MATCH_PARENT,
                           ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, 0, PreferencesManager.dpToPx(10, context));
+                layoutParams.setMargins(0, 0, 0, PreferencesManager.dpToPx(5, context));
                 image.setLayoutParams(layoutParams);
             }
 
@@ -182,9 +181,20 @@ public class FeedCard extends RecyclerView.ViewHolder{
                 return  0;
         }
     }
-    private static void setViewMargins(View view, int left, int top, int right, int bottom) {
+    private static void setCardSpacing(View view, Context context) {
+        int margin = PreferencesManager.dpToPx(10, context);
+        int gap = PreferencesManager.dpToPx(FeedFragment.CARDGAP_DP, context);
+
+        boolean hasSideGap = context.getResources().getInteger(R.integer.feed_columns) > 1;
+
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        layoutParams.setMargins(left, top, right, bottom);
+        if(!hasSideGap){
+            layoutParams.setMargins(0, 0, 0, gap);
+        }
+        else {
+            layoutParams.setMargins(0, 0, margin, margin);
+        }
+
         view.setLayoutParams(layoutParams);
     }
 }

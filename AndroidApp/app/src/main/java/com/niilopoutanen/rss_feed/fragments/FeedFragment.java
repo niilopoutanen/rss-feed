@@ -190,25 +190,20 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
 
     private void showError(int errorCode, Source errorCause) {
-        boolean sourceAlertHidden = PreferencesManager.loadPreferences(appContext).s_hide_sourcealert;
-
         switch (errorCode) {
             case HttpURLConnection.HTTP_NOT_FOUND:
                 adapter.addNotification(appContext.getString(R.string.invalidfeed), appContext.getString(R.string.invalidfeedmsg));
                 break;
-
             case 429:
                 adapter.addNotification(appContext.getString(R.string.error_toomanyrequests), appContext.getString(R.string.toomanyrequestsmsg));
                 break;
             case 0:
                 adapter.addNotification(appContext.getString(R.string.nosources), appContext.getString(R.string.nosourcesmsg));
                 break;
-
             case 1:
                 adapter.addNotification(appContext.getString(R.string.nointernet), appContext.getString(R.string.nointernetmsg));
                 break;
         }
-
     }
 
     @Override
@@ -224,23 +219,11 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (viewTitle.length() > 20) {
             viewTitle = viewTitle.substring(0, 20) + "...";
         }
-        Feed feedTemp = new Feed();
-        feedTemp.setItems(items);
-        adapter = new NewFeedAdapter(feedTemp, appContext, preferences, this);
+        adapter = new NewFeedAdapter(feed, appContext, preferences, this);
         recyclerView.setAdapter(adapter);
+        
         final int columns = getResources().getInteger(R.integer.feed_columns);
         GridLayoutManager manager = new GridLayoutManager(rootView.getContext(), columns);
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if(position == 0) {
-                    return columns;
-                }
-                else{
-                    return 1;
-                }
-            }
-        });
         recyclerView.setLayoutManager(manager);
 
         recyclerviewRefresh = rootView.findViewById(R.id.recyclerview_refresher);

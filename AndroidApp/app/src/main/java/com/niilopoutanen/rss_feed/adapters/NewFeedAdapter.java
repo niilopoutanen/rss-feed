@@ -23,7 +23,6 @@ import java.util.Map;
 
 public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final int TYPE_ITEM = 1;
     private final int TYPE_NOTICE = 2;
     private Feed feed;
     private final Map<String, String> notices = new HashMap<>();
@@ -91,7 +90,6 @@ public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             TextView textDesc = (TextView)container.getChildAt(1);
             textDesc.setText(entry.getValue());
         }
-
     }
 
     @Override
@@ -100,7 +98,7 @@ public class NewFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return TYPE_NOTICE;
         }
         else {
-            return TYPE_ITEM;
+            return 1;
         }
     }
     @Override
