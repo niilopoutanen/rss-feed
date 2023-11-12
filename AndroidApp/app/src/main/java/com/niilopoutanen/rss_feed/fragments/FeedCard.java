@@ -69,7 +69,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
                 break;
         }
 
-        setViewMargins(view, margin, 0, margin, gap);
+        setViewMargins(view, 0, 0, 0, gap);
         return new FeedCard(view, preferences, context);
     }
 
