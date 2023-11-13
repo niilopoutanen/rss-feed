@@ -1,7 +1,9 @@
 package com.niilopoutanen.rss_feed.activities;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,16 +16,20 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.fragments.ArticleView;
+import com.niilopoutanen.rss_feed.models.MaskTransformation;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.RSSException;
@@ -31,6 +37,7 @@ import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.squareup.picasso.Picasso;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
@@ -49,6 +56,7 @@ import java.util.concurrent.Executors;
 public class ArticleActivity extends AppCompatActivity {
     private ProgressBar articleLoader;
     private Item post;
+    private Source source;
     private ArticleView articleView;
     private String resultData;
     private Preferences preferences;
@@ -66,6 +74,7 @@ public class ArticleActivity extends AppCompatActivity {
 
         preferences = (Preferences) extras.get("preferences");
         post  = (Item)extras.get("item");
+        source = (Source)extras.get("source");
 
         if (savedInstanceState != null) {
             resultData = savedInstanceState.getString("content");
@@ -214,9 +223,51 @@ public class ArticleActivity extends AppCompatActivity {
             }
         });
         articleView.loadDocument(document);
+
+        Elements titles = document.select("h1, h2, h3, h4, h5, h6");
+        for(int i = 0; i < titles.size(); i++){
+            titles.get(i).attr("id", "rssfeed_summary_id_" + i);
+        }
+        initSummary(titles);
     }
 
 
+    private void initSummary(Elements titles){
+        Configuration configuration = getResources().getConfiguration();
+        boolean isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE;
+        boolean isMinWidth600dp = configuration.smallestScreenWidthDp >= 600;
+
+        if(!isLandscape || !isMinWidth600dp){
+            return;
+        }
+
+        LinearLayout container = findViewById(R.id.article_summary);
+
+        TextView summaryTitle = findViewById(R.id.article_summary_title);
+        ImageView summaryIcon = findViewById(R.id.article_summary_icon);
+
+        if(source != null){
+            summaryTitle.setText(source.getName());
+            Picasso.get()
+                      .load(source.getImageUrl())
+                      .transform(new MaskTransformation(this, R.drawable.image_rounded))
+                      .into(summaryIcon);
+        }
+
+
+
+        for(Element title : titles){
+            TextView textView =  new TextView(this);
+            textView.setText(title.text());
+            ViewGroup.MarginLayoutParams margin = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            margin.setMargins(0,0,0, PreferencesManager.dpToPx(10, this));
+            textView.setLayoutParams(margin);
+            textView.setTypeface(ResourcesCompat.getFont(this, R.font.inter_semibold));
+            textView.setOnClickListener(v -> articleView.scrollTo(title.id()));
+            container.addView(textView);
+
+        }
+    }
     /**
      * Opens a WebView sheet
      *

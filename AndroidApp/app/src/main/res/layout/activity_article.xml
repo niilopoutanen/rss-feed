@@ -3,13 +3,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.niilopoutanen.rss_feed.activities.ArticleActivity">
 
 
-    <FrameLayout
-        android:id="@+id/article_webview_container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:id="@+id/article_return"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="12dp"
+                    android:layout_height="21dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goback"
+                    android:textColor="?attr/colorAccent" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/article_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:maxLength="20"
+                android:textColor="@color/textSecondary"
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_semibold" />
+
+            <TextView
+                android:id="@+id/article_publishtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:maxLength="14"
+                android:textColor="@color/textSecondary"
+                app:fontFamily="@font/inter_semibold" />
+        </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/article_webview_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:id="@+id/article_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+            <LinearLayout
+                android:id="@+id/article_viewinbrowser"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/element_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/icon_popup"
+                    android:backgroundTint="?attr/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_in_browser"
+                    android:textColor="@color/textPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/article_share"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/element_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/icon_share"
+                    android:backgroundTint="?attr/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    android:textColor="@color/textPrimary" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/article_load"

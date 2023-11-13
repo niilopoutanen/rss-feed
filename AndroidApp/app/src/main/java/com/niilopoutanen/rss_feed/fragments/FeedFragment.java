@@ -37,7 +37,10 @@ import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -48,6 +51,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
     List<Item> items = new ArrayList<>();
+    Map<Item, UUID> postMap = new HashMap<>();
     String viewTitle;
     RecyclerView recyclerView;
     FeedAdapter adapter;
@@ -103,6 +107,13 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
         articleIntent.putExtra("preferences", preferences);
         articleIntent.putExtra("item", items.get(position));
+
+        sources.stream()
+                  .filter(s -> s.getId().equals(postMap.get(items.get(position))))
+                  .findFirst()
+                  .ifPresent(source -> articleIntent.putExtra("source", source));
+
+
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
         appContext.startActivity(articleIntent);
     }
@@ -158,6 +169,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 try {
                     loadedItems.addAll(parser.load(source.getFeedUrl()).getItems());
 
+                    for(Item item : loadedItems){
+                        postMap.put(item, source.getId());
+                    }
                     Activity activity = getActivity();
                     if(activity != null && isAdded()){
                         requireActivity().runOnUiThread(() -> Collections.sort(loadedItems));

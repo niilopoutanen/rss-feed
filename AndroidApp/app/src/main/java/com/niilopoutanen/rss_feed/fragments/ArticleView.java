@@ -19,7 +19,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ArticleView extends WebView {
-    Context context;
+    private final Context context;
+    private Document document;
     public ArticleView(@NonNull Context context) {
         super(context);
         this.context = context;
@@ -32,6 +33,7 @@ public class ArticleView extends WebView {
         addJavascriptInterface(this, "Android");
     }
     public void loadDocument(Document document){
+        this.document = document;
         Elements images = document.select("img");
         for(Element image: images){
             image.attr("onclick", "Android.onImageClick(this.src)");
@@ -40,6 +42,18 @@ public class ArticleView extends WebView {
         super.loadData( document.toString(), "text/html", "utf-8");
     }
 
+    public void scrollTo(String id){
+        if(document == null){
+            return;
+        }
+        Elements withTag = document.select("#" + id);
+        if(!withTag.isEmpty()){
+            Element el = withTag.first();
+            loadUrl("javascript:document.getElementById('"+ id +"').scrollIntoView()");
+        }
+
+
+    }
     @JavascriptInterface
     public void onImageClick(String imageUrl) {
         Intent imageIntent = new Intent(context, ImageViewActivity.class);
