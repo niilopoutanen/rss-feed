@@ -14,30 +14,33 @@ import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rssparser.Feed;
+import com.niilopoutanen.rssparser.Item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_NOTICE = 2;
-    private Feed feed;
+    private List<Item> items;
     private final Map<String, String> notices = new HashMap<>();
     private final Context context;
     private final Preferences preferences;
     private final RecyclerViewInterface recyclerViewInterface;
-    public FeedAdapter(Feed feed, Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
-        this.feed = feed;
+    public FeedAdapter(List<Item> items, Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
+        this.items = items;
         this.context = context;
         this.preferences = preferences;
         this.recyclerViewInterface = recyclerViewInterface;
     }
-    public void update(Feed feed){
-        this.feed = feed;
+    public void update(){
         notifyDataSetChanged();
     }
+
     public void addNotification(String text, String desc){
-        feed = null;
+        items.clear();
         notices.clear();
         notices.put(text, desc);
         notifyDataSetChanged();
@@ -73,7 +76,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof FeedCard){
-            ((FeedCard)holder).bindData(feed.getItemAt(position));
+            ((FeedCard)holder).bindData(items.get(position));
         }
         else{
             LinearLayout container = (LinearLayout) holder.itemView;
@@ -90,7 +93,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (notices.size() > 0 && feed == null){
+        if (notices.size() > 0 && items == null){
             return TYPE_NOTICE;
         }
         else {
@@ -102,9 +105,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (notices.size() > 0) {
             return notices.size();
         }
-        else if(feed == null){
+        else if(items == null){
             return 0;
         }
-        return feed.getItemCount();
+        return items.size();
     }
 }

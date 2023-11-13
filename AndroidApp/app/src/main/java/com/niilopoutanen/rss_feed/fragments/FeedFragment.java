@@ -14,6 +14,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -45,7 +46,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
     List<Item> items = new ArrayList<>();
-    Feed feed;
     String viewTitle;
     RecyclerView recyclerView;
     FeedAdapter adapter;
@@ -95,12 +95,12 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         // Index out of bounds catch
-        if (position >= feed.getItemCount()) {
+        if (position >= items.size()) {
             return;
         }
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
         articleIntent.putExtra("preferences", preferences);
-        articleIntent.putExtra("item", feed.getItemAt(position));
+        articleIntent.putExtra("item", items.get(position));
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
         appContext.startActivity(articleIntent);
     }
@@ -135,22 +135,22 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private void updateFeed() {
+        List<Item> loadedItems = new ArrayList<>();
         if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
-            adapter.update(feed);
+            adapter.update();
             return;
         }
         //if all sources are hidden, show the title
         if (sources.stream().noneMatch(Source::isVisibleInFeed)) {
             if (!singleView) {
                 recyclerviewRefresh.setRefreshing(false);
-                adapter.update(feed);
+                adapter.update();
             }
 
         }
 
         recyclerviewRefresh.setRefreshing(true);
-        items.clear();
 
         // Create a new Executor for running the feed updates on a background thread
         executor = Executors.newSingleThreadExecutor();
@@ -163,10 +163,10 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 }
                 Parser parser = new Parser();
                 try {
-                    feed = parser.load(source.getFeedUrl());
+                    loadedItems.addAll(parser.load(source.getFeedUrl()).getItems());
 
                     if (isAdded()) {
-                        requireActivity().runOnUiThread(() -> Collections.sort(items));
+                        requireActivity().runOnUiThread(() -> Collections.sort(loadedItems));
                     }
                 } catch (RSSException e) {
                     requireActivity().runOnUiThread(() -> showError(e.getErrorType(), source));
@@ -176,7 +176,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             }
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
-                    adapter.update(feed);
+                    items.clear();
+                    items.addAll(loadedItems);
+                    adapter.update();
                     recyclerView.scheduleLayoutAnimation();
                     recyclerviewRefresh.setRefreshing(false);
                 });
@@ -217,7 +219,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (viewTitle.length() > 20) {
             viewTitle = viewTitle.substring(0, 20) + "...";
         }
-        adapter = new FeedAdapter(feed, appContext, preferences, this);
+        adapter = new FeedAdapter(items, appContext, preferences, this);
         recyclerView.setAdapter(adapter);
         
         final int columns = getResources().getInteger(R.integer.feed_columns);

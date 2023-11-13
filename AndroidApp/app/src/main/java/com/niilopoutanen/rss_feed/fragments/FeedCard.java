@@ -51,7 +51,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
 
         itemView.setOnClickListener(v -> {
             if (recyclerViewInterface != null) {
-                int position = getAdapterPosition();
+                final int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     recyclerViewInterface.onItemClick(position);
                 }
@@ -96,6 +96,10 @@ public class FeedCard extends RecyclerView.ViewHolder{
     }
 
     private void setPreferences(){
+        if(preferences == null){
+            return;
+        }
+        
         if (!preferences.s_feedcard_authorvisible || !preferences.s_feedcard_datevisible) {
             desc.setMaxLines(3);
         }
