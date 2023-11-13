@@ -142,6 +142,13 @@ public class ArticleActivity extends AppCompatActivity {
                             "        margin: 0;\n" +
                             "        padding: 0;\n" +
                             "    }\n" +
+                            "    th, td{\n" +
+                            "        border: 2px solid '$TEXTSECONDARY';\n" +
+                            "    }\n" +
+                            "    table{\n" +
+                            "        border-collapse: collapse;\n" +
+                            "    }\n" +
+                            "    " +
                             "\n" +
                             "    blockquote {\n" +
                             "        margin: 0; \n" +
@@ -164,9 +171,11 @@ public class ArticleActivity extends AppCompatActivity {
         String accentColor = formatColor(PreferencesManager.getAccentColor(this));
         String backgroundColor = formatColor(this.getColor(R.color.windowBg));
         String textColor = formatColor(this.getColor(R.color.textPrimary));
+        String textSecondary = formatColor(this.getColor(R.color.textSecondary));
 
         css = css.replace("'$ACCENTCOLOR'", accentColor);
         css = css.replace("'$TEXTCOLOR'", textColor);
+        css = css.replace("'$TEXTSECONDARY'", textSecondary);
         css = css.replace("'$BACKGROUNDCOLOR'", backgroundColor);
 
         return css;
