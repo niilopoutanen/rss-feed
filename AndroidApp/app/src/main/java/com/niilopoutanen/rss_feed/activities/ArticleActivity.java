@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.activities;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -50,53 +51,7 @@ public class ArticleActivity extends AppCompatActivity {
     private String resultData;
     private Preferences preferences;
 
-    private final String articleCSS =
-              "<style>\n" +
-                        "    html,\n" +
-                        "    body {\n" +
-                        "        width: 100%;\n" +
-                        "        min-width: fit-content;\n" +
-                        "        margin: 0;\n" +
-                        "        box-sizing: border-box;\n" +
-                        "    }\n" +
-                        "\n" +
-                        "    body {\n" +
-                        "        padding: 10px;\n" +
-                        "    }\n" +
-                        "    \n" +
-                        "    a{\n" +
-                        "        color: rgb(31, 143, 255);\n" +
-                        "        text-decoration: none;\n" +
-                        "        font-weight: 600;\n" +
-                        "    }\n" +
-                        "    img {\n" +
-                        "        max-width: 100%;\n" +
-                        "        height: auto;\n" +
-                        "        border-radius: 10px;\n" +
-                        "    }\n" +
-                        "\n" +
-                        "    figure {\n" +
-                        "        margin: 0;\n" +
-                        "        padding: 0;\n" +
-                        "    }\n" +
-                        "\n" +
-                        "    blockquote {\n" +
-                        "        margin: 0; \n" +
-                        "        padding-left: 15px;        \n" +
-                        "        position: relative;\n" +
-                        "    }\n" +
-                        "\n" +
-                        "    blockquote::before {\n" +
-                        "      content: \"\";\n" +
-                        "      position: absolute;\n" +
-                        "      left: 0;\n" +
-                        "      top: 0;\n" +
-                        "      width: 5px;\n" +
-                        "      height: 100%;\n" +
-                        "      background-color: rgb(31, 143, 255);\n" +
-                        "      border-radius: 10px;\n" +
-                        "    }\n" +
-                        "</style>";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,13 +113,74 @@ public class ArticleActivity extends AppCompatActivity {
 
     }
 
+    private String getCSS(){
+        String css =
+                  "<style>\n" +
+                            "    html,\n" +
+                            "    body {\n" +
+                            "        width: 100%;\n" +
+                            "        min-width: fit-content;\n" +
+                            "        margin: 0;\n" +
+                            "        box-sizing: border-box;\n" +
+                            "    }\n" +
+                            "\n" +
+                            "    body {\n" +
+                            "        padding: 10px;\n" +
+                            "    }\n" +
+                            "    \n" +
+                            "    a{\n" +
+                            "        color: rgb(1, 2, 3);\n" +
+                            "        text-decoration: none;\n" +
+                            "        font-weight: 600;\n" +
+                            "    }\n" +
+                            "    img {\n" +
+                            "        max-width: 100%;\n" +
+                            "        height: auto;\n" +
+                            "        border-radius: 10px;\n" +
+                            "    }\n" +
+                            "\n" +
+                            "    figure {\n" +
+                            "        margin: 0;\n" +
+                            "        padding: 0;\n" +
+                            "    }\n" +
+                            "\n" +
+                            "    blockquote {\n" +
+                            "        margin: 0; \n" +
+                            "        padding-left: 15px;        \n" +
+                            "        position: relative;\n" +
+                            "    }\n" +
+                            "\n" +
+                            "    blockquote::before {\n" +
+                            "      content: \"\";\n" +
+                            "      position: absolute;\n" +
+                            "      left: 0;\n" +
+                            "      top: 0;\n" +
+                            "      width: 5px;\n" +
+                            "      height: 100%;\n" +
+                            "      background-color: rgb(1, 2, 3);\n" +
+                            "      border-radius: 10px;\n" +
+                            "    }\n" +
+                            "</style>";
+
+        String accentColor = formatColor(this.getColor(R.color.accentBlue));
+        css = css.replace("rgb(1, 2, 3)", accentColor);
+        return css;
+    }
+
+    private String formatColor(int colorID){
+        int red = (colorID >> 16) & 0xFF;
+        int green = (colorID >> 8) & 0xFF;
+        int blue = colorID & 0xFF;
+
+        return String.format("rgb(%d, %d, %d)", red, green, blue);
+    }
     private void initWebView(String html){
         articleView = new ArticleView(this);
         ((FrameLayout)findViewById(R.id.article_webview_container)).addView(articleView);
 
         Document document = Jsoup.parse(html);
         Element head = document.head();
-        head.append(articleCSS);
+        head.append(getCSS());
 
         Elements h1Elements = document.select("h1");
         if(h1Elements.isEmpty()){
