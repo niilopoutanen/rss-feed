@@ -87,7 +87,7 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            readabilityProcessor(post.getGuid(), new Callback<String>() {
+            readabilityProcessor(post.getLink(), new Callback<String>() {
                 @Override
                 public void onResult(String result) {
                     articleLoader.setVisibility(View.GONE);
@@ -119,7 +119,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeContent(String result) {
-        adapter = new ArticleAdapter(views, preferences, this, post.getGuid(), post.getPubDate(), post.getAuthor());
+        adapter = new ArticleAdapter(views, preferences, this, post.getLink(), post.getPubDate(), post.getAuthor());
         articleContainer.setAdapter(adapter);
         articleContainer.setLayoutManager(new LinearLayoutManager(this));
 
