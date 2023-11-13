@@ -52,25 +52,51 @@ public class ArticleActivity extends AppCompatActivity {
 
     private final String articleCSS =
               "<style>\n" +
-              "    html, body{\n" +
-              "        width: 100%;\n" +
-              "        min-width: fit-content;\n" +
-              "        margin: 0;\n" +
-              "        box-sizing: border-box;\n" +
-              "    }\n" +
-              "    body{\n" +
-              "        padding: 10px;\n" +
-              "    }\n" +
-              "    img{\n" +
-              "        max-width: 100%;\n" +
-              "        height: auto;\n" +
-              "        border-radius: 10px;\n" +
-              "    }\n" +
-              "    figure{\n" +
-              "        margin: 0;\n" +
-              "        padding: 0;\n" +
-              "    }\n" +
-              "</style>";
+                        "    html,\n" +
+                        "    body {\n" +
+                        "        width: 100%;\n" +
+                        "        min-width: fit-content;\n" +
+                        "        margin: 0;\n" +
+                        "        box-sizing: border-box;\n" +
+                        "    }\n" +
+                        "\n" +
+                        "    body {\n" +
+                        "        padding: 10px;\n" +
+                        "    }\n" +
+                        "    \n" +
+                        "    a{\n" +
+                        "        color: rgb(31, 143, 255);\n" +
+                        "        text-decoration: none;\n" +
+                        "        font-weight: 600;\n" +
+                        "    }\n" +
+                        "    img {\n" +
+                        "        max-width: 100%;\n" +
+                        "        height: auto;\n" +
+                        "        border-radius: 10px;\n" +
+                        "    }\n" +
+                        "\n" +
+                        "    figure {\n" +
+                        "        margin: 0;\n" +
+                        "        padding: 0;\n" +
+                        "    }\n" +
+                        "\n" +
+                        "    blockquote {\n" +
+                        "        margin: 0; \n" +
+                        "        padding-left: 15px;        \n" +
+                        "        position: relative;\n" +
+                        "    }\n" +
+                        "\n" +
+                        "    blockquote::before {\n" +
+                        "      content: \"\";\n" +
+                        "      position: absolute;\n" +
+                        "      left: 0;\n" +
+                        "      top: 0;\n" +
+                        "      width: 5px;\n" +
+                        "      height: 100%;\n" +
+                        "      background-color: rgb(31, 143, 255);\n" +
+                        "      border-radius: 10px;\n" +
+                        "    }\n" +
+                        "</style>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
