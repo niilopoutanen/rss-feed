@@ -12,6 +12,7 @@
         android:background="@color/transparent">
 
         <TextView
+            android:id="@+id/feed_header"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

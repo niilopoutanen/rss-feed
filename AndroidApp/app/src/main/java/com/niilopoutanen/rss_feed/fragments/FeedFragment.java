@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -219,6 +220,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (viewTitle.length() > 20) {
             viewTitle = viewTitle.substring(0, 20) + "...";
         }
+        TextView toolBarTitle = rootView.findViewById(R.id.feed_header);
+        toolBarTitle.setText(viewTitle);
+
         adapter = new FeedAdapter(items, appContext, preferences, this);
         recyclerView.setAdapter(adapter);
         
