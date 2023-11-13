@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     tools:context="com.niilopoutanen.rss_feed.activities.ArticleActivity">
 
-    <WebView
-        android:id="@+id/article_webview"
+
+    <FrameLayout
+        android:id="@+id/article_webview_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

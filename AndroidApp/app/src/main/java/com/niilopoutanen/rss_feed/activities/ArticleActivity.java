@@ -1,41 +1,32 @@
 package com.niilopoutanen.rss_feed.activities;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.TextUtils;
-import android.text.style.ImageSpan;
-import android.text.style.QuoteSpan;
-import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.text.HtmlCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.niilopoutanen.rss_feed.fragments.ArticleView;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
-import com.niilopoutanen.rss_feed.models.ArticleQuoteSpan;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
@@ -46,22 +37,40 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Text;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
     private ProgressBar articleLoader;
     private Item post;
-    private WebView webView;
+    private ArticleView articleView;
     private String resultData;
     private Preferences preferences;
+
+    private final String articleCSS =
+              "<style>\n" +
+              "    html, body{\n" +
+              "        width: 100%;\n" +
+              "        min-width: fit-content;\n" +
+              "        margin: 0;\n" +
+              "        box-sizing: border-box;\n" +
+              "    }\n" +
+              "    body{\n" +
+              "        padding: 10px;\n" +
+              "    }\n" +
+              "    img{\n" +
+              "        max-width: 100%;\n" +
+              "        height: auto;\n" +
+              "        border-radius: 10px;\n" +
+              "    }\n" +
+              "    figure{\n" +
+              "        margin: 0;\n" +
+              "        padding: 0;\n" +
+              "    }\n" +
+              "</style>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +92,6 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article);
 
         articleLoader = findViewById(R.id.article_load);
-        webView = findViewById(R.id.article_webview);
 
         initializeBase();
 
@@ -125,22 +133,27 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initWebView(String html){
+        articleView = new ArticleView(this);
+        ((FrameLayout)findViewById(R.id.article_webview_container)).addView(articleView);
+
         Document document = Jsoup.parse(html);
         Element head = document.head();
-        head.append("<style> img { display: block; max-width: 100%; height: auto; } </style>");
+        head.append(articleCSS);
 
         Elements h1Elements = document.select("h1");
         if(h1Elements.isEmpty()){
             Element title = new Element("h1").text(post.getTitle());
             document.body().prependChild(title);
         }
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String weburl){
-                runOnUiThread(() -> articleLoader.setVisibility(View.GONE));
+        articleView.setWebViewClient(new WebViewClient() {
+
+            @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                return super.shouldOverrideUrlLoading(view, request);
             }
         });
-        webView.loadData(document.toString(), "text/html", "utf-8");
+        WebView.setWebContentsDebuggingEnabled(true);
+        articleView.loadDocument(document);
     }
 
 
