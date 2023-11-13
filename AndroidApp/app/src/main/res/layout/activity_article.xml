@@ -5,14 +5,10 @@
     android:layout_height="match_parent"
     tools:context="com.niilopoutanen.rss_feed.activities.ArticleActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/article_recyclerview"
+    <WebView
+        android:id="@+id/article_webview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:padding="10dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"/>
 
     <ProgressBar
         android:id="@+id/article_load"

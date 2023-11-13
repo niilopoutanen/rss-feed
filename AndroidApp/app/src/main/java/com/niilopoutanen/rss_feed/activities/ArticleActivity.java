@@ -42,6 +42,10 @@ import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Text;
 
 import java.net.HttpURLConnection;
@@ -53,11 +57,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
-    final List<ArticleAdapter.ArticleItem> views = new ArrayList<>();
-    ArticleAdapter adapter;
-    private RecyclerView articleContainer;
     private ProgressBar articleLoader;
     private Item post;
+    private WebView webView;
     private String resultData;
     private Preferences preferences;
 
@@ -81,8 +83,7 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article);
 
         articleLoader = findViewById(R.id.article_load);
-        articleContainer = findViewById(R.id.article_recyclerview);
-
+        webView = findViewById(R.id.article_webview);
 
         initializeBase();
 
@@ -119,104 +120,29 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeContent(String result) {
-        adapter = new ArticleAdapter(views, preferences, this, post.getLink(), post.getPubDate(), post.getAuthor());
-        articleContainer.setAdapter(adapter);
-        articleContainer.setLayoutManager(new LinearLayoutManager(this));
+        initWebView(result);
 
-        parseSpanned(HtmlCompat.fromHtml(result, HtmlCompat.FROM_HTML_MODE_LEGACY));
-        articleLoader.setVisibility(View.GONE);
     }
 
-    private void parseSpanned(Spanned spanned) {
-        views.add(new ArticleAdapter.TitleItem(post.getTitle()));
-        SpannableStringBuilder builder = new SpannableStringBuilder(spanned);
-        ImageSpan[] imageSpans = builder.getSpans(0, builder.length(), ImageSpan.class);
+    private void initWebView(String html){
+        Document document = Jsoup.parse(html);
+        Element head = document.head();
+        head.append("<style> img { display: block; max-width: 100%; height: auto; } </style>");
 
-        if (imageSpans.length == 0) {
-            createTextView(spanned);
-            return;
+        Elements h1Elements = document.select("h1");
+        if(h1Elements.isEmpty()){
+            Element title = new Element("h1").text(post.getTitle());
+            document.body().prependChild(title);
         }
-
-        int lastEnd = 0;
-        for (ImageSpan imageSpan : imageSpans) {
-            int start = builder.getSpanStart(imageSpan);
-            int end = builder.getSpanEnd(imageSpan);
-
-            createTextView((Spanned) builder.subSequence(lastEnd, start));
-            createImageView(imageSpan);
-
-            lastEnd = end;
-        }
-
-        // Handle remaining text after last image
-        if (lastEnd < builder.length()) {
-            createTextView((Spanned) builder.subSequence(lastEnd, builder.length()));
-        }
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String weburl){
+                runOnUiThread(() -> articleLoader.setVisibility(View.GONE));
+            }
+        });
+        webView.loadData(document.toString(), "text/html", "utf-8");
     }
 
-    /**
-     * Adds a image to article recyclerview
-     */
-    private void createImageView(ImageSpan span) {
-        int itemIndex = views.size();
-        views.add(itemIndex, new ArticleAdapter.ImageItem(span.getSource()));
-        adapter.notifyItemInserted(itemIndex);
-    }
-
-    /**
-     * Adds a textview to article recyclerview
-     */
-    private void createTextView(Spanned text) {
-        if (text.length() > 0 && !TextUtils.isEmpty(text) && !text.toString().matches("\\A\\s*\\z")) {
-            //remove excess line breaks from start and end
-            int startIndex = 0;
-            int endIndex = text.length();
-
-            while (startIndex < text.length() && Character.isWhitespace(text.charAt(startIndex))) {
-                startIndex++;
-            }
-            while (endIndex > 0 && Character.isWhitespace(text.charAt(endIndex - 1))) {
-                endIndex--;
-            }
-
-            text = (Spanned) text.subSequence(startIndex, endIndex);
-
-            SpannableString spannableString = new SpannableString(text);
-
-            // Find all QuoteSpans and replace them with CustomQuoteSpan
-            QuoteSpan[] quoteSpans = spannableString.getSpans(0, text.length(), QuoteSpan.class);
-            for (QuoteSpan quoteSpan : quoteSpans) {
-                int spanStart = spannableString.getSpanStart(quoteSpan);
-                int spanEnd = spannableString.getSpanEnd(quoteSpan);
-                int flags = spannableString.getSpanFlags(quoteSpan);
-                spannableString.removeSpan(quoteSpan);
-                spannableString.setSpan(new ArticleQuoteSpan(this), spanStart, spanEnd, flags);
-            }
-            if (!preferences.s_articlesinbrowser) {
-                URLSpan[] linkSpans = spannableString.getSpans(0, text.length(), URLSpan.class);
-                for (URLSpan linkSpan : linkSpans) {
-                    int start = spannableString.getSpanStart(linkSpan);
-                    int end = spannableString.getSpanEnd(linkSpan);
-                    int flags = spannableString.getSpanFlags(linkSpan);
-                    final String url = linkSpan.getURL();
-                    final String linkText = spannableString.subSequence(start, end).toString();
-                    URLSpan newSpan = new URLSpan(url) {
-                        @Override
-                        public void onClick(View widget) {
-                            openWebView(url, linkText);
-                        }
-                    };
-
-                    spannableString.removeSpan(linkSpan);
-                    spannableString.setSpan(newSpan, start, end, flags);
-                }
-            }
-
-            int itemIndex = views.size();
-            views.add(new ArticleAdapter.SpannedItem(spannableString));
-            adapter.notifyItemInserted(itemIndex);
-        }
-    }
 
     /**
      * Opens a WebView sheet
