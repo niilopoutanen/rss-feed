@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.activities;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -41,6 +42,7 @@ import org.jsoup.select.Elements;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -80,22 +82,21 @@ public class ArticleActivity extends AppCompatActivity {
             readabilityProcessor(post.getLink(), new Callback<String>() {
                 @Override
                 public void onResult(String result) {
-                    articleLoader.setVisibility(View.GONE);
                     resultData = result;
-                    initializeContent(result);
+                    initWebView(result);
                 }
 
                 @Override
                 public void onError(RSSException e) {
                     if (e.getErrorType() == HttpURLConnection.HTTP_NOT_FOUND) {
-                        initializeContent(getString(R.string.error_url));
+                        initWebView(getString(R.string.error_url));
                     } else if (e.getErrorType() == HttpURLConnection.HTTP_CLIENT_TIMEOUT) {
-                        initializeContent(getString(R.string.error_host));
+                        initWebView(getString(R.string.error_host));
                     }
                 }
             });
         } else {
-            initializeContent(resultData);
+            initWebView(resultData);
         }
     }
 
@@ -108,10 +109,6 @@ public class ArticleActivity extends AppCompatActivity {
         }
     }
 
-    private void initializeContent(String result) {
-        initWebView(result);
-
-    }
 
     private String getCSS(){
         String css =
@@ -122,6 +119,8 @@ public class ArticleActivity extends AppCompatActivity {
                             "        min-width: fit-content;\n" +
                             "        margin: 0;\n" +
                             "        box-sizing: border-box;\n" +
+                            "        color: '$TEXTCOLOR';\n" +
+                            "        background-color: '$BACKGROUNDCOLOR';\n" +
                             "    }\n" +
                             "\n" +
                             "    body {\n" +
@@ -129,7 +128,7 @@ public class ArticleActivity extends AppCompatActivity {
                             "    }\n" +
                             "    \n" +
                             "    a{\n" +
-                            "        color: rgb(1, 2, 3);\n" +
+                            "        color: '$ACCENTCOLOR';\n" +
                             "        text-decoration: none;\n" +
                             "        font-weight: 600;\n" +
                             "    }\n" +
@@ -157,13 +156,19 @@ public class ArticleActivity extends AppCompatActivity {
                             "      top: 0;\n" +
                             "      width: 5px;\n" +
                             "      height: 100%;\n" +
-                            "      background-color: rgb(1, 2, 3);\n" +
+                            "      background-color: '$ACCENTCOLOR';\n" +
                             "      border-radius: 10px;\n" +
                             "    }\n" +
                             "</style>";
 
-        String accentColor = formatColor(this.getColor(R.color.accentBlue));
-        css = css.replace("rgb(1, 2, 3)", accentColor);
+        String accentColor = formatColor(PreferencesManager.getAccentColor(this));
+        String backgroundColor = formatColor(this.getColor(R.color.windowBg));
+        String textColor = formatColor(this.getColor(R.color.textPrimary));
+
+        css = css.replace("'$ACCENTCOLOR'", accentColor);
+        css = css.replace("'$TEXTCOLOR'", textColor);
+        css = css.replace("'$BACKGROUNDCOLOR'", backgroundColor);
+
         return css;
     }
 
@@ -172,7 +177,7 @@ public class ArticleActivity extends AppCompatActivity {
         int green = (colorID >> 8) & 0xFF;
         int blue = colorID & 0xFF;
 
-        return String.format("rgb(%d, %d, %d)", red, green, blue);
+        return String.format(Locale.US ,"rgb(%d, %d, %d)", red, green, blue);
     }
     private void initWebView(String html){
         articleView = new ArticleView(this);
@@ -189,11 +194,16 @@ public class ArticleActivity extends AppCompatActivity {
         }
         articleView.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                openWebView(request.getUrl().toString(), "");
+                runOnUiThread(() -> openWebView(request.getUrl().toString(), ""));
                 return true;
             }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                runOnUiThread(() -> articleLoader.setVisibility(View.GONE));
+            }
         });
-        WebView.setWebContentsDebuggingEnabled(true);
         articleView.loadDocument(document);
     }
 
