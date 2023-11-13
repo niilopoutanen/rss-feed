@@ -17,6 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/feed_header"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="@color/textPrimary"
             android:textSize="40sp"
             app:fontFamily="@font/inter_semibold"

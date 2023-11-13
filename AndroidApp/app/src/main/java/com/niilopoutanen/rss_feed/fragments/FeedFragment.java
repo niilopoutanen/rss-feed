@@ -217,9 +217,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         } else if (viewTitle == null) {
             viewTitle = "Feed";
         }
-        if (viewTitle.length() > 20) {
-            viewTitle = viewTitle.substring(0, 20) + "...";
-        }
         TextView toolBarTitle = rootView.findViewById(R.id.feed_header);
         toolBarTitle.setText(viewTitle);
 
