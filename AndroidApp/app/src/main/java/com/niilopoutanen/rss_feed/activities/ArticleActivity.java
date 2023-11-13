@@ -146,10 +146,9 @@ public class ArticleActivity extends AppCompatActivity {
             document.body().prependChild(title);
         }
         articleView.setWebViewClient(new WebViewClient() {
-
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                Uri url = request.getUrl();
-                return super.shouldOverrideUrlLoading(view, request);
+                openWebView(request.getUrl().toString(), "");
+                return true;
             }
         });
         WebView.setWebContentsDebuggingEnabled(true);
