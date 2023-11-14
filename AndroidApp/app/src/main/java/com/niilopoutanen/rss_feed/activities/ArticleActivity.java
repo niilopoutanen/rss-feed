@@ -5,11 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Picture;
+import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -20,8 +17,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -29,12 +24,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.fragments.ArticleView;
-import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Item;
@@ -43,7 +36,6 @@ import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.squareup.picasso.Picasso;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
@@ -55,7 +47,6 @@ import org.jsoup.select.Elements;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -178,6 +169,16 @@ public class ArticleActivity extends AppCompatActivity {
     private String getCSS(){
         String css =
                   "<style>\n" +
+                            "    @font-face {\n" +
+                            "        font-family: \"CustomFont\";\n" +
+                            "        src: url(\"'$FONTFACE'\");\n" +
+                            "        font-weight: normal;\n" +
+                            "    }\n" +
+                            "    @font-face {\n" +
+                            "        font-family: \"CustomFont\";\n" +
+                            "        src: url(\"'$BOLDFONTFACE'\");\n" +
+                            "        font-weight: bold;\n" +
+                            "    }\n" +
                             "    html,\n" +
                             "    body {\n" +
                             "        width: 100%;\n" +
@@ -186,6 +187,7 @@ public class ArticleActivity extends AppCompatActivity {
                             "        box-sizing: border-box;\n" +
                             "        color: '$TEXTCOLOR';\n" +
                             "        background-color: '$BACKGROUNDCOLOR';\n" +
+                            "        font-family: \"CustomFont\";\n" +
                             "    }\n" +
                             "\n" +
                             "    body {\n" +
@@ -233,26 +235,6 @@ public class ArticleActivity extends AppCompatActivity {
                             "        background-color:'$ACCENTCOLOR';\n" +
                             "        border-radius: 10px;\n" +
                             "    }\n" +
-                            "\n" +
-                            "    div.rssfeed_bottomsheet{\n" +
-                            "        display: flex;\n" +
-                            "        flex-direction: row;\n" +
-                            "        justify-content: center;\n" +
-                            "        gap: 10px;\n" +
-                            "    }\n" +
-                            "    div.rssfeed_button{\n" +
-                            "        border-radius: 12px;\n" +
-                            "        background-color: rgb(27, 27, 29);\n" +
-                            "        border: 1px solid rgb(34, 34, 38);\n" +
-                            "        padding: 10px;\n" +
-                            "        transition: transform 0.2s;\n" +
-                            "    }\n" +
-                            "    div.rssfeed_button:active{\n" +
-                            "        transform: scale(0.9);\n" +
-                            "    }\n" +
-                            "    div.rssfeed_button p{\n" +
-                            "        margin: 0;\n" +
-                            "    }\n" +
                             "</style>";
 
         String accentColor = formatColor(PreferencesManager.getAccentColor(this));
@@ -260,6 +242,29 @@ public class ArticleActivity extends AppCompatActivity {
         String textColor = formatColor(this.getColor(R.color.textPrimary));
         String textSecondary = formatColor(this.getColor(R.color.textSecondary));
 
+        String fontFace = "";
+        String boldFontFace = "";
+
+        switch (preferences.s_font){
+            case INTER:
+                fontFace = "/font/inter_regular.ttf";
+                boldFontFace = "/font/inter_bold.ttf";
+                break;
+            case POPPINS:
+                fontFace = "/font/poppins_regular.ttf";
+                boldFontFace = "/font/poppins_bold.ttf";
+                break;
+            case ROBOTO_MONO:
+                fontFace = "/font/roboto_mono_regular.ttf";
+                boldFontFace = "/font/roboto_mono_bold.ttf";
+                break;
+            case ROBOTO_SERIF:
+                fontFace = "/font/roboto_serif_regular.ttf";
+                boldFontFace = "/font/roboto_serif_bold.ttf";
+                break;
+        }
+        css = css.replace("'$FONTFACE'", fontFace);
+        css = css.replace("'$BOLDFONTFACE'", boldFontFace);
         css = css.replace("'$ACCENTCOLOR'", accentColor);
         css = css.replace("'$TEXTCOLOR'", textColor);
         css = css.replace("'$TEXTSECONDARY'", textSecondary);

@@ -75,7 +75,7 @@ public class Preferences implements Serializable {
     }
 
     public enum Font {
-        INTER, ROBOTO_SANS, ROBOTO_MONO, POPPINS
+        INTER, ROBOTO_SERIF, ROBOTO_MONO, POPPINS
     }
 
     public enum LaunchWindow {

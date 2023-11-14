@@ -147,7 +147,7 @@ public class PreferencesManager {
      */
     public static Typeface getSavedFont(Preferences preferences, Context context) {
         switch (preferences.s_font) {
-            case ROBOTO_SANS:
+            case ROBOTO_SERIF:
                 return ResourcesCompat.getFont(context, R.font.roboto_serif);
             case POPPINS:
                 return ResourcesCompat.getFont(context, R.font.poppins);

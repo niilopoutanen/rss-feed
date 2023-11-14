@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@drawable/icon_menu"
-                android:backgroundTint="@color/textPrimary"/>
+                android:backgroundTint="?attr/colorAccent"/>
         </RelativeLayout>
     </LinearLayout>
 
