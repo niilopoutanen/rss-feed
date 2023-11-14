@@ -37,15 +37,16 @@ public class ArticleView extends WebView {
         addJavascriptInterface(this, "Android");
         setWebContentsDebuggingEnabled(true);
     }
-    public void loadDocument(Document document){
-        this.document = document;
+    public void loadDocument(Document documentToLoad){
+        this.document = documentToLoad;
         Elements images = document.select("img");
         for(Element image: images){
             image.attr("onclick", "Android.onImageClick(this.src)");
         }
+
         document.body().append(insertBottomSheet().html());
 
-        super.loadData( document.html(), "text/html", "utf-8");
+        super.loadDataWithBaseURL(null, document.html(), "text/html", "charset=utf-8", "");
     }
 
     private Element insertBottomSheet(){
