@@ -135,12 +135,15 @@ public class ArticleActivity extends AppCompatActivity {
 
         });
 
-        findViewById(R.id.article_footer_toggle).setOnClickListener(v -> toggleControls());
+        RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
+        footerToggle.getBackground().setAlpha(120);
+        footerToggle.getChildAt(0).getBackground().setAlpha(120);
+        footerToggle.setOnClickListener(v -> toggleControls(footerToggle));
 
     }
 
 
-    private void toggleControls(){
+    private void toggleControls(ViewGroup toggle){
 
         LinearLayout controls = findViewById(R.id.article_footer_controls);
         boolean visible = controls.getVisibility() == View.VISIBLE;
@@ -156,6 +159,8 @@ public class ArticleActivity extends AppCompatActivity {
                 }
             });
             slideDown.start();
+            toggle.getBackground().setAlpha(120);
+            toggle.getChildAt(0).getBackground().setAlpha(120);
         }
         else {
             controls.setVisibility(View.VISIBLE);
@@ -165,6 +170,8 @@ public class ArticleActivity extends AppCompatActivity {
             slideUp.setDuration(200);
 
             slideUp.start();
+            toggle.getBackground().setAlpha(255);
+            toggle.getChildAt(0).getBackground().setAlpha(255);
         }
     }
 
