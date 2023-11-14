@@ -11,8 +11,10 @@ import androidx.annotation.NonNull;
 
 import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 public class ArticleView extends WebView {
@@ -41,10 +43,24 @@ public class ArticleView extends WebView {
         for(Element image: images){
             image.attr("onclick", "Android.onImageClick(this.src)");
         }
+        document.body().append(insertBottomSheet().html());
 
-        super.loadData( document.toString(), "text/html", "utf-8");
+        super.loadData( document.html(), "text/html", "utf-8");
     }
 
+    private Element insertBottomSheet(){
+        String html = "<div class='rssfeed_bottomsheet'>\n" +
+                  "        <div class='rssfeed_button'>\n" +
+                  "            <p>Open in browser</p>\n" +
+                  "        </div>\n" +
+                  "\n" +
+                  "        <div class='rssfeed_button'>\n" +
+                  "            <p>Share</p>\n" +
+                  "        </div>\n" +
+                  "    </div>";
+
+        return Jsoup.parseBodyFragment(html).body();
+    }
     @JavascriptInterface
     public void onImageClick(String imageUrl) {
         Intent imageIntent = new Intent(context, ImageViewActivity.class);

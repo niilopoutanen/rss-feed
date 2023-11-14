@@ -135,12 +135,21 @@ public class ArticleActivity extends AppCompatActivity {
                             "    body {\n" +
                             "        padding: 10px;\n" +
                             "    }\n" +
-                            "    \n" +
-                            "    a{\n" +
+                            "\n" +
+                            "    a {\n" +
                             "        color: '$ACCENTCOLOR';\n" +
                             "        text-decoration: none;\n" +
                             "        font-weight: 600;\n" +
                             "    }\n" +
+                            "\n" +
+                            "    th, td{\n" +
+                            "        border: 2px solid '$TEXTSECONDARY';\n" +
+                            "    }\n" +
+                            "    table{\n" +
+                            "        border-collapse: collapse;\n" +
+                            "        overflow: scroll;\n" +
+                            "    }\n" +
+                            "\n" +
                             "    img {\n" +
                             "        max-width: 100%;\n" +
                             "        height: auto;\n" +
@@ -151,29 +160,42 @@ public class ArticleActivity extends AppCompatActivity {
                             "        margin: 0;\n" +
                             "        padding: 0;\n" +
                             "    }\n" +
-                            "    th, td{\n" +
-                            "        border: 2px solid '$TEXTSECONDARY';\n" +
-                            "    }\n" +
-                            "    table{\n" +
-                            "        border-collapse: collapse;\n" +
-                            "    }\n" +
-                            "    " +
                             "\n" +
                             "    blockquote {\n" +
-                            "        margin: 0; \n" +
-                            "        padding-left: 15px;        \n" +
+                            "        margin: 0;\n" +
+                            "        padding-left: 15px;\n" +
                             "        position: relative;\n" +
                             "    }\n" +
                             "\n" +
                             "    blockquote::before {\n" +
-                            "      content: \"\";\n" +
-                            "      position: absolute;\n" +
-                            "      left: 0;\n" +
-                            "      top: 0;\n" +
-                            "      width: 5px;\n" +
-                            "      height: 100%;\n" +
-                            "      background-color: '$ACCENTCOLOR';\n" +
-                            "      border-radius: 10px;\n" +
+                            "        content: \"\";\n" +
+                            "        position: absolute;\n" +
+                            "        left: 0;\n" +
+                            "        top: 0;\n" +
+                            "        width: 5px;\n" +
+                            "        height: 100%;\n" +
+                            "        background-color:'$ACCENTCOLOR';\n" +
+                            "        border-radius: 10px;\n" +
+                            "    }\n" +
+                            "\n" +
+                            "    div.rssfeed_bottomsheet{\n" +
+                            "        display: flex;\n" +
+                            "        flex-direction: row;\n" +
+                            "        justify-content: center;\n" +
+                            "        gap: 10px;\n" +
+                            "    }\n" +
+                            "    div.rssfeed_button{\n" +
+                            "        border-radius: 12px;\n" +
+                            "        background-color: rgb(27, 27, 29);\n" +
+                            "        border: 1px solid rgb(34, 34, 38);\n" +
+                            "        padding: 10px;\n" +
+                            "        transition: transform 0.2s;\n" +
+                            "    }\n" +
+                            "    div.rssfeed_button:active{\n" +
+                            "        transform: scale(0.9);\n" +
+                            "    }\n" +
+                            "    div.rssfeed_button p{\n" +
+                            "        margin: 0;\n" +
                             "    }\n" +
                             "</style>";
 
