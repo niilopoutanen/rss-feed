@@ -223,51 +223,9 @@ public class ArticleActivity extends AppCompatActivity {
             }
         });
         articleView.loadDocument(document);
-
-        Elements titles = document.select("h1, h2, h3, h4, h5, h6");
-        for(int i = 0; i < titles.size(); i++){
-            titles.get(i).attr("id", "rssfeed_summary_id_" + i);
-        }
-        initSummary(titles);
     }
 
 
-    private void initSummary(Elements titles){
-        Configuration configuration = getResources().getConfiguration();
-        boolean isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE;
-        boolean isMinWidth600dp = configuration.smallestScreenWidthDp >= 600;
-
-        if(!isLandscape || !isMinWidth600dp){
-            return;
-        }
-
-        LinearLayout container = findViewById(R.id.article_summary);
-
-        TextView summaryTitle = findViewById(R.id.article_summary_title);
-        ImageView summaryIcon = findViewById(R.id.article_summary_icon);
-
-        if(source != null){
-            summaryTitle.setText(source.getName());
-            Picasso.get()
-                      .load(source.getImageUrl())
-                      .transform(new MaskTransformation(this, R.drawable.image_rounded))
-                      .into(summaryIcon);
-        }
-
-
-
-        for(Element title : titles){
-            TextView textView =  new TextView(this);
-            textView.setText(title.text());
-            ViewGroup.MarginLayoutParams margin = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            margin.setMargins(0,0,0, PreferencesManager.dpToPx(10, this));
-            textView.setLayoutParams(margin);
-            textView.setTypeface(ResourcesCompat.getFont(this, R.font.inter_semibold));
-            textView.setOnClickListener(v -> articleView.scrollTo(title.id()));
-            container.addView(textView);
-
-        }
-    }
     /**
      * Opens a WebView sheet
      *
