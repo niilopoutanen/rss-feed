@@ -242,25 +242,25 @@ public class ArticleActivity extends AppCompatActivity {
         String textColor = formatColor(this.getColor(R.color.textPrimary));
         String textSecondary = formatColor(this.getColor(R.color.textSecondary));
 
-        String fontFace = "";
-        String boldFontFace = "";
+        String fontFace = "file:///android_res";
+        String boldFontFace = "file:///android_res";
 
         switch (preferences.s_font){
             case INTER:
-                fontFace = "/font/inter_regular.ttf";
-                boldFontFace = "/font/inter_bold.ttf";
+                fontFace += "/font/inter_regular.ttf";
+                boldFontFace += "/font/inter_bold.ttf";
                 break;
             case POPPINS:
-                fontFace = "/font/poppins_regular.ttf";
-                boldFontFace = "/font/poppins_bold.ttf";
+                fontFace += "/font/poppins_regular.ttf";
+                boldFontFace += "/font/poppins_bold.ttf";
                 break;
             case ROBOTO_MONO:
-                fontFace = "/font/roboto_mono_regular.ttf";
-                boldFontFace = "/font/roboto_mono_bold.ttf";
+                fontFace += "/font/roboto_mono_regular.ttf";
+                boldFontFace += "/font/roboto_mono_bold.ttf";
                 break;
             case ROBOTO_SERIF:
-                fontFace = "/font/roboto_serif_regular.ttf";
-                boldFontFace = "/font/roboto_serif_bold.ttf";
+                fontFace += "/font/roboto_serif_regular.ttf";
+                boldFontFace += "/font/roboto_serif_bold.ttf";
                 break;
         }
         css = css.replace("'$FONTFACE'", fontFace);
@@ -270,6 +270,7 @@ public class ArticleActivity extends AppCompatActivity {
         css = css.replace("'$TEXTSECONDARY'", textSecondary);
         css = css.replace("'$BACKGROUNDCOLOR'", backgroundColor);
 
+        //TODO: Font size
         return css;
     }
 
