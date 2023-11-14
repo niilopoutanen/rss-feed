@@ -2,17 +2,14 @@ package com.niilopoutanen.rss_feed.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.util.Log;
+import android.util.AttributeSet;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 
 import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
-import com.niilopoutanen.rss_feed.adapters.ArticleAdapter;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,6 +22,10 @@ public class ArticleView extends WebView {
         super(context);
         this.context = context;
         init();
+    }
+    public ArticleView(Context context, AttributeSet attrs){
+        super(context, attrs);
+        this.context = context;
     }
 
     private void init(){

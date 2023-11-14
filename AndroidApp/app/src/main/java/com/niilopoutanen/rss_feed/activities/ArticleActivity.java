@@ -198,8 +198,7 @@ public class ArticleActivity extends AppCompatActivity {
         return String.format(Locale.US ,"rgb(%d, %d, %d)", red, green, blue);
     }
     private void initWebView(String html){
-        articleView = new ArticleView(this);
-        ((FrameLayout)findViewById(R.id.article_webview_container)).addView(articleView);
+        articleView = findViewById(R.id.articleview);
 
         Document document = Jsoup.parse(html);
         Element head = document.head();
