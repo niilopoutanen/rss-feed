@@ -26,12 +26,14 @@ public class ArticleView extends WebView {
     public ArticleView(Context context, AttributeSet attrs){
         super(context, attrs);
         this.context = context;
+        init();
     }
 
     private void init(){
         WebSettings webSettings = getSettings();
         webSettings.setJavaScriptEnabled(true);
         addJavascriptInterface(this, "Android");
+        setWebContentsDebuggingEnabled(true);
     }
     public void loadDocument(Document document){
         this.document = document;
@@ -43,18 +45,6 @@ public class ArticleView extends WebView {
         super.loadData( document.toString(), "text/html", "utf-8");
     }
 
-    public void scrollTo(String id){
-        if(document == null){
-            return;
-        }
-        Elements withTag = document.select("#" + id);
-        if(!withTag.isEmpty()){
-            Element el = withTag.first();
-            loadUrl("javascript:document.getElementById('"+ id +"').scrollIntoView()");
-        }
-
-
-    }
     @JavascriptInterface
     public void onImageClick(String imageUrl) {
         Intent imageIntent = new Intent(context, ImageViewActivity.class);
