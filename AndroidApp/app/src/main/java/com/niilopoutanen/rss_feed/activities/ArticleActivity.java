@@ -1,6 +1,10 @@
 package com.niilopoutanen.rss_feed.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Picture;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,6 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,6 +55,7 @@ import org.jsoup.select.Elements;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -116,8 +123,50 @@ public class ArticleActivity extends AppCompatActivity {
                  window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             }
         }
+
+
+        findViewById(R.id.article_viewinbrowser).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.getLink()))));
+        findViewById(R.id.article_share).setOnClickListener(v -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, post.getLink());
+            shareIntent.putExtra(Intent.EXTRA_TITLE, post.getTitle());
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.sharepost)));
+
+        });
+
+        findViewById(R.id.article_footer_toggle).setOnClickListener(v -> toggleControls());
+
     }
 
+
+    private void toggleControls(){
+
+        LinearLayout controls = findViewById(R.id.article_footer_controls);
+        boolean visible = controls.getVisibility() == View.VISIBLE;
+
+        if(visible){
+            ObjectAnimator slideDown = ObjectAnimator.ofFloat(controls, "translationY", 0, PreferencesManager.dpToPx(60, this));
+            slideDown.setInterpolator(new AccelerateDecelerateInterpolator());
+            slideDown.setDuration(200);
+            slideDown.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    controls.setVisibility(View.GONE);
+                }
+            });
+            slideDown.start();
+        }
+        else {
+            controls.setVisibility(View.VISIBLE);
+
+            ObjectAnimator slideUp = ObjectAnimator.ofFloat(controls, "translationY", PreferencesManager.dpToPx(60, this), 0);
+            slideUp.setInterpolator(new AccelerateDecelerateInterpolator());
+            slideUp.setDuration(200);
+
+            slideUp.start();
+        }
+    }
 
     private String getCSS(){
         String css =

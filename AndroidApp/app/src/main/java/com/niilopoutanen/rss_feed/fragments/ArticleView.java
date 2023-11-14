@@ -44,24 +44,9 @@ public class ArticleView extends WebView {
             image.attr("onclick", "Android.onImageClick(this.src)");
         }
 
-        document.body().append(insertBottomSheet().html());
-
         super.loadDataWithBaseURL(null, document.html(), "text/html", "charset=utf-8", "");
     }
 
-    private Element insertBottomSheet(){
-        String html = "<div class='rssfeed_bottomsheet'>\n" +
-                  "        <div class='rssfeed_button'>\n" +
-                  "            <p>Open in browser</p>\n" +
-                  "        </div>\n" +
-                  "\n" +
-                  "        <div class='rssfeed_button'>\n" +
-                  "            <p>Share</p>\n" +
-                  "        </div>\n" +
-                  "    </div>";
-
-        return Jsoup.parseBodyFragment(html).body();
-    }
     @JavascriptInterface
     public void onImageClick(String imageUrl) {
         Intent imageIntent = new Intent(context, ImageViewActivity.class);
