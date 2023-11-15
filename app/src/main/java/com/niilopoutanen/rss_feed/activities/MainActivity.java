@@ -1,10 +1,17 @@
 package com.niilopoutanen.rss_feed.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowInsets;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -102,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
             return false; // Event has not been consumed
         });
 
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            bottomNav.setItemPaddingBottom(insets.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     @Override
