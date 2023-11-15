@@ -126,6 +126,23 @@ public class ArticleActivity extends AppCompatActivity {
 
         });
 
+        View focusMode = findViewById(R.id.article_focusmode);
+        if(focusMode != null){
+            focusMode.setOnClickListener(v -> {
+                ViewGroup.LayoutParams params = articleView.getLayoutParams();
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int width = (int)(displayMetrics.widthPixels * 0.6f);
+                if(params.width == ViewGroup.LayoutParams.MATCH_PARENT){
+                    params.width = width;
+                }
+                else {
+                    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                }
+                articleView.setLayoutParams(params);
+            });
+        }
+
         RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
         if(preferences.s_article_show_controls){
             footerToggle.getBackground().setAlpha(120);

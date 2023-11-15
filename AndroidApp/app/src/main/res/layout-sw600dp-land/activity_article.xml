@@ -6,6 +6,7 @@
     <com.niilopoutanen.rss_feed.fragments.ArticleView
         android:id="@+id/articleview"
         android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
         android:layout_height="match_parent"
         android:visibility="gone"/>
     <LinearLayout
@@ -26,6 +27,29 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/article_focusmode"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/element_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/icon_focus"
+                    android:backgroundTint="?attr/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/article_focusmode"
+                    android:textColor="@color/textPrimary" />
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/article_viewinbrowser"
                 android:layout_width="wrap_content"
