@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
@@ -230,6 +233,15 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         }
         TextView toolBarTitle = rootView.findViewById(R.id.feed_header);
         toolBarTitle.setText(viewTitle);
+
+        ViewCompat.setOnApplyWindowInsetsListener(toolBarTitle, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.topMargin = insets.top;
+            v.setLayoutParams(mlp);
+            return WindowInsetsCompat.CONSUMED;
+        });
+
 
         adapter = new FeedAdapter(items, appContext, preferences, this);
         recyclerView.setAdapter(adapter);

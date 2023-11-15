@@ -22,8 +22,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -64,7 +69,7 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EdgeToEdge.enable(this);
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             return;
@@ -114,7 +119,6 @@ public class ArticleActivity extends AppCompatActivity {
             }
         }
 
-
         findViewById(R.id.article_viewinbrowser).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.getLink()))));
         findViewById(R.id.article_share).setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -123,6 +127,19 @@ public class ArticleActivity extends AppCompatActivity {
             shareIntent.putExtra(Intent.EXTRA_TITLE, post.getTitle());
             startActivity(Intent.createChooser(shareIntent, getString(R.string.sharepost)));
 
+        });
+
+        // Insets to bottom controls
+        LinearLayout footer = findViewById(R.id.article_footer);
+        ViewCompat.setOnApplyWindowInsetsListener(footer, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.leftMargin = insets.left;
+            mlp.bottomMargin = insets.bottom;
+            mlp.rightMargin = insets.right;
+            v.setLayoutParams(mlp);
+            return WindowInsetsCompat.CONSUMED;
         });
 
         View focusMode = findViewById(R.id.article_focusmode);

@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.activities;
 
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         checkUpdate();
         preferences = PreferencesManager.loadPreferences(this);
         PreferencesManager.setSavedTheme(this, preferences);
-
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         // Restore the state of the currently opened fragment

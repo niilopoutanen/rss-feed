@@ -8,10 +8,13 @@
     tools:context="com.niilopoutanen.rss_feed.fragments.SettingsFragment">
 
     <LinearLayout
+        android:id="@+id/settings_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:layout_width="match_parent"

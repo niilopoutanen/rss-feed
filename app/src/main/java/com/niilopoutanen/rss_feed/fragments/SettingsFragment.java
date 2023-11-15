@@ -40,6 +40,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -102,20 +106,28 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initializeElements(View rootView) {
+        ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.settings_container), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.topMargin = insets.top;
+            v.setLayoutParams(mlp);
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         String versionText = "v" + BuildConfig.VERSION_NAME;
-        ((TextView)rootView.findViewById(R.id.settings_version)).setText(versionText);
+        ((TextView) rootView.findViewById(R.id.settings_version)).setText(versionText);
 
         View copyright = rootView.findViewById(R.id.copyright);
-       copyright.setOnClickListener(v -> {
+        copyright.setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         });
-       copyright.setOnLongClickListener(v -> {
-           Intent debugIntent = new Intent(appContext, DebugActivity.class);
-           appContext.startActivity(debugIntent);
-           return true;
-       });
+        copyright.setOnLongClickListener(v -> {
+            Intent debugIntent = new Intent(appContext, DebugActivity.class);
+            appContext.startActivity(debugIntent);
+            return true;
+        });
 
         rootView.findViewById(R.id.settings_appicon).setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen/RSS-Feed";
