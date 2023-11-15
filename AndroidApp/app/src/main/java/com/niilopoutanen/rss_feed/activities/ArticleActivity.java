@@ -54,7 +54,6 @@ import java.util.concurrent.Executors;
 public class ArticleActivity extends AppCompatActivity {
     private ProgressBar articleLoader;
     private Item post;
-    private Source source;
     private ArticleView articleView;
     private String resultData;
     private Preferences preferences;
@@ -72,7 +71,6 @@ public class ArticleActivity extends AppCompatActivity {
 
         preferences = (Preferences) extras.get("preferences");
         post  = (Item)extras.get("item");
-        source = (Source)extras.get("source");
 
         if (savedInstanceState != null) {
             resultData = savedInstanceState.getString("content");

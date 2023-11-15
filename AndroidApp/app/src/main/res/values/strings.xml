@@ -129,4 +129,7 @@
     <string name="animate_clicks">Animate clicked elements</string>
     <string name="article_show_controls">Show bottom controls</string>
     <string name="article_focusmode">Toggle focus mode</string>
+    <string name="debug_tools">Debug tools</string>
+    <string name="article_open_with_url">Open ArticleView with URL</string>
+    <string name="debug_terminate">Terminate app process</string>
 </resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.DebugActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/debug_tools"
+            android:textColor="@color/textPrimary"
+            android:textSize="40sp"
+            app:fontFamily="@font/inter_semibold" />
+
+        <RelativeLayout
+            android:id="@+id/debug_open_article_with_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
+            android:padding="10dp"
+            android:minHeight="50dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/article_open_with_url"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_semibold" />
+
+            <View
+                android:layout_width="9dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/arrow"
+                android:backgroundTint="@color/white"
+                android:rotation="180" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/debug_terminate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
+            android:padding="10dp"
+            android:minHeight="50dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/debug_terminate"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp"
+                app:fontFamily="@font/inter_semibold" />
+
+            <View
+                android:layout_width="9dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/arrow"
+                android:backgroundTint="@color/white"
+                android:rotation="180" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/debug_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/debug_device_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</ScrollView>
