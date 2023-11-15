@@ -5,43 +5,5 @@
     android:layout_height="30dp"
     android:layout_marginBottom="15dp">
 
-    <LinearLayout
-        android:id="@+id/article_return"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
 
-        <Button
-            android:layout_width="12dp"
-            android:layout_height="21dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/goback"
-            android:textColor="?attr/colorAccent" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/article_source"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:maxLength="20"
-        android:textColor="@color/textSecondary"
-        android:textSize="15sp"
-        app:fontFamily="@font/inter_semibold" />
-
-    <TextView
-        android:id="@+id/article_publishtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:maxLength="14"
-        android:textColor="@color/textSecondary"
-        app:fontFamily="@font/inter_semibold" />
 </RelativeLayout>

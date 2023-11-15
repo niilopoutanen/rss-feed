@@ -128,4 +128,6 @@
     <string name="settings_fontsize">Font size</string>
     <string name="show_in_feed">Show in feed</string>
     <string name="animate_clicks">Animate clicked elements</string>
+    <string name="article_show_controls">Show bottom controls</string>
+    <string name="article_focusmode">Toggle focus mode</string>
 </resources>

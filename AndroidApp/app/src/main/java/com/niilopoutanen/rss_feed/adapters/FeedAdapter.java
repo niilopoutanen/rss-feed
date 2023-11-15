@@ -36,6 +36,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.recyclerViewInterface = recyclerViewInterface;
     }
     public void update(){
+        notices.clear();
         notifyDataSetChanged();
     }
 
@@ -76,7 +77,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof FeedCard){
-            ((FeedCard)holder).bindData(items.get(position));
+            if(items.size() > position){
+                ((FeedCard)holder).bindData(items.get(position));
+            }
+
         }
         else{
             LinearLayout container = (LinearLayout) holder.itemView;
@@ -93,7 +97,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (notices.size() > 0 && items == null){
+        if (notices.size() > 0 ){
             return TYPE_NOTICE;
         }
         else {

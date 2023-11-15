@@ -141,7 +141,7 @@ public class SettingsDropDownFragment extends Fragment {
                 Typeface font = ResourcesCompat.getFont(context, R.font.inter);
                 if (selectedFont == Font.ROBOTO_MONO) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_mono);
-                } else if (selectedFont == Font.ROBOTO_SANS) {
+                } else if (selectedFont == Font.ROBOTO_SERIF) {
                     font = ResourcesCompat.getFont(context, R.font.roboto_serif);
                 } else if (selectedFont == Font.POPPINS) {
                     font = ResourcesCompat.getFont(context, R.font.poppins);

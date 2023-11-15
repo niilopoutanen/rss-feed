@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -36,7 +37,10 @@ import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,6 +51,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
     List<Item> items = new ArrayList<>();
+    Map<Item, UUID> postMap = new HashMap<>();
     String viewTitle;
     RecyclerView recyclerView;
     FeedAdapter adapter;
@@ -102,6 +107,13 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         Intent articleIntent = new Intent(appContext, ArticleActivity.class);
         articleIntent.putExtra("preferences", preferences);
         articleIntent.putExtra("item", items.get(position));
+
+        sources.stream()
+                  .filter(s -> s.getId().equals(postMap.get(items.get(position))))
+                  .findFirst()
+                  .ifPresent(source -> articleIntent.putExtra("source", source));
+
+
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
         appContext.startActivity(articleIntent);
     }
@@ -139,16 +151,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         List<Item> loadedItems = new ArrayList<>();
         if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
-            adapter.update();
             return;
-        }
-        //if all sources are hidden, show the title
-        if (sources.stream().noneMatch(Source::isVisibleInFeed)) {
-            if (!singleView) {
-                recyclerviewRefresh.setRefreshing(false);
-                adapter.update();
-            }
-
         }
 
         recyclerviewRefresh.setRefreshing(true);
@@ -166,11 +169,19 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 try {
                     loadedItems.addAll(parser.load(source.getFeedUrl()).getItems());
 
-                    if (isAdded()) {
+                    for(Item item : loadedItems){
+                        postMap.put(item, source.getId());
+                    }
+                    Activity activity = getActivity();
+                    if(activity != null && isAdded()){
                         requireActivity().runOnUiThread(() -> Collections.sort(loadedItems));
                     }
                 } catch (RSSException e) {
-                    requireActivity().runOnUiThread(() -> showError(e.getErrorType(), source));
+                    Activity activity = getActivity();
+                    if(activity != null && isAdded()){
+                        activity.runOnUiThread(() -> showError(e.getErrorType(), source));
+                    }
+
                 }
 
 
@@ -196,7 +207,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 adapter.addNotification(appContext.getString(R.string.invalidfeed), appContext.getString(R.string.invalidfeedmsg));
                 break;
             case 429:
-                adapter.addNotification(appContext.getString(R.string.error_toomanyrequests), appContext.getString(R.string.toomanyrequestsmsg));
+                adapter.addNotification(appContext.getString(R.string.error_toomanyrequests), String.format(appContext.getString(R.string.toomanyrequestsmsg), errorCause.getFeedUrl()));
                 break;
             case 0:
                 adapter.addNotification(appContext.getString(R.string.nosources), appContext.getString(R.string.nosourcesmsg));
