@@ -14,5 +14,6 @@
     <color name="textSecondary">@android:color/system_accent1_600</color>
 
     <color name="windowBg">#f2f1f6</color>
+    <color name="navbarBg">@android:color/system_accent1_50</color>
 
 </resources>

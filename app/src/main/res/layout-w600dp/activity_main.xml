@@ -9,7 +9,8 @@
         android:id="@+id/bottom_nav_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/bottom_nav"
+        app:menuGravity="center"/>
 
     <FrameLayout
         android:id="@+id/frame_container"

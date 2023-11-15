@@ -14,5 +14,5 @@
     <color name="textSecondary">#7B8086</color>
 
     <color name="windowBg">#000000</color>
-
+    <color name="navbarBg">#000000</color>
 </resources>
