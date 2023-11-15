@@ -51,9 +51,9 @@
                     app:fontFamily="@font/inter_bold" />
 
                 <TextView
+                    android:id="@+id/settings_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_version"
                     android:textColor="@color/textSecondary"
                     android:textSize="15sp"
                     app:fontFamily="@font/inter_semibold" />

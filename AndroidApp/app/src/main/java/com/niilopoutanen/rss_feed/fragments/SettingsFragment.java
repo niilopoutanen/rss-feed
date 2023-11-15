@@ -100,6 +100,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initializeElements(View rootView) {
+        ((TextView)rootView.findViewById(R.id.settings_version)).setText(versionText);
+
         rootView.findViewById(R.id.copyright).setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

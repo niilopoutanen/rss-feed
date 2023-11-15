@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">RSS-Feed</string>
-    <string name="app_version" translatable="false">v1.2.4</string>
     <string name="copyright" translatable="false">©2023 Niilo Poutanen</string>
 
     <string name="feed_header">Feed</string>
