@@ -10,6 +10,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
@@ -64,6 +66,7 @@ public class SettingsFragment extends Fragment {
     TextView launchwindowSelected;
     SwitchCompat articlesInBrowser;
     SwitchCompat articleFullScreen;
+    SwitchCompat articleShowControls;
     SwitchCompat imagecache;
     SwitchCompat animateClicks;
     SwitchCompat haptics;
@@ -154,6 +157,7 @@ public class SettingsFragment extends Fragment {
 
         articlesInBrowser = rootView.findViewById(R.id.switch_articleinbrowser);
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
+        articleShowControls = rootView.findViewById(R.id.switch_article_showcontrols);
         haptics = rootView.findViewById(R.id.switch_haptics);
         imagecache = rootView.findViewById(R.id.switch_cache);
         animateClicks = rootView.findViewById(R.id.switch_animateclicks);
@@ -191,6 +195,10 @@ public class SettingsFragment extends Fragment {
         });
         articleFullScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
+            PreferencesManager.vibrate(buttonView);
+        });
+        articleShowControls.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            PreferencesManager.saveBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, isChecked, appContext);
             PreferencesManager.vibrate(buttonView);
         });
         haptics.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -255,6 +263,8 @@ public class SettingsFragment extends Fragment {
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
 
         articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, appContext));
+
+        articleShowControls.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, SP_ARTICLE_SHOW_CONTROLS_DEFAULT, appContext));
 
         haptics.setChecked(PreferencesManager.getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, appContext));
 

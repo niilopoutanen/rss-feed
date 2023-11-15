@@ -20,6 +20,8 @@ public class Preferences implements Serializable {
     public static final boolean SP_HIDE_SOURCE_ALERT_DEFAULT = false;
     public static final String SP_ARTICLEFULLSCREEN = "article_fullscreen";
     public static final boolean SP_ARTICLEFULLSCREEN_DEFAULT = false;
+    public static final String SP_ARTICLE_SHOW_CONTROLS = "article_show_controls";
+    public static final boolean SP_ARTICLE_SHOW_CONTROLS_DEFAULT = true;
     public static final String SP_LAUNCHWINDOW = "launch_window";
     public static final LaunchWindow SP_LAUNCHWINDOW_DEFAULT = LaunchWindow.FEED;
     public static final String SP_FEEDCARD_STYLE = "feedcard_style";
@@ -60,6 +62,7 @@ public class Preferences implements Serializable {
     public boolean s_feedcard_descvisible;
     public boolean s_feedcard_datevisible;
     public boolean s_articlefullscreen;
+    public boolean s_article_show_controls;
     public boolean s_hide_sourcealert;
     public boolean s_imagecache;
     public boolean s_haptics;

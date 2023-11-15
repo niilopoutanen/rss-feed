@@ -127,9 +127,15 @@ public class ArticleActivity extends AppCompatActivity {
         });
 
         RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
-        footerToggle.getBackground().setAlpha(120);
-        footerToggle.getChildAt(0).getBackground().setAlpha(120);
-        footerToggle.setOnClickListener(v -> toggleControls(footerToggle));
+        if(preferences.s_article_show_controls){
+            footerToggle.getBackground().setAlpha(120);
+            footerToggle.getChildAt(0).getBackground().setAlpha(120);
+            footerToggle.setOnClickListener(v -> toggleControls(footerToggle));
+        }
+        else{
+            footerToggle.setVisibility(View.GONE);
+        }
+
 
     }
 
