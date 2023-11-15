@@ -74,9 +74,7 @@ public class Parser {
                 ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString, formatter);
                 return Date.from(zonedDateTime.toInstant());
             }
-            catch (DateTimeParseException ignored){
-                ignored.getMessage();
-            }
+            catch (DateTimeParseException ignored){}
         }
 
         return null;
