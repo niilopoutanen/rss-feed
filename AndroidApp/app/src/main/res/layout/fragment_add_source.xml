@@ -154,7 +154,7 @@
             android:id="@+id/addsource_continue"
             android:layout_width="match_parent"
             android:backgroundTint="?attr/colorAccent"
-            android:background="@drawable/input_background"
+            android:background="@drawable/button_background"
             android:layout_height="50dp"
             android:layout_marginTop="10dp">
 

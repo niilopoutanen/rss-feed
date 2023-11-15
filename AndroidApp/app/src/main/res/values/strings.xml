@@ -93,14 +93,14 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">Support for tablets</string>
-    <string name="feature1desc">Better user experience for tablets and other widescreen devices</string>
+    <string name="feature1">Enhanced article view</string>
+    <string name="feature1desc">Now the article reader supports more types of content, not just images and text.</string>
 
-    <string name="feature2">Small bug fixes</string>
-    <string name="feature2desc">Fixed a few bugs here and there</string>
+    <string name="feature2">Fixes to tablet UI</string>
+    <string name="feature2desc">Enhanced usability for tablets</string>
 
-    <string name="feature3">Small crash fix</string>
-    <string name="feature3desc">Fixed a case where app crashed when reading the feed.</string>
+    <string name="feature3">Small bug fixes</string>
+    <string name="feature3desc">Fixed a few bugs here and there</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
