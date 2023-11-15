@@ -36,6 +36,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.Arrays;
@@ -100,13 +102,21 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initializeElements(View rootView) {
+        String versionText = "v" + BuildConfig.VERSION_NAME;
         ((TextView)rootView.findViewById(R.id.settings_version)).setText(versionText);
 
-        rootView.findViewById(R.id.copyright).setOnClickListener(v -> {
+        View copyright = rootView.findViewById(R.id.copyright);
+       copyright.setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         });
+       copyright.setOnLongClickListener(v -> {
+           Intent debugIntent = new Intent(appContext, DebugActivity.class);
+           appContext.startActivity(debugIntent);
+           return true;
+       });
+
         rootView.findViewById(R.id.settings_appicon).setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen/RSS-Feed";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
