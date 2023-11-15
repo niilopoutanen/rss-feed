@@ -316,8 +316,10 @@ public class ArticleActivity extends AppCompatActivity {
 
         Elements h1Elements = document.select("h1");
         if(h1Elements.isEmpty()){
-            Element title = new Element("h1").text(post.getTitle());
-            document.body().prependChild(title);
+            if(post.getTitle() != null){
+                Element title = new Element("h1").text(post.getTitle());
+                document.body().prependChild(title);
+            }
         }
         articleView.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
