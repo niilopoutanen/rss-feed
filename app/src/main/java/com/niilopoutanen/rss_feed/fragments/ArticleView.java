@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -41,7 +42,7 @@ public class ArticleView extends WebView {
         this.document = documentToLoad;
         Elements images = document.select("img");
         for(Element image: images){
-            image.attr("onclick", "Android.onImageClick(this.src)");
+            image.attr("onclick", "event.preventDefault(); Android.onImageClick(this.src);");
         }
 
         super.loadDataWithBaseURL(null, document.html(), "text/html", "charset=utf-8", "");

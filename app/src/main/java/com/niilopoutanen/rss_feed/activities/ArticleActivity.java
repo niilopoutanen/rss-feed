@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -323,7 +324,7 @@ public class ArticleActivity extends AppCompatActivity {
         }
         articleView.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                runOnUiThread(() -> openWebView(request.getUrl().toString(), ""));
+                runOnUiThread(() -> openWebView(request.getUrl().toString()));
                 return true;
             }
 
@@ -344,17 +345,15 @@ public class ArticleActivity extends AppCompatActivity {
      * Opens a WebView sheet
      *
      * @param url       URL to open
-     * @param titleText Text to show on header. Gets replaced when the URL is fully loaded
      */
-    @SuppressLint("SetJavaScriptEnabled")
-    private void openWebView(String url, String titleText) {
+    private void openWebView(String url) {
+
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this, R.style.BottomSheetStyle);
         webViewSheet.setContentView(R.layout.dialog_webview);
         webViewSheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         webViewSheet.getBehavior().setDraggable(false);
 
         TextView titleView = webViewSheet.findViewById(R.id.dialog_webview_title);
-        titleView.setText(titleText);
 
         TextView cancel = webViewSheet.findViewById(R.id.dialog_webview_cancel);
 
@@ -420,6 +419,8 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        articleView.destroy();
+        if(articleView != null){
+            articleView.destroy();
+        }
     }
 }
