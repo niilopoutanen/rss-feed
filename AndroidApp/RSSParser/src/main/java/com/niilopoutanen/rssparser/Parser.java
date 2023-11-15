@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -63,16 +64,19 @@ public class Parser {
     }
     public static Date parseDate(String dateString){
         List<DateTimeFormatter> formats = new ArrayList<>();
-        formats.add(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss Z"));
-        formats.add(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss zzz"));
+        formats.add(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
+        formats.add(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss zzz", Locale.ENGLISH));
         formats.add(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"));
+        formats.add(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
 
         for(DateTimeFormatter formatter : formats){
             try{
                 ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString, formatter);
                 return Date.from(zonedDateTime.toInstant());
             }
-            catch (DateTimeParseException ignored){}
+            catch (DateTimeParseException ignored){
+                ignored.getMessage();
+            }
         }
 
         return null;
