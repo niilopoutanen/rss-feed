@@ -188,6 +188,7 @@ public class ArticleActivity extends AppCompatActivity {
                             "        color: '$TEXTCOLOR';\n" +
                             "        background-color: '$BACKGROUNDCOLOR';\n" +
                             "        font-family: \"CustomFont\";\n" +
+                            "        font-size: '$FONTSIZE';\n" +
                             "    }\n" +
                             "\n" +
                             "    body {\n" +
@@ -241,6 +242,7 @@ public class ArticleActivity extends AppCompatActivity {
         String backgroundColor = formatColor(this.getColor(R.color.windowBg));
         String textColor = formatColor(this.getColor(R.color.textPrimary));
         String textSecondary = formatColor(this.getColor(R.color.textSecondary));
+        String fontSize = String.valueOf(preferences.s_fontsize);
 
         String fontFace = "file:///android_res";
         String boldFontFace = "file:///android_res";
@@ -264,13 +266,14 @@ public class ArticleActivity extends AppCompatActivity {
                 break;
         }
         css = css.replace("'$FONTFACE'", fontFace);
+        css = css.replace("'$FONTSIZE'", fontSize);
         css = css.replace("'$BOLDFONTFACE'", boldFontFace);
+
         css = css.replace("'$ACCENTCOLOR'", accentColor);
         css = css.replace("'$TEXTCOLOR'", textColor);
         css = css.replace("'$TEXTSECONDARY'", textSecondary);
         css = css.replace("'$BACKGROUNDCOLOR'", backgroundColor);
 
-        //TODO: Font size
         return css;
     }
 
