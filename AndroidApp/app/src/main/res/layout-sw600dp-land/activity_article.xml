@@ -6,7 +6,8 @@
     <com.niilopoutanen.rss_feed.fragments.ArticleView
         android:id="@+id/articleview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
     <LinearLayout
         android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"

@@ -141,7 +141,6 @@ public class ArticleActivity extends AppCompatActivity {
 
 
     private void toggleControls(ViewGroup toggle){
-
         LinearLayout controls = findViewById(R.id.article_footer_controls);
         boolean visible = controls.getVisibility() == View.VISIBLE;
 
@@ -219,6 +218,9 @@ public class ArticleActivity extends AppCompatActivity {
                             "        max-width: 100%;\n" +
                             "        height: auto;\n" +
                             "        border-radius: 10px;\n" +
+                            "    }\n" +
+                            "    ul{\n" +
+                            "        padding-left: 20px;\n" +
                             "    }\n" +
                             "\n" +
                             "    figure {\n" +
@@ -311,7 +313,10 @@ public class ArticleActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                runOnUiThread(() -> articleLoader.setVisibility(View.GONE));
+                runOnUiThread(() -> {
+                    articleLoader.setVisibility(View.GONE);
+                    articleView.setVisibility(View.VISIBLE);
+                });
             }
         });
         articleView.loadDocument(document);
@@ -393,5 +398,11 @@ public class ArticleActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("content", resultData);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        articleView.destroy();
     }
 }
