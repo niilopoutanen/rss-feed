@@ -142,6 +142,7 @@ public class ArticleActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
+
         View focusMode = findViewById(R.id.article_focusmode);
         if(focusMode != null){
             focusMode.setOnClickListener(v -> {
@@ -327,6 +328,14 @@ public class ArticleActivity extends AppCompatActivity {
     }
     private void initWebView(String html){
         articleView = findViewById(R.id.articleview);
+        ViewCompat.setOnApplyWindowInsetsListener(articleView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            mlp.topMargin = insets.top;
+            v.setLayoutParams(mlp);
+            return WindowInsetsCompat.CONSUMED;
+        });
 
         Document document = Jsoup.parse(html);
         Element head = document.head();

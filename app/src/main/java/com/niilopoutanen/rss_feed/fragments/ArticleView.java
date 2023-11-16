@@ -21,6 +21,7 @@ import org.jsoup.select.Elements;
 public class ArticleView extends WebView {
     private final Context context;
     private Document document;
+
     public ArticleView(@NonNull Context context) {
         super(context);
         this.context = context;
