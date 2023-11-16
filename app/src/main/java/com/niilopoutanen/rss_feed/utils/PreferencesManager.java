@@ -18,8 +18,6 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORNAME;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORNAME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE;
@@ -235,7 +233,6 @@ public class PreferencesManager {
         preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
-        preferences.s_feedcard_authorname = getBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, SP_FEEDCARD_AUTHORNAME_DEFAULT, context);
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);
         preferences.s_feedcard_descvisible = getBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, SP_FEEDCARD_DESCVISIBLE_DEFAULT, context);
         preferences.s_feedcard_datevisible = getBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, SP_FEEDCARD_DATEVISIBLE_DEFAULT, context);

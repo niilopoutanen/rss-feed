@@ -20,7 +20,6 @@ import org.jsoup.select.Elements;
 
 public class ArticleView extends WebView {
     private final Context context;
-    private Document document;
 
     public ArticleView(@NonNull Context context) {
         super(context);
@@ -37,10 +36,8 @@ public class ArticleView extends WebView {
         WebSettings webSettings = getSettings();
         webSettings.setJavaScriptEnabled(true);
         addJavascriptInterface(this, "Android");
-        setWebContentsDebuggingEnabled(true);
     }
-    public void loadDocument(Document documentToLoad){
-        this.document = documentToLoad;
+    public void loadDocument(Document document){
         Elements images = document.select("img");
         for(Element image: images){
             image.attr("onclick", "event.preventDefault(); Android.onImageClick(this.src);");

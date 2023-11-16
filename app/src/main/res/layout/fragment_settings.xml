@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/settings_header"
             android:textColor="@color/textPrimary"
             android:textSize="40sp"
@@ -662,7 +663,8 @@
             android:gravity="center"
             android:text="@string/copyright"
             android:textColor="@color/textSecondary"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
 

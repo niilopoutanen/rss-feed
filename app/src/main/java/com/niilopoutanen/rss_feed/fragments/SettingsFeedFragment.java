@@ -4,8 +4,6 @@ import static com.niilopoutanen.rss_feed.models.Preferences.DateStyle;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORNAME;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORNAME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE;
@@ -51,7 +49,6 @@ public class SettingsFeedFragment extends Fragment {
 
     List<View> feedcardStyleButtons;
     private SwitchCompat authorSwitch;
-    private SwitchCompat authorNameSwitch;
     private SwitchCompat titleSwitch;
     private SwitchCompat descSwitch;
     private SwitchCompat dateSwitch;
@@ -108,7 +105,6 @@ public class SettingsFeedFragment extends Fragment {
         );
 
         authorSwitch = rootView.findViewById(R.id.switch_author);
-        authorNameSwitch = rootView.findViewById(R.id.switch_authorname);
         titleSwitch = rootView.findViewById(R.id.switch_title);
         descSwitch = rootView.findViewById(R.id.switch_description);
         dateSwitch = rootView.findViewById(R.id.switch_date);
@@ -127,7 +123,6 @@ public class SettingsFeedFragment extends Fragment {
         }
 
         authorSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, b, appContext));
-        authorNameSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, b, appContext));
         titleSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, b, appContext));
         descSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, b, appContext));
         dateSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, b, appContext));
@@ -158,9 +153,6 @@ public class SettingsFeedFragment extends Fragment {
 
         boolean authorVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, appContext);
         authorSwitch.setChecked(authorVisible);
-
-        boolean authorName = PreferencesManager.getBooleanPreference(SP_FEEDCARD_AUTHORNAME, PREFS_FUNCTIONALITY, SP_FEEDCARD_AUTHORNAME_DEFAULT, appContext);
-        authorNameSwitch.setChecked(authorName);
 
         boolean titleVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, appContext);
         titleSwitch.setChecked(titleVisible);

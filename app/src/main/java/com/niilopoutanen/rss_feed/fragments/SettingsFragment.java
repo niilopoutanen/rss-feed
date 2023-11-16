@@ -60,6 +60,7 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
+import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.Arrays;
@@ -108,9 +109,8 @@ public class SettingsFragment extends Fragment {
     private void initializeElements(View rootView) {
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.settings_container), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
+            int defaultPadding = PreferencesManager.dpToPx(10, appContext);
+            v.setPadding(defaultPadding, insets.top, defaultPadding,insets.top);
             return WindowInsetsCompat.CONSUMED;
         });
 

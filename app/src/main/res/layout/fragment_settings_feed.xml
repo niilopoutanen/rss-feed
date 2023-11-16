@@ -182,32 +182,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="5dp"
-                android:text="@string/author_sourcedesc"
-                android:textColor="@color/textPrimary"
-                android:textSize="15sp"
-                app:fontFamily="@font/inter_semibold" />
-
-            <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/switch_authorname"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true"/>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/element_background"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
                 android:text="@string/title_visible"
                 android:textColor="@color/textPrimary"
                 android:textSize="15sp"
@@ -275,7 +249,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/element_background"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"

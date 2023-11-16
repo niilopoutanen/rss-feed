@@ -71,6 +71,7 @@
             android:textColor="@color/textSecondary"
             android:gravity="center"
             android:textSize="13sp"
-            app:fontFamily="@font/inter_medium" />
+            app:fontFamily="@font/inter_medium"
+            android:layout_marginBottom="20dp"/>
     </LinearLayout>
 </ScrollView>
