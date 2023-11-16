@@ -74,6 +74,7 @@ public class ArticleActivity extends AppCompatActivity {
         if (extras == null) {
             return;
         }
+        getWindow().setNavigationBarColor(getColor(R.color.windowBg));
 
         preferences = (Preferences) extras.get("preferences");
         post  = (Item)extras.get("item");

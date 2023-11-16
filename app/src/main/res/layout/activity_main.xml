@@ -21,7 +21,7 @@
         android:background="@color/navbarBg"
         app:itemIconTint="@color/bottomnav_color"
         app:itemTextColor="@color/bottomnav_color"
-        app:itemPaddingBottom="30dp"
+        app:itemPaddingBottom="25dp"
         app:itemPaddingTop="10dp"
         app:menu="@menu/bottom_nav"/>
 

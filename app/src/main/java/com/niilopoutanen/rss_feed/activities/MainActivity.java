@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.activities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,11 +110,17 @@ public class MainActivity extends AppCompatActivity {
             return false; // Event has not been consumed
         });
 
+        int orientation = getResources().getConfiguration().orientation;
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            bottomNav.setItemPaddingBottom(insets.bottom);
+            bottomNav.setPadding(insets.left, 0, insets.right, insets.bottom);
             return WindowInsetsCompat.CONSUMED;
         });
+
+        if(orientation == Configuration.ORIENTATION_PORTRAIT){
+            getWindow().setNavigationBarColor(getColor(R.color.navbarBg));
+        }
+
     }
 
     @Override
