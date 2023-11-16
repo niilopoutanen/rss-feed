@@ -69,12 +69,10 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             return;
         }
-        getWindow().setNavigationBarColor(getColor(R.color.windowBg));
 
         preferences = (Preferences) extras.get("preferences");
         post  = (Item)extras.get("item");
@@ -84,6 +82,7 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
+
         setContentView(R.layout.activity_article);
 
         articleLoader = findViewById(R.id.article_load);
@@ -329,14 +328,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
     private void initWebView(String html){
         articleView = findViewById(R.id.articleview);
-        ViewCompat.setOnApplyWindowInsetsListener(articleView, (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.bottomMargin = insets.bottom;
-            mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
-            return WindowInsetsCompat.CONSUMED;
-        });
+
 
         Document document = Jsoup.parse(html);
         Element head = document.head();

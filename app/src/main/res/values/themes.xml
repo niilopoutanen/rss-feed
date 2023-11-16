@@ -60,4 +60,7 @@
         <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
+    <style name="RSSFeedStyle.NavActive" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/element_pressed</item>
+    </style>
 </resources>

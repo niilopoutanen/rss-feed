@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/navbarBg"
+        app:itemActiveIndicatorStyle="@style/RSSFeedStyle.NavActive"
         app:itemIconTint="@color/bottomnav_color"
         app:itemTextColor="@color/bottomnav_color"
         app:itemPaddingBottom="25dp"
