@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
@@ -103,6 +106,14 @@ public class AddSourceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_source, container, false);
+
+        ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.addsource_header), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.topMargin = insets.top;
+            v.setLayoutParams(mlp);
+            return WindowInsetsCompat.CONSUMED;
+        });
 
         LinearLayout returnBtn = rootView.findViewById(R.id.addsource_return);
         returnBtn.setOnClickListener(view -> closeFragment(returnBtn));

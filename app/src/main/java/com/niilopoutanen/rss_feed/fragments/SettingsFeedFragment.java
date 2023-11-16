@@ -34,6 +34,9 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -76,6 +79,16 @@ public class SettingsFeedFragment extends Fragment {
             appContext = getContext();
         }
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
+
+
+        ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.feedsettings_base), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.topMargin = insets.top;
+            v.setLayoutParams(mlp);
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         LinearLayout returnBtn = rootView.findViewById(R.id.feedsettings_return);
         returnBtn.setOnClickListener(view -> {
             PreferencesManager.vibrate(view);
