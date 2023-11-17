@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.ColorUtils;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -57,13 +59,25 @@ public class CategoryView extends RelativeLayout{
             }
 
             int backgroundColor = a.getColor(R.styleable.CategoryView_backgroundColor, context.getColor(android.R.color.transparent));
+            int backgroundColorSecondary = a.getColor(R.styleable.CategoryView_backgroundColorSecondary, context.getColor(android.R.color.transparent));
             int iconColor = a.getColor(R.styleable.CategoryView_iconColor, context.getColor(android.R.color.transparent));
-            setBackgroundColor(backgroundColor);
+            setBackgroundGradient(backgroundColor, backgroundColorSecondary);
             setIconColor(iconColor);
             a.recycle();
         }
     }
 
+    private void setBackgroundGradient(int color1, int color2) {;
+
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                  GradientDrawable.Orientation.TOP_BOTTOM,
+                  new int[]{color1, color2});
+
+        setBackground(gradientDrawable);
+    }
+    private int darkenColor(int color) {
+        return ColorUtils.blendARGB(color, Color.BLACK, 0.2f);
+    }
     public void setIconColor(int color){
         iconView.setColorFilter(color);
     }

@@ -3,6 +3,7 @@
     <declare-styleable name="CategoryView">
         <attr name="icon" format="reference" />
         <attr name="backgroundColor" format="color" />
+        <attr name="backgroundColorSecondary" format="color" />
         <attr name="iconColor" format="color" />
     </declare-styleable>
 </resources>

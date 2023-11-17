@@ -92,7 +92,8 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             app:icon="@drawable/icon_content"
-            app:backgroundColor="@color/accentRed"
-            app:iconColor="@color/accentBlue"/>
+            app:backgroundColor="@color/element"
+            app:backgroundColorSecondary="@color/element_pressed"
+            app:iconColor="?attr/colorAccent"/>
     </LinearLayout>
 </ScrollView>
