@@ -1,7 +1,6 @@
 package com.niilopoutanen.rss_feed.fragments;
 
 import static com.niilopoutanen.rss_feed.models.Preferences.DateStyle;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;

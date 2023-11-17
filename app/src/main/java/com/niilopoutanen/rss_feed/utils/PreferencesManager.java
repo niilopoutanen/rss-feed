@@ -8,6 +8,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER;
@@ -16,8 +18,6 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONT
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE;

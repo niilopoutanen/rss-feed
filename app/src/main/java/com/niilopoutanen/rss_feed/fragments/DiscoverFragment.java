@@ -17,9 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
-import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
@@ -28,6 +25,9 @@ import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
+import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.RSSException;
+import com.niilopoutanen.rssparser.WebUtils;
 
 import org.json.JSONObject;
 

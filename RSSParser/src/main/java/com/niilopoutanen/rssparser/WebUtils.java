@@ -21,7 +21,7 @@ public class WebUtils {
     public static Document connect(URL url) throws IOException, RSSException {
         String result = fetch(url);
         // Return the fetched data as a JSoup document
-        Document document = Jsoup.parse(result.toString(), "", org.jsoup.parser.Parser.xmlParser());
+        Document document = Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
         return document;
     }
 

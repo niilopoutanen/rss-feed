@@ -21,13 +21,13 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.SourceValidator;
+import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.RSSException;
 
 public class AddSourceFragment extends Fragment {
 

@@ -19,23 +19,21 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
-import com.niilopoutanen.rssparser.Feed;
-import com.niilopoutanen.rssparser.Item;
-import com.niilopoutanen.rssparser.Parser;
-import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
+import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rssparser.Item;
+import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rssparser.RSSException;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;

@@ -13,10 +13,8 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Item;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,7 @@ import java.util.Map;
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_NOTICE = 2;
-    private List<Item> items;
+    private final List<Item> items;
     private final Map<String, String> notices = new HashMap<>();
     private final Context context;
     private final Preferences preferences;

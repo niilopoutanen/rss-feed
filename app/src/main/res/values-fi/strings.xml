@@ -41,7 +41,6 @@
     <string name="settingsheader_functionality">Toiminnallisuus</string>
     <string name="settingsheader_article">Artikkeli</string>
     <string name="author_visible">Julkaisija näkyvissä</string>
-    <string name="author_sourcedesc">Näytä julkaisun lähde</string>
     <string name="title_visible">Otsikko näkyvissä</string>
     <string name="description_visible">Kuvaus näkyvissä</string>
     <string name="date_visible">Päivämäärä näkyvissä</string>

@@ -14,13 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
+import com.niilopoutanen.rssparser.WebUtils;
 
 import java.util.List;
 

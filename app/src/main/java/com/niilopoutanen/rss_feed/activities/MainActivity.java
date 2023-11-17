@@ -2,12 +2,8 @@ package com.niilopoutanen.rss_feed.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowInsets;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -15,9 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigationrail.NavigationRailView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;

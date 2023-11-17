@@ -3,10 +3,10 @@ package com.niilopoutanen.rss_feed.utils;
 import android.content.Context;
 import android.util.Log;
 
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.WebUtils;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.WebUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

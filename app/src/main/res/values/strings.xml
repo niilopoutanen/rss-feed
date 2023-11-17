@@ -61,7 +61,6 @@
     <string name="settingsheader_article">Article</string>
 
     <string name="author_visible">Author visible</string>
-    <string name="author_sourcedesc">Show post publisher</string>
     <string name="title_visible">Title visible</string>
     <string name="description_visible">Description visible</string>
     <string name="date_visible">Date visible</string>

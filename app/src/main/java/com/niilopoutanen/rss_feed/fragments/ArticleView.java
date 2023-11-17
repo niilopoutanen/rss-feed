@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -12,10 +11,8 @@ import androidx.annotation.NonNull;
 
 import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 public class ArticleView extends WebView {

@@ -2,9 +2,9 @@ package com.niilopoutanen.rss_feed.utils;
 
 import android.content.Context;
 
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.WebUtils;
-import com.niilopoutanen.rss_feed.models.Source;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
