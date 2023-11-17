@@ -6,19 +6,17 @@
     android:layout_height="200dp"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="20dp"
+    android:elevation="0dp">
 
-    <ImageView
-        android:id="@+id/discover_category_image"
-        android:contentDescription="@string/categories"
+    <com.niilopoutanen.rss_feed.fragments.CategoryView
+        android:id="@+id/discover_category_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:background="#d1e5f4"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/image_tint"/>
+        app:backgroundColor="@color/element"
+        app:backgroundColorSecondary="@color/element_pressed"
+        app:iconColor="?attr/colorAccent"/>
+
     <TextView
         android:id="@+id/discover_category_title"
         android:maxLines="1"

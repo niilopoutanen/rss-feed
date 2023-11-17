@@ -1,28 +1,30 @@
 package com.niilopoutanen.rss_feed.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.fragments.CategoryView;
 import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public List<Category> categories;
     private final View.OnClickListener onClickListener;
+    private final Context context;
 
-    public DiscoverCategoryAdapter(List<Category> categories, View.OnClickListener onClickListener) {
+    public DiscoverCategoryAdapter(List<Category> categories, Context context, View.OnClickListener onClickListener) {
         this.categories = categories;
         this.onClickListener = onClickListener;
+        this.context = context;
     }
 
     @NonNull
@@ -43,13 +45,12 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Category category = categories.get(position);
-        ImageView itemImage = ((ItemViewHolder) holder).imageView;
+        CategoryView itemCategory = ((ItemViewHolder) holder).categoryView;
         TextView itemTitle = ((ItemViewHolder) holder).textView;
         itemTitle.setText(category.getName());
-        if (category.getImageUrl() == null) {
-            return;
-        }
-        Picasso.get().load(category.getImageUrl()).resize(0, PreferencesManager.dpToPx(200, holder.itemView.getContext())).into(itemImage);
+
+        itemCategory.setIcon(AppCompatResources.getDrawable(context, category.getIconId()));
+
         holder.itemView.setOnClickListener(onClickListener);
     }
 
@@ -60,12 +61,12 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
-        final ImageView imageView;
+        final CategoryView categoryView;
         final TextView textView;
 
         ItemViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.discover_category_image);
+            categoryView = itemView.findViewById(R.id.discover_category_view);
             textView = itemView.findViewById(R.id.discover_category_title);
         }
     }

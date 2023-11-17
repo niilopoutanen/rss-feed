@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -79,26 +80,22 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if (progressBar != null) {
             progressBar.setVisibility(View.VISIBLE);
         }
-        SaveSystem.loadCategories(new Callback<List<Category>>() {
-            @Override
-            public void onResult(List<Category> result) {
-                categories = result;
+        String locale = Locale.getDefault().getLanguage();
+        Category.Country userLocale;
+        if ("fi".equals(locale)) {
+            userLocale = Category.Country.FI;
+        } else {
+            userLocale = Category.Country.EN;
+        }
 
-                if (categoryAdapter != null) {
-                    ((Activity) appContext).runOnUiThread(() -> {
-                        categoryAdapter.setCategories(categories);
-                        progressBar.setVisibility(View.GONE);
-                        startPostponedEnterTransition();
-                    });
-                }
-            }
+        categories = Category.getCategories(userLocale);
 
-            @Override
-            public void onError(RSSException e) {
+        if(categoryAdapter != null){
+            categoryAdapter.setCategories(categories);
+            progressBar.setVisibility(View.GONE);
 
-            }
-        });
-
+        }
+        startPostponedEnterTransition();
     }
 
     private void search(String query) {
@@ -164,7 +161,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         progressBar = rootView.findViewById(R.id.discover_progress);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
-        categoryAdapter = new DiscoverCategoryAdapter(categories, this);
+        categoryAdapter = new DiscoverCategoryAdapter(categories,appContext, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
 
         RecyclerView resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
