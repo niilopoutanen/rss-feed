@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RSS-Syöte</string>
+    <string name="feed_header">Syöte</string>
+    <string name="settings_header">Asetukset</string>
+    <string name="feedsettings_header">Syötteen muokkaaminen</string>
+    <string name="content_header">Sisältö</string>
+    <string name="add">Lisää</string>
+    <string name="continua">Jatka</string>
+    <string name="cancel">Peruuta</string>
+    <string name="close">Sulje</string>
+    <string name="goback">Takaisin</string>
+    <string name="save">Tallenna</string>
+    <string name="share">Jaa</string>
+    <string name="sharepost">Jaa julkaisu</string>
+    <string name="addsource">Lisää lähde</string>
+    <string name="updatesource">Päivitä lähde</string>
+    <string name="sourceremoved">Lähde poistettu</string>
+    <string name="feed_name">Nimi</string>
+    <string name="feed_name_autofill">Valinnainen: Jätä nimi tyhjäksi automaattista täyttöä varten.</string>
+    <string name="feed_url">Syötteen URL-osoite</string>
+    <string name="nointernet">Ei internet-yhteyttä.</string>
+    <string name="nosources">Yhtään lähdettä ei ole lisätty.</string>
+    <string name="justnow">Juuri nyt</string>
+    <string name="imagefrom">Kuva lähteestä</string>
+    <string name="imagesaved">Kuva tallennettu galleriaan</string>
+    <string name="nowriteaccess">Et ole antanut sovellukselle lupaa tallentaa tiedostoja.</string>
+    <string name="settings_theme">Teema</string>
+    <string name="settings_theme_additional">Teema muuttuu, kun sovellus käynnistetään uudelleen seuraavan kerran.</string>
+    <string name="settings_feedcardstyle">Syötteen kortin tyyli</string>
+    <string name="accentcolor">Korostusväri</string>
+    <string name="settings_font">Fontti jota käytetään artikkeleissa</string>
+    <string name="settings_launchwindow">Ikkuna joka avataan käynnistäessä</string>
+    <string name="haptics">Värinä</string>
+    <string name="view_in_browser">Avaa selaimessa</string>
+    <string name="open_articles_in_browser">Avaa artikkelit selaimessa</string>
+    <string name="articles_fullscreen">Lue artikkelit koko näytön-tilassa</string>
+    <string name="cache_images">Tallenna kuvat välimuistiin</string>
+    <string name="settingsheader_feed">Syöte</string>
+    <string name="settingsheader_colors">Värit</string>
+    <string name="settingsheader_functionality">Toiminnallisuus</string>
+    <string name="settingsheader_article">Artikkeli</string>
+    <string name="author_visible">Julkaisija näkyvissä</string>
+    <string name="title_visible">Otsikko näkyvissä</string>
+    <string name="description_visible">Kuvaus näkyvissä</string>
+    <string name="date_visible">Päivämäärä näkyvissä</string>
+    <string name="date_format">Päivämäärän muotoilu</string>
+    <string name="whatsnew">Mitä uutta versiossa</string>
+    <string name="feature1">Päivitetty artikkeli-lukija</string>
+    <string name="feature1desc">Artikkelilukija pystyy nyt näyttämään laajemmin materiaalia, ei vain kuvia ja tekstiä.</string>
+    <string name="feature2">Korjauksia tablettien käyttöliittymään</string>
+    <string name="feature2desc">Sovelluksien käyttöliittymää tableteilla parannettu</string>
+    <string name="feature3">Pieniä virhekorjauksia</string>
+    <string name="feature3desc">Pieniä virhekorjauksia siellä sun täällä</string>
+    <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
+    <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
+
+    <string-array name="theme_modes">
+        <item>Vaalea</item>
+        <item>Tumma</item>
+        <item>Käytä järjestelmän teemaa</item>
+    </string-array>
+    <string-array name="launch_windows">
+        <item>Asetukset</item>
+        <item>Syöte</item>
+        <item>Lähteet</item>
+        <item>Tutki</item>
+    </string-array>
+    <string-array name="date_modes">
+        <item>Pitkä</item>
+        <item>Lyhyt</item>
+        <item>Aika julkaisusta</item>
+        <item>Vain aika</item>
+    </string-array>
+    <plurals name="minutes_ago">
+        <item quantity="one">%d minuutti sitten</item>
+        <item quantity="other">%d minuuttia sitten</item>
+    </plurals>
+    <plurals name="hours_ago">
+        <item quantity="one">%d tunti sitten</item>
+        <item quantity="other">%d tuntia sitten</item>
+    </plurals>
+    <string name="sendmail">Lähetä sähköpostia</string>
+    <string name="noemailfound">Sähköpostisovellusta ei löydetty. Lähetä palautetta osoitteeseen niilo.poutanen@gmail.com</string>
+    <string name="emailquide">Kirjoita palautteesi tähän. Jätä valmiiksi täytetyt tiedot viestiin mukaan. (Viestin pohjalla olevat numerot)</string>
+    <string name="themechange_desc">Muutokset sovelluksen teemaan tulevat näkyviin kun avaat sovelluksen seuraavan kerran.</string>
+    <string name="discover_header">Tutki</string>
+    <string name="results">Tulokset</string>
+    <string name="categories">Kategoriat</string>
+    <string name="search">Hae</string>
+    <string name="sourceadded">Lähde lisätty.</string>
+    <string name="sourcealreadyadded">Lähde on jo lisätty.</string>
+    <string name="nointernetmsg">Syötettä ei voitu ladata. Yhdistä internettiin ja yritä uudelleen.</string>
+    <string name="nosourcesmsg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
+    <string name="tryagain">Yritä uudelleen</string>
+    <string name="donot_show_again">Älä näytä uudelleen</string>
+    <string name="invalidfeed">RSS-syötteen url-osoite on virheellinen.</string>
+    <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
+    <string name="settings_fontsize">Fonttikoko</string>
+    <string name="settings_launchwindow_additional">Valittu välilehti aukeaa kun käynnistät sovelluksen.</string>
+    <string name="show_in_feed">Näytä syötteessä</string>
+    <string name="error_toomanyrequests">Liian monta pyyntöä.</string>
+    <string name="toomanyrequestsmsg">Olet lähettänyt liian monta pyyntöä osoitteesen %s. Odota hetki ja yritä uudelleen.</string>
+    <string name="animate_clicks">Animoi klikkaukset</string>
+    <string name="article_show_controls">Näytä alavalikko artikkelissa</string>
+    <string name="article_focusmode">Vaihda keskittymistilaa</string>
+    <string name="debug_tools">Vianmääritystyökalut</string>
+    <string name="article_open_with_url">Avaa ArticleView URL-osoitteella</string>
+    <string name="debug_terminate">Lopeta sovellusprosessi</string>
+</resources>
