@@ -44,7 +44,7 @@ public class CategoryView extends RelativeLayout{
         iconView = new ImageView(context);
         iconView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
-        int iconSize = PreferencesManager.dpToPx(40, context);
+        int iconSize = PreferencesManager.dpToPx(70, context);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(iconSize, iconSize);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         iconView.setLayoutParams(layoutParams);
