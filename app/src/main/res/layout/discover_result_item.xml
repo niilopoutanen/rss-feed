@@ -41,8 +41,7 @@
         android:id="@+id/discover_result_add"
         android:layout_width="50dp"
         android:layout_height="30dp"
-        android:background="@drawable/element_background"
-        android:backgroundTint="@color/element">
+        android:background="@drawable/element_background">
 
         <View
             android:id="@+id/discover_result_add_icon"
