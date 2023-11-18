@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,9 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView itemTitle = ((ItemViewHolder) holder).textView;
         itemTitle.setText(category.getName());
 
+        View icon = ((ItemViewHolder)holder).icon;
+        icon.setBackground(AppCompatResources.getDrawable(context, category.getIconId()));
+
         holder.itemView.setOnClickListener(onClickListener);
     }
 
@@ -59,10 +63,12 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
         final TextView textView;
+        final View icon;
 
         ItemViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.discover_category_title);
+            icon = itemView.findViewById(R.id.discover_category_icon);
         }
     }
 

@@ -13,10 +13,12 @@
     android:layout_marginRight="5dp">
 
     <View
+        android:id="@+id/discover_category_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/featureicon2"
-        android:backgroundTint="?attr/colorAccent" />
+        android:backgroundTint="?attr/colorAccent"
+        android:layout_marginRight="5dp"/>
     <TextView
         android:id="@+id/discover_category_title"
         android:maxLines="1"

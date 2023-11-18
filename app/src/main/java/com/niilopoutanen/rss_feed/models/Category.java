@@ -6,30 +6,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
+    public static final String CATEGORY_RECOMMENDED = "$RSSFEED_RECOMMENDED";
     public static final List<Category> categories = new ArrayList<>();
     static {
-        categories.add(new Category("News", R.drawable.icon_content, "News"));
-        categories.add(new Category("Tech", R.drawable.icon_content, "Tech"));
-        categories.add(new Category("Sports", R.drawable.icon_content, "Sports"));
-        categories.add(new Category("Cars", R.drawable.icon_content, "Cars"));
-        categories.add(new Category("Politics", R.drawable.icon_content, "Politics"));
-        categories.add(new Category("Movies", R.drawable.icon_content, "Movies"));
-        categories.add(new Category("Science", R.drawable.icon_content, "Science"));
-        categories.add(new Category("Stocks", R.drawable.icon_content, "Stocks"));
-        categories.add(new Category("Gaming", R.drawable.icon_content, "Gaming"));
+        categories.add(new Category("Recommended", R.drawable.icon_thumbs_up, CATEGORY_RECOMMENDED));
+        categories.add(new Category("News", R.drawable.icon_news, "News"));
+        categories.add(new Category("Tech", R.drawable.icon_phone, "Tech"));
+        categories.add(new Category("Sports", R.drawable.icon_baseball, "Sports"));
+        categories.add(new Category("Cars", R.drawable.icon_car, "Cars"));
+        categories.add(new Category("Politics", R.drawable.icon_briefcase , "Politics"));
+        categories.add(new Category("Movies", R.drawable.icon_movies, "Movies"));
+        categories.add(new Category("Science", R.drawable.icon_microscope, "Science"));
+        categories.add(new Category("Stocks", R.drawable.icon_graph, "Stocks"));
+        categories.add(new Category("Gaming", R.drawable.icon_controller, "Gaming"));
     }
 
     public static final List<Category> categoriesFI = new ArrayList<>();
     static {
-        categoriesFI.add(new Category("Uutiset", R.drawable.icon_content, "Uutiset"));
-        categoriesFI.add(new Category("Teknologia", R.drawable.icon_content, "Tech"));
-        categoriesFI.add(new Category("Urheilu", R.drawable.icon_content, "Urheilu"));
-        categoriesFI.add(new Category("Autot", R.drawable.icon_content, "Cars"));
-        categoriesFI.add(new Category("Politiikka", R.drawable.icon_content, "Politiikka"));
-        categoriesFI.add(new Category("Elokuvat", R.drawable.icon_content, "Movies"));
-        categoriesFI.add(new Category("Tiede", R.drawable.icon_content, "Tiede"));
-        categoriesFI.add(new Category("Pörssi", R.drawable.icon_content, "Pörssi"));
-        categoriesFI.add(new Category("Videopelit", R.drawable.icon_content, "Gaming"));
+        categoriesFI.add(new Category("Suositeltu", R.drawable.icon_thumbs_up, CATEGORY_RECOMMENDED));
+        categoriesFI.add(new Category("Uutiset", R.drawable.icon_news, "Uutiset"));
+        categoriesFI.add(new Category("Teknologia", R.drawable.icon_phone, "Tech"));
+        categoriesFI.add(new Category("Urheilu", R.drawable.icon_baseball, "Urheilu"));
+        categoriesFI.add(new Category("Autot", R.drawable.icon_car, "Cars"));
+        categoriesFI.add(new Category("Politiikka", R.drawable.icon_briefcase, "Politiikka"));
+        categoriesFI.add(new Category("Elokuvat", R.drawable.icon_movies, "Movies"));
+        categoriesFI.add(new Category("Tiede", R.drawable.icon_microscope, "Tiede"));
+        categoriesFI.add(new Category("Pörssi", R.drawable.icon_graph, "Pörssi"));
+        categoriesFI.add(new Category("Videopelit", R.drawable.icon_controller, "Gaming"));
     }
     private final String name;
     private final int iconId;
