@@ -11,13 +11,12 @@
             "tech"
         ],
         "coverUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_cover-18651c8c2c2",
-        "visualUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_visual-18321247908"
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5mac.jpg"
     },
     {
         "language": "en",
         "description": "Live news, investigations, opinion, photos and video by the journalists of The New York Times from more than 150 countries around the world.",
         "title": "The New York Times",
-        "iconUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_icon-16a2a518642",
         "feedId": "feed/https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
         "website": "https://nytimes.com",
         "topics": [
@@ -25,13 +24,12 @@
             "journalism"
         ],
         "coverUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_cover-170f4ed8fad",
-        "visualUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_visual-16a2a518642"
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/New%20York%20Times.jpg"
     },
     {
         "language": "en",
         "description": "Comprehensive up-to-date news coverage, aggregated from sources all over the world by Google News.",
         "title": "Google News",
-        "iconUrl": "https://storage.googleapis.com/site-assets/byrXw679XPst_3ELq289LsQfFxcSiBdToHPW553uBcE_sicon-16c53b6d036",
         "feedId": "feed/https://news.google.com/rss",
         "website": "https://news.google.com",
         "topics": [
@@ -44,7 +42,6 @@
         "language": "en",
         "description": "Visit BBC News for up-to-the-minute news, breaking news, video, audio and feature stories. BBC News provides trusted World and UK news as well as local and regional perspectives.",
         "title": "BBC News",
-        "iconUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_icon-180f823193a",
         "feedId": "feed/https://feeds.bbci.co.uk/news/rss.xml",
         "website": "https://www.bbc.com",
         "topics": [
@@ -59,7 +56,6 @@
         "language": "en",
         "description": "The latest news and headlines from Yahoo! News. Get breaking news stories and in-depth coverage with videos and photos.",
         "title": "Yahoo News",
-        "iconUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_icon-16d636c15d0",
         "feedId": "feed/http://news.yahoo.com/rss",
         "website": "https://news.yahoo.com",
         "topics": [
@@ -74,7 +70,6 @@
         "language": "en",
         "description": "Latest US news, world news, sports, business, opinion, analysis and reviews from the Guardian, the world's leading liberal voice",
         "title": "The Guardian",
-        "iconUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_icon-16d636c15d0",
         "feedId": "feed/https://www.theguardian.com/us/rss",
         "website": "https://www.theguardian.com",
         "topics": [
@@ -82,7 +77,7 @@
             "yahoo",
             "journalism"
         ],
-        "visualUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_visual-16d636c15d0",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Guardian.jpg",
         "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
     }
 ]
