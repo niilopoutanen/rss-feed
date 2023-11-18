@@ -29,17 +29,16 @@
     },
     {
         "language": "en",
-        "description": "View the latest news and breaking news today for U.S., world, weather, entertainment, politics and health at CNN.com.",
-        "title": "CNN",
-        "iconUrl": "https://storage.googleapis.com/test-site-assets/rCJg7pKVnNYe-cGb-lsdnTD6zmt4MNGy627zsl0vNH4_oicon-14ebc5230d6",
-        "feedId": "feed/http://rss.cnn.com/rss/edition.rss",
-        "website": "https://cnn.com",
+        "description": "Comprehensive up-to-date news coverage, aggregated from sources all over the world by Google News.",
+        "title": "Google News",
+        "iconUrl": "https://storage.googleapis.com/site-assets/byrXw679XPst_3ELq289LsQfFxcSiBdToHPW553uBcE_sicon-16c53b6d036",
+        "feedId": "feed/https://news.google.com/rss",
+        "website": "https://news.google.com",
         "topics": [
             "news",
             "journalism"
         ],
-        "coverUrl": "https://storage.googleapis.com/test-site-assets/rCJg7pKVnNYe-cGb-lsdnTD6zmt4MNGy627zsl0vNH4_ocover-14ebc520a9d",
-        "visualUrl": "https://storage.googleapis.com/test-site-assets/rCJg7pKVnNYe-cGb-lsdnTD6zmt4MNGy627zsl0vNH4_ovisual-14ebc5230d6"
+        "visualUrl": "https://storage.googleapis.com/site-assets/byrXw679XPst_3ELq289LsQfFxcSiBdToHPW553uBcE_svisual-16c53b6d036"
     }
 ]
 }
