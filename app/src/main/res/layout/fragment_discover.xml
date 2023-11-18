@@ -33,7 +33,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/input_background"
+            android:background="@drawable/element_background"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:layout_marginBottom="10dp">
