@@ -2,8 +2,11 @@ package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Category;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.List;
 
@@ -50,7 +54,24 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         View icon = ((ItemViewHolder)holder).icon;
         icon.setBackground(AppCompatResources.getDrawable(context, category.getIconId()));
 
-        holder.itemView.setOnClickListener(onClickListener);
+        View container = holder.itemView;
+        container.setOnClickListener(onClickListener);
+
+        if(PreferencesManager.loadPreferences(context).s_animateclicks){
+            Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+            Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+            container.setOnTouchListener((view, motionEvent) -> {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    container.startAnimation(scaleDown);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    container.startAnimation(scaleUp);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    container.startAnimation(scaleUp);
+                    view.performClick();
+                }
+                return true;
+            });
+        }
     }
 
     @Override
