@@ -393,6 +393,9 @@ public class PreferencesManager {
      * @return String representation of the date
      */
     public static String formatDate(Date date, DateStyle dateStyle, Context context) {
+        if(date == null || dateStyle == null || context == null){
+            return "";
+        }
         Instant now = Instant.now();
         Instant postTime = date.toInstant();
 

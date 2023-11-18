@@ -87,20 +87,20 @@ public class FeedCard extends RecyclerView.ViewHolder{
     }
 
     public void bindData(Item item){
-        title.setText(item.getTitle());
-        desc.setText(item.getDescription());
-        Date pubDate = item.getPubDate();
-        if(pubDate != null){
-            date.setText(PreferencesManager.formatDate(item.getPubDate(), preferences.s_feedcard_datestyle, context));
-        }
-        else{
-            date.setText("");
-            date.setVisibility(View.GONE);
-        }
+        setPreferences();
 
+        title.setVisibility(item.getTitle() == null ? View.GONE : View.VISIBLE);
+        title.setText(item.getTitle());
+
+        desc.setVisibility(item.getDescription() == null ? View.GONE : View.VISIBLE);
+        desc.setText(item.getDescription());
+
+        date.setVisibility(item.getPubDate() == null ? View.GONE : View.VISIBLE);
+        date.setText(PreferencesManager.formatDate(item.getPubDate(), preferences.s_feedcard_datestyle, context));
+
+        author.setVisibility(item.getAuthor() == null ? View.GONE : View.VISIBLE);
         author.setText(item.getAuthor());
 
-        setPreferences();
         loadImage(item);
 
     }
