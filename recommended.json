@@ -69,6 +69,21 @@
         ],
         "visualUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_visual-16d636c15d0",
         "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
+    },
+    {
+        "language": "en",
+        "description": "Latest US news, world news, sports, business, opinion, analysis and reviews from the Guardian, the world's leading liberal voice",
+        "title": "The Guardian",
+        "iconUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_icon-16d636c15d0",
+        "feedId": "feed/https://www.theguardian.com/us/rss",
+        "website": "https://www.theguardian.com",
+        "topics": [
+            "news",
+            "yahoo",
+            "journalism"
+        ],
+        "visualUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_visual-16d636c15d0",
+        "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
     }
 ]
 }
