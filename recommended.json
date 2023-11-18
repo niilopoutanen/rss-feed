@@ -50,15 +50,23 @@
         "title": "Washington Post",
         "feedId": "feed/https://feeds.washingtonpost.com/rss/world",
         "website": "https://www.washingtonpost.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Washingtopn%20Post.jpg"
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Washington%20Post.jpg"
     },
     {
         "language": "en",
-        "description": "Spotify For the Record — Official News and Views",
-        "title": "Spotify",
-        "feedId": "feed/https://newsroom.spotify.com/feed/",
-        "website": "https://newsroom.spotify.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Spotify.jpg"
+        "description": "The latest news, analysis, research and events from Automotive World, the world's leading independent automotive publishing and events company.",
+        "title": "Automotive World",
+        "feedId": "feed/https://www.automotiveworld.com/feed/",
+        "website": "https://www.automotiveworld.com",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Automotive%20World.jpg"
+    },
+    {
+        "language": "en",
+        "description": "Journalism That Matters. Music That Inspires.",
+        "title": "Rolling Stone",
+        "feedId": "feed/https://www.rollingstone.com/feed/",
+        "website": "https://www.rollingstone.com/",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Rolling%20Stone.jpg"
     }
 ]
 }
