@@ -1,0 +1,48 @@
+{
+"results": [
+    {
+        "description": "News and reviews for Apple products, apps, and rumors. We provide breaking coverage for the iPhone, iPad, and all things Mac!",
+        "language": "en",
+        "id": "feed/http://9to5mac.com/feed/",
+        "title": "9to5mac",
+        "feedId": "feed/http://9to5mac.com/feed/",
+        "website": "https://9to5mac.com/",
+        "topics": [
+            "apple",
+            "tech"
+        ],
+        "coverUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_cover-18651c8c2c2",
+        "visualUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_visual-18321247908"
+    },
+    {
+        "language": "en",
+        "id": "feed/https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+        "description": "Live news, investigations, opinion, photos and video by the journalists of The New York Times from more than 150 countries around the world.",
+        "title": "The New York Times",
+        "iconUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_icon-16a2a518642",
+        "feedId": "feed/https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+        "website": "https://nytimes.com",
+        "topics": [
+            "news",
+            "journalism"
+        ],
+        "coverUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_cover-170f4ed8fad",
+        "visualUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_visual-16a2a518642"
+    },
+    {
+        "language": "en",
+        "id": "feed/http://rss.cnn.com/rss/edition.rss",
+        "description": "Live news, investigations, opinion, photos and video by the journalists of The New York Times from more than 150 countries around the world.",
+        "title": "The New York Times",
+        "iconUrl": "https://storage.googleapis.com/test-site-assets/rCJg7pKVnNYe-cGb-lsdnTD6zmt4MNGy627zsl0vNH4_oicon-14ebc5230d6",
+        "feedId": "feed/http://rss.cnn.com/rss/edition.rss",
+        "website": "https://cnn.com",
+        "topics": [
+            "news",
+            "journalism"
+        ],
+        "coverUrl": "https://storage.googleapis.com/test-site-assets/rCJg7pKVnNYe-cGb-lsdnTD6zmt4MNGy627zsl0vNH4_ocover-14ebc520a9d",
+        "visualUrl": "https://storage.googleapis.com/test-site-assets/rCJg7pKVnNYe-cGb-lsdnTD6zmt4MNGy627zsl0vNH4_ovisual-14ebc5230d6"
+    }
+]
+}
