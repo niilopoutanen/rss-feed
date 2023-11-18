@@ -37,6 +37,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
     private List<Source> sources;
     private Context context;
     private Source tempSource;
+    private final View.OnLongClickListener onLongClickListener;
+
     private final Runnable undoDelete = new Runnable() {
         @Override
         public void run() {
@@ -49,7 +51,7 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             }
         }
     };
-    private final View.OnLongClickListener onLongClickListener;
+
 
 
     public SourceAdapter(List<Source> sources, Preferences preferences, RecyclerView recyclerView, View.OnLongClickListener onClickListener) {
@@ -69,7 +71,8 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(
                   ViewGroup.LayoutParams.MATCH_PARENT,
                   ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(40, 0, 40, 40);
+        int margin = PreferencesManager.dpToPx(10, context);
+        layoutParams.setMargins(margin, 0, margin, margin);
         sourceItemView.setLayoutParams(layoutParams);
 
         return new SourceAdapter.ViewHolder(sourceItemView);
