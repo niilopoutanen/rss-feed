@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
@@ -167,6 +170,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         RecyclerView resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);
+        resultsRecyclerView.addItemDecoration(new DividerItemDecoration(appContext, LinearLayout.VERTICAL));
 
         View searchBtn = rootView.findViewById(R.id.discover_search);
         searchBtn.setOnClickListener(v -> {
