@@ -54,6 +54,21 @@
         ],
         "visualUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_visual-180f823193a",
         "coverUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_cover-1835b2f6a7e"
+    },
+    {
+        "language": "en",
+        "description": "The latest news and headlines from Yahoo! News. Get breaking news stories and in-depth coverage with videos and photos.",
+        "title": "Yahoo News",
+        "iconUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_icon-16d636c15d0",
+        "feedId": "feed/http://news.yahoo.com/rss",
+        "website": "https://news.yahoo.com",
+        "topics": [
+            "news",
+            "yahoo",
+            "journalism"
+        ],
+        "visualUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_visual-16d636c15d0",
+        "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
     }
 ]
 }
