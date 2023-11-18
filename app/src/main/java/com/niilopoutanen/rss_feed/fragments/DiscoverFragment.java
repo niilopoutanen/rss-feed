@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -177,6 +178,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
         categoryAdapter = new DiscoverCategoryAdapter(categories,appContext, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
+        categoryRecyclerView.setLayoutManager(new GridLayoutManager(appContext, 2, GridLayoutManager.HORIZONTAL, false));
 
         resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);

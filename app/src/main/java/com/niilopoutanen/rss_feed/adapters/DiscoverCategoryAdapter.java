@@ -45,11 +45,8 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Category category = categories.get(position);
-        CategoryView itemCategory = ((ItemViewHolder) holder).categoryView;
         TextView itemTitle = ((ItemViewHolder) holder).textView;
         itemTitle.setText(category.getName());
-
-        itemCategory.setIcon(AppCompatResources.getDrawable(context, category.getIconId()));
 
         holder.itemView.setOnClickListener(onClickListener);
     }
@@ -61,12 +58,10 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
-        final CategoryView categoryView;
         final TextView textView;
 
         ItemViewHolder(View itemView) {
             super(itemView);
-            categoryView = itemView.findViewById(R.id.discover_category_view);
             textView = itemView.findViewById(R.id.discover_category_title);
         }
     }

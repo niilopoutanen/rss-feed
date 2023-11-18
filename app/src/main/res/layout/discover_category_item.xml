@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="150dp"
-    android:layout_height="200dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
-    app:cardCornerRadius="20dp"
-    android:elevation="0dp">
+    android:layout_width="155dp"
+    android:layout_height="42dp"
+    android:background="@drawable/element_background"
+    android:orientation="horizontal"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="5dp"
+    android:layout_marginRight="5dp">
 
-    <com.niilopoutanen.rss_feed.fragments.CategoryView
-        android:id="@+id/discover_category_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:backgroundColor="@color/element"
-        app:backgroundColorSecondary="@color/element_pressed"
-        app:iconColor="?attr/colorAccent"/>
-
+    <View
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/featureicon2"
+        android:backgroundTint="?attr/colorAccent" />
     <TextView
         android:id="@+id/discover_category_title"
         android:maxLines="1"
-        android:layout_margin="10dp"
         app:fontFamily="@font/inter_bold"
         android:layout_width="wrap_content"
         android:textColor="@color/textPrimary"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
-</androidx.cardview.widget.CardView>
+        android:layout_height="wrap_content"/>
+</LinearLayout>
