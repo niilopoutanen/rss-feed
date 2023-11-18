@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.fragments.CategoryView;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.Item;
 
