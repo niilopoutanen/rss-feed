@@ -59,8 +59,10 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         RelativeLayout add = ((ItemViewHolder) holder).addBtn;
 
         ImageView image = ((ItemViewHolder)holder).icon;
+        int iconSize = PreferencesManager.dpToPx(60, context);
         Picasso.get().load(result.visualUrl)
                   .transform(new MaskTransformation(context, R.drawable.element_background))
+                  .resize(iconSize, iconSize)
                   .into(image);
 
         View icon = add.findViewById(R.id.discover_result_add_icon);
