@@ -5,15 +5,18 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +52,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     List<FeedResult> results = new ArrayList<>();
     DiscoverCategoryAdapter categoryAdapter;
     DiscoverResultAdapter resultAdapter;
-    RecyclerView categoryRecyclerView;
+    RecyclerView categoryRecyclerView, resultsRecyclerView;
+
+    NestedScrollView scrollView;
     View progressBar;
 
     public DiscoverFragment(Context context, Preferences preferences) {
@@ -110,7 +115,12 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
                 if (resultAdapter != null) {
                     ((Activity) appContext).runOnUiThread(() -> {
                         resultAdapter.setResults(results);
-                        progressBar.setVisibility(View.GONE);
+                        // Post after layout updated
+                        resultsRecyclerView.post(() -> {
+                            scrollView.smoothScrollTo(0, resultsRecyclerView.getTop(), 1000);
+                            progressBar.setVisibility(View.GONE);
+                        });
+
                     });
                 }
             }
@@ -151,6 +161,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
+        scrollView = rootView.findViewById(R.id.discover_nestedscrollview);
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.discover_container), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -167,7 +178,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         categoryAdapter = new DiscoverCategoryAdapter(categories,appContext, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
 
-        RecyclerView resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
+        resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);
         resultsRecyclerView.addItemDecoration(new DividerItemDecoration(appContext, LinearLayout.VERTICAL));
