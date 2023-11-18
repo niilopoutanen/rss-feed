@@ -173,10 +173,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                     for(Item item : loadedItems){
                         postMap.put(item, source.getId());
                     }
-                    Activity activity = getActivity();
-                    if(activity != null && isAdded()){
-                        requireActivity().runOnUiThread(() -> Collections.sort(loadedItems));
-                    }
+
                 } catch (RSSException e) {
                     Activity activity = getActivity();
                     if(activity != null && isAdded()){
@@ -187,8 +184,9 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
 
             }
-            if (getActivity() != null) {
+            if (getActivity() != null && isAdded()) {
                 getActivity().runOnUiThread(() -> {
+                    Collections.sort(loadedItems);
                     items.clear();
                     items.addAll(loadedItems);
                     adapter.update();
