@@ -134,16 +134,18 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
      * @param callBack Returns a list of FeedResult objects that were found
      */
     public static void fetchFeedQuery(String query, Callback<List<FeedResult>> callBack) {
-        if(query.equals(Category.CATEGORY_RECOMMENDED)){
-            loadRecommendations();
-            callBack.onResult(new ArrayList<>());
-        }
+
         String FEEDLY_ENDPOINT = "https://cloud.feedly.com/v3/search/feeds?query=";
         int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
 
         Executor executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
+            if(query.equals(Category.CATEGORY_RECOMMENDED)){
+                callBack.onResult(loadRecommendations());
+                return;
+            }
+
             try {
                 URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
                 String result = WebUtils.connect(queryUrl, true);
@@ -156,8 +158,15 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private static void loadRecommendations(){
-
+    private static List<FeedResult> loadRecommendations(){
+        List<FeedResult> results = new ArrayList<>();
+        try{
+            URL url = new URL("https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended.json");
+            String result = WebUtils.connect(url, true);
+            results = FeedResult.parseResult(new JSONObject(result));
+        }
+        catch (Exception ignored){ }
+        return results;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
