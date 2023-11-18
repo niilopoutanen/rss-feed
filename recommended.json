@@ -39,6 +39,21 @@
             "journalism"
         ],
         "visualUrl": "https://storage.googleapis.com/site-assets/byrXw679XPst_3ELq289LsQfFxcSiBdToHPW553uBcE_svisual-16c53b6d036"
+    },
+    {
+        "language": "en",
+        "description": "Visit BBC News for up-to-the-minute news, breaking news, video, audio and feature stories. BBC News provides trusted World and UK news as well as local and regional perspectives.",
+        "title": "BBC News",
+        "iconUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_icon-180f823193a",
+        "feedId": "feed/https://feeds.bbci.co.uk/news/rss.xml",
+        "website": "https://www.bbc.com",
+        "topics": [
+            "news",
+            "bbc",
+            "journalism"
+        ],
+        "visualUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_visual-180f823193a",
+        "coverUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_cover-1835b2f6a7e"
     }
 ]
 }
