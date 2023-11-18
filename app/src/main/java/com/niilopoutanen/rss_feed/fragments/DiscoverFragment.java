@@ -31,6 +31,7 @@ import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.RSSException;
@@ -89,15 +90,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if (progressBar != null) {
             progressBar.setVisibility(View.VISIBLE);
         }
-        String locale = Locale.getDefault().getLanguage();
-        Category.Country userLocale;
-        if ("fi".equals(locale)) {
-            userLocale = Category.Country.FI;
-        } else {
-            userLocale = Category.Country.EN;
-        }
-
-        categories = Category.getCategories(userLocale);
+        categories = Category.getCategories(PreferencesManager.getUserLocale());
 
         if(categoryAdapter != null){
             categoryAdapter.setCategories(categories);
@@ -141,6 +134,10 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
      * @param callBack Returns a list of FeedResult objects that were found
      */
     public static void fetchFeedQuery(String query, Callback<List<FeedResult>> callBack) {
+        if(query.equals(Category.CATEGORY_RECOMMENDED)){
+            loadRecommendations();
+            callBack.onResult(new ArrayList<>());
+        }
         String FEEDLY_ENDPOINT = "https://cloud.feedly.com/v3/search/feeds?query=";
         int FEEDLY_ENDPOINT_FETCHCOUNT = 40;
 
@@ -159,6 +156,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    private static void loadRecommendations(){
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);

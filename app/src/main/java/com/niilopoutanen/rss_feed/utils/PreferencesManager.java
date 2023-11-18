@@ -63,6 +63,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.Preferences;
 
 import java.text.DateFormat;
@@ -157,6 +158,17 @@ public class PreferencesManager {
                 return ResourcesCompat.getFont(context, R.font.inter);
 
         }
+    }
+
+    public static Category.Country getUserLocale(){
+        String locale = Locale.getDefault().getLanguage();
+        Category.Country userLocale;
+        if ("fi".equals(locale)) {
+            userLocale = Category.Country.FI;
+        } else {
+            userLocale = Category.Country.EN;
+        }
+        return userLocale;
     }
 
     /**
