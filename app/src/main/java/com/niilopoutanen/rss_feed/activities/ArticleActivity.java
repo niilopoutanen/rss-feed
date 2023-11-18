@@ -207,11 +207,13 @@ public class ArticleActivity extends AppCompatActivity {
                             "        src: url(\"'$FONTFACE'\");\n" +
                             "        font-weight: normal;\n" +
                             "    }\n" +
+                            "\n" +
                             "    @font-face {\n" +
                             "        font-family: \"CustomFont\";\n" +
                             "        src: url(\"'$BOLDFONTFACE'\");\n" +
                             "        font-weight: bold;\n" +
                             "    }\n" +
+                            "\n" +
                             "    html,\n" +
                             "    body {\n" +
                             "        width: 100%;\n" +
@@ -234,12 +236,20 @@ public class ArticleActivity extends AppCompatActivity {
                             "        font-weight: 600;\n" +
                             "    }\n" +
                             "\n" +
-                            "    th, td{\n" +
+                            "    th,\n" +
+                            "    td {\n" +
                             "        border: 2px solid '$TEXTSECONDARY';\n" +
                             "    }\n" +
-                            "    table{\n" +
+                            "\n" +
+                            "    table {\n" +
                             "        border-collapse: collapse;\n" +
                             "        overflow: scroll;\n" +
+                            "    }\n" +
+                            "\n" +
+                            "    iframe {\n" +
+                            "        width: 100%;\n" +
+                            "        border-radius: 10px;\n" +
+                            "        border: none;\n" +
                             "    }\n" +
                             "\n" +
                             "    img {\n" +
@@ -247,7 +257,8 @@ public class ArticleActivity extends AppCompatActivity {
                             "        height: auto;\n" +
                             "        border-radius: 10px;\n" +
                             "    }\n" +
-                            "    ul{\n" +
+                            "\n" +
+                            "    ul {\n" +
                             "        padding-left: 20px;\n" +
                             "    }\n" +
                             "\n" +
@@ -269,7 +280,7 @@ public class ArticleActivity extends AppCompatActivity {
                             "        top: 0;\n" +
                             "        width: 5px;\n" +
                             "        height: 100%;\n" +
-                            "        background-color:'$ACCENTCOLOR';\n" +
+                            "        background-color: '$ACCENTCOLOR';\n" +
                             "        border-radius: 10px;\n" +
                             "    }\n" +
                             "</style>";

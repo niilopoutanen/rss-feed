@@ -33,6 +33,7 @@ public class ArticleView extends WebView {
         WebSettings webSettings = getSettings();
         webSettings.setJavaScriptEnabled(true);
         addJavascriptInterface(this, "Android");
+        setWebContentsDebuggingEnabled(true);
     }
     public void loadDocument(Document document){
         Elements images = document.select("img");
