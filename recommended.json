@@ -6,10 +6,6 @@
         "title": "9to5mac",
         "feedId": "feed/http://9to5mac.com/feed/",
         "website": "https://9to5mac.com/",
-        "topics": [
-            "apple",
-            "tech"
-        ],
         "coverUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_cover-18651c8c2c2",
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5mac.jpg"
     },
@@ -19,10 +15,6 @@
         "title": "The New York Times",
         "feedId": "feed/https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
         "website": "https://nytimes.com",
-        "topics": [
-            "news",
-            "journalism"
-        ],
         "coverUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_cover-170f4ed8fad",
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/New%20York%20Times.jpg"
     },
@@ -32,11 +24,6 @@
         "title": "BBC News",
         "feedId": "feed/https://feeds.bbci.co.uk/news/rss.xml",
         "website": "https://www.bbc.com",
-        "topics": [
-            "news",
-            "bbc",
-            "journalism"
-        ],
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/BBC.jpg",
         "coverUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_cover-1835b2f6a7e"
     },
@@ -46,11 +33,6 @@
         "title": "Yahoo News",
         "feedId": "feed/http://news.yahoo.com/rss",
         "website": "https://news.yahoo.com",
-        "topics": [
-            "news",
-            "yahoo",
-            "journalism"
-        ],
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Yahoo.jpg",
         "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
     },
@@ -60,13 +42,15 @@
         "title": "The Guardian",
         "feedId": "feed/https://www.theguardian.com/us/rss",
         "website": "https://www.theguardian.com",
-        "topics": [
-            "news",
-            "yahoo",
-            "journalism"
-        ],
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Guardian.jpg",
-        "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Guardian.jpg"
+    },
+    {
+        "language": "en",
+        "description": "Breaking news, live coverage, investigations, analysis, video, photos and opinions from The Washington Post",
+        "title": "Washington Post",
+        "feedId": "feed/https://feeds.washingtonpost.com/rss/world",
+        "website": "https://www.washingtonpost.com",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Washingtopn%20Post.jpg"
     }
 ]
 }
