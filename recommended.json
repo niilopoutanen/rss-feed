@@ -51,6 +51,14 @@
         "feedId": "feed/https://feeds.washingtonpost.com/rss/world",
         "website": "https://www.washingtonpost.com",
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Washingtopn%20Post.jpg"
+    },
+    {
+        "language": "en",
+        "description": "Spotify For the Record — Official News and Views",
+        "title": "Spotify",
+        "feedId": "feed/https://newsroom.spotify.com/feed/",
+        "website": "https://newsroom.spotify.com",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Spotify.jpg"
     }
 ]
 }
