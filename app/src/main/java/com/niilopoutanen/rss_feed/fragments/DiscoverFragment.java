@@ -158,16 +158,35 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private static List<FeedResult> loadRecommendations(){
+    private static List<FeedResult> loadRecommendations() {
+        Category.Country locale = PreferencesManager.getUserLocale();
+        String baseURL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/";
         List<FeedResult> results = new ArrayList<>();
-        try{
-            URL url = new URL("https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended.json");
+
+        try {
+            URL url;
+            String fileName;
+
+            switch (locale) {
+                case FI:
+                    fileName = "recommended-fi.json";
+                    break;
+                case EN:
+                default:
+                    fileName = "recommended.json";
+                    break;
+            }
+
+            url = new URL(baseURL + fileName);
             String result = WebUtils.connect(url, true);
             results = FeedResult.parseResult(new JSONObject(result));
-        }
-        catch (Exception ignored){ }
+
+        } 
+        catch (Exception ignored) { }
+
         return results;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
