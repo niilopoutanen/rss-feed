@@ -92,14 +92,14 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">Enhanced article view</string>
-    <string name="feature1desc">Now the article reader supports more types of content, not just images and text.</string>
+    <string name="feature1">Updated Discover page</string>
+    <string name="feature1desc">New recommended section with tested feeds, and cleaner user interface.</string>
 
-    <string name="feature2">Fixes to tablet UI</string>
-    <string name="feature2desc">Enhanced usability for tablets</string>
+    <string name="feature2">Post categories now visible in article reader</string>
+    <string name="feature2desc">If the publisher provides info about the post they write, such as category: news, it is now visible when you read the article</string>
 
-    <string name="feature3">Small bug fixes</string>
-    <string name="feature3desc">Fixed a few bugs here and there</string>
+    <string name="feature3">More stability</string>
+    <string name="feature3desc">Better code so the app runs better</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
