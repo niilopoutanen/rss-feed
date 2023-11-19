@@ -39,6 +39,14 @@
         "feedId": "feed/https://feeds.kauppalehti.fi/rss/main",
         "website": "https://www.kauppalehti.fi/",
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Kauppalehti.jpg"
+    },
+    {
+        "description": "Traficom on palveleva liikenteen ja viestinnän lupa-, rekisteri- ja valvontaviranomainen.",
+        "language": "fi",
+        "title": "Traficom",
+        "feedId": "feed/https://www.traficom.fi/feed/rss/fi",
+        "website": "https://www.traficom.fi/",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Traficom.jpg"
     }
 ]
 }
