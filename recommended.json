@@ -86,11 +86,27 @@
     },
     {
         "language": "en",
+        "description": "The latest in technology",
+        "title": "WIRED",
+        "feedId": "feed/https://www.wired.com/feed/rss",
+        "website": "https://www.wired.com/",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/WIRED.jpg"
+    },
+    {
+        "language": "en",
         "description": "Journalism That Matters. Music That Inspires.",
         "title": "Rolling Stone",
         "feedId": "feed/https://www.rollingstone.com/feed/",
         "website": "https://www.rollingstone.com/",
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Rolling%20Stone.jpg"
+    },
+    {
+        "language": "en",
+        "description": "The FIA is the governing body of motor sport and promotes safe, sustainable and accessible mobility for all road users across the world.",
+        "title": "FIA",
+        "feedId": "feed/https://www.fia.com/rss/news",
+        "website": "https://www.fia.com/",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/FIA.jpg"
     }
 ]
 }
