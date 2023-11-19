@@ -76,10 +76,10 @@ public class SettingsFragment extends Fragment {
     SwitchCompat haptics;
     Slider fontSizeSlider;
     List<RelativeLayout> colorAccentButtons;
-    private Context appContext;
+    private Context context;
 
     public SettingsFragment(Context context) {
-        this.appContext = context;
+        this.context = context;
     }
 
     public SettingsFragment() {
@@ -88,8 +88,8 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (appContext == null) {
-            appContext = getContext();
+        if (context == null) {
+            context = getContext();
         }
 
         setEnterTransition(new MaterialFadeThrough());
@@ -106,7 +106,7 @@ public class SettingsFragment extends Fragment {
     private void initializeElements(View rootView) {
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.settings_container), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            int defaultPadding = PreferencesManager.dpToPx(10, appContext);
+            int defaultPadding = PreferencesManager.dpToPx(10, context);
             v.setPadding(defaultPadding, insets.top, defaultPadding,insets.top);
             return WindowInsetsCompat.CONSUMED;
         });
@@ -121,8 +121,8 @@ public class SettingsFragment extends Fragment {
             startActivity(intent);
         });
         copyright.setOnLongClickListener(v -> {
-            Intent debugIntent = new Intent(appContext, DebugActivity.class);
-            appContext.startActivity(debugIntent);
+            Intent debugIntent = new Intent(context, DebugActivity.class);
+            context.startActivity(debugIntent);
             return true;
         });
 
@@ -141,18 +141,18 @@ public class SettingsFragment extends Fragment {
             intent.setData(Uri.parse("mailto:"));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"niilo.poutanen@gmail.com"});
             intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback from RSS-Feed");
-            intent.putExtra(Intent.EXTRA_TEXT, appContext.getString(R.string.emailquide) + "\n \n App version: " + BuildConfig.VERSION_NAME + "\n Android version: " + Build.VERSION.SDK_INT);
+            intent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.emailquide) + "\n \n App version: " + BuildConfig.VERSION_NAME + "\n Android version: " + Build.VERSION.SDK_INT);
             try {
-                startActivity(Intent.createChooser(intent, appContext.getString(R.string.sendmail)));
+                startActivity(Intent.createChooser(intent, context.getString(R.string.sendmail)));
             } catch (Exception e) {
-                Toast.makeText(appContext, appContext.getString(R.string.noemailfound), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.noemailfound), Toast.LENGTH_LONG).show();
             }
         });
 
 
         RelativeLayout feedSettings = rootView.findViewById(R.id.settings_openFeedSettings);
         feedSettings.setOnClickListener(view -> {
-            SettingsFeedFragment settingsFeedFragment = new SettingsFeedFragment(appContext);
+            SettingsFeedFragment settingsFeedFragment = new SettingsFeedFragment(context);
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_container, settingsFeedFragment);
             transaction.addToBackStack(null);
@@ -187,7 +187,7 @@ public class SettingsFragment extends Fragment {
         themeSelected = rootView.findViewById(R.id.theme_selected);
         RelativeLayout themeSettings = rootView.findViewById(R.id.settings_themesettings);
         themeSettings.setOnClickListener(v -> {
-            openDropDownSettings(ThemeMode.class, getString(R.string.settings_theme), appContext.getString(R.string.settings_theme_additional));
+            openDropDownSettings(ThemeMode.class, getString(R.string.settings_theme), context.getString(R.string.settings_theme_additional));
             PreferencesManager.vibrate(v);
         });
 
@@ -211,27 +211,27 @@ public class SettingsFragment extends Fragment {
         setSavedData();
 
         articlesInBrowser.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            PreferencesManager.saveBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, isChecked, appContext);
+            PreferencesManager.saveBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
         articleFullScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, appContext);
+            PreferencesManager.saveBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
         articleShowControls.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            PreferencesManager.saveBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, isChecked, appContext);
+            PreferencesManager.saveBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
         haptics.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, appContext);
+            PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
         imagecache.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            PreferencesManager.saveBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, isChecked, appContext);
+            PreferencesManager.saveBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
         animateClicks.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            PreferencesManager.saveBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, isChecked, appContext);
+            PreferencesManager.saveBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
         fontSizeSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
@@ -242,7 +242,7 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
-                PreferencesManager.saveIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, (int) slider.getValue(), appContext);
+                PreferencesManager.saveIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, (int) slider.getValue(), context);
             }
         });
 
@@ -257,7 +257,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private <T extends Enum<T>> void openDropDownSettings(Class<?> type, String title, String additionalMessage) {
-        SettingsDropDownFragment dropDownFragment = new SettingsDropDownFragment(title, additionalMessage, type, appContext);
+        SettingsDropDownFragment dropDownFragment = new SettingsDropDownFragment(title, additionalMessage, type, context);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, dropDownFragment);
         transaction.addToBackStack(null);
@@ -267,38 +267,38 @@ public class SettingsFragment extends Fragment {
     private void setSavedData() {
 
         // Load saved ColorAccent enum value and check the corresponding button
-        ColorAccent savedAccent = PreferencesManager.getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, appContext);
+        ColorAccent savedAccent = PreferencesManager.getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
         if (savedAccent.ordinal() < colorAccentButtons.size()) {
             onColorAccentChange(colorAccentButtons.get(savedAccent.ordinal()), colorAccentButtons);
         }
 
-        LaunchWindow selectedWindow = PreferencesManager.getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, appContext);
+        LaunchWindow selectedWindow = PreferencesManager.getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
         launchwindowSelected.setText(getResources().getStringArray(R.array.launch_windows)[selectedWindow.ordinal()]);
 
-        Font selectedFont = PreferencesManager.getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, appContext);
+        Font selectedFont = PreferencesManager.getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
         fontSelected.setText(getResources().getStringArray(R.array.fonts)[selectedFont.ordinal()]);
 
-        ThemeMode selectedTheme = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, appContext);
+        ThemeMode selectedTheme = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
 
-        articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, appContext));
+        articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context));
 
-        articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, appContext));
+        articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context));
 
-        articleShowControls.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, SP_ARTICLE_SHOW_CONTROLS_DEFAULT, appContext));
+        articleShowControls.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, SP_ARTICLE_SHOW_CONTROLS_DEFAULT, context));
 
-        haptics.setChecked(PreferencesManager.getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, appContext));
+        haptics.setChecked(PreferencesManager.getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context));
 
-        imagecache.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, appContext));
+        imagecache.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context));
 
-        animateClicks.setChecked(PreferencesManager.getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, appContext));
+        animateClicks.setChecked(PreferencesManager.getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context));
 
-        fontSizeSlider.setValue(PreferencesManager.getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, appContext));
+        fontSizeSlider.setValue(PreferencesManager.getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context));
 
     }
 
     private void onColorAccentChange(RelativeLayout button, List<RelativeLayout> buttonCollection) {
-        Drawable circle = AppCompatResources.getDrawable(appContext, R.drawable.icon_checkmark);
+        Drawable circle = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
 
         boolean isChecked = Boolean.parseBoolean(button.getTag().toString());
         if (isChecked) {
@@ -316,7 +316,7 @@ public class SettingsFragment extends Fragment {
 
         // Check the selected button
         button.setTag(true);
-        View view = new View(appContext);
+        View view = new View(context);
         view.setBackground(circle);
         button.addView(view);
 
@@ -346,7 +346,7 @@ public class SettingsFragment extends Fragment {
                 selectedColor = ColorAccent.GREEN;
                 break;
         }
-        PreferencesManager.saveEnumPreference(SP_COLORACCENT, PREFS_UI, selectedColor, appContext);
+        PreferencesManager.saveEnumPreference(SP_COLORACCENT, PREFS_UI, selectedColor, context);
     }
 
 }

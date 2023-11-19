@@ -17,11 +17,11 @@ import com.niilopoutanen.rss_feed.utils.PreferencesManager;
  * Dialog that is shown on launch if user launches the version for first time
  */
 public class UpdateDialog {
-    private final Context appContext;
+    private final Context context;
     public BottomSheetDialog sheet;
 
     public UpdateDialog(Context context) {
-        this.appContext = context;
+        this.context = context;
         initializeSheet();
     }
 
@@ -30,28 +30,28 @@ public class UpdateDialog {
      * Initializes the sheet and it's elements. Automatically called in constructor
      */
     private void initializeSheet() {
-        PreferencesManager.setSavedTheme((Activity) appContext, PreferencesManager.loadPreferences(appContext));
-        sheet = new BottomSheetDialog(appContext, R.style.BottomSheetStyle);
+        PreferencesManager.setSavedTheme((Activity) context, PreferencesManager.loadPreferences(context));
+        sheet = new BottomSheetDialog(context, R.style.BottomSheetStyle);
 
         sheet.setContentView(R.layout.dialog_update);
         sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
         TextView header = sheet.findViewById(R.id.updatedialog_header);
-        String headerText = appContext.getString(R.string.whatsnew) + " v" + BuildConfig.VERSION_NAME + "?";
+        String headerText = context.getString(R.string.whatsnew) + " v" + BuildConfig.VERSION_NAME + "?";
         header.setText(headerText);
 
-        sheet.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(appContext));
-        sheet.setOnDismissListener(dialog -> PreferencesManager.setLatestVersion(appContext));
+        sheet.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(context));
+        sheet.setOnDismissListener(dialog -> PreferencesManager.setLatestVersion(context));
 
         View continueButton = sheet.findViewById(R.id.updatedialog_continue);
         continueButton.setOnClickListener(v -> sheet.dismiss());
         continueButton.setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_down));
+                continueButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_down));
             } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-                continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+                continueButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_up));
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                continueButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+                continueButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_up));
                 view.performClick();
             }
             return true;

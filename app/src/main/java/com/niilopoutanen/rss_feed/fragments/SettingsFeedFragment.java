@@ -52,11 +52,11 @@ public class SettingsFeedFragment extends Fragment {
     private SwitchCompat descSwitch;
     private SwitchCompat dateSwitch;
     private Spinner dateSpinner;
-    private Context appContext;
+    private Context context;
 
 
     public SettingsFeedFragment(Context context) {
-        this.appContext = context;
+        this.context = context;
     }
 
     public SettingsFeedFragment() {
@@ -71,8 +71,8 @@ public class SettingsFeedFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (appContext == null) {
-            appContext = getContext();
+        if (context == null) {
+            context = getContext();
         }
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
 
@@ -108,9 +108,9 @@ public class SettingsFeedFragment extends Fragment {
         descSwitch = rootView.findViewById(R.id.switch_description);
         dateSwitch = rootView.findViewById(R.id.switch_date);
 
-        String[] dateModes = appContext.getResources().getStringArray(R.array.date_modes);
+        String[] dateModes = context.getResources().getStringArray(R.array.date_modes);
         dateSpinner = rootView.findViewById(R.id.spinner_date);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(appContext, R.layout.spinner_item, dateModes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, dateModes);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         dateSpinner.setAdapter(adapter);
 
@@ -121,17 +121,17 @@ public class SettingsFeedFragment extends Fragment {
             feedcardContainers.get(i).setOnClickListener(v -> onCardStyleChange(feedcardStyleButtons.get(finalI), feedcardStyleButtons));
         }
 
-        authorSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, b, appContext));
-        titleSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, b, appContext));
-        descSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, b, appContext));
-        dateSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, b, appContext));
+        authorSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, b, context));
+        titleSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, b, context));
+        descSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, b, context));
+        dateSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, b, context));
 
 
         dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 DateStyle themeMode = DateStyle.values()[position];
-                PreferencesManager.saveEnumPreference(SP_FEEDCARD_DATESTYLE, PREFS_LANG, themeMode, appContext);
+                PreferencesManager.saveEnumPreference(SP_FEEDCARD_DATESTYLE, PREFS_LANG, themeMode, context);
             }
 
             @Override
@@ -145,31 +145,31 @@ public class SettingsFeedFragment extends Fragment {
 
     private void loadSavedData() {
         // Load saved FeedCardStyle enum value and check the corresponding button
-        Preferences.FeedCardStyle savedStyle = PreferencesManager.getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, Preferences.FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, appContext);
+        Preferences.FeedCardStyle savedStyle = PreferencesManager.getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, Preferences.FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, context);
         if (savedStyle.ordinal() < feedcardStyleButtons.size()) {
             onCardStyleChange(feedcardStyleButtons.get(savedStyle.ordinal()), feedcardStyleButtons);
         }
 
-        boolean authorVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, appContext);
+        boolean authorVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         authorSwitch.setChecked(authorVisible);
 
-        boolean titleVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, appContext);
+        boolean titleVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);
         titleSwitch.setChecked(titleVisible);
 
-        boolean descVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, SP_FEEDCARD_DESCVISIBLE_DEFAULT, appContext);
+        boolean descVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, SP_FEEDCARD_DESCVISIBLE_DEFAULT, context);
         descSwitch.setChecked(descVisible);
 
-        boolean dateVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, SP_FEEDCARD_DATEVISIBLE_DEFAULT, appContext);
+        boolean dateVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, SP_FEEDCARD_DATEVISIBLE_DEFAULT, context);
         dateSwitch.setChecked(dateVisible);
 
-        dateSpinner.setSelection(PreferencesManager.getEnumPreference(SP_FEEDCARD_DATESTYLE, PREFS_LANG, DateStyle.class, SP_FEEDCARD_DATESTYLE_DEFAULT, appContext).ordinal());
+        dateSpinner.setSelection(PreferencesManager.getEnumPreference(SP_FEEDCARD_DATESTYLE, PREFS_LANG, DateStyle.class, SP_FEEDCARD_DATESTYLE_DEFAULT, context).ordinal());
 
     }
 
     private void onCardStyleChange(View button, List<View> buttonCollection) {
-        Drawable checkedDrawable = AppCompatResources.getDrawable(appContext, R.drawable.checkbox_checked);
+        Drawable checkedDrawable = AppCompatResources.getDrawable(context, R.drawable.checkbox_checked);
 
-        Drawable uncheckedDrawable = AppCompatResources.getDrawable(appContext, R.drawable.checkbox_unchecked);
+        Drawable uncheckedDrawable = AppCompatResources.getDrawable(context, R.drawable.checkbox_unchecked);
 
         boolean isChecked = Boolean.parseBoolean(button.getTag().toString());
         if (isChecked) {
@@ -203,6 +203,6 @@ public class SettingsFeedFragment extends Fragment {
                 selectedStyle = Preferences.FeedCardStyle.NONE;
                 break;
         }
-        PreferencesManager.saveEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, selectedStyle, appContext);
+        PreferencesManager.saveEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, selectedStyle, context);
     }
 }

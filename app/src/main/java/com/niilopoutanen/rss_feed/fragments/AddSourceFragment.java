@@ -39,11 +39,11 @@ public class AddSourceFragment extends Fragment {
     private TextView title;
     private LinearLayout bottomContainer;
     private ProgressBar progressBar;
-    private Context appContext;
+    private Context context;
 
     public AddSourceFragment(Source source, Context context) {
         this.source = source;
-        this.appContext = context;
+        this.context = context;
     }
 
     public AddSourceFragment() {
@@ -56,21 +56,21 @@ public class AddSourceFragment extends Fragment {
         feedUrl.setText(source.getFeedUrl());
         feedName.setText(source.getName());
         showInFeed.setChecked(source.isVisibleInFeed());
-        title.setText(appContext.getString(R.string.updatesource));
+        title.setText(context.getString(R.string.updatesource));
     }
 
     private void saveData() {
         showError("");
-        Activity activity = (Activity) appContext;
+        Activity activity = (Activity) context;
         progressBar.setVisibility(View.VISIBLE);
         SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), new Callback<Source>() {
             @Override
             public void onResult(Source result) {
                 if (result != null) {
                     if (source != null) {
-                        SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
+                        SaveSystem.saveContent(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
                     } else {
-                        SaveSystem.saveContent(appContext, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
+                        SaveSystem.saveContent(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
                     }
                     activity.runOnUiThread(() -> {
                         progressBar.setVisibility(View.GONE);
@@ -90,7 +90,7 @@ public class AddSourceFragment extends Fragment {
             public void onError(RSSException e) {
 
             }
-        }, appContext);
+        }, context);
     }
 
 
@@ -132,11 +132,11 @@ public class AddSourceFragment extends Fragment {
         addSourceButton.setOnClickListener(view -> saveData());
         addSourceButton.setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_down));
+                addSourceButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_down));
             } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-                addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+                addSourceButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_up));
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                addSourceButton.startAnimation(AnimationUtils.loadAnimation(appContext, R.anim.scale_up));
+                addSourceButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_up));
                 view.performClick();
             }
             return true;
@@ -156,9 +156,9 @@ public class AddSourceFragment extends Fragment {
             return;
         }
 
-        TextView errorText = new TextView(appContext);
+        TextView errorText = new TextView(context);
         errorText.setText(errorMessage);
-        errorText.setTextColor(appContext.getColor(R.color.textSecondary));
+        errorText.setTextColor(context.getColor(R.color.textSecondary));
         errorText.setTag("error-message");
         errorText.setGravity(Gravity.CENTER);
 

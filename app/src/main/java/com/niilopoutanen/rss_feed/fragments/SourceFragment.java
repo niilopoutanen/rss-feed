@@ -30,12 +30,12 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
 
     private List<Source> sources;
     private SourceAdapter adapter;
-    private Context appContext;
+    private Context context;
     private Preferences preferences;
     private RecyclerView sourcesRecyclerView;
 
     public SourceFragment(Context context, Preferences preferences) {
-        this.appContext = context;
+        this.context = context;
         this.preferences = preferences;
     }
 
@@ -45,8 +45,8 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (appContext == null) {
-            appContext = getContext();
+        if (context == null) {
+            context = getContext();
         }
 
         setEnterTransition(new MaterialFadeThrough());
@@ -61,7 +61,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     }
 
     public void update() {
-        sources = SaveSystem.loadContent(appContext);
+        sources = SaveSystem.loadContent(context);
         if (adapter != null) {
             adapter.updateSources(sources);
         }
@@ -96,7 +96,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     }
 
     public void openSourceDialog(Source source) {
-        AddSourceFragment addSourceFragment = new AddSourceFragment(source, appContext);
+        AddSourceFragment addSourceFragment = new AddSourceFragment(source, context);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
         transaction.addToBackStack(null);

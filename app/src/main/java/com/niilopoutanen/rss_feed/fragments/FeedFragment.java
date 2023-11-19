@@ -56,7 +56,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     String viewTitle;
     RecyclerView recyclerView;
     FeedAdapter adapter;
-    Context appContext;
+    Context context;
     SwipeRefreshLayout recyclerviewRefresh;
     Preferences preferences;
     ExecutorService executor = null;
@@ -85,15 +85,15 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appContext = getContext();
+        context = getContext();
 
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
             sources = (List<Source>) savedInstanceState.getSerializable("sources");
         }
 
-        assert appContext != null;
-        colorAccent = PreferencesManager.getAccentColor(appContext);
+        assert context != null;
+        colorAccent = PreferencesManager.getAccentColor(context);
 
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
@@ -105,7 +105,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (position >= items.size()) {
             return;
         }
-        Intent articleIntent = new Intent(appContext, ArticleActivity.class);
+        Intent articleIntent = new Intent(context, ArticleActivity.class);
         articleIntent.putExtra("preferences", preferences);
         articleIntent.putExtra("item", items.get(position));
 
@@ -116,7 +116,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
 
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
-        appContext.startActivity(articleIntent);
+        context.startActivity(articleIntent);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (!isAdded()) {
             return false;
         }
-        ConnectivityManager connectionManager = appContext.getSystemService(ConnectivityManager.class);
+        ConnectivityManager connectionManager = context.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
             showError(1, null);
@@ -203,16 +203,16 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void showError(int errorCode, Source errorCause) {
         switch (errorCode) {
             case HttpURLConnection.HTTP_NOT_FOUND:
-                adapter.addNotification(appContext.getString(R.string.invalidfeed), appContext.getString(R.string.invalidfeedmsg));
+                adapter.addNotification(context.getString(R.string.invalidfeed), context.getString(R.string.invalidfeedmsg));
                 break;
             case 429:
-                adapter.addNotification(appContext.getString(R.string.error_toomanyrequests), String.format(appContext.getString(R.string.toomanyrequestsmsg), errorCause.getFeedUrl()));
+                adapter.addNotification(context.getString(R.string.error_toomanyrequests), String.format(context.getString(R.string.toomanyrequestsmsg), errorCause.getFeedUrl()));
                 break;
             case 0:
-                adapter.addNotification(appContext.getString(R.string.nosources), appContext.getString(R.string.nosourcesmsg));
+                adapter.addNotification(context.getString(R.string.nosources), context.getString(R.string.nosourcesmsg));
                 break;
             case 1:
-                adapter.addNotification(appContext.getString(R.string.nointernet), appContext.getString(R.string.nointernetmsg));
+                adapter.addNotification(context.getString(R.string.nointernet), context.getString(R.string.nointernetmsg));
                 break;
         }
     }
@@ -222,8 +222,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
         recyclerView = rootView.findViewById(R.id.feed_container);
 
-        if (viewTitle == null && appContext != null) {
-            viewTitle = appContext.getString(R.string.feed_header);
+        if (viewTitle == null && context != null) {
+            viewTitle = context.getString(R.string.feed_header);
         } else if (viewTitle == null) {
             viewTitle = "Feed";
         }
@@ -239,7 +239,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         });
 
 
-        adapter = new FeedAdapter(items, appContext, preferences, this);
+        adapter = new FeedAdapter(items, context, preferences, this);
         recyclerView.setAdapter(adapter);
         
         final int columns = getResources().getInteger(R.integer.feed_columns);

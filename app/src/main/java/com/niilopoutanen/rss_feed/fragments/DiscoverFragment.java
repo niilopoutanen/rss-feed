@@ -48,7 +48,7 @@ import java.util.concurrent.Executors;
 
 public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
-    Context appContext;
+    Context context;
     Preferences preferences;
     List<Category> categories = new ArrayList<>();
     List<FeedResult> results = new ArrayList<>();
@@ -60,7 +60,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     View progressBar;
 
     public DiscoverFragment(Context context, Preferences preferences) {
-        this.appContext = context;
+        this.context = context;
         this.preferences = preferences;
     }
 
@@ -73,8 +73,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
-        if (appContext == null) {
-            appContext = getContext();
+        if (context == null) {
+            context = getContext();
         }
 
         setEnterTransition(new MaterialFadeThrough());
@@ -107,7 +107,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             public void onResult(List<FeedResult> result) {
                 results = result;
                 if (resultAdapter != null) {
-                    ((Activity) appContext).runOnUiThread(() -> {
+                    ((Activity) context).runOnUiThread(() -> {
                         resultAdapter.setResults(results);
                         // Post after layout updated
                         resultsRecyclerView.post(() -> {
@@ -204,20 +204,20 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         progressBar = rootView.findViewById(R.id.discover_progress);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
-        categoryAdapter = new DiscoverCategoryAdapter(categories,appContext, this);
+        categoryAdapter = new DiscoverCategoryAdapter(categories,context, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
-        categoryRecyclerView.setLayoutManager(new GridLayoutManager(appContext, 2, GridLayoutManager.HORIZONTAL, false));
+        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);
-        resultsRecyclerView.addItemDecoration(new DividerItemDecoration(appContext, LinearLayout.VERTICAL));
+        resultsRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
 
         View searchBtn = rootView.findViewById(R.id.discover_search);
         searchBtn.setOnClickListener(v -> {
-            Intent searchIntent = new Intent(appContext, SearchActivity.class);
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) appContext, searchBtn, "search");
-            appContext.startActivity(searchIntent, options.toBundle());
+            Intent searchIntent = new Intent(context, SearchActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, searchBtn, "search");
+            context.startActivity(searchIntent, options.toBundle());
         });
 
         return rootView;
