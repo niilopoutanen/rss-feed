@@ -107,4 +107,5 @@
     <string name="debug_tools">Vianmääritystyökalut</string>
     <string name="article_open_with_url">Avaa ArticleView URL-osoitteella</string>
     <string name="debug_terminate">Lopeta sovellusprosessi</string>
+    <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
 </resources>

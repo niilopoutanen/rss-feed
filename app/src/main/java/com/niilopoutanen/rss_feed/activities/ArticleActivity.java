@@ -98,6 +98,9 @@ public class ArticleActivity extends AppCompatActivity {
                     } else if (e.getErrorType() == HttpURLConnection.HTTP_CLIENT_TIMEOUT) {
                         initWebView(getString(R.string.error_host));
                     }
+                    else{
+                        initWebView(getString(R.string.error_notsupported));
+                    }
                 }
             });
         } else {
@@ -430,7 +433,9 @@ public class ArticleActivity extends AppCompatActivity {
             catch (RSSException r){
                 runOnUiThread(() ->  callBack.onError(r));
             }
-            catch (Exception ignored) {}
+            catch (Exception e) {
+                runOnUiThread(() -> callBack.onError(new RSSException(e.getMessage())));
+            }
         });
     }
 
