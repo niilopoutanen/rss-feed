@@ -1,0 +1,28 @@
+{
+"results": [
+    {
+        "description": "Uutiset, urheilu, viihde, talous, sää, terveys, ruoka, matkailu, autot ja tyyli – Iltalehti, kaikki tuoreet uutiset yhdestä osoitteesta kellon ympäri!",
+        "language": "fi",
+        "title": "Iltalehti",
+        "feedId": "feed/https://www.iltalehti.fi/rss/uutiset.xml",
+        "website": "https://www.iltalehti.fi/",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Iltalehti.jpg"
+    },
+    {
+        "description": "Lue uutisia Suomesta ja maailmalta heti tuoreeltaan. IS seuraa uutistilannetta ympäri vuorokauden.",
+        "language": "fi",
+        "title": "Ilta-Sanomat",
+        "feedId": "feed/https://www.is.fi/rss/tuoreimmat.xml",
+        "website": "https://www.is.fi/",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Ilta-Sanomat.jpg"
+    },
+    {
+        "description": "Yle Uutiset toimittaa kotimaan tuoreimmat uutiset",
+        "language": "fi",
+        "title": "Yle uutiset",
+        "feedId": "feed/https://feeds.yle.fi/uutiset/v1/majorHeadlines/YLE_UUTISET.rss",
+        "website": "https://www.yle.fi/",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Yle.jpg"
+    }
+]
+}
