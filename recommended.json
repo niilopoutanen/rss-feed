@@ -54,14 +54,6 @@
     },
     {
         "language": "en",
-        "description": "Music Charts, News, Photos & Video",
-        "title": "Billboard",
-        "feedId": "feed/https://www.billboard.com/feed/",
-        "website": "https://www.billboard.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Billboard.jpg"
-    },
-    {
-        "language": "en",
         "description": "Breaking news, live coverage, investigations, analysis, video, photos and opinions from The Washington Post",
         "title": "Washington Post",
         "feedId": "feed/https://feeds.washingtonpost.com/rss/world",
