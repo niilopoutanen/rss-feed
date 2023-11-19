@@ -29,6 +29,14 @@
     },
     {
         "language": "en",
+        "description": "Reporting on the business of technology, startups, venture capital funding, and Silicon Valley.",
+        "title": "TechCrunch",
+        "feedId": "feed/https://techcrunch.com/feed/",
+        "website": "https://www.techcrunch.com",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/TechCrunch.jpg"
+    },
+    {
+        "language": "en",
         "description": "The latest news and headlines from Yahoo! News. Get breaking news stories and in-depth coverage with videos and photos.",
         "title": "Yahoo News",
         "feedId": "feed/http://news.yahoo.com/rss",
@@ -43,6 +51,14 @@
         "feedId": "feed/https://www.theguardian.com/us/rss",
         "website": "https://www.theguardian.com",
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Guardian.jpg"
+    },
+    {
+        "language": "en",
+        "description": "Music Charts, News, Photos & Video",
+        "title": "Billboard",
+        "feedId": "feed/https://www.billboard.com/feed/",
+        "website": "https://www.billboard.com",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Billboard.jpg"
     },
     {
         "language": "en",
