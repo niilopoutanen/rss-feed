@@ -286,10 +286,25 @@ public class ArticleActivity extends AppCompatActivity {
                             "        background-color: '$ACCENTCOLOR';\n" +
                             "        border-radius: 10px;\n" +
                             "    }\n" +
+                            "\n" +
+                            "    #rssfeed_categories{\n" +
+                            "        display: flex;\n" +
+                            "        flex-direction: row;\n" +
+                            "        gap: 5px;\n" +
+                            "    }\n" +
+                            "    #rssfeed_categories .category{\n" +
+                            "        background-color: '$ELEMENTBACKGROUND';\n" +
+                            "        border-radius: 100px;\n" +
+                            "        padding: 5px 15px;\n" +
+                            "        border: 1px solid '$ELEMENTBORDER';\n" +
+                            "        color: '$TEXTSECONDARY';\n" +
+                            "    }\n" +
                             "</style>";
 
         String accentColor = formatColor(PreferencesManager.getAccentColor(this));
         String backgroundColor = formatColor(this.getColor(R.color.windowBg));
+        String elementBackground = formatColor(this.getColor(R.color.element));
+        String elementBorder = formatColor(this.getColor(R.color.element_border));
         String textColor = formatColor(this.getColor(R.color.textPrimary));
         String textSecondary = formatColor(this.getColor(R.color.textSecondary));
         String fontSize = String.valueOf(preferences.s_fontsize);
@@ -323,6 +338,8 @@ public class ArticleActivity extends AppCompatActivity {
         css = css.replace("'$TEXTCOLOR'", textColor);
         css = css.replace("'$TEXTSECONDARY'", textSecondary);
         css = css.replace("'$BACKGROUNDCOLOR'", backgroundColor);
+        css = css.replace("'$ELEMENTBACKGROUND'", elementBackground);
+        css = css.replace("'$ELEMENTBORDER'", elementBorder);
 
         return css;
     }
@@ -364,7 +381,7 @@ public class ArticleActivity extends AppCompatActivity {
                 });
             }
         });
-        articleView.loadDocument(document);
+        articleView.loadDocument(document, post.getCategories());
     }
 
 

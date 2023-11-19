@@ -11,9 +11,12 @@ import androidx.annotation.NonNull;
 
 import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.List;
 
 public class ArticleView extends WebView {
     private final Context context;
@@ -29,10 +32,27 @@ public class ArticleView extends WebView {
         init();
     }
 
+
     private void init(){
         WebSettings webSettings = getSettings();
         webSettings.setJavaScriptEnabled(true);
         addJavascriptInterface(this, "Android");
+    }
+    public void loadDocument(Document document, List<String> categories){
+        if(categories.size() > 0){
+            Element container = new Element("div");
+            container.id("rssfeed_categories");
+
+            for(String category : categories){
+                Element item = new Element("div");
+                item.addClass("category");
+                item.append(category);
+                container.appendChild(item);
+            }
+            document.prependChild(container);
+        }
+
+        loadDocument(document);
     }
     public void loadDocument(Document document){
         Elements images = document.select("img");
