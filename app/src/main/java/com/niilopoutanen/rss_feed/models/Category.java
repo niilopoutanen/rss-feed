@@ -9,9 +9,9 @@ public class Category {
     public static final String CATEGORY_RECOMMENDED = "$RSSFEED_RECOMMENDED";
     public static final List<Category> categories = new ArrayList<>();
     static {
-        categories.add(new Category("Recommended", R.drawable.icon_thumbs_up, CATEGORY_RECOMMENDED));
+        categories.add(new Category("Recommended", R.drawable.icon_star, CATEGORY_RECOMMENDED));
         categories.add(new Category("News", R.drawable.icon_news, "News"));
-        categories.add(new Category("Tech", R.drawable.icon_phone, "Tech"));
+        categories.add(new Category("Tech", R.drawable.icon_mouse, "Tech"));
         categories.add(new Category("Sports", R.drawable.icon_baseball, "Sports"));
         categories.add(new Category("Cars", R.drawable.icon_car, "Cars"));
         categories.add(new Category("Politics", R.drawable.icon_briefcase , "Politics"));
@@ -23,9 +23,9 @@ public class Category {
 
     public static final List<Category> categoriesFI = new ArrayList<>();
     static {
-        categoriesFI.add(new Category("Suositeltu", R.drawable.icon_thumbs_up, CATEGORY_RECOMMENDED));
+        categoriesFI.add(new Category("Suositeltu", R.drawable.icon_star, CATEGORY_RECOMMENDED));
         categoriesFI.add(new Category("Uutiset", R.drawable.icon_news, "Uutiset"));
-        categoriesFI.add(new Category("Teknologia", R.drawable.icon_phone, "Tech"));
+        categoriesFI.add(new Category("Teknologia", R.drawable.icon_mouse, "Tech"));
         categoriesFI.add(new Category("Urheilu", R.drawable.icon_baseball, "Urheilu"));
         categoriesFI.add(new Category("Autot", R.drawable.icon_car, "Cars"));
         categoriesFI.add(new Category("Politiikka", R.drawable.icon_briefcase, "Politiikka"));
