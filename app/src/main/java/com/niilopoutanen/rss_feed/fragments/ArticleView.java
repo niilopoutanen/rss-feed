@@ -59,11 +59,11 @@ public class ArticleView extends WebView {
             if(titles.size() > 0){
                 Element title = titles.first();
                 if(title != null){
-                    title.after(createSection(context.getString(R.string.categories), container));
+                    title.after(createSection(null, container));
                 }
             }
             else{
-                document.prependChild(createSection(context.getString(R.string.categories), container));
+                document.prependChild(createSection(null, container));
             }
         }
 
@@ -116,6 +116,10 @@ public class ArticleView extends WebView {
                             "        border: 2px solid '$TEXTSECONDARY';\n" +
                             "    }\n" +
                             "\n" +
+                            "    h1{\n" +
+                            "        margin-bottom: 5px;\n" +
+                            "    }\n" +
+                            "\n" +
                             "    table {\n" +
                             "        border-collapse: collapse;\n" +
                             "        overflow: scroll;\n" +
@@ -142,6 +146,10 @@ public class ArticleView extends WebView {
                             "        padding: 0;\n" +
                             "    }\n" +
                             "\n" +
+                            "    svg{\n" +
+                            "        display: none;\n" +
+                            "    }\n" +
+                            "\n" +
                             "    blockquote {\n" +
                             "        margin: 0;\n" +
                             "        padding-left: 15px;\n" +
@@ -165,6 +173,7 @@ public class ArticleView extends WebView {
                             "        gap: 5px;\n" +
                             "        max-width: 100%;\n" +
                             "        overflow-x: scroll;\n" +
+                            "        margin-bottom: 5px;\n" +
                             "    }\n" +
                             "    #rssfeed-categories .category{\n" +
                             "        background-color: '$ELEMENTBACKGROUND';\n" +
@@ -227,21 +236,23 @@ public class ArticleView extends WebView {
         return css;
     }
 
-    private String formatColor(int colorID){
+    private static String formatColor(int colorID){
         int red = (colorID >> 16) & 0xFF;
         int green = (colorID >> 8) & 0xFF;
         int blue = colorID & 0xFF;
 
         return String.format(Locale.US ,"rgb(%d, %d, %d)", red, green, blue);
     }
-    private Element createSection(String title, Element child){
+    private static Element createSection(String title, Element child){
         Element section = new Element("div");
         section.addClass("rssfeed-section");
 
-        Element header = new Element("p");
-        header.append(title);
+        if(title != null){
+            Element header = new Element("p");
+            header.append(title);
+            section.appendChild(header);
+        }
 
-        section.appendChild(header);
         section.appendChild(child);
 
         return section;
