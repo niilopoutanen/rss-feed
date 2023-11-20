@@ -61,6 +61,6 @@
     </style>
 
     <style name="RSSFeedStyle.NavActive" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/element_pressed</item>
+        <item name="android:color">@color/surface</item>
     </style>
 </resources>
