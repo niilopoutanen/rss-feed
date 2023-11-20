@@ -5,7 +5,7 @@
 
     <color name="element">#FFFFFF</color>
     <color name="element_pressed">#DAD9DD</color>
-    <color name="element_active">?attr/colorAccent</color>
+    <color name="element_active">#000000</color>
     <color name="element_border">#C9C9C9</color>
 
     <color name="surface">#e9e8ec</color>
