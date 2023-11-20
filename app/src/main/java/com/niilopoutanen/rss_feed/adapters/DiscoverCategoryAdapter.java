@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,6 +46,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Category category = categories.get(position);
@@ -56,6 +58,17 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         View container = holder.itemView;
         container.setOnClickListener(onClickListener);
+
+        if (category.isActive()) {
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.element_active)));
+            itemTitle.setTextColor(context.getColor(R.color.textInverted));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textInverted)));
+        } else {
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.element)));
+            itemTitle.setTextColor(context.getColor(R.color.textPrimary));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textPrimary)));
+        }
+
 
         if(PreferencesManager.loadPreferences(context).s_animateclicks){
             Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);

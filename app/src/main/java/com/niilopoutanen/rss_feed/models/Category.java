@@ -38,6 +38,16 @@ public class Category {
     private final int iconId;
     private final String query;
 
+    private boolean isActive;
+    public boolean isActive() {
+
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public Category(String name, int iconId, String query) {
         this.name = name;
         this.iconId = iconId;

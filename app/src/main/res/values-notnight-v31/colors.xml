@@ -5,12 +5,14 @@
 
     <color name="element">@android:color/system_accent2_50</color>
     <color name="element_pressed">@android:color/system_accent2_100</color>
+    <color name="element_active">@android:color/system_accent1_500</color>
     <color name="element_border">@android:color/system_accent2_200</color>
 
     <color name="surface">@android:color/system_accent1_100</color>
     <color name="surface_border">@android:color/system_accent1_200</color>
 
     <color name="textPrimary">@android:color/system_accent1_800</color>
+    <color name="textInverted">#FFFFFF</color>
     <color name="textSecondary">@android:color/system_accent1_600</color>
 
     <color name="windowBg">#f2f1f6</color>

@@ -227,7 +227,13 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int position = categoryRecyclerView.getChildAdapterPosition(v);
+        for(Category category : categories){
+            category.setActive(false);
+        }
+
         Category categoryClicked = categories.get(position);
+        categories.get(position).setActive(true);
+        categoryAdapter.notifyDataSetChanged();
         search(categoryClicked.getQuery());
     }
 
