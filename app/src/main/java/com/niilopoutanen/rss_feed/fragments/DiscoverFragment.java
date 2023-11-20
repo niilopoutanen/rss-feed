@@ -98,6 +98,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
         }
         startPostponedEnterTransition();
+
+        if(categories == null){
+            return;
+        }
+
     }
 
     private void search(String query) {
@@ -219,6 +224,14 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, searchBtn, "search");
             context.startActivity(searchIntent, options.toBundle());
         });
+
+        Category activeCategory = categories.stream()
+                  .filter(Category::isActive)
+                  .findFirst()
+                  .orElseGet(() -> categories.get(0));
+
+        activeCategory.setActive(true);
+        search(activeCategory.getQuery());
 
         return rootView;
     }

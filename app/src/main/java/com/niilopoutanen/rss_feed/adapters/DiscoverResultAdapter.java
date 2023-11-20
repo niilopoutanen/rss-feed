@@ -82,7 +82,7 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         desc.setText(result.description);
         add.setOnClickListener(v -> {
             if (!result.alreadyAdded) {
-                SaveSystem.saveContent(v.getContext(), new Source(result.title, WebUtils.formatUrl(result.feedId).toString(), result.iconUrl));
+                SaveSystem.saveContent(v.getContext(), new Source(result.title, WebUtils.formatUrl(result.feedId).toString(), result.visualUrl));
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
                 Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
                 icon.setBackground(checkmark);
