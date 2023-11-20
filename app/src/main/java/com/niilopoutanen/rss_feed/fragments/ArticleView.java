@@ -55,7 +55,16 @@ public class ArticleView extends WebView {
                 item.append(category);
                 container.appendChild(item);
             }
-            document.prependChild(createSection(context.getString(R.string.categories), container));
+            Elements titles = document.select("h1");
+            if(titles.size() > 0){
+                Element title = titles.first();
+                if(title != null){
+                    title.after(createSection(context.getString(R.string.categories), container));
+                }
+            }
+            else{
+                document.prependChild(createSection(context.getString(R.string.categories), container));
+            }
         }
 
         Element head = document.head();
