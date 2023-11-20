@@ -184,6 +184,7 @@ public class ArticleView extends WebView {
                             "        border-radius: 100px;\n" +
                             "        padding: 5px 15px;\n" +
                             "        border: 1px solid '$ELEMENTBORDER';\n" +
+                            "        font-size: 0.8rem;\n" +
                             "        color: '$TEXTSECONDARY';\n" +
                             "    }\n" +
                             "    .rssfeed_section{\n" +
