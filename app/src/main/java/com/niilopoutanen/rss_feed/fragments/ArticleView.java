@@ -118,6 +118,7 @@ public class ArticleView extends WebView {
                             "\n" +
                             "    h1{\n" +
                             "        margin-bottom: 5px;\n" +
+                            "        font-size: 1.6rem;\n" +
                             "    }\n" +
                             "\n" +
                             "    table {\n" +
