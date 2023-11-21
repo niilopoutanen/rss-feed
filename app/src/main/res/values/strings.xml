@@ -96,7 +96,7 @@
     <string name="feature1desc">New recommended section with tested feeds, and cleaner user interface.</string>
 
     <string name="feature2">Post categories now visible in article reader</string>
-    <string name="feature2desc">If the publisher provides info about the post they write, such as category: news, it is now visible when you read the article</string>
+    <string name="feature2desc">If the publisher provides info about the post they write, such as: category=news, it is now visible when you read the article.</string>
 
     <string name="feature3">More stability</string>
     <string name="feature3desc">Better code so the app runs better</string>

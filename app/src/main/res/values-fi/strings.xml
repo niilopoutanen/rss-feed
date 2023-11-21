@@ -49,7 +49,7 @@
     <string name="feature1">Päivitetty Tutki-välilehti</string>
     <string name="feature1desc">Uusi suositeltu-osio jossa on testatusti toimivia syötteitä, + siistimpi käyttöliittymä</string>
     <string name="feature2">Julkaisun kategoriat näkyvät nyt artikkelia lukiessasi</string>
-    <string name="feature2desc">Jos julkaisija antaa tietoja kirjoittamastaan artikkelista, kuten luokka: uutiset, se näkyy nyt, kun luet artikkelin</string>
+    <string name="feature2desc">Jos julkaisija antaa tietoja kirjoittamastaan artikkelista, kuten: kategoria=uutiset, se näkyy artikkelia lukiessasi.</string>
     <string name="feature3">Sovelluksen vakauden parantamista</string>
     <string name="feature3desc">Parempaa koodia jotta sovellus toimii paremmin</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
@@ -108,4 +108,5 @@
     <string name="article_open_with_url">Avaa ArticleView URL-osoitteella</string>
     <string name="debug_terminate">Lopeta sovellusprosessi</string>
     <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
+    <string name="article_show_categories">Näytä julkaisun kategoriat</string>
 </resources>
