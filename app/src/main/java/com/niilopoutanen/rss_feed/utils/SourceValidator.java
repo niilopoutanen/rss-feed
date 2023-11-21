@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rssparser.Callback;
+import com.niilopoutanen.rssparser.IconFinder;
 import com.niilopoutanen.rssparser.WebUtils;
 
 import org.jsoup.Jsoup;
@@ -32,8 +33,8 @@ public class SourceValidator {
             } else {
                 CompletableFuture<String> faviconUrlFuture = CompletableFuture.supplyAsync(() -> {
                     try {
-                        return WebUtils.getFaviconUrl(finalUrl);
-                    } catch (IOException e) {
+                        return IconFinder.get(finalUrl);
+                    } catch (Exception e) {
                         return null;
                     }
                 }, executor);
