@@ -95,13 +95,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         if(categoryAdapter != null){
             categoryAdapter.setCategories(categories);
             progressBar.setVisibility(View.GONE);
-
         }
-        startPostponedEnterTransition();
 
-        if(categories == null){
-            return;
-        }
+
 
     }
 
@@ -114,12 +110,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
                 if (resultAdapter != null) {
                     ((Activity) context).runOnUiThread(() -> {
                         resultAdapter.setResults(results);
-                        // Post after layout updated
-                        resultsRecyclerView.post(() -> {
-                            scrollView.smoothScrollTo(0, resultsRecyclerView.getTop(), 1000);
-                            progressBar.setVisibility(View.GONE);
-                        });
-
+                        progressBar.setVisibility(View.GONE);
                     });
                 }
             }
@@ -212,7 +203,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         categoryAdapter = new DiscoverCategoryAdapter(categories,context, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-
+        categoryRecyclerView.post(this::startPostponedEnterTransition);
+        
         resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);

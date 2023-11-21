@@ -16,8 +16,10 @@ public class Category {
         categories.add(new Category("Cars", R.drawable.icon_car, "Cars"));
         categories.add(new Category("Politics", R.drawable.icon_briefcase , "Politics"));
         categories.add(new Category("Movies", R.drawable.icon_movies, "Movies"));
+        categories.add(new Category("Marketing", R.drawable.icon_megaphone, "Marketing"));
         categories.add(new Category("Science", R.drawable.icon_microscope, "Science"));
         categories.add(new Category("Stocks", R.drawable.icon_graph, "Stocks"));
+        categories.add(new Category("Food", R.drawable.icon_food, "Food"));
         categories.add(new Category("Gaming", R.drawable.icon_controller, "Gaming"));
     }
 
@@ -30,8 +32,10 @@ public class Category {
         categoriesFI.add(new Category("Autot", R.drawable.icon_car, "Cars"));
         categoriesFI.add(new Category("Politiikka", R.drawable.icon_briefcase, "Politiikka"));
         categoriesFI.add(new Category("Elokuvat", R.drawable.icon_movies, "Movies"));
+        categoriesFI.add(new Category("Markkinointi", R.drawable.icon_megaphone, "Marketing"));
         categoriesFI.add(new Category("Tiede", R.drawable.icon_microscope, "Tiede"));
         categoriesFI.add(new Category("Pörssi", R.drawable.icon_graph, "Pörssi"));
+        categoriesFI.add(new Category("Ruoka", R.drawable.icon_food, "Food"));
         categoriesFI.add(new Category("Videopelit", R.drawable.icon_controller, "Gaming"));
     }
     private final String name;

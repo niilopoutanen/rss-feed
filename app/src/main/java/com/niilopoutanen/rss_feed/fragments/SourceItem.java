@@ -159,7 +159,7 @@ public class SourceItem extends RecyclerView.ViewHolder{
             if (!result.alreadyAdded) {
                 SaveSystem.saveContent(v.getContext(), new Source(result.title, WebUtils.formatUrl(result.feedId).toString(), result.visualUrl));
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
-                icon.setBackground(checkmark);
+                setIcon(checkmark);
             } else {
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourcealreadyadded), Toast.LENGTH_LONG).show();
             }
