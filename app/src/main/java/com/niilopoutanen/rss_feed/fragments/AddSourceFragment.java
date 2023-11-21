@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.graphics.Insets;
@@ -39,6 +40,7 @@ public class AddSourceFragment extends Fragment {
     private TextView title;
     private LinearLayout bottomContainer;
     private ProgressBar progressBar;
+    private View addSourceButton;
     private Context context;
 
     public AddSourceFragment(Source source, Context context) {
@@ -57,6 +59,9 @@ public class AddSourceFragment extends Fragment {
         feedName.setText(source.getName());
         showInFeed.setChecked(source.isVisibleInFeed());
         title.setText(context.getString(R.string.updatesource));
+
+        TextView buttonText = (TextView) ((RelativeLayout)addSourceButton).getChildAt(0);
+        buttonText.setText(context.getString(R.string.update));
     }
 
     private void saveData() {
@@ -118,6 +123,7 @@ public class AddSourceFragment extends Fragment {
         LinearLayout returnBtn = rootView.findViewById(R.id.addsource_return);
         returnBtn.setOnClickListener(view -> closeFragment(returnBtn));
         title = rootView.findViewById(R.id.addsource_title);
+        addSourceButton = rootView.findViewById(R.id.addsource_continue);
 
         bottomContainer = rootView.findViewById(R.id.sourceadd_bottomlayout);
         progressBar = rootView.findViewById(R.id.addsource_progress);
@@ -128,7 +134,6 @@ public class AddSourceFragment extends Fragment {
 
         loadData();
 
-        View addSourceButton = rootView.findViewById(R.id.addsource_continue);
         addSourceButton.setOnClickListener(view -> saveData());
         addSourceButton.setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
