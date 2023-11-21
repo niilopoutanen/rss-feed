@@ -88,8 +88,8 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
 
     private void loadIcon(String iconUrl){
-        if(iconUrl.isEmpty()){
-            return;
+        if(iconUrl == null || iconUrl.isEmpty()){
+            icon.setBackground(AppCompatResources.getDrawable(context, R.drawable.element_background));
         }
         int iconSize = PreferencesManager.dpToPx(60, context);
         Picasso.get().load(iconUrl)
