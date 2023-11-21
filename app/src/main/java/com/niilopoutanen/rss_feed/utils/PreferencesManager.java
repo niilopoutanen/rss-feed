@@ -14,6 +14,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
@@ -237,6 +239,7 @@ public class PreferencesManager {
         preferences.s_font = getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
         preferences.s_launchwindow = getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
         preferences.s_articlesinbrowser = getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context);
+        preferences.s_article_show_categories = getBooleanPreference(SP_ARTICLE_SHOW_CATEGORIES, PREFS_UI, SP_ARTICLE_SHOW_CATEGORIES_DEFAULT, context);
         preferences.s_articlefullscreen = getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context);
         preferences.s_article_show_controls = getBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, SP_ARTICLE_SHOW_CONTROLS_DEFAULT, context);
         preferences.s_imagecache = getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context);

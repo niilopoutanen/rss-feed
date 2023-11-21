@@ -132,4 +132,5 @@
     <string name="article_open_with_url">Open ArticleView with URL</string>
     <string name="debug_terminate">Terminate app process</string>
     <string name="error_notsupported">The post you tried to open is invalid and not working with this app. Open it in your browser.</string>
+    <string name="article_show_categories">Show post categories</string>
 </resources>

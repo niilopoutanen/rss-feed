@@ -45,7 +45,7 @@ public class ArticleView extends WebView {
         setWebContentsDebuggingEnabled(true);
     }
     public void loadDocument(Document document, List<String> categories){
-        if(categories.size() > 0){
+        if(PreferencesManager.loadPreferences(context).s_article_show_categories && categories.size() > 0){
             Element container = new Element("div");
             container.id("rssfeed-categories");
 
