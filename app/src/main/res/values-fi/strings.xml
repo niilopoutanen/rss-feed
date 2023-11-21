@@ -51,7 +51,7 @@
     <string name="feature2">Julkaisun kategoriat näkyvät nyt artikkelia lukiessasi</string>
     <string name="feature2desc">Jos julkaisija antaa tietoja kirjoittamastaan artikkelista, kuten: kategoria=uutiset, se näkyy artikkelia lukiessasi.</string>
     <string name="feature3">Sovelluksen vakauden parantamista</string>
-    <string name="feature3desc">Parempaa koodia jotta sovellus toimii paremmin</string>
+    <string name="feature3desc">Vähemmän bugeja.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
 
