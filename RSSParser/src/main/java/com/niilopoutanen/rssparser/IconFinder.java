@@ -29,7 +29,7 @@ public class IconFinder {
             if(!iconUrl.startsWith("http")){
                 iconUrl = homePage.toString() + iconUrl;
             }
-            
+
             return iconUrl;
         }
         catch (Exception e) {
