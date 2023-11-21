@@ -35,9 +35,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
         View view = inflater.inflate(R.layout.discover_category_item, parent, false);
-
         return new ItemViewHolder(view);
     }
 
@@ -50,6 +48,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Category category = categories.get(position);
+
         TextView itemTitle = ((ItemViewHolder) holder).textView;
         itemTitle.setText(category.getName());
 

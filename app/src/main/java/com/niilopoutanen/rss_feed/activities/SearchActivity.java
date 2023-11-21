@@ -30,8 +30,6 @@ public class SearchActivity extends AppCompatActivity {
     private DiscoverResultAdapter discoverResultAdapter;
     private List<FeedResult> discoverResults = new ArrayList<>();
 
-    //Feed type
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         searchRecyclerView.setAdapter(discoverResultAdapter);
 
         searchField = findViewById(R.id.search);
+        searchField.requestFocus();
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

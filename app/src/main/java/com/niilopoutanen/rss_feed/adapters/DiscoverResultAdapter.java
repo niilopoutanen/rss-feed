@@ -32,7 +32,7 @@ import java.util.List;
 public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<FeedResult> results;
 
-    public DiscoverResultAdapter(List<FeedResult> results) {
+    public DiscoverResultAdapter(@NonNull List<FeedResult> results) {
         this.results = results;
     }
 

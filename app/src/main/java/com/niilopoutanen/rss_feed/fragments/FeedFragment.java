@@ -31,6 +31,7 @@ import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.Parser;
 import com.niilopoutanen.rssparser.RSSException;
@@ -52,7 +53,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
     List<Item> items = new ArrayList<>();
-    Map<Item, UUID> postMap = new HashMap<>();
     String viewTitle;
     RecyclerView recyclerView;
     FeedAdapter adapter;
@@ -109,12 +109,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         articleIntent.putExtra("preferences", preferences);
         articleIntent.putExtra("item", items.get(position));
 
-        sources.stream()
-                  .filter(s -> s.getId().equals(postMap.get(items.get(position))))
-                  .findFirst()
-                  .ifPresent(source -> articleIntent.putExtra("source", source));
-
-
         PreferencesManager.vibrate(recyclerView.getChildAt(0));
         context.startActivity(articleIntent);
     }
@@ -168,16 +162,13 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 }
                 Parser parser = new Parser();
                 try {
-                    loadedItems.addAll(parser.load(source.getFeedUrl()).getItems());
-
-                    for(Item item : loadedItems){
-                        postMap.put(item, source.getId());
-                    }
-
+                    Feed feed = parser.load(source.getFeedUrl());
+                    loadedItems.addAll(feed.getItems());
                 } catch (RSSException e) {
                     Activity activity = getActivity();
                     if(activity != null && isAdded()){
                         activity.runOnUiThread(() -> showError(e.getErrorType(), source));
+                        return;
                     }
 
                 }
@@ -202,9 +193,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
 
     private void showError(int errorCode, Source errorCause) {
         switch (errorCode) {
-            case HttpURLConnection.HTTP_NOT_FOUND:
-                adapter.addNotification(context.getString(R.string.invalidfeed), context.getString(R.string.invalidfeedmsg));
-                break;
             case 429:
                 adapter.addNotification(context.getString(R.string.error_toomanyrequests), String.format(context.getString(R.string.toomanyrequestsmsg), errorCause.getFeedUrl()));
                 break;
@@ -214,7 +202,12 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             case 1:
                 adapter.addNotification(context.getString(R.string.nointernet), context.getString(R.string.nointernetmsg));
                 break;
+            case HttpURLConnection.HTTP_NOT_FOUND:
+            default:
+                adapter.addNotification(context.getString(R.string.invalidfeed), context.getString(R.string.invalidfeedmsg));
+                break;
         }
+        if(recyclerviewRefresh != null) recyclerviewRefresh.setRefreshing(false);
     }
 
     @Override
