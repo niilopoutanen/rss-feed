@@ -5,9 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp"
-    android:baselineAligned="false">
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:baselineAligned="false"
+    android:background="@color/windowBg">
 
     <ImageView
         android:id="@+id/source_item_icon"

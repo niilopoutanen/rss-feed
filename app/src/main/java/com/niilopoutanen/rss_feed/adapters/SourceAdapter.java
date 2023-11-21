@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -136,24 +138,20 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 View itemView = viewHolder.itemView;
                 if (dX < 0) {
                     // Swiping left
+                    Paint paint = new Paint();
+                    paint.setColor(Color.RED);
+                    RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                    c.drawRect(background, paint);
+
                     Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_trash);
 
                     int intrinsicHeight = drawable.getIntrinsicHeight();
-                    int iconMargin = 30;
+                    int iconMargin = 50;
                     int left = itemView.getRight() - drawable.getIntrinsicWidth() - iconMargin;
                     int top = itemView.getTop() + (itemView.getHeight() - intrinsicHeight) / 2;
                     int right = itemView.getRight() - iconMargin;
                     int bottom = top + intrinsicHeight;
 
-                    int startColor = ContextCompat.getColor(context, R.color.textSecondary);
-                    int endColor = Color.RED;
-
-                    int redIntensity = (int) (Color.red(startColor) + (Color.red(endColor) - Color.red(startColor)) * Math.abs(dX) / itemView.getWidth());
-                    int greenIntensity = (int) (Color.green(startColor) + (Color.green(endColor) - Color.green(startColor)) * Math.abs(dX) / itemView.getWidth());
-                    int blueIntensity = (int) (Color.blue(startColor) + (Color.blue(endColor) - Color.blue(startColor)) * Math.abs(dX) / itemView.getWidth());
-                    int interpolatedColor = Color.rgb(redIntensity, greenIntensity, blueIntensity);
-
-                    drawable.setColorFilter(interpolatedColor, PorterDuff.Mode.SRC_IN);
 
                     drawable.setBounds(left, top, right, bottom);
                     drawable.draw(c);
