@@ -100,7 +100,8 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
     private void initButton(Source source, FragmentManager manager){
         Drawable edit = AppCompatResources.getDrawable(context, R.drawable.icon_edit);
-        createIcon(edit);
+        createIcon();
+        setIcon(edit);
 
         container.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -112,16 +113,15 @@ public class SourceItem extends RecyclerView.ViewHolder{
             v.getContext().startActivity(feedIntent);
         });
 
-        container.setOnLongClickListener(v -> {
+        button.setOnClickListener(v -> {
             AddSourceFragment addSourceFragment = new AddSourceFragment(source, context);
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
             transaction.addToBackStack(null);
             transaction.commit();
-            return true;
         });
     }
-    private View createIcon(Drawable drawable){
+    private void createIcon(){
         View action = new View(context);
         int size = PreferencesManager.dpToPx(15, context);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(size, size);
@@ -129,13 +129,17 @@ public class SourceItem extends RecyclerView.ViewHolder{
         action.setLayoutParams(layoutParams);
         action.setBackgroundTintList(ColorStateList.valueOf(PreferencesManager.getAccentColor(context)));
 
-        if(drawable != null){
-            action.setBackground(drawable);
+        button.addView(action);
+    }
+    private void setIcon(Drawable icon){
+        View action = button.getChildAt(0);
+        if (action == null){
+            return;
         }
-        return action;
+        action.setBackground(icon);
     }
     private void initButton(FeedResult result){
-        View action = createIcon(null);
+        createIcon();
         List<Source> savedSources = SaveSystem.loadContent(context);
 
         Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
@@ -144,14 +148,12 @@ public class SourceItem extends RecyclerView.ViewHolder{
         for (Source source : savedSources) {
             if (source.getFeedUrl().equalsIgnoreCase(WebUtils.formatUrl(result.feedId).toString())) {
                 result.alreadyAdded = true;
-                action.setBackground(checkmark);
-                button.addView(action);
+                setIcon(checkmark);
                 return;
             }
         }
         // If not added
-        action.setBackground(plus);
-        button.addView(action);
+        setIcon(plus);
 
         button.setOnClickListener(v -> {
             if (!result.alreadyAdded) {
