@@ -23,7 +23,14 @@ public class IconFinder {
                 return null;
             }
 
-            return getLargestSize(links);
+            String iconUrl = getLargestSize(links);
+
+            // Make sure the icon url is not relative
+            if(!iconUrl.startsWith("http")){
+                iconUrl = homePage.toString() + iconUrl;
+            }
+            
+            return iconUrl;
         }
         catch (Exception e) {
             return null;
