@@ -62,14 +62,6 @@
     },
     {
         "language": "en",
-        "description": "Breaking news, live coverage, investigations, analysis, video, photos and opinions from The Washington Post",
-        "title": "Washington Post",
-        "feedId": "feed/https://feeds.washingtonpost.com/rss/world",
-        "website": "https://www.washingtonpost.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Washington%20Post.jpg"
-    },
-    {
-        "language": "en",
         "description": "Breaking the biggest stories in celebrity and entertainment news. Only on TMZ",
         "title": "TMZ",
         "feedId": "feed/https://www.tmz.com/rss.xml",
