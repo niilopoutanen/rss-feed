@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
@@ -70,10 +73,11 @@ public class SourceItem extends RecyclerView.ViewHolder{
         return new SourceItem(view, preferences, context);
     }
 
-    public void bindData(Source source){
+    public void bindData(Source source, FragmentManager manager){
         title.setText(source.getName());
         desc.setVisibility(View.GONE);
         loadIcon(source.getImageUrl());
+        initButton(source, manager);
     }
     public void bindData(FeedResult result){
         title.setText(result.title);
@@ -84,6 +88,9 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
 
     private void loadIcon(String iconUrl){
+        if(iconUrl.isEmpty()){
+            return;
+        }
         int iconSize = PreferencesManager.dpToPx(60, context);
         Picasso.get().load(iconUrl)
                   .transform(new MaskTransformation(context, R.drawable.element_background))
@@ -91,7 +98,30 @@ public class SourceItem extends RecyclerView.ViewHolder{
                   .into(icon);
     }
 
-    private void initButton(FeedResult result){
+    private void initButton(Source source, FragmentManager manager){
+        Drawable edit = AppCompatResources.getDrawable(context, R.drawable.icon_edit);
+        createIcon(edit);
+
+        container.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("source", source);
+            bundle.putSerializable("preferences", preferences);
+            Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
+            feedIntent.putExtras(bundle);
+            PreferencesManager.vibrate(v);
+            v.getContext().startActivity(feedIntent);
+        });
+
+        container.setOnLongClickListener(v -> {
+            AddSourceFragment addSourceFragment = new AddSourceFragment(source, context);
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
+            transaction.addToBackStack(null);
+            transaction.commit();
+            return true;
+        });
+    }
+    private View createIcon(Drawable drawable){
         View action = new View(context);
         int size = PreferencesManager.dpToPx(15, context);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(size, size);
@@ -99,6 +129,13 @@ public class SourceItem extends RecyclerView.ViewHolder{
         action.setLayoutParams(layoutParams);
         action.setBackgroundTintList(ColorStateList.valueOf(PreferencesManager.getAccentColor(context)));
 
+        if(drawable != null){
+            action.setBackground(drawable);
+        }
+        return action;
+    }
+    private void initButton(FeedResult result){
+        View action = createIcon(null);
         List<Source> savedSources = SaveSystem.loadContent(context);
 
         Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
