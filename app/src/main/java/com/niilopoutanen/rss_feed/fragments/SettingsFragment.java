@@ -60,6 +60,8 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
+import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.Arrays;
@@ -130,6 +132,13 @@ public class SettingsFragment extends Fragment {
             String url = "https://github.com/niilopoutanen/RSS-Feed";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
+        });
+        rootView.findViewById(R.id.settings_openChangelog).setOnClickListener(v -> {
+            Intent changeLogIntent = new Intent(context, FeedActivity.class);
+            String url = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions.rss";
+            Source changeLog = new Source(context.getString(R.string.changelog), url, null);
+            changeLogIntent.putExtra("source", changeLog);
+            startActivity(changeLogIntent);
         });
         rootView.findViewById(R.id.settings_createIssue).setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen/RSS-Feed/issues/new";

@@ -125,5 +125,7 @@
     <string name="article_show_categories">Show post categories</string>
     <string name="update">Update</string>
     <string name="tooltip_post_no_article">This post does not have a article included, only the summary.</string>
+    <string name="view_changelog">View changelog</string>
+    <string name="changelog">Changelog</string>
 
 </resources>

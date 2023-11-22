@@ -27,7 +27,10 @@ public class FeedActivity extends AppCompatActivity {
         if (bundle != null) {
             Source source = (Source) bundle.getSerializable("source");
             preferences = (Preferences) bundle.getSerializable("preferences");
-            if (source != null && preferences != null) {
+            if(preferences == null){
+                preferences = PreferencesManager.loadPreferences(this);
+            }
+            if (source != null) {
                 FeedFragment feedFragment = new FeedFragment(source, preferences);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.feedactivity_container, feedFragment);
