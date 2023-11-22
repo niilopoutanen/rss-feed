@@ -93,7 +93,6 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             sources = (List<Source>) savedInstanceState.getSerializable("sources");
         }
 
-        assert context != null;
         colorAccent = PreferencesManager.getAccentColor(context);
 
         setEnterTransition(new MaterialFadeThrough());

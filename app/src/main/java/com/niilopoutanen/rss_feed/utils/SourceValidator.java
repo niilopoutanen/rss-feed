@@ -1,6 +1,8 @@
 package com.niilopoutanen.rss_feed.utils;
 
 
+import androidx.annotation.NonNull;
+
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Feed;
@@ -22,10 +24,10 @@ public class SourceValidator {
     private Feed feed;
 
 
-    public SourceValidator(Source source){
+    public SourceValidator(@NonNull Source source){
         this.source = source;
     }
-    public void validate(Callback<Source> callback) {
+    public void validate(@NonNull Callback<Source> callback) {
         if(source.getFeedUrl() == null){
             callback.onError(new RSSException("Feed url cannot be null"));
             return;
@@ -46,25 +48,30 @@ public class SourceValidator {
     }
 
     private void getFeed() throws RSSException{
-        Parser parser = new Parser();
-        feed = parser.load(source.getFeedUrl());
-
         URL feedUrl = WebUtils.findFeed(WebUtils.formatUrl(source.getFeedUrl()));
         if(feedUrl != null){
             source.setFeedUrl(feedUrl.toString());
         }
+
+        Parser parser = new Parser();
+        feed = parser.load(source.getFeedUrl());
     }
     private void getIcon(){
-        source.setImageUrl(IconFinder.get(source.getFeedUrl()));
+        if(feed.getImageUrl() == null){
+            source.setImageUrl(IconFinder.get(source.getFeedUrl()));
+        }
+        else{
+            source.setImageUrl(IconFinder.get(source.getFeedUrl(), new String[] {feed.getImageUrl()}));
+        }
     }
     private void getTitle(){
         // If name is already set, do nothing
-        if(source != null && source.getName() != null && !source.getName().isEmpty()){
+        if(source.getName() != null && !source.getName().isEmpty()){
             return;
         }
         // If feed was parsed, get the title from there
         if(feed != null){
-            if(!feed.getTitle().isEmpty()){
+            if(feed.getTitle() != null && !feed.getTitle().isEmpty()){
                 source.setName(feed.getTitle());
             }
         }

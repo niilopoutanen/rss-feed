@@ -9,7 +9,30 @@ import java.net.URL;
 
 public class IconFinder {
 
+    public static String get(String urlStr, String[] existingURLs){
+        try{
+            URL url = new URL(urlStr);
+            return load(url, existingURLs);
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
     public static String get(URL url){
+        return load(url, null);
+    }
+    public static String get(String urlStr){
+        try{
+            URL url = new URL(urlStr);
+            return load(url, null);
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
+
+    public static String load(URL url, String[] existingURLs){
         URL homePage = getHomePage(url);
 
         // create an HTTP connection to the website's homepage
@@ -19,6 +42,14 @@ public class IconFinder {
             if (links.isEmpty()) {
                 links = doc.select("meta[property~=og:image], meta[name~=twitter:image]");
             }
+            if(existingURLs != null){
+                for (String iconUrl : existingURLs){
+                    Element link = new Element("link");
+                    link.attr("href", iconUrl);
+                    links.add(link);
+                }
+            }
+
             if (links.isEmpty()) {
                 return null;
             }
@@ -36,16 +67,6 @@ public class IconFinder {
             return null;
         }
     }
-    public static String get(String urlStr){
-        try{
-            URL url = new URL(urlStr);
-            return get(url);
-        }
-        catch (Exception e){
-            return null;
-        }
-    }
-
 
     private static URL getHomePage(URL url){
         try{
@@ -70,7 +91,7 @@ public class IconFinder {
 
             int size = extractSize(sizes);
 
-            if(size > maxRes){
+            if(size >= maxRes){
                 maxRes = size;
                 largestUrl = attributes.get("href");
             }
