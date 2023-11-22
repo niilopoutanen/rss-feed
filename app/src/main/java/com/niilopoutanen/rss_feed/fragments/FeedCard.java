@@ -1,6 +1,8 @@
 package com.niilopoutanen.rss_feed.fragments;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
@@ -36,6 +40,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
     private final TextView date;
     private final ImageView image;
     private final View container;
+    private final LinearLayout iconContainer;
 
     private final Preferences preferences;
     private final Context context;
@@ -49,6 +54,8 @@ public class FeedCard extends RecyclerView.ViewHolder{
         author = itemView.findViewById(R.id.feedcard_author);
         date = itemView.findViewById(R.id.feedcard_date);
         image = itemView.findViewById(R.id.feedcard_image);
+
+        iconContainer = itemView.findViewById(R.id.feedcard_title_container);
         container = itemView;
 
         itemView.setOnClickListener(v -> {
@@ -102,7 +109,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
         author.setText(item.getAuthor());
 
         loadImage(item);
-
+        loadIcons(item);
     }
 
     private void setPreferences(){
@@ -189,6 +196,35 @@ public class FeedCard extends RecyclerView.ViewHolder{
         }
     }
 
+    private void loadIcons(Item item){
+        if(item.getLink() == null){
+            createIcon(R.drawable.icon_no_article);
+        }
+
+    }
+    private void createIcon(@DrawableRes int resource){
+        if(iconContainer == null){
+            return;
+        }
+
+        View icon = new View(context);
+        int size = PreferencesManager.dpToPx(15, context);
+        ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(size, size);
+        layoutParams.setMargins(PreferencesManager.dpToPx(5, context),0,0,0);
+        icon.setLayoutParams(layoutParams);
+
+        Drawable drawable = AppCompatResources.getDrawable(context, resource);
+        icon.setBackground(drawable);
+
+        icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textPrimary)));
+
+        String tag = String.valueOf(resource);
+
+        if (iconContainer.findViewWithTag(tag) == null) {
+            icon.setTag(tag);
+            iconContainer.addView(icon);
+        }
+    }
     public int getImageWidth(){
         switch (preferences.s_feedcardstyle) {
             case LARGE:
