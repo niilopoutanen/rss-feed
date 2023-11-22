@@ -36,6 +36,15 @@ public class IconFinder {
             return null;
         }
     }
+    public static String get(String urlStr){
+        try{
+            URL url = new URL(urlStr);
+            return get(url);
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
 
 
     private static URL getHomePage(URL url){

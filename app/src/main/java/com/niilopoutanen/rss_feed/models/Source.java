@@ -10,9 +10,9 @@ public class Source implements Serializable {
     //Saved data version
     private static final long serialVersionUID = 1L;
     private UUID id;
-    private final String name;
-    private final String feedUrl;
-    private final String imageUrl;
+    private String name;
+    private String feedUrl;
+    private String imageUrl;
     private final Boolean showInFeed;
 
     public Source(String name, String feedUrl, String imageUrl) {
@@ -43,14 +43,24 @@ public class Source implements Serializable {
         return feedUrl;
     }
 
+    public void setFeedUrl(String feedUrl){
+        this.feedUrl = feedUrl;
+    }
     public String getName() {
         return name;
+    }
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
+    public void setImageUrl(String url){
+        this.imageUrl = url;
+    }
     public boolean isVisibleInFeed() {
         return this.showInFeed == null || this.showInFeed;
 
