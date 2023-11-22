@@ -1,0 +1,19 @@
+<rss version="2.0">
+    <channel>
+        <title>RSS-Feed version history</title>
+        <link>https://github.com/niilopoutanen/RSS-Feed</link>
+        <description>Changelog of app versions</description>
+        <language>en-us</language>
+        <pubDate>Tue, 22 Nov 2023 12:00:00 GMT</pubDate>
+        <managingEditor>niilo.poutanen@gmail.com</managingEditor>
+        <webMaster>niilo.poutanen@gmail.com</webMaster>
+        <item>
+            <title>v1.4</title>
+            <link> https://www.example.org</link>
+            <description>Refreshed Discover-page and UI tweaks</description>
+            <enclosure url="http://www.example.org" type="image/jpeg" />
+            <pubDate>Wed, 21 Nov 2023 12:00 EDT</pubDate>
+            <guid> https://www.example.org</guid>
+        </item>
+    </channel>
+</rss>
