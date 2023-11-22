@@ -110,4 +110,5 @@
     <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
     <string name="article_show_categories">Näytä julkaisun kategoriat</string>
     <string name="update">Päivitä</string>
+    <string name="post_no_url">Artikkelia ei voi avata. Julkaisuun ei ole lisättyä URL-osoitetta.</string>
 </resources>
