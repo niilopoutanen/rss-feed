@@ -27,11 +27,16 @@ public class RssParser {
             for (String tagName : feedElements.keySet()) {
                 Element element = channel.select(tagName).first();
                 if (element != null) {
+                    if(element.tagName().matches("enclosure|source")){
+                        feedElements.get(tagName).accept(feed, element.toString());
+                        continue;
+                    }
                     String text = element.text();
                     feedElements.get(tagName).accept(feed, text);
                 }
             }
 
+            handleSpecialCases(channel, feed);
             Elements items = channel.select("item");
             parseItems(items);
         }
@@ -56,6 +61,15 @@ public class RssParser {
             handleNullParams(item);
             handleSpecialCases(itemElement, item);
             feed.addItem(item);
+        }
+    }
+    private void handleSpecialCases(Element channelElement, Feed feed){
+        Element imageElement = channelElement.selectFirst("image");
+        if (imageElement != null) {
+            Element urlElement = imageElement.selectFirst("url");
+            if(urlElement != null){
+                feed.setImageUrl(urlElement.text());
+            }
         }
     }
     private void handleSpecialCases(Element itemElement, Item item){
