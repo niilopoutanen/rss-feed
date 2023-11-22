@@ -1,5 +1,7 @@
 package com.niilopoutanen.rssparser;
 
+import androidx.annotation.Nullable;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -30,12 +32,16 @@ public class Item implements Comparable<Item>, Serializable {
         this.title = title;
     }
 
+    @Nullable
     public String getLink() {
         if(this.link != null){
             return this.link;
         }
-        else{
+        else if(this.guid != null){
             return this.guid;
+        }
+        else{
+            return null;
         }
     }
 

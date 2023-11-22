@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -105,12 +106,19 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         if (position >= items.size()) {
             return;
         }
-        Intent articleIntent = new Intent(context, ArticleActivity.class);
-        articleIntent.putExtra("preferences", preferences);
-        articleIntent.putExtra("item", items.get(position));
+        Item clicked = items.get(position);
+        if(clicked.getLink() != null){
+            Intent articleIntent = new Intent(context, ArticleActivity.class);
+            articleIntent.putExtra("preferences", preferences);
+            articleIntent.putExtra("item", items.get(position));
 
-        PreferencesManager.vibrate(recyclerView.getChildAt(0));
-        context.startActivity(articleIntent);
+            PreferencesManager.vibrate(recyclerView.getChildAt(0));
+            context.startActivity(articleIntent);
+        }
+        else{
+            Toast.makeText(context, R.string.post_no_url, Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
