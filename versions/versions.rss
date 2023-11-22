@@ -74,9 +74,9 @@
 
         <item>
             <title>v1.1.6</title>
-            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.7.html</link>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.6.html</link>
             <description>Crash fix related to post dates</description>
-            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.7.jpg" type="image/jpeg" />
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.6.jpg" type="image/jpeg" />
             <pubDate>Sun, 2 Jul 2023 08:28:00 +0200</pubDate>
         </item>
 
