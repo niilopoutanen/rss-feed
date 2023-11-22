@@ -111,4 +111,6 @@
     <string name="article_show_categories">Näytä julkaisun kategoriat</string>
     <string name="update">Päivitä</string>
     <string name="post_no_url">Artikkelia ei voi avata. Julkaisuun ei ole lisättyä URL-osoitetta.</string>
+    <string name="error_adding_source">Virhe lisätessä lähdettä. Yritä uudelleen.</string>
+    <string name="tooltip_post_no_article">Tässä julkaisussa ei ole artikkelia, vaan pelkästään yhteenveto.</string>
 </resources>

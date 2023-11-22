@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -198,11 +199,11 @@ public class FeedCard extends RecyclerView.ViewHolder{
 
     private void loadIcons(Item item){
         if(item.getLink() == null){
-            createIcon(R.drawable.icon_no_article);
+            createIcon(R.drawable.icon_no_article, R.string.tooltip_post_no_article);
         }
 
     }
-    private void createIcon(@DrawableRes int resource){
+    private void createIcon(@DrawableRes int iconResource, @StringRes int toolTipResource){
         if(iconContainer == null){
             return;
         }
@@ -213,12 +214,13 @@ public class FeedCard extends RecyclerView.ViewHolder{
         layoutParams.setMargins(PreferencesManager.dpToPx(5, context),0,0,0);
         icon.setLayoutParams(layoutParams);
 
-        Drawable drawable = AppCompatResources.getDrawable(context, resource);
+        Drawable drawable = AppCompatResources.getDrawable(context, iconResource);
         icon.setBackground(drawable);
 
         icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textPrimary)));
+        icon.setTooltipText(context.getString(toolTipResource));
 
-        String tag = String.valueOf(resource);
+        String tag = String.valueOf(iconResource);
 
         if (iconContainer.findViewWithTag(tag) == null) {
             icon.setTag(tag);

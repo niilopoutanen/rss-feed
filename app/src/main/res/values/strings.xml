@@ -136,4 +136,5 @@
     <string name="update">Update</string>
     <string name="post_no_url">Unable to open article. This post has no URL attached to it.</string>
     <string name="error_adding_source">Error with adding source. Please try again.</string>
+    <string name="tooltip_post_no_article">This post does not have a article, only the summary.</string>
 </resources>
