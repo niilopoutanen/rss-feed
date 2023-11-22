@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Preferences preferences;
     List<Source> sources = new ArrayList<>();
     private Fragment currentFragment;
+    private UpdateDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkUpdate() {
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
-        if (isFirstLaunch) {
-            UpdateDialog dialog = new UpdateDialog(this);
+        if (isFirstLaunch && !isFinishing() && !isDestroyed()) {
+            dialog = new UpdateDialog(this);
             dialog.show();
         }
     }
@@ -141,6 +142,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
+    @Override
+    protected void onDestroy() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        super.onDestroy();
+    }
 
 }

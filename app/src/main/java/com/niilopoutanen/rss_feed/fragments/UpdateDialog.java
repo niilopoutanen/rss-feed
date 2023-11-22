@@ -58,10 +58,14 @@ public class UpdateDialog {
         });
     }
 
-    /**
-     * Shows the sheet
-     */
+
     public void show() {
         sheet.show();
+    }
+    public void dismiss(){
+        sheet.dismiss();
+    }
+    public boolean isShowing(){
+        return sheet.isShowing();
     }
 }
