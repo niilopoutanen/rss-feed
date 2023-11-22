@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_invalid_url">The URL you provided is not valid.</string>
+    <string name="error_name_not_found">Autofill did not succeed for this source. Provide it manually.</string>
+    <string name="error_adding_source">Error with adding source. Please try again.</string>
+    <string name="error_notsupported">The post you tried to open is invalid and not working with this app. Open it in your browser.</string>
+    <string name="error_invalid_feed">The RSS feed URL is invalid.</string>
+    <string name="error_invalid_feed_msg">The publisher\'s RSS feed may be out of date, or the url may have changed. The feed could not be opened.</string>
+
+    <string name="error_no_internet">No internet connection available.</string>
+    <string name="error_no_internet_msg">Feed can\'t be loaded. Connect to internet and try again.</string>
+
+    <string name="error_no_sources">No sources added.</string>
+    <string name="error_no_sources_msg">You have not added any sources to your feed yet. Go to the content- or discover-tab to add some.</string>
+
+    <string name="error_too_many_requests">Too many requests.</string>
+    <string name="error_too_many_requests_msg">You have sent too many requests to %s. Wait for a while and try again.</string>
+
+    <string name="error_empty_url">URL cannot be empty.</string>
+    <string name="error_url">Error reading from url.</string>
+    <string name="error_host">No internet connection or bad host url.</string>
+    <string name="error_no_write_access">You have not granted write permissions to the app.</string>
+    <string name="error_no_email_found">No email app was found. Send feedback to niilo.poutanen@gmail.com</string>
+    <string name="error_post_no_url">Unable to open article. This post has no URL attached to it.</string>
+
+</resources>

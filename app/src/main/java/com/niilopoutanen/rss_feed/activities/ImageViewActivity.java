@@ -146,7 +146,7 @@ public class ImageViewActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 saveImage();
             } else {
-                Toast.makeText(this, getString(R.string.nowriteaccess), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_no_write_access), Toast.LENGTH_SHORT).show();
             }
         }
     }

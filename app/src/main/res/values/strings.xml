@@ -24,8 +24,7 @@
     <string name="feed_name_autofill">Optional: Leave name empty for autofill</string>
     <string name="feed_url">Feed url</string>
 
-    <string name="nointernet">No internet connection available.</string>
-    <string name="nosources">No sources added.</string>
+
 
     <plurals name="minutes_ago">
         <item quantity="one">%d minute ago</item>
@@ -38,7 +37,6 @@
     <string name="justnow">Just now</string>
     <string name="imagefrom">Image from</string>
     <string name="imagesaved">Image saved to gallery</string>
-    <string name="nowriteaccess">You have not granted write permissions to the app.</string>
 
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_additional">The theme changes when restarting the app for the next time.</string>
@@ -101,13 +99,10 @@
     <string name="feature3">App stability</string>
     <string name="feature3desc">Enhanced app stability, less crashes</string>
 
-    <string name="error_url">Error reading from url.</string>
-    <string name="error_host">No internet connection or bad host url.</string>
-    <string name="error_toomanyrequests">Too many requests.</string>
+
 
 
     <string name="sendmail">Send email</string>
-    <string name="noemailfound">No email app was found. Send feedback to niilo.poutanen@gmail.com</string>
     <string name="emailquide">Write your feedback here. Leave the app and android version info to the message.</string>
     <string name="themechange_desc">Changes to the app theme will be visible when opening the app for the next time</string>
     <string name="discover_header">Discover</string>
@@ -116,13 +111,9 @@
     <string name="search">Search</string>
     <string name="sourceadded">Source added.</string>
     <string name="sourcealreadyadded">Source already added.</string>
-    <string name="nointernetmsg">Feed can\'t be loaded. Connect to internet and try again.</string>
-    <string name="nosourcesmsg">You have not added any sources to your feed yet. Go to the content- or discover-tab to add some.</string>
-    <string name="toomanyrequestsmsg">You have sent too many requests to %s. Wait for a while and try again.</string>
+
     <string name="tryagain">Try again</string>
     <string name="donot_show_again">Do not show again</string>
-    <string name="invalidfeed">The RSS Feed url is invalid.</string>
-    <string name="invalidfeedmsg">The publisher\'s RSS feed may be out of date, or the url may have changed. The feed could not be opened.</string>
     <string name="settings_fontsize">Font size</string>
     <string name="show_in_feed">Show in feed</string>
     <string name="animate_clicks">Animate clicked elements</string>
@@ -131,13 +122,8 @@
     <string name="debug_tools">Debug tools</string>
     <string name="article_open_with_url">Open ArticleView with URL</string>
     <string name="debug_terminate">Terminate app process</string>
-    <string name="error_notsupported">The post you tried to open is invalid and not working with this app. Open it in your browser.</string>
     <string name="article_show_categories">Show post categories</string>
     <string name="update">Update</string>
-    <string name="post_no_url">Unable to open article. This post has no URL attached to it.</string>
-    <string name="error_adding_source">Error with adding source. Please try again.</string>
-    <string name="tooltip_post_no_article">This post does not have a article, only the summary.</string>
-    <string name="error_invalid_url">The URL you provided is not valid.</string>
-    <string name="error_name_not_found">Autofill for the source name did not complete. Provide it manually.</string>
-    <string name="error_empty_url">URL cannot be empty.</string>
+    <string name="tooltip_post_no_article">This post does not have a article included, only the summary.</string>
+
 </resources>

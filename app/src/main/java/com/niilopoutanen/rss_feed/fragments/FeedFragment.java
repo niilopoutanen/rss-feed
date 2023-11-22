@@ -40,10 +40,7 @@ import com.niilopoutanen.rssparser.RSSException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -115,7 +112,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             context.startActivity(articleIntent);
         }
         else{
-            Toast.makeText(context, R.string.post_no_url, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
         }
 
     }
@@ -201,17 +198,17 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void showError(int errorCode, Source errorCause) {
         switch (errorCode) {
             case 429:
-                adapter.addNotification(context.getString(R.string.error_toomanyrequests), String.format(context.getString(R.string.toomanyrequestsmsg), errorCause.getFeedUrl()));
+                adapter.addNotification(context.getString(R.string.error_too_many_requests), String.format(context.getString(R.string.error_too_many_requests_msg), errorCause.getFeedUrl()));
                 break;
             case 0:
-                adapter.addNotification(context.getString(R.string.nosources), context.getString(R.string.nosourcesmsg));
+                adapter.addNotification(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));
                 break;
             case 1:
-                adapter.addNotification(context.getString(R.string.nointernet), context.getString(R.string.nointernetmsg));
+                adapter.addNotification(context.getString(R.string.error_no_internet), context.getString(R.string.error_no_internet_msg));
                 break;
             case HttpURLConnection.HTTP_NOT_FOUND:
             default:
-                adapter.addNotification(context.getString(R.string.invalidfeed), context.getString(R.string.invalidfeedmsg));
+                adapter.addNotification(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
                 break;
         }
         if(recyclerviewRefresh != null) recyclerviewRefresh.setRefreshing(false);

@@ -145,7 +145,7 @@ public class SettingsFragment extends Fragment {
             try {
                 startActivity(Intent.createChooser(intent, context.getString(R.string.sendmail)));
             } catch (Exception e) {
-                Toast.makeText(context, context.getString(R.string.noemailfound), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.error_no_email_found), Toast.LENGTH_LONG).show();
             }
         });
 

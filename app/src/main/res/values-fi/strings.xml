@@ -19,12 +19,10 @@
     <string name="feed_name">Nimi</string>
     <string name="feed_name_autofill">Valinnainen: Jätä nimi tyhjäksi automaattista täyttöä varten.</string>
     <string name="feed_url">Syötteen URL-osoite</string>
-    <string name="nointernet">Ei internet-yhteyttä.</string>
-    <string name="nosources">Yhtään lähdettä ei ole lisätty.</string>
+
     <string name="justnow">Juuri nyt</string>
     <string name="imagefrom">Kuva lähteestä</string>
     <string name="imagesaved">Kuva tallennettu galleriaan</string>
-    <string name="nowriteaccess">Et ole antanut sovellukselle lupaa tallentaa tiedostoja.</string>
     <string name="settings_theme">Teema</string>
     <string name="settings_theme_additional">Teema muuttuu, kun sovellus käynnistetään uudelleen seuraavan kerran.</string>
     <string name="settings_feedcardstyle">Syötteen kortin tyyli</string>
@@ -52,8 +50,7 @@
     <string name="feature2desc">Jos julkaisija antaa tietoja kirjoittamastaan artikkelista, kuten: kategoria=uutiset, se näkyy artikkelia lukiessasi.</string>
     <string name="feature3">Sovelluksen vakauden parantamista</string>
     <string name="feature3desc">Vähemmän bugeja.</string>
-    <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
-    <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
+
 
     <string-array name="theme_modes">
         <item>Vaalea</item>
@@ -81,7 +78,6 @@
         <item quantity="other">%d tuntia sitten</item>
     </plurals>
     <string name="sendmail">Lähetä sähköpostia</string>
-    <string name="noemailfound">Sähköpostisovellusta ei löydetty. Lähetä palautetta osoitteeseen niilo.poutanen@gmail.com</string>
     <string name="emailquide">Kirjoita palautteesi tähän. Jätä valmiiksi täytetyt tiedot viestiin mukaan. (Viestin pohjalla olevat numerot)</string>
     <string name="themechange_desc">Muutokset sovelluksen teemaan tulevat näkyviin kun avaat sovelluksen seuraavan kerran.</string>
     <string name="discover_header">Tutki</string>
@@ -90,30 +86,21 @@
     <string name="search">Hae</string>
     <string name="sourceadded">Lähde lisätty.</string>
     <string name="sourcealreadyadded">Lähde on jo lisätty.</string>
-    <string name="nointernetmsg">Syötettä ei voitu ladata. Yhdistä internettiin ja yritä uudelleen.</string>
-    <string name="nosourcesmsg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
+
     <string name="tryagain">Yritä uudelleen</string>
     <string name="donot_show_again">Älä näytä uudelleen</string>
-    <string name="invalidfeed">RSS-syötteen url-osoite on virheellinen.</string>
-    <string name="invalidfeedmsg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
     <string name="settings_fontsize">Fonttikoko</string>
     <string name="settings_launchwindow_additional">Valittu välilehti aukeaa kun käynnistät sovelluksen.</string>
     <string name="show_in_feed">Näytä syötteessä</string>
-    <string name="error_toomanyrequests">Liian monta pyyntöä.</string>
-    <string name="toomanyrequestsmsg">Olet lähettänyt liian monta pyyntöä osoitteesen %s. Odota hetki ja yritä uudelleen.</string>
+
     <string name="animate_clicks">Animoi klikkaukset</string>
     <string name="article_show_controls">Näytä alavalikko artikkelissa</string>
     <string name="article_focusmode">Vaihda keskittymistilaa</string>
     <string name="debug_tools">Vianmääritystyökalut</string>
     <string name="article_open_with_url">Avaa ArticleView URL-osoitteella</string>
     <string name="debug_terminate">Lopeta sovellusprosessi</string>
-    <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
     <string name="article_show_categories">Näytä julkaisun kategoriat</string>
     <string name="update">Päivitä</string>
-    <string name="post_no_url">Artikkelia ei voi avata. Julkaisuun ei ole lisättyä URL-osoitetta.</string>
-    <string name="error_adding_source">Virhe lisätessä lähdettä. Yritä uudelleen.</string>
     <string name="tooltip_post_no_article">Tässä julkaisussa ei ole artikkelia, vaan pelkästään yhteenveto.</string>
-    <string name="error_invalid_url">Antamasi URL-osoite ei kelpaa.</string>
-    <string name="error_name_not_found">Lähteen nimen automaattinen täyttö ei onnistunut. Kirjoita se manuaalisesti.</string>
-    <string name="error_empty_url">URL-osoite ei voi olla tyhjä.</string>
+
 </resources>
