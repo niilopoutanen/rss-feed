@@ -1,8 +1,8 @@
 <rss version="2.0">
     <channel>
-        <title>RSS-Feed version history</title>
+        <title>RSS-Feed changelog</title>
         <link>https://github.com/niilopoutanen/RSS-Feed</link>
-        <description>Changelog of app versions</description>
+        <description>Version history of the app with details about changes made</description>
         <language>en-us</language>
         <pubDate>Tue, 22 Nov 2023 12:00:00 GMT</pubDate>
         <managingEditor>niilo.poutanen@gmail.com</managingEditor>
