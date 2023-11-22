@@ -22,8 +22,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/discover_header"
                 android:textColor="@color/textPrimary"
-                android:textSize="40sp"
-                app:fontFamily="@font/inter_semibold" />
+                android:textSize="35sp"
+                app:fontFamily="@font/inter_black" />
         </RelativeLayout>
         <LinearLayout
             android:id="@+id/discover_search"
