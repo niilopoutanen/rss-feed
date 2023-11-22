@@ -38,5 +38,62 @@
             <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.2.1.jpg" type="image/jpeg" />
             <pubDate>Tue, 31 Oct 2023 12:22:00 +0200</pubDate>
         </item>
+
+        <item>
+            <title>v1.2.0</title>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.2.html</link>
+            <description>Crash fix related to post dates</description>
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.2.jpg" type="image/jpeg" />
+            <pubDate>Mon, 30 Oct 2023 11:19:00 +0200</pubDate>
+        </item>
+
+        <item>
+            <title>v1.1.9</title>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.9.html</link>
+            <description>Crash fix related to post dates</description>
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.9.jpg" type="image/jpeg" />
+            <pubDate>Wed, 18 Oct 2023 06:28:00 +0200</pubDate>
+        </item>
+
+        <item>
+            <title>v1.1.8</title>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.8.html</link>
+            <description>Crash fix related to post dates</description>
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.8.jpg" type="image/jpeg" />
+            <pubDate>Tue, 18 Jul 2023 19:01:00 +0200</pubDate>
+        </item>
+
+        
+        <item>
+            <title>v1.1.7</title>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.7.html</link>
+            <description>Crash fix related to post dates</description>
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.7.jpg" type="image/jpeg" />
+            <pubDate>Sun, 2 Jul 2023 13:57:00 +0200</pubDate>
+        </item>
+
+        <item>
+            <title>v1.1.6</title>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.7.html</link>
+            <description>Crash fix related to post dates</description>
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.7.jpg" type="image/jpeg" />
+            <pubDate>Sun, 2 Jul 2023 08:28:00 +0200</pubDate>
+        </item>
+
+        <item>
+            <title>v1.1.5</title>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.5.html</link>
+            <description>Crash fix related to post dates</description>
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.5.jpg" type="image/jpeg" />
+            <pubDate>Thu, 29 Jun 2023 04:36:00 +0200</pubDate>
+        </item>
+
+        <item>
+            <title>v1.1</title>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.1.html</link>
+            <description>Crash fix related to post dates</description>
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.1.jpg" type="image/jpeg" />
+            <pubDate>Thu, 8 Jun 2023 08:52:00 +0200</pubDate>
+        </item>
     </channel>
 </rss>
