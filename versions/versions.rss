@@ -7,6 +7,12 @@
         <pubDate>Tue, 22 Nov 2023 12:00:00 GMT</pubDate>
         <managingEditor>niilo.poutanen@gmail.com</managingEditor>
         <webMaster>niilo.poutanen@gmail.com</webMaster>
+        <image>
+            <url>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/RSS-Feed.jpg</url>
+            <title>RSS-Feed</title>
+            <width>512</width>
+            <height>512</height>
+        </image> 
         <item>
             <title>v1.4</title>
             <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.4.html</link>
