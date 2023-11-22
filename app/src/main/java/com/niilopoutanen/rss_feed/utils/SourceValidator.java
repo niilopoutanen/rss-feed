@@ -33,11 +33,7 @@ public class SourceValidator {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try{
-                Parser parser = new Parser();
                 getFeed();
-
-                feed = parser.load(source.getFeedUrl());
-
                 getTitle();
                 getIcon();
                 callback.onResult(source);
@@ -49,7 +45,10 @@ public class SourceValidator {
 
     }
 
-    private void getFeed(){
+    private void getFeed() throws RSSException{
+        Parser parser = new Parser();
+        feed = parser.load(source.getFeedUrl());
+
         URL feedUrl = WebUtils.findFeed(WebUtils.formatUrl(source.getFeedUrl()));
         if(feedUrl != null){
             source.setFeedUrl(feedUrl.toString());
