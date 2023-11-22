@@ -9,7 +9,7 @@ public class RSSException extends Exception{
 
     public RSSException(String message){
         super(message);
-        this.errorType = 0;
+        this.errorType = -1;
     }
 
 
