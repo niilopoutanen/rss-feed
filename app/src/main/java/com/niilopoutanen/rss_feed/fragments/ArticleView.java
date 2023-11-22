@@ -136,6 +136,7 @@ public class ArticleView extends WebView {
                             "        max-width: 100%;\n" +
                             "        height: auto;\n" +
                             "        border-radius: 15px;\n" +
+                            "        margin-bottom: 5px;\n" +
                             "        transition: transform 0.3s ease;\n" +
                             "    }\n" +
                             "    img:active{\n" +
