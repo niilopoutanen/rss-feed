@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.utils;
 
 import androidx.annotation.NonNull;
 
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Feed;
@@ -28,8 +29,8 @@ public class SourceValidator {
         this.source = source;
     }
     public void validate(@NonNull Callback<Source> callback) {
-        if(source.getFeedUrl() == null){
-            callback.onError(new RSSException("Feed url cannot be null"));
+        if(source.getFeedUrl() == null || source.getFeedUrl().isEmpty()){
+            callback.onError(new RSSException(R.string.error_empty_url ,"Feed url cannot be null"));
             return;
         }
         Executor executor = Executors.newSingleThreadExecutor();
@@ -52,7 +53,9 @@ public class SourceValidator {
         if(feedUrl != null){
             source.setFeedUrl(feedUrl.toString());
         }
-
+        else{
+            throw new RSSException(R.string.error_invalid_url, "invalid URL");
+        }
         Parser parser = new Parser();
         feed = parser.load(source.getFeedUrl());
     }
@@ -64,16 +67,14 @@ public class SourceValidator {
             source.setImageUrl(IconFinder.get(source.getFeedUrl(), new String[] {feed.getImageUrl()}));
         }
     }
-    private void getTitle(){
+    private void getTitle() throws RSSException {
         // If name is already set, do nothing
         if(source.getName() != null && !source.getName().isEmpty()){
             return;
         }
         // If feed was parsed, get the title from there
-        if(feed != null){
-            if(feed.getTitle() != null && !feed.getTitle().isEmpty()){
-                source.setName(feed.getTitle());
-            }
+        if(feed != null && feed.getTitle() != null && !feed.getTitle().isEmpty()){
+            source.setName(feed.getTitle());
         }
         // If feed failed to parse, try the homepage
         else{
@@ -95,7 +96,12 @@ public class SourceValidator {
                 }
 
                 source.setName(title);
-            } catch (IOException ignored) { }
+            } catch (IOException e) {
+                throw new RSSException(e.getMessage());
+            }
+        }
+        if(source.getName() == null || source.getName().isEmpty()){
+            throw new RSSException(R.string.error_name_not_found, "Name not valid");
         }
     }
 

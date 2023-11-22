@@ -91,8 +91,16 @@ public class AddSourceFragment extends Fragment {
 
             @Override
             public void onError(RSSException exception) {
-                activity.runOnUiThread(() -> showError(exception.getMessage()));
-                exception.printStackTrace();
+                activity.runOnUiThread(() -> {
+                    String msg = context.getString(exception.getErrorType());
+                    if(!msg.isEmpty()){
+                        showError(msg);
+                    }
+                    else{
+                        showError(context.getString(R.string.error_adding_source));
+                    }
+                    exception.printStackTrace();
+                });
 
             }
         });

@@ -113,4 +113,7 @@
     <string name="post_no_url">Artikkelia ei voi avata. Julkaisuun ei ole lisättyä URL-osoitetta.</string>
     <string name="error_adding_source">Virhe lisätessä lähdettä. Yritä uudelleen.</string>
     <string name="tooltip_post_no_article">Tässä julkaisussa ei ole artikkelia, vaan pelkästään yhteenveto.</string>
+    <string name="error_invalid_url">Antamasi URL-osoite ei kelpaa.</string>
+    <string name="error_name_not_found">Lähteen nimen automaattinen täyttö ei onnistunut. Kirjoita se manuaalisesti.</string>
+    <string name="error_empty_url">URL-osoite ei voi olla tyhjä.</string>
 </resources>
