@@ -13,11 +13,9 @@
             android:id="@+id/sources_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
             <RelativeLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp">
@@ -27,8 +25,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/content_header"
                     android:textColor="@color/textPrimary"
-                    android:textSize="40sp"
-                    app:fontFamily="@font/inter_semibold" />
+                    android:textSize="35sp"
+                    app:fontFamily="@font/inter_black" />
 
                 <RelativeLayout
                     android:contentDescription="@string/addsource"

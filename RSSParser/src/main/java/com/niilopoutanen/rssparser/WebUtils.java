@@ -172,38 +172,6 @@ public class WebUtils {
             return null;
         }
     }
-    public static String getFaviconUrl(final URL url) throws IOException {
-        // check if the URL is the homepage and return the base URL in that case
-        String baseUrl = url.getProtocol() + "://" + url.getHost();
-        String urlToUse = url.toString();
-        if (!url.toString().equals(baseUrl + "/")) {
-            urlToUse = baseUrl;
-        }
-
-        // create an HTTP connection to the website's homepage
-        try{
-            Document doc = connect(new URL(urlToUse));
-            Elements link = doc.select("link[href~=.*\\.(png|webp|jpg|jpeg)][rel~=icon|apple-touch-icon|shortcut icon]");
-            String faviconUrl = link.attr("href");
-            if (link.isEmpty()) {
-                link = doc.select("meta[property~=og:image], meta[name~=twitter:image]");
-                faviconUrl = link.attr("content");
-            }
-            if (link.isEmpty() || faviconUrl.isEmpty()) {
-                return null;
-            }
-
-            // make sure the favicon URL is an absolute URL
-            if (!faviconUrl.startsWith("http")) {
-                faviconUrl = urlToUse + faviconUrl;
-            }
-
-            return faviconUrl;
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
     public static boolean isRedirect(HttpURLConnection connection) throws IOException, RSSException {
         boolean redirect = false;
         int status = connection.getResponseCode();

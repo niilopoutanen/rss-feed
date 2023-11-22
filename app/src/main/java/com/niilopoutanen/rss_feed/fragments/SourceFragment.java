@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,16 +28,16 @@ import com.niilopoutanen.rss_feed.utils.SaveSystem;
 
 import java.util.List;
 
-public class SourceFragment extends Fragment implements View.OnLongClickListener {
+public class SourceFragment extends Fragment {
 
     private List<Source> sources;
     private SourceAdapter adapter;
-    private Context appContext;
+    private Context context;
     private Preferences preferences;
     private RecyclerView sourcesRecyclerView;
 
     public SourceFragment(Context context, Preferences preferences) {
-        this.appContext = context;
+        this.context = context;
         this.preferences = preferences;
     }
 
@@ -45,8 +47,8 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (appContext == null) {
-            appContext = getContext();
+        if (context == null) {
+            context = getContext();
         }
 
         setEnterTransition(new MaterialFadeThrough());
@@ -61,7 +63,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     }
 
     public void update() {
-        sources = SaveSystem.loadContent(appContext);
+        sources = SaveSystem.loadContent(context);
         if (adapter != null) {
             adapter.updateSources(sources);
         }
@@ -81,9 +83,10 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
 
         sourcesRecyclerView = rootView.findViewById(R.id.sources_recyclerview);
 
-        adapter = new SourceAdapter(sources, preferences, sourcesRecyclerView, this);
+        adapter = new SourceAdapter(sources, sourcesRecyclerView, getParentFragmentManager());
         sourcesRecyclerView.setAdapter(adapter);
         sourcesRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+        sourcesRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
 
         startPostponedEnterTransition();
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(adapter.new SwipeToDeleteCallback(getContext()));
@@ -96,7 +99,7 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
     }
 
     public void openSourceDialog(Source source) {
-        AddSourceFragment addSourceFragment = new AddSourceFragment(source, appContext);
+        AddSourceFragment addSourceFragment = new AddSourceFragment(source, context);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
         transaction.addToBackStack(null);
@@ -109,17 +112,6 @@ public class SourceFragment extends Fragment implements View.OnLongClickListener
         outState.putSerializable("preferences", preferences);
     }
 
-
-    @Override
-    public boolean onLongClick(View v) {
-        int position = sourcesRecyclerView.getChildAdapterPosition(v);
-        if(position < sources.size()){
-            Source clickedSource = sources.get(position);
-            openSourceDialog(clickedSource);
-            return true;
-        }
-        return false;
-    }
 
 
     @Override

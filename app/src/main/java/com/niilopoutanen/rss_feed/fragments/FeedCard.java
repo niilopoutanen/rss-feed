@@ -27,6 +27,8 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
+import java.util.Date;
+
 public class FeedCard extends RecyclerView.ViewHolder{
     private final TextView title;
     private final TextView desc;
@@ -85,12 +87,20 @@ public class FeedCard extends RecyclerView.ViewHolder{
     }
 
     public void bindData(Item item){
+        setPreferences();
+
+        title.setVisibility(item.getTitle() == null ? View.GONE : View.VISIBLE);
         title.setText(item.getTitle());
+
+        desc.setVisibility(item.getDescription() == null ? View.GONE : View.VISIBLE);
         desc.setText(item.getDescription());
+
+        date.setVisibility(item.getPubDate() == null ? View.GONE : View.VISIBLE);
         date.setText(PreferencesManager.formatDate(item.getPubDate(), preferences.s_feedcard_datestyle, context));
+
+        author.setVisibility(item.getAuthor() == null ? View.GONE : View.VISIBLE);
         author.setText(item.getAuthor());
 
-        setPreferences();
         loadImage(item);
 
     }

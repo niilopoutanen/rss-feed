@@ -92,14 +92,14 @@
 
     <string name="whatsnew">What\'s new in</string>
 
-    <string name="feature1">Enhanced article view</string>
-    <string name="feature1desc">Now the article reader supports more types of content, not just images and text.</string>
+    <string name="feature1">Updated Discover page</string>
+    <string name="feature1desc">New recommended section with tested feeds, and cleaner user interface.</string>
 
-    <string name="feature2">Fixes to tablet UI</string>
-    <string name="feature2desc">Enhanced usability for tablets</string>
+    <string name="feature2">Post categories now visible in article reader</string>
+    <string name="feature2desc">If the publisher provides info about the post they write, such as: category=news, it is now visible when you read the article.</string>
 
-    <string name="feature3">Small bug fixes</string>
-    <string name="feature3desc">Fixed a few bugs here and there</string>
+    <string name="feature3">App stability</string>
+    <string name="feature3desc">Enhanced app stability, less crashes</string>
 
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
@@ -131,4 +131,7 @@
     <string name="debug_tools">Debug tools</string>
     <string name="article_open_with_url">Open ArticleView with URL</string>
     <string name="debug_terminate">Terminate app process</string>
+    <string name="error_notsupported">The post you tried to open is invalid and not working with this app. Open it in your browser.</string>
+    <string name="article_show_categories">Show post categories</string>
+    <string name="update">Update</string>
 </resources>

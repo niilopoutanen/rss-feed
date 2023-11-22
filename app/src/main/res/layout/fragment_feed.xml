@@ -13,16 +13,16 @@
 
         <TextView
             android:id="@+id/feed_header"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feed_header"
-            android:maxLines="2"
+            android:layout_margin="10dp"
             android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/feed_header"
             android:textColor="@color/textPrimary"
-            android:textSize="40sp"
-            app:fontFamily="@font/inter_semibold"
-            app:layout_scrollFlags="scroll"/>
+            android:textSize="35sp"
+            app:fontFamily="@font/inter_black"
+            app:layout_scrollFlags="scroll" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -26,9 +26,6 @@ import java.util.concurrent.Executors;
 
 public class SaveSystem {
     private static final String FILENAME = "rssfeed.content";
-    private static final String BASEURL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/";
-    private static final String CATEGORIES_EN = "categories.json";
-    private static final String CATEGORIES_FI = "categories-fi.json";
 
     /**
      * Saves a list of sources to disk
@@ -100,48 +97,5 @@ public class SaveSystem {
         }
 
         return sources;
-    }
-
-    /**
-     * Loads the latest categories from web
-     *
-     * @param callBack Returns the result when thread execution is finished
-     */
-    public static void loadCategories(final Callback<List<Category>> callBack) {
-        String locale = Locale.getDefault().getLanguage();
-        String selectedLocale;
-        if ("fi".equals(locale)) {
-            selectedLocale = CATEGORIES_FI;
-        } else {
-            selectedLocale = CATEGORIES_EN;
-        }
-        Executor executor = Executors.newSingleThreadExecutor();
-
-        executor.execute(() -> {
-
-            List<Category> categories = new ArrayList<>();
-            try {
-                URL url = new URL(BASEURL + selectedLocale);
-                String result = WebUtils.connect(url).toString();
-
-                JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonCategory = jsonArray.getJSONObject(i);
-                    String categoryName = jsonCategory.getString("name");
-                    String categoryQuery = jsonCategory.getString("query");
-                    String categoryImgUrl = null;
-                    try {
-                        categoryImgUrl = jsonCategory.getString("img");
-                    } catch (Exception ignored) {
-                    }
-                    Category category = new Category(categoryName, categoryImgUrl, categoryQuery);
-                    categories.add(category);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            callBack.onResult(categories);
-        });
     }
 }

@@ -64,11 +64,13 @@ public class Item implements Comparable<Item>, Serializable {
         return categories;
     }
 
-    public void addCategory(String category){
-        if(!this.categories.contains(category)){
-            this.categories.add(category);
+    public void addCategory(String category) {
+        if (category != null && !category.isEmpty() && !this.categories.contains(category)) {
+            this.categories.add(category.substring(0, 1).toUpperCase() + category.substring(1));
         }
     }
+
+
 
     public String getComments(){
         return this.comments;
@@ -103,10 +105,6 @@ public class Item implements Comparable<Item>, Serializable {
     }
 
     public Date getPubDate() {
-        if (this.pubDate == null) {
-            Calendar calendar = Calendar.getInstance();
-            this.pubDate = calendar.getTime();
-        }
         return this.pubDate;
     }
 
@@ -128,11 +126,15 @@ public class Item implements Comparable<Item>, Serializable {
 
     @Override
     public int compareTo(Item item) {
-        if (item == null || item.getPubDate() == null || getPubDate() == null) {
-            return 0;
-        }
-        else {
+        if (item == null || item.getPubDate() == null) {
+            // If the other item or its pubDate is null, place this item on top
+            return (getPubDate() == null) ? 0 : 1;
+        } else if (getPubDate() == null) {
+            // If this item's pubDate is null, place it on top
+            return -1;
+        } else {
             return item.getPubDate().compareTo(getPubDate());
         }
     }
+
 }

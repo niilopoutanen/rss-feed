@@ -5,12 +5,14 @@
 
     <color name="element">#1c1c1e</color>
     <color name="element_pressed">#222224</color>
-    <color name="element_border">#313136</color>
+    <color name="element_active">#FFFFFF</color>
+    <color name="element_border">#242427</color>
 
     <color name="surface">#292929</color>
     <color name="surface_border">#121212</color>
 
     <color name="textPrimary">#FFFFFF</color>
+    <color name="textInverted">#000000</color>
     <color name="textSecondary">#7B8086</color>
 
     <color name="windowBg">#000000</color>

@@ -98,6 +98,9 @@ public class ArticleActivity extends AppCompatActivity {
                     } else if (e.getErrorType() == HttpURLConnection.HTTP_CLIENT_TIMEOUT) {
                         initWebView(getString(R.string.error_host));
                     }
+                    else{
+                        initWebView(getString(R.string.error_notsupported));
+                    }
                 }
             });
         } else {
@@ -199,134 +202,13 @@ public class ArticleActivity extends AppCompatActivity {
         }
     }
 
-    private String getCSS(){
-        String css =
-                  "<style>\n" +
-                            "    @font-face {\n" +
-                            "        font-family: \"CustomFont\";\n" +
-                            "        src: url(\"'$FONTFACE'\");\n" +
-                            "        font-weight: normal;\n" +
-                            "    }\n" +
-                            "    @font-face {\n" +
-                            "        font-family: \"CustomFont\";\n" +
-                            "        src: url(\"'$BOLDFONTFACE'\");\n" +
-                            "        font-weight: bold;\n" +
-                            "    }\n" +
-                            "    html,\n" +
-                            "    body {\n" +
-                            "        width: 100%;\n" +
-                            "        min-width: fit-content;\n" +
-                            "        margin: 0;\n" +
-                            "        box-sizing: border-box;\n" +
-                            "        color: '$TEXTCOLOR';\n" +
-                            "        background-color: '$BACKGROUNDCOLOR';\n" +
-                            "        font-family: \"CustomFont\";\n" +
-                            "        font-size: '$FONTSIZE';\n" +
-                            "    }\n" +
-                            "\n" +
-                            "    body {\n" +
-                            "        padding: 10px;\n" +
-                            "    }\n" +
-                            "\n" +
-                            "    a {\n" +
-                            "        color: '$ACCENTCOLOR';\n" +
-                            "        text-decoration: none;\n" +
-                            "        font-weight: 600;\n" +
-                            "    }\n" +
-                            "\n" +
-                            "    th, td{\n" +
-                            "        border: 2px solid '$TEXTSECONDARY';\n" +
-                            "    }\n" +
-                            "    table{\n" +
-                            "        border-collapse: collapse;\n" +
-                            "        overflow: scroll;\n" +
-                            "    }\n" +
-                            "\n" +
-                            "    img {\n" +
-                            "        max-width: 100%;\n" +
-                            "        height: auto;\n" +
-                            "        border-radius: 10px;\n" +
-                            "    }\n" +
-                            "    ul{\n" +
-                            "        padding-left: 20px;\n" +
-                            "    }\n" +
-                            "\n" +
-                            "    figure {\n" +
-                            "        margin: 0;\n" +
-                            "        padding: 0;\n" +
-                            "    }\n" +
-                            "\n" +
-                            "    blockquote {\n" +
-                            "        margin: 0;\n" +
-                            "        padding-left: 15px;\n" +
-                            "        position: relative;\n" +
-                            "    }\n" +
-                            "\n" +
-                            "    blockquote::before {\n" +
-                            "        content: \"\";\n" +
-                            "        position: absolute;\n" +
-                            "        left: 0;\n" +
-                            "        top: 0;\n" +
-                            "        width: 5px;\n" +
-                            "        height: 100%;\n" +
-                            "        background-color:'$ACCENTCOLOR';\n" +
-                            "        border-radius: 10px;\n" +
-                            "    }\n" +
-                            "</style>";
 
-        String accentColor = formatColor(PreferencesManager.getAccentColor(this));
-        String backgroundColor = formatColor(this.getColor(R.color.windowBg));
-        String textColor = formatColor(this.getColor(R.color.textPrimary));
-        String textSecondary = formatColor(this.getColor(R.color.textSecondary));
-        String fontSize = String.valueOf(preferences.s_fontsize);
 
-        String fontFace = "file:///android_res";
-        String boldFontFace = "file:///android_res";
-
-        switch (preferences.s_font){
-            case INTER:
-                fontFace += "/font/inter_regular.ttf";
-                boldFontFace += "/font/inter_bold.ttf";
-                break;
-            case POPPINS:
-                fontFace += "/font/poppins_regular.ttf";
-                boldFontFace += "/font/poppins_bold.ttf";
-                break;
-            case ROBOTO_MONO:
-                fontFace += "/font/roboto_mono_regular.ttf";
-                boldFontFace += "/font/roboto_mono_bold.ttf";
-                break;
-            case ROBOTO_SERIF:
-                fontFace += "/font/roboto_serif_regular.ttf";
-                boldFontFace += "/font/roboto_serif_bold.ttf";
-                break;
-        }
-        css = css.replace("'$FONTFACE'", fontFace);
-        css = css.replace("'$FONTSIZE'", fontSize);
-        css = css.replace("'$BOLDFONTFACE'", boldFontFace);
-
-        css = css.replace("'$ACCENTCOLOR'", accentColor);
-        css = css.replace("'$TEXTCOLOR'", textColor);
-        css = css.replace("'$TEXTSECONDARY'", textSecondary);
-        css = css.replace("'$BACKGROUNDCOLOR'", backgroundColor);
-
-        return css;
-    }
-
-    private String formatColor(int colorID){
-        int red = (colorID >> 16) & 0xFF;
-        int green = (colorID >> 8) & 0xFF;
-        int blue = colorID & 0xFF;
-
-        return String.format(Locale.US ,"rgb(%d, %d, %d)", red, green, blue);
-    }
     private void initWebView(String html){
         articleView = findViewById(R.id.articleview);
 
 
         Document document = Jsoup.parse(html);
-        Element head = document.head();
-        head.append(getCSS());
 
         Elements h1Elements = document.select("h1");
         if(h1Elements.isEmpty()){
@@ -350,7 +232,7 @@ public class ArticleActivity extends AppCompatActivity {
                 });
             }
         });
-        articleView.loadDocument(document);
+        articleView.loadDocument(document, post.getCategories());
     }
 
 
@@ -419,7 +301,9 @@ public class ArticleActivity extends AppCompatActivity {
             catch (RSSException r){
                 runOnUiThread(() ->  callBack.onError(r));
             }
-            catch (Exception ignored) {}
+            catch (Exception e) {
+                runOnUiThread(() -> callBack.onError(new RSSException(e.getMessage())));
+            }
         });
     }
 

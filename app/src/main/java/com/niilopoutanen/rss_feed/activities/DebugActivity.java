@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,8 @@ public class DebugActivity extends AppCompatActivity {
     }
 
     private void initControls(){
+        LinearLayout container = findViewById(R.id.debug_container);
+
         findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
 
 
@@ -64,5 +67,7 @@ public class DebugActivity extends AppCompatActivity {
                       .setNegativeButton("Cancel", null)
                       .show();
         });
+
+
     }
 }

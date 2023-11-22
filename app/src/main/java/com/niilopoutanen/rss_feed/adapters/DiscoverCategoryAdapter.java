@@ -1,37 +1,41 @@
 package com.niilopoutanen.rss_feed.adapters;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public List<Category> categories;
     private final View.OnClickListener onClickListener;
+    private final Context context;
 
-    public DiscoverCategoryAdapter(List<Category> categories, View.OnClickListener onClickListener) {
+    public DiscoverCategoryAdapter(List<Category> categories, Context context, View.OnClickListener onClickListener) {
         this.categories = categories;
         this.onClickListener = onClickListener;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
         View view = inflater.inflate(R.layout.discover_category_item, parent, false);
-
         return new ItemViewHolder(view);
     }
 
@@ -40,17 +44,46 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Category category = categories.get(position);
-        ImageView itemImage = ((ItemViewHolder) holder).imageView;
+
         TextView itemTitle = ((ItemViewHolder) holder).textView;
         itemTitle.setText(category.getName());
-        if (category.getImageUrl() == null) {
-            return;
+
+        View icon = ((ItemViewHolder)holder).icon;
+        icon.setBackground(AppCompatResources.getDrawable(context, category.getIconId()));
+
+        View container = holder.itemView;
+        container.setOnClickListener(onClickListener);
+
+        if (category.isActive()) {
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.element_active)));
+            itemTitle.setTextColor(context.getColor(R.color.textInverted));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textInverted)));
+        } else {
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.element)));
+            itemTitle.setTextColor(context.getColor(R.color.textPrimary));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textPrimary)));
         }
-        Picasso.get().load(category.getImageUrl()).resize(0, PreferencesManager.dpToPx(200, holder.itemView.getContext())).into(itemImage);
-        holder.itemView.setOnClickListener(onClickListener);
+
+
+        if(PreferencesManager.loadPreferences(context).s_animateclicks){
+            Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+            Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+            container.setOnTouchListener((view, motionEvent) -> {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    container.startAnimation(scaleDown);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    container.startAnimation(scaleUp);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    container.startAnimation(scaleUp);
+                    view.performClick();
+                }
+                return true;
+            });
+        }
     }
 
     @Override
@@ -60,13 +93,13 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
-        final ImageView imageView;
         final TextView textView;
+        final View icon;
 
         ItemViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.discover_category_image);
             textView = itemView.findViewById(R.id.discover_category_title);
+            icon = itemView.findViewById(R.id.discover_category_icon);
         }
     }
 

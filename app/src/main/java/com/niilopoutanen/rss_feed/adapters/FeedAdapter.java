@@ -57,6 +57,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private RecyclerView.ViewHolder createNotice(){
         LinearLayout container = new LinearLayout(context);
+        container.setOrientation(LinearLayout.VERTICAL);
 
         TextView textView = new TextView(context);
         textView.setTextColor(context.getColor(R.color.textSecondary));
@@ -82,7 +83,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         else{
             LinearLayout container = (LinearLayout) holder.itemView;
-            container.setOrientation(LinearLayout.VERTICAL);
+
             Map.Entry<String,String> entry = notices.entrySet().iterator().next();
 
             TextView textView = (TextView)container.getChildAt(0);

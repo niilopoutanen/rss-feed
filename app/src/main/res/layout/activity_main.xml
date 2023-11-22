@@ -17,7 +17,7 @@
         android:id="@+id/bottom_nav_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/navbarBg"
+        android:background="@drawable/navbar_background"
         app:itemActiveIndicatorStyle="@style/RSSFeedStyle.NavActive"
         app:itemIconTint="@color/bottomnav_color"
         app:itemTextColor="@color/bottomnav_color"

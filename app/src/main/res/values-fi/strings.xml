@@ -46,12 +46,12 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whatsnew">Mitä uutta versiossa</string>
-    <string name="feature1">Päivitetty artikkeli-lukija</string>
-    <string name="feature1desc">Artikkelilukija pystyy nyt näyttämään laajemmin materiaalia, ei vain kuvia ja tekstiä.</string>
-    <string name="feature2">Korjauksia tablettien käyttöliittymään</string>
-    <string name="feature2desc">Sovelluksien käyttöliittymää tableteilla parannettu</string>
-    <string name="feature3">Pieniä virhekorjauksia</string>
-    <string name="feature3desc">Pieniä virhekorjauksia siellä sun täällä</string>
+    <string name="feature1">Päivitetty Tutki-välilehti</string>
+    <string name="feature1desc">Uusi suositeltu-osio jossa on testatusti toimivia syötteitä, + siistimpi käyttöliittymä</string>
+    <string name="feature2">Julkaisun kategoriat näkyvät nyt artikkelia lukiessasi</string>
+    <string name="feature2desc">Jos julkaisija antaa tietoja kirjoittamastaan artikkelista, kuten: kategoria=uutiset, se näkyy artikkelia lukiessasi.</string>
+    <string name="feature3">Sovelluksen vakauden parantamista</string>
+    <string name="feature3desc">Vähemmän bugeja.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
 
@@ -107,4 +107,7 @@
     <string name="debug_tools">Vianmääritystyökalut</string>
     <string name="article_open_with_url">Avaa ArticleView URL-osoitteella</string>
     <string name="debug_terminate">Lopeta sovellusprosessi</string>
+    <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
+    <string name="article_show_categories">Näytä julkaisun kategoriat</string>
+    <string name="update">Päivitä</string>
 </resources>

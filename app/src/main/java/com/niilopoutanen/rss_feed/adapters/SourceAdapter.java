@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,12 +18,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.fragments.SourceItem;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.Source;
@@ -31,12 +35,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder> {
-    private final Preferences preferences;
+public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final RecyclerView recyclerView;
     private List<Source> sources;
     private Context context;
     private Source tempSource;
+    private FragmentManager manager;
+
     private final Runnable undoDelete = new Runnable() {
         @Override
         public void run() {
@@ -49,30 +54,20 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
             }
         }
     };
-    private final View.OnLongClickListener onLongClickListener;
 
 
-    public SourceAdapter(List<Source> sources, Preferences preferences, RecyclerView recyclerView, View.OnLongClickListener onClickListener) {
+
+    public SourceAdapter(List<Source> sources, RecyclerView recyclerView, FragmentManager manager) {
         this.sources = sources;
-        this.preferences = preferences;
         this.recyclerView = recyclerView;
-        this.onLongClickListener = onClickListener;
+        this.manager = manager;
     }
 
     @NonNull
     @Override
-    public SourceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View sourceItemView = inflater.inflate(R.layout.source_item, parent, false);
-        ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(
-                  ViewGroup.LayoutParams.MATCH_PARENT,
-                  ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(40, 0, 40, 40);
-        sourceItemView.setLayoutParams(layoutParams);
-
-        return new SourceAdapter.ViewHolder(sourceItemView);
+        return SourceItem.create(parent);
     }
 
     public void updateSources(List<Source> sources) {
@@ -81,31 +76,11 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SourceAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Source source = sources.get(position);
-
-        TextView sourceName = holder.sourceName;
-        ImageView sourceImage = holder.sourceImage;
-        View container = holder.itemView;
-
-        container.setOnLongClickListener(onLongClickListener);
-
-        container.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("source", source);
-            bundle.putSerializable("preferences", preferences);
-            Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
-            feedIntent.putExtras(bundle);
-            PreferencesManager.vibrate(v);
-            v.getContext().startActivity(feedIntent);
-        });
-
-        sourceName.setText(source.getName());
-        if (source.getImageUrl() != null) {
-            sourceImage.setVisibility(View.VISIBLE);
-            Picasso.get().load(source.getImageUrl()).resize(70, 70).transform(new MaskTransformation(context, R.drawable.image_rounded)).into(sourceImage);
-        } else {
-            sourceImage.setVisibility(View.GONE);
+        if(holder instanceof SourceItem){
+            SourceItem sourceItem = (SourceItem)holder;
+            sourceItem.bindData(source, manager);
         }
     }
 
@@ -125,17 +100,6 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
         notifyItemRemoved(position);
 
         return sourceToRemove;
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView sourceName;
-        public final ImageView sourceImage;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            sourceName = itemView.findViewById(R.id.source_name);
-            sourceImage = itemView.findViewById(R.id.source_image);
-        }
     }
 
     public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
@@ -174,24 +138,20 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.ViewHolder
                 View itemView = viewHolder.itemView;
                 if (dX < 0) {
                     // Swiping left
+                    Paint paint = new Paint();
+                    paint.setColor(Color.RED);
+                    RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                    c.drawRect(background, paint);
+
                     Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_trash);
 
                     int intrinsicHeight = drawable.getIntrinsicHeight();
-                    int iconMargin = 30;
+                    int iconMargin = 50;
                     int left = itemView.getRight() - drawable.getIntrinsicWidth() - iconMargin;
                     int top = itemView.getTop() + (itemView.getHeight() - intrinsicHeight) / 2;
                     int right = itemView.getRight() - iconMargin;
                     int bottom = top + intrinsicHeight;
 
-                    int startColor = ContextCompat.getColor(context, R.color.textSecondary);
-                    int endColor = Color.RED;
-
-                    int redIntensity = (int) (Color.red(startColor) + (Color.red(endColor) - Color.red(startColor)) * Math.abs(dX) / itemView.getWidth());
-                    int greenIntensity = (int) (Color.green(startColor) + (Color.green(endColor) - Color.green(startColor)) * Math.abs(dX) / itemView.getWidth());
-                    int blueIntensity = (int) (Color.blue(startColor) + (Color.blue(endColor) - Color.blue(startColor)) * Math.abs(dX) / itemView.getWidth());
-                    int interpolatedColor = Color.rgb(redIntensity, greenIntensity, blueIntensity);
-
-                    drawable.setColorFilter(interpolatedColor, PorterDuff.Mode.SRC_IN);
 
                     drawable.setBounds(left, top, right, bottom);
                     drawable.draw(c);
