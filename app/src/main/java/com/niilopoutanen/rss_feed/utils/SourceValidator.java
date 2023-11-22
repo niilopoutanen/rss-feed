@@ -71,9 +71,10 @@ public class SourceValidator {
     }
     public Source validate() throws RSSException {
         Parser parser = new Parser();
+        getFeed();
+        
         feed = parser.load(source.getFeedUrl());
 
-        getFeed();
         getTitle();
         getIcon();
         return this.source;
