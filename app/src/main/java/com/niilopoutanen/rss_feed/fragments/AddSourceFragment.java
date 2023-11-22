@@ -68,7 +68,8 @@ public class AddSourceFragment extends Fragment {
         showError("");
         Activity activity = (Activity) context;
         progressBar.setVisibility(View.VISIBLE);
-        SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), new Callback<Source>() {
+        SourceValidator validator = new SourceValidator(new Source(feedName.getText().toString(), feedUrl.getText().toString(), null));
+        validator.validate(new Callback<Source>() {
             @Override
             public void onResult(Source result) {
                 if (result != null) {
@@ -83,19 +84,18 @@ public class AddSourceFragment extends Fragment {
                     });
                 } else {
                     activity.runOnUiThread(() -> {
-                        showError("Error with adding source. Please try again");
-                        activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+                        showError(context.getString(R.string.error_adding_source));
                     });
-
                 }
-
             }
 
             @Override
-            public void onError(RSSException e) {
+            public void onError(RSSException exception) {
+                activity.runOnUiThread(() -> showError(exception.getMessage()));
+                exception.printStackTrace();
 
             }
-        }, context);
+        });
     }
 
 
@@ -150,6 +150,7 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void showError(String errorMessage) {
+        progressBar.setVisibility(View.GONE);
         for (int i = 0; i < bottomContainer.getChildCount(); i++) {
             View childView = bottomContainer.getChildAt(i);
             if (childView != null && childView.getTag() != null && childView.getTag().equals("error-message")) {

@@ -135,4 +135,5 @@
     <string name="article_show_categories">Show post categories</string>
     <string name="update">Update</string>
     <string name="post_no_url">Unable to open article. This post has no URL attached to it.</string>
+    <string name="error_adding_source">Error with adding source. Please try again.</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.niilopoutanen.rss_feed.utils;
 
-import android.content.Context;
 
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rssparser.Callback;
@@ -15,69 +14,39 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class SourceValidator {
-    private Source source;
+    private final Source source;
     private Feed feed;
-    /**
-     * Validates user input when adding a source
-     *
-     * @param inputUrl       URL provided
-     * @param inputName      Name provided. Autofill will be tried if empty
-     * @param sourceCallback Returns the validated source
-     */
-    public static void validate(String inputUrl, String inputName, Callback<Source> sourceCallback, Context context) {
-        ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        CompletableFuture.supplyAsync(() -> WebUtils.findFeed(WebUtils.formatUrl(inputUrl)), executor).thenComposeAsync(finalUrl -> {
-            if (finalUrl == null) {
-                return CompletableFuture.completedFuture(null);
-            } else {
-                CompletableFuture<String> faviconUrlFuture = CompletableFuture.supplyAsync(() -> {
-                    try {
-                        return IconFinder.get(finalUrl);
-                    } catch (Exception e) {
-                        return null;
-                    }
-                }, executor);
-
-                CompletableFuture<String> contentNameFuture = CompletableFuture.supplyAsync(() -> {
-                    if (inputName.isEmpty()) {
-                        return getSiteTitle(finalUrl);
-                    } else {
-                        return inputName;
-                    }
-                }, executor);
-
-                return faviconUrlFuture.thenCombineAsync(contentNameFuture, (validatedIcon, validatedName) -> {
-                    if (validatedName.isEmpty()) {
-                        return null;
-                    } else {
-                        return new Source(validatedName, finalUrl.toString(), validatedIcon);
-                    }
-                }, executor);
-            }
-        }, executor).whenCompleteAsync((validatedContent, throwable) -> {
-            sourceCallback.onResult(validatedContent);
-            executor.shutdown();
-        }, executor);
-    }
 
     public SourceValidator(Source source){
         this.source = source;
     }
-    public Source validate() throws RSSException {
-        Parser parser = new Parser();
-        getFeed();
+    public void validate(Callback<Source> callback) {
+        if(source.getFeedUrl() == null){
+            callback.onError(new RSSException("Feed url cannot be null"));
+            return;
+        }
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try{
+                Parser parser = new Parser();
+                getFeed();
 
-        feed = parser.load(source.getFeedUrl());
+                feed = parser.load(source.getFeedUrl());
 
-        getTitle();
-        getIcon();
-        return this.source;
+                getTitle();
+                getIcon();
+                callback.onResult(source);
+            }
+            catch (RSSException r){
+                callback.onError(r);
+            }
+        });
+
     }
 
     private void getFeed(){
@@ -91,7 +60,7 @@ public class SourceValidator {
     }
     private void getTitle(){
         // If name is already set, do nothing
-        if(!source.getName().isEmpty()){
+        if(source != null && source.getName() != null && !source.getName().isEmpty()){
             return;
         }
         // If feed was parsed, get the title from there
@@ -121,29 +90,6 @@ public class SourceValidator {
 
                 source.setName(title);
             } catch (IOException ignored) { }
-        }
-    }
-    /**
-     * Finds the HTML site title from a URL
-     *
-     * @param siteUrl URL to load
-     * @return Site title in String format
-     */
-    public static String getSiteTitle(URL siteUrl) {
-        try {
-            Document doc = Jsoup.connect(WebUtils.getBaseUrl(siteUrl).toString()).get();
-            String title = doc.title();
-
-            // Check if the title has a separator
-            if (title.contains(" | ")) {
-                return title.split(" \\| ")[0];
-            } else if (title.contains(" - ")) {
-                return title.split(" - ")[0];
-            }
-
-            return title;
-        } catch (IOException e) {
-            return siteUrl.toString();
         }
     }
 
