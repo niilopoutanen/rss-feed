@@ -72,7 +72,7 @@ public class SourceValidator {
     public Source validate() throws RSSException {
         Parser parser = new Parser();
         getFeed();
-        
+
         feed = parser.load(source.getFeedUrl());
 
         getTitle();
@@ -90,12 +90,24 @@ public class SourceValidator {
         source.setImageUrl(IconFinder.get(source.getFeedUrl()));
     }
     private void getTitle(){
-        if(source.getName().isEmpty() && !feed.getTitle().isEmpty()){
-            source.setName(feed.getTitle());
+        // If name is already set, do nothing
+        if(!source.getName().isEmpty()){
+            return;
         }
-        else if(feed.getTitle().isEmpty()){
+        // If feed was parsed, get the title from there
+        if(feed != null){
+            if(!feed.getTitle().isEmpty()){
+                source.setName(feed.getTitle());
+            }
+        }
+        // If feed failed to parse, try the homepage
+        else{
             try {
-                Document doc = Jsoup.connect(WebUtils.getBaseUrl(source.getFeedUrl()).toString()).get();
+                URL homePage = WebUtils.getBaseUrl(source.getFeedUrl());
+                if(homePage == null){
+                    return;
+                }
+                Document doc = Jsoup.connect(homePage.toString()).get();
                 String title = doc.title();
 
                 // Check if the title has a separator

@@ -1,5 +1,7 @@
 package com.niilopoutanen.rss_feed.models;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -46,6 +48,7 @@ public class Source implements Serializable {
     public void setFeedUrl(String feedUrl){
         this.feedUrl = feedUrl;
     }
+    @Nullable
     public String getName() {
         return name;
     }
