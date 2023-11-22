@@ -9,11 +9,10 @@
         <webMaster>niilo.poutanen@gmail.com</webMaster>
         <item>
             <title>v1.4</title>
-            <link> https://www.example.org</link>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.4.html</link>
             <description>Refreshed Discover-page and UI tweaks</description>
-            <enclosure url="http://www.example.org" type="image/jpeg" />
+            <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.4.jpg" type="image/jpeg" />
             <pubDate>Wed, 21 Nov 2023 12:00 EDT</pubDate>
-            <guid> https://www.example.org</guid>
         </item>
     </channel>
 </rss>
