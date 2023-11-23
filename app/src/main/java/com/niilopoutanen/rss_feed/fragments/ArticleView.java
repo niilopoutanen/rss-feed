@@ -42,7 +42,6 @@ public class ArticleView extends WebView {
         WebSettings webSettings = getSettings();
         webSettings.setJavaScriptEnabled(true);
         addJavascriptInterface(this, "Android");
-        setWebContentsDebuggingEnabled(true);
     }
     public void loadDocument(Document document, List<String> categories){
         if(PreferencesManager.loadPreferences(context).s_article_show_categories && categories.size() > 0){
@@ -98,7 +97,7 @@ public class ArticleView extends WebView {
                             "        background-color: '$BACKGROUNDCOLOR';\n" +
                             "        font-family: \"CustomFont\";\n" +
                             "        font-size: '$FONTSIZE';\n" +
-                            "        overflow-x: hidden;\n" +
+                            "        max-width: 100vw;\n" +
                             "    }\n" +
                             "\n" +
                             "    body {\n" +
