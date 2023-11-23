@@ -15,7 +15,7 @@
         </image> 
         <item>
             <title>v1.4</title>
-            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.4.html</link>
+            <link>https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions/1.4/index.html</link>
             <description>Refreshed Discover-page and UI tweaks</description>
             <enclosure url="https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/covers/1.4.webp" type="image/jpeg" />
             <pubDate>Wed, 22 Nov 2023 12:00:00 +0200</pubDate>
