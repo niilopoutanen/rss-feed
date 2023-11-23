@@ -272,6 +272,15 @@ public class ArticleView extends WebView {
         super.loadDataWithBaseURL(null, document.html(), "text/html", "charset=utf-8", "");
     }
 
+    public void setInsets(int top, int bottom){
+        String javascript = "javascript:(function() { " +
+                  "document.body.style.paddingTop = '" + top + "px';" +
+                  "document.body.style.paddingBottom = '" + bottom + "px';" +
+                  "})()";
+        post(() -> loadUrl(javascript));
+
+    }
+
     @JavascriptInterface
     public void onImageClick(String imageUrl) {
         Intent imageIntent = new Intent(context, ImageViewActivity.class);

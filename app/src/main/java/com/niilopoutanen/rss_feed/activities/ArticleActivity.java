@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -62,7 +63,7 @@ public class ArticleActivity extends AppCompatActivity {
         if (extras == null) {
             return;
         }
-
+        EdgeToEdge.enable(this);
         preferences = (Preferences) extras.get("preferences");
         post  = (Item)extras.get("item");
 
@@ -104,6 +105,8 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
+        articleView = findViewById(R.id.articleview);
+
         if (preferences.s_articlefullscreen) {
             Window window = getWindow();
             if(window != null){
@@ -122,6 +125,7 @@ public class ArticleActivity extends AppCompatActivity {
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             mlp.bottomMargin = insets.bottom;
             mlp.rightMargin = insets.right;
+            articleView.setInsets(insets.top, insets.bottom);
             v.setLayoutParams(mlp);
             return WindowInsetsCompat.CONSUMED;
         });
@@ -172,9 +176,6 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initWebView(String html){
-        articleView = findViewById(R.id.articleview);
-
-
         Document document = Jsoup.parse(html);
 
         Elements h1Elements = document.select("h1");
