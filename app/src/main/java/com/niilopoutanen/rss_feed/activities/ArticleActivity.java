@@ -117,15 +117,7 @@ public class ArticleActivity extends AppCompatActivity {
             }
         }
 
-        findViewById(R.id.article_viewinbrowser).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.getLink()))));
-        findViewById(R.id.article_share).setOnClickListener(v -> {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, post.getLink());
-            shareIntent.putExtra(Intent.EXTRA_TITLE, post.getTitle());
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.sharepost)));
 
-        });
 
         // Insets to bottom controls
         LinearLayout footer = findViewById(R.id.article_footer);
@@ -141,39 +133,54 @@ public class ArticleActivity extends AppCompatActivity {
         });
 
 
-        View focusMode = findViewById(R.id.article_focusmode);
-        if(focusMode != null){
-            focusMode.setOnClickListener(v -> {
-                ViewGroup.LayoutParams params = articleView.getLayoutParams();
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                int width = (int)(displayMetrics.widthPixels * 0.6f);
-                if(params.width == ViewGroup.LayoutParams.MATCH_PARENT){
-                    params.width = width;
-                }
-                else {
-                    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                }
-                articleView.setLayoutParams(params);
-            });
-        }
-
         RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
         if(preferences.s_article_show_controls){
             footerToggle.getBackground().setAlpha(120);
             footerToggle.getChildAt(0).getBackground().setAlpha(120);
-            footerToggle.setOnClickListener(v -> toggleControls(footerToggle));
+            footerToggle.setOnClickListener(v -> showControls());
         }
         else{
             footerToggle.setVisibility(View.GONE);
         }
 
-        BottomSheetDialog sheet = new BottomSheetDialog(this);
-        sheet.setContentView(R.layout.dialog_article_controls);
-        sheet.show();
     }
 
 
+    private void showControls(){
+        BottomSheetDialog sheet = new BottomSheetDialog(this);
+        sheet.setContentView(R.layout.dialog_article_controls);
+        sheet.show();
+        View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
+        if(openInBrowser != null) openInBrowser.setOnClickListener(v -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.getLink())));
+            sheet.dismiss();
+        });
+
+        View share = sheet.findViewById(R.id.article_share);
+        if(share != null)share.setOnClickListener(v -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, post.getLink());
+            shareIntent.putExtra(Intent.EXTRA_TITLE, post.getTitle());
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.sharepost)));
+            sheet.dismiss();
+        });
+
+        View focusMode = sheet.findViewById(R.id.article_focusmode);
+        if (focusMode != null) focusMode.setOnClickListener(v -> {
+            ViewGroup.LayoutParams params = articleView.getLayoutParams();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = (int) (displayMetrics.widthPixels * 0.6f);
+            if (params.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+                params.width = width;
+            } else {
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            }
+            articleView.setLayoutParams(params);
+            sheet.dismiss();
+        });
+    }
     private void toggleControls(ViewGroup toggle){
         LinearLayout controls = findViewById(R.id.article_footer_controls);
         boolean visible = controls.getVisibility() == View.VISIBLE;

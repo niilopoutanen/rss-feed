@@ -66,6 +66,25 @@
                 android:textColor="@color/textPrimary"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/article_focusmode"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_focus"
+                android:backgroundTint="@color/textPrimary"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/article_focusmode"
+                android:textColor="@color/textPrimary"/>
+        </LinearLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
