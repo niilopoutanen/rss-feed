@@ -216,7 +216,7 @@ public class ArticleActivity extends AppCompatActivity {
      */
     private void openWebView(String url) {
 
-        final BottomSheetDialog webViewSheet = new BottomSheetDialog(this, R.style.BottomSheetStyle);
+        final BottomSheetDialog webViewSheet = new BottomSheetDialog(this);
         webViewSheet.setContentView(R.layout.dialog_webview);
         webViewSheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         webViewSheet.getBehavior().setDraggable(false);

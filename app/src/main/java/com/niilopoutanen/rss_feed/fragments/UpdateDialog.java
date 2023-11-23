@@ -31,7 +31,7 @@ public class UpdateDialog {
      */
     private void initializeSheet() {
         PreferencesManager.setSavedTheme((Activity) context, PreferencesManager.loadPreferences(context));
-        sheet = new BottomSheetDialog(context, R.style.BottomSheetStyle);
+        sheet = new BottomSheetDialog(context);
 
         sheet.setContentView(R.layout.dialog_update);
         sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
