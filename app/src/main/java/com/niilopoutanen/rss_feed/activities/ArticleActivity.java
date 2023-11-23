@@ -1,8 +1,5 @@
 package com.niilopoutanen.rss_feed.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -28,7 +24,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.ArticleView;
 import com.niilopoutanen.rss_feed.models.Preferences;
@@ -48,7 +43,6 @@ import org.jsoup.select.Elements;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -85,7 +79,7 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            readabilityProcessor(post.getLink(), new Callback<String>() {
+            processArticle(post.getLink(), new Callback<String>() {
                 @Override
                 public void onResult(String result) {
                     resultData = result;
@@ -209,11 +203,6 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Opens a WebView sheet
-     *
-     * @param url       URL to open
-     */
     private void openWebView(String url) {
 
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this);
@@ -259,7 +248,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    private void readabilityProcessor(String url, Callback<String> callBack) {
+    private void processArticle(String url, Callback<String> callBack) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
