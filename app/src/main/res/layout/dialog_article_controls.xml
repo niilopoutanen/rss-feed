@@ -7,38 +7,62 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/bottomSheetDragHandleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/article_viewinbrowser"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/element_background"
-        android:backgroundTint="@color/surface"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/bottomSheetDragHandleView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:divider="@color/textSecondary"
+        app:showDividers="middle"
+        android:padding="20dp">
 
-
-        <View
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/icon_popup"
-            android:backgroundTint="?attr/colorAccent" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/view_in_browser"
-            android:textColor="@color/textPrimary" />
-    </LinearLayout>
+            android:gravity="center_vertical">
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_popup"
+                android:backgroundTint="@color/textPrimary"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_in_browser"
+                android:textColor="@color/textPrimary"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_share"
+                android:backgroundTint="@color/textPrimary"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share"
+                android:textColor="@color/textPrimary"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
