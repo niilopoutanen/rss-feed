@@ -143,6 +143,7 @@ public class ArticleActivity extends AppCompatActivity {
     private void showControls(){
         BottomSheetDialog sheet = new BottomSheetDialog(this);
         sheet.setContentView(R.layout.dialog_article_controls);
+        sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         sheet.show();
         View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
         if(openInBrowser != null) openInBrowser.setOnClickListener(v -> {
