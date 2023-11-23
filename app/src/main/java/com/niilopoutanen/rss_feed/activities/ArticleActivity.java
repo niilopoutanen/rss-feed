@@ -28,6 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.ArticleView;
 import com.niilopoutanen.rss_feed.models.Preferences;
@@ -167,7 +168,9 @@ public class ArticleActivity extends AppCompatActivity {
             footerToggle.setVisibility(View.GONE);
         }
 
-
+        BottomSheetDialog sheet = new BottomSheetDialog(this);
+        sheet.setContentView(R.layout.dialog_article_controls);
+        sheet.show();
     }
 
 
