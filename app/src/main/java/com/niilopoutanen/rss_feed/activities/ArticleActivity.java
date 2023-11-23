@@ -142,7 +142,11 @@ public class ArticleActivity extends AppCompatActivity {
         BottomSheetDialog sheet = new BottomSheetDialog(this);
         sheet.setContentView(R.layout.dialog_article_controls);
         sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        Window window = sheet.getWindow();
+        if(window != null) window.setNavigationBarColor(getColor(R.color.element));
         sheet.show();
+
         View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
         if(openInBrowser != null) openInBrowser.setOnClickListener(v -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.getLink())));
