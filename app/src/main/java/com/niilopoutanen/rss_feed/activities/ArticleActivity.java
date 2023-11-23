@@ -119,13 +119,13 @@ public class ArticleActivity extends AppCompatActivity {
 
 
 
-        // Insets to bottom controls
-        LinearLayout footer = findViewById(R.id.article_footer);
-        ViewCompat.setOnApplyWindowInsetsListener(footer, (v, windowInsets) -> {
+        // Insets to bottom control
+        RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
+        footerToggle.setOnClickListener(v -> showControls());
+        ViewCompat.setOnApplyWindowInsetsListener(footerToggle, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.leftMargin = insets.left;
             mlp.bottomMargin = insets.bottom;
             mlp.rightMargin = insets.right;
             v.setLayoutParams(mlp);
@@ -133,13 +133,7 @@ public class ArticleActivity extends AppCompatActivity {
         });
 
 
-        RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
-        if(preferences.s_article_show_controls){
-            footerToggle.getBackground().setAlpha(120);
-            footerToggle.getChildAt(0).getBackground().setAlpha(120);
-            footerToggle.setOnClickListener(v -> showControls());
-        }
-        else{
+        if(!preferences.s_article_show_controls){
             footerToggle.setVisibility(View.GONE);
         }
 
@@ -181,38 +175,6 @@ public class ArticleActivity extends AppCompatActivity {
             sheet.dismiss();
         });
     }
-    private void toggleControls(ViewGroup toggle){
-        LinearLayout controls = findViewById(R.id.article_footer_controls);
-        boolean visible = controls.getVisibility() == View.VISIBLE;
-
-        if(visible){
-            ObjectAnimator slideDown = ObjectAnimator.ofFloat(controls, "translationY", 0, PreferencesManager.dpToPx(60, this));
-            slideDown.setInterpolator(new AccelerateDecelerateInterpolator());
-            slideDown.setDuration(200);
-            slideDown.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    controls.setVisibility(View.GONE);
-                }
-            });
-            slideDown.start();
-            toggle.getBackground().setAlpha(120);
-            toggle.getChildAt(0).getBackground().setAlpha(120);
-        }
-        else {
-            controls.setVisibility(View.VISIBLE);
-
-            ObjectAnimator slideUp = ObjectAnimator.ofFloat(controls, "translationY", PreferencesManager.dpToPx(60, this), 0);
-            slideUp.setInterpolator(new AccelerateDecelerateInterpolator());
-            slideUp.setDuration(200);
-
-            slideUp.start();
-            toggle.getBackground().setAlpha(255);
-            toggle.getChildAt(0).getBackground().setAlpha(255);
-        }
-    }
-
-
 
     private void initWebView(String html){
         articleView = findViewById(R.id.articleview);
