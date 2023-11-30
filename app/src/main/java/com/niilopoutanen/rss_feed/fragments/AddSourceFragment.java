@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -184,6 +185,8 @@ public class AddSourceFragment extends Fragment {
         if (view != null) {
             PreferencesManager.vibrate(view);
         }
-        getParentFragmentManager().popBackStack();
+        if(isAdded()){
+            getParentFragmentManager().popBackStack();
+        }
     }
 }
