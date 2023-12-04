@@ -123,8 +123,9 @@ public class ArticleActivity extends AppCompatActivity {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.bottomMargin = insets.bottom;
-            mlp.rightMargin = insets.right;
+            mlp.bottomMargin = Math.max(insets.right, PreferencesManager.dpToPx(10, this));
+            mlp.rightMargin = Math.max(insets.right, PreferencesManager.dpToPx(10, this));
+
 
             ViewGroup.MarginLayoutParams articleMlp = (ViewGroup.MarginLayoutParams) articleView.getLayoutParams();
             articleMlp.bottomMargin = insets.bottom;
