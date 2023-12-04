@@ -125,7 +125,8 @@ public class ArticleActivity extends AppCompatActivity {
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             mlp.bottomMargin = Math.max(insets.right, PreferencesManager.dpToPx(10, this));
             mlp.rightMargin = Math.max(insets.right, PreferencesManager.dpToPx(10, this));
-
+            footerToggle.getBackground().setAlpha(128);
+            footerToggle.getChildAt(0).getBackground().setAlpha(128);
 
             ViewGroup.MarginLayoutParams articleMlp = (ViewGroup.MarginLayoutParams) articleView.getLayoutParams();
             articleMlp.bottomMargin = insets.bottom;
