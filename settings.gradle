@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "RSS-Feed"
 include ':app'
 include ':RSSParser'
+include ':rss'
