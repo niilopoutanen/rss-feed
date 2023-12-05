@@ -38,9 +38,9 @@ public class Post implements Comparable<Post>, Serializable {
         return this.comments;
     }
 
-    public void addCategory(String category){
-        if(!this.categories.contains(category)){
-            categories.add(category);
+    public void addCategory(String category) {
+        if (category != null && !category.isEmpty() && !this.categories.contains(category)) {
+            this.categories.add(category.substring(0, 1).toUpperCase() + category.substring(1));
         }
     }
     public void setCategories(List<String> categories){
