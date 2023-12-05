@@ -3,12 +3,13 @@ package com.niilopoutanen.rss;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Post {
+public class Post implements Comparable<Post>, Serializable {
     @ColumnInfo(name = "title")
     public String title;
     @ColumnInfo(name = "link")
@@ -48,5 +49,18 @@ public class Post {
     }
     public List<String> getCategories(){
         return this.categories;
+    }
+
+    @Override
+    public int compareTo(Post post) {
+        if (post == null || post.pubDate == null) {
+            // If the other item or its pubDate is null, place this item on top
+            return (pubDate == null) ? 0 : 1;
+        } else if (pubDate == null) {
+            // If this item's pubDate is null, place it on top
+            return -1;
+        } else {
+            return post.pubDate.compareTo(pubDate);
+        }
     }
 }
