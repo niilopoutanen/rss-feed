@@ -2,14 +2,19 @@ package com.niilopoutanen.rss;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(tableName = "post")
 public class Post implements Comparable<Post>, Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @ColumnInfo(name = "title")
     public String title;
     @ColumnInfo(name = "link")
