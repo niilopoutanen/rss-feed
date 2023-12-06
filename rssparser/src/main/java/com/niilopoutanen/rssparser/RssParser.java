@@ -1,5 +1,6 @@
 package com.niilopoutanen.rssparser;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -85,7 +86,8 @@ public class RssParser {
 
             Element descElement = itemElement.selectFirst("description");
             if (descElement != null) {
-                item.setDescription(descElement.text());
+                Element desc = Jsoup.parse(descElement.text()).body();
+                item.setDescription(desc.text());
             }
 
             Element pubDateElement = itemElement.selectFirst("pubDate");
@@ -93,7 +95,7 @@ public class RssParser {
                 item.setPubDate(pubDateElement.text());
             }
 
-            Element summaryElement = itemElement.selectFirst("description");
+            Element summaryElement = itemElement.selectFirst("summary");
             if (summaryElement != null && item.getDescription() == null) {
                 item.setDescription(summaryElement.text());
             }
@@ -136,11 +138,10 @@ public class RssParser {
                 item.setImageUrl(enclosure.attr("url"));
             }
 
-            Element description = itemElement.selectFirst("description");
-            if (description != null && item.getImageUrl() == null) {
-                int startIndex = description.toString().indexOf("<img");
+            if (descElement != null && item.getImageUrl() == null) {
+                int startIndex = descElement.toString().indexOf("<img");
                 if (startIndex != -1 && item.getImageUrl() == null) {
-                    item.setImageUrl(Parser.parsePattern(description.toString(), "src"));
+                    item.setImageUrl(Parser.parsePattern(descElement.toString(), "src"));
                 }
             }
 
@@ -150,7 +151,6 @@ public class RssParser {
                     item.addCategory(category.text());
                 }
             }
-
 
             handleNullParams(item);
             feed.addItem(item);
