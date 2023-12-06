@@ -102,7 +102,9 @@ public class Feed {
     }
 
     public void addCategory(String category){
-        this.categories.add(category);
+        if(!categories.contains(category)){
+            this.categories.add(category);
+        }
     }
     public List<String> getCategories() {
         return categories;

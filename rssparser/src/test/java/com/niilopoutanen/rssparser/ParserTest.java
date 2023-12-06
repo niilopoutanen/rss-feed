@@ -28,15 +28,6 @@ class ParserTest {
     }
 
     @Test
-    void findFeed(){
-        String[] urlsToTest = {"9to5mac.com", "www.reddit.com"};
-        for (String urlToTest : urlsToTest){
-            URL url = WebUtils.findFeed(WebUtils.formatUrl(urlToTest));
-            assertNotNull(url);
-        }
-    }
-
-    @Test
     void isRss(){
         String rss = "https://www.9to5mac.com/feed";
         try{

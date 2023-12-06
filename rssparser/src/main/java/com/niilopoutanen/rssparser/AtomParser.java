@@ -6,10 +6,7 @@ import org.jsoup.select.Elements;
 
 public class AtomParser {
     private final Feed feed = new Feed();
-    public AtomParser init(){
 
-        return this;
-    }
     public Feed parse(Document document){
         parseFeed(document);
         parseItems(document.select("entry"));
