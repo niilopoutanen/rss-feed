@@ -20,6 +20,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.activities.MainActivity;
@@ -27,7 +28,6 @@ import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Item;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -94,23 +94,23 @@ public class FeedCard extends RecyclerView.ViewHolder{
         return new FeedCard(view, preferences, context, recyclerViewInterface);
     }
 
-    public void bindData(Item item){
+    public void bindData(Post post){
         setPreferences();
 
-        title.setVisibility(item.getTitle() == null ? View.GONE : View.VISIBLE);
-        title.setText(item.getTitle());
+        title.setVisibility(post.title == null ? View.GONE : View.VISIBLE);
+        title.setText(post.title);
 
-        desc.setVisibility(item.getDescription() == null ? View.GONE : View.VISIBLE);
-        desc.setText(item.getDescription());
+        desc.setVisibility(post.description == null ? View.GONE : View.VISIBLE);
+        desc.setText(post.description);
 
-        date.setVisibility(item.getPubDate() == null ? View.GONE : View.VISIBLE);
-        date.setText(PreferencesManager.formatDate(item.getPubDate(), preferences.s_feedcard_datestyle, context));
+        date.setVisibility(post.pubDate == null ? View.GONE : View.VISIBLE);
+        date.setText(PreferencesManager.formatDate(post.pubDate, preferences.s_feedcard_datestyle, context));
 
-        author.setVisibility(item.getAuthor() == null ? View.GONE : View.VISIBLE);
-        author.setText(item.getAuthor());
+        author.setVisibility(post.author == null ? View.GONE : View.VISIBLE);
+        author.setText(post.author);
 
-        loadImage(item);
-        loadIcons(item);
+        loadImage(post);
+        loadIcons(post);
     }
 
     private void setPreferences(){
@@ -145,7 +145,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
 
     }
 
-    private void loadImage(Item item){
+    private void loadImage(Post post){
         // Cancel last load call
         image.setImageDrawable(null);
         Picasso.get().cancelRequest(image);
@@ -155,7 +155,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
             image.setVisibility(View.GONE);
         }
-        else if (item.getImageUrl() == null) {
+        else if (post.image == null) {
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             image.setLayoutParams(layoutParams);
         }
@@ -182,7 +182,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
             }
 
             // Handle nonexistent image
-            String imageUrl = item.getImageUrl();
+            String imageUrl = post.image;
             if (!TextUtils.isEmpty(imageUrl)) {
                 RequestCreator requestCreator = Picasso.get().load(imageUrl)
                           .resize(getImageWidth(), targetHeight)
@@ -197,8 +197,8 @@ public class FeedCard extends RecyclerView.ViewHolder{
         }
     }
 
-    private void loadIcons(Item item){
-        if(item.getLink() == null){
+    private void loadIcons(Post post){
+        if(post.link == null){
             createIcon(R.drawable.icon_no_article, R.string.tooltip_post_no_article);
         }
 

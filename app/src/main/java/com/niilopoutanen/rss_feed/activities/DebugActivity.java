@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Item;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -58,9 +58,9 @@ public class DebugActivity extends AppCompatActivity {
                       .setPositiveButton("OK", (dialog, which) -> {
                           Intent articleIntent = new Intent(DebugActivity.this, ArticleActivity.class);
                           articleIntent.putExtra("preferences", PreferencesManager.loadPreferences(DebugActivity.this));
-                          Item item = new Item();
-                          item.setLink(input.getText().toString());
-                          articleIntent.putExtra("item", item);
+                          Post post = new Post();
+                          post.link = input.getText().toString();
+                          articleIntent.putExtra("post", post);
 
                           startActivity(articleIntent);
                       })

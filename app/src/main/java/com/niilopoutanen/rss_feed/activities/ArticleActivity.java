@@ -65,7 +65,7 @@ public class ArticleActivity extends AppCompatActivity {
         }
         EdgeToEdge.enable(this);
         preferences = (Preferences) extras.get("preferences");
-        post  = (Post) extras.get("item");
+        post  = (Post) extras.get("post");
 
         if (savedInstanceState != null) {
             resultData = savedInstanceState.getString("content");

@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rssparser.Item;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,13 +22,13 @@ import java.util.Map;
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_NOTICE = 2;
-    private final List<Item> items;
+    private final List<Post> posts;
     private final Map<String, String> notices = new HashMap<>();
     private final Context context;
     private final Preferences preferences;
     private final RecyclerViewInterface recyclerViewInterface;
-    public FeedAdapter(List<Item> items, Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
-        this.items = items;
+    public FeedAdapter(List<Post> posts, Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
+        this.posts = posts;
         this.context = context;
         this.preferences = preferences;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -39,7 +39,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void addNotification(String text, String desc){
-        items.clear();
+        posts.clear();
         notices.clear();
         notices.put(text, desc);
         notifyDataSetChanged();
@@ -76,8 +76,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof FeedCard){
-            if(items.size() > position){
-                ((FeedCard)holder).bindData(items.get(position));
+            if(posts.size() > position){
+                ((FeedCard)holder).bindData(posts.get(position));
             }
 
         }
@@ -108,9 +108,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (notices.size() > 0) {
             return notices.size();
         }
-        else if(items == null){
+        else if(posts == null){
             return 0;
         }
-        return items.size();
+        return posts.size();
     }
 }

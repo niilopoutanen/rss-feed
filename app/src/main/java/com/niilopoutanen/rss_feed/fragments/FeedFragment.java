@@ -25,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
@@ -33,7 +34,6 @@ import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.Feed;
-import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.Parser;
 import com.niilopoutanen.rssparser.RSSException;
 
@@ -50,7 +50,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public static final int CARDMARGIN_DP = 10;
     public static final int CARDGAP_DP = 20;
     List<Source> sources = new ArrayList<>();
-    List<Item> items = new ArrayList<>();
+    List<Post> posts = new ArrayList<>();
     String viewTitle;
     RecyclerView recyclerView;
     FeedAdapter adapter;
@@ -99,14 +99,14 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         // Index out of bounds catch
-        if (position >= items.size()) {
+        if (position >= posts.size()) {
             return;
         }
-        Item clicked = items.get(position);
-        if(clicked.getLink() != null){
+        Post clicked = posts.get(position);
+        if(clicked.link != null){
             Intent articleIntent = new Intent(context, ArticleActivity.class);
             articleIntent.putExtra("preferences", preferences);
-            articleIntent.putExtra("item", items.get(position));
+            articleIntent.putExtra("post", posts.get(position));
 
             PreferencesManager.vibrate(recyclerView.getChildAt(0));
             context.startActivity(articleIntent);
@@ -147,7 +147,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private void updateFeed() {
-        List<Item> loadedItems = new ArrayList<>();
+        List<Post> loadedItems = new ArrayList<>();
         if (!checkValidity()) {
             recyclerviewRefresh.setRefreshing(false);
             return;
@@ -182,8 +182,8 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
             if (getActivity() != null && isAdded()) {
                 getActivity().runOnUiThread(() -> {
                     Collections.sort(loadedItems);
-                    items.clear();
-                    items.addAll(loadedItems);
+                    posts.clear();
+                    posts.addAll(loadedItems);
                     adapter.update();
                     recyclerView.scheduleLayoutAnimation();
                     recyclerviewRefresh.setRefreshing(false);
@@ -236,7 +236,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         });
 
 
-        adapter = new FeedAdapter(items, context, preferences, this);
+        adapter = new FeedAdapter(posts, context, preferences, this);
         recyclerView.setAdapter(adapter);
         
         final int columns = getResources().getInteger(R.integer.feed_columns);
