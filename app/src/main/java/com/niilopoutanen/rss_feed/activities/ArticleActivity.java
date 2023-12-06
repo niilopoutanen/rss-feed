@@ -25,12 +25,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.ArticleView;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rssparser.WebUtils;
 
@@ -49,7 +49,7 @@ import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
     private ProgressBar articleLoader;
-    private Item post;
+    private Post post;
     private ArticleView articleView;
     private String resultData;
     private Preferences preferences;
@@ -65,7 +65,7 @@ public class ArticleActivity extends AppCompatActivity {
         }
         EdgeToEdge.enable(this);
         preferences = (Preferences) extras.get("preferences");
-        post  = (Item)extras.get("item");
+        post  = (Post) extras.get("item");
 
         if (savedInstanceState != null) {
             resultData = savedInstanceState.getString("content");
@@ -80,7 +80,7 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            processArticle(post.getLink(), new Callback<String>() {
+            processArticle(post.link, new Callback<String>() {
                 @Override
                 public void onResult(String result) {
                     resultData = result;
@@ -156,7 +156,7 @@ public class ArticleActivity extends AppCompatActivity {
 
         View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
         if(openInBrowser != null) openInBrowser.setOnClickListener(v -> {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.getLink())));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.link)));
             sheet.dismiss();
         });
 
@@ -164,8 +164,8 @@ public class ArticleActivity extends AppCompatActivity {
         if(share != null)share.setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, post.getLink());
-            shareIntent.putExtra(Intent.EXTRA_TITLE, post.getTitle());
+            shareIntent.putExtra(Intent.EXTRA_TEXT, post.link);
+            shareIntent.putExtra(Intent.EXTRA_TITLE, post.title);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.sharepost)));
             sheet.dismiss();
         });
@@ -191,8 +191,8 @@ public class ArticleActivity extends AppCompatActivity {
 
         Elements h1Elements = document.select("h1");
         if(h1Elements.isEmpty()){
-            if(post.getTitle() != null){
-                Element title = new Element("h1").text(post.getTitle());
+            if(post.title != null){
+                Element title = new Element("h1").text(post.title);
                 document.body().prependChild(title);
             }
         }

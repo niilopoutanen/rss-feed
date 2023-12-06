@@ -1,5 +1,7 @@
 package com.niilopoutanen.rssparser;
 
+import com.niilopoutanen.rss.Post;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -63,103 +65,103 @@ public class RssParser {
     }
     private void parseItems(Elements itemObjects){
         for (Element itemElement : itemObjects) {
-            Item item = new Item();
+            Post post = new Post();
             Element titleElement = itemElement.selectFirst("title");
             if (titleElement != null) {
-                item.setTitle(titleElement.text());
+                post.title = titleElement.text();
             }
 
             Element linkElement = itemElement.selectFirst("link");
             if (linkElement != null) {
-                item.setLink(linkElement.text());
+                post.link = linkElement.text();
             }
 
             Element guidElement = itemElement.selectFirst("guid");
-            if (guidElement != null && item.getLink() == null) {
-                item.setLink(guidElement.text());
+            if (guidElement != null && post.link == null) {
+                post.link = guidElement.text();
             }
 
             Element idElement = itemElement.selectFirst("id");
-            if (idElement != null && item.getLink() == null) {
-                item.setLink(idElement.text());
+            if (idElement != null && post.link == null) {
+                post.link = idElement.text();
             }
 
             Element descElement = itemElement.selectFirst("description");
             if (descElement != null) {
                 Element desc = Jsoup.parse(descElement.text()).body();
-                item.setDescription(desc.text());
+                post.description = desc.text();
             }
 
             Element pubDateElement = itemElement.selectFirst("pubDate");
             if (pubDateElement != null) {
-                item.setPubDate(pubDateElement.text());
+                post.pubDate = Parser.parseDate(pubDateElement.text());
             }
 
             Element summaryElement = itemElement.selectFirst("summary");
-            if (summaryElement != null && item.getDescription() == null) {
-                item.setDescription(summaryElement.text());
+            if (summaryElement != null && post.description == null) {
+                post.description = summaryElement.text();
             }
 
             Element contentElement = itemElement.selectFirst("content");
-            if (contentElement != null && item.getDescription() == null) {
-                item.setDescription(contentElement.text());
+            if (contentElement != null && post.description == null) {
+                post.description = contentElement.text();
             }
 
             Element authorElement = itemElement.selectFirst("author");
             if (authorElement != null) {
-                item.setAuthor(authorElement.text());
+                post.author = authorElement.text();
             }
 
             Element creatorElement = itemElement.selectFirst("creator");
-            if (creatorElement != null && item.getAuthor() == null) {
-                item.setAuthor(creatorElement.text());
+            if (creatorElement != null && post.author == null) {
+                post.author = creatorElement.text();
             }
 
             Element dcCreatorElement = itemElement.selectFirst("dc|creator");
-            if (dcCreatorElement != null && item.getAuthor() == null) {
-                item.setAuthor(dcCreatorElement.text());
+            if (dcCreatorElement != null && post.author == null) {
+                post.author = dcCreatorElement.text();
             }
 
             Element mediaElement = itemElement.selectFirst("media|thumbnail");
             if (mediaElement != null) {
-                item.setImageUrl(mediaElement.text());
+                post.image = mediaElement.text();
             }
 
             Element contentEncoded = itemElement.selectFirst("content|encoded");
-            if (contentEncoded != null && item.getImageUrl() == null) {
+            if (contentEncoded != null && post.image == null) {
                 int startIndex = contentEncoded.toString().indexOf("<img");
-                if (startIndex != -1 && item.getImageUrl() == null) {
-                    item.setImageUrl(Parser.parsePattern(contentEncoded.toString(), "src"));
+                if (startIndex != -1 && post.image == null) {
+                    post.image = Parser.parsePattern(contentEncoded.toString(), "src");
                 }
             }
 
             Element enclosure = itemElement.selectFirst("enclosure");
-            if (enclosure != null && !enclosure.attr("url").isEmpty() && item.getImageUrl() == null) {
-                item.setImageUrl(enclosure.attr("url"));
+            if (enclosure != null && !enclosure.attr("url").isEmpty() && post.image == null) {
+                post.image = enclosure.attr("url");
             }
 
-            if (descElement != null && item.getImageUrl() == null) {
+            if (descElement != null && post.image == null) {
                 int startIndex = descElement.toString().indexOf("<img");
-                if (startIndex != -1 && item.getImageUrl() == null) {
-                    item.setImageUrl(Parser.parsePattern(descElement.toString(), "src"));
+                if (startIndex != -1 && post.image == null) {
+                    post.image = Parser.parsePattern(descElement.toString(), "src");
                 }
             }
 
             Elements categories = itemElement.select("category");
             if(categories.size() > 0){
                 for(Element category : categories){
-                    item.addCategory(category.text());
+                    post.addCategory(category.text());
                 }
             }
 
-            handleNullParams(item);
-            feed.addItem(item);
+            handleNullParams(post);
+            feed.addItem(post);
         }
     }
 
-    private void handleNullParams(Item item){
-        if(item.getAuthor() == null){
-            item.setAuthor(feed.getTitle());
+    private void handleNullParams(Post post){
+        if(post.author == null){
+            post.author = feed.getTitle();
         }
     }
 }

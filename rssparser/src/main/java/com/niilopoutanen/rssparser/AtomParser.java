@@ -1,5 +1,8 @@
 package com.niilopoutanen.rssparser;
 
+import com.niilopoutanen.rss.Post;
+
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -60,69 +63,63 @@ public class AtomParser {
     }
     private void parseItems(Elements itemObjects){
         for (Element itemElement : itemObjects) {
-            Item item = new Item();
+            Post post = new Post();
             Element titleElement = itemElement.selectFirst("title");
             if (titleElement != null) {
-                item.setTitle(titleElement.text());
+                post.title = titleElement.text();
             }
 
             Element linkElement = itemElement.selectFirst("link");
             if (linkElement != null) {
-                item.setLink(linkElement.attr("href"));
+                post.link = linkElement.attr("href");
             }
             Element guid = itemElement.selectFirst("id");
-            if (guid != null) {
-                item.setGuid(guid.text());
+            if (guid != null && post.link == null) {
+                post.link = guid.text();
             }
 
             Element descElement = itemElement.selectFirst("description");
             if (descElement != null) {
-                item.setDescription(descElement.text());
+                Element desc = Jsoup.parse(descElement.text()).body();
+                post.description = desc.text();
             }
             Element summaryElement = itemElement.selectFirst("summary");
-            if (summaryElement != null && item.getDescription() == null) {
-                item.setDescription(summaryElement.text());
+            if (summaryElement != null && post.description == null) {
+                post.description = summaryElement.text();
             }
             Element contentElement = itemElement.selectFirst("content");
-            if (contentElement != null && item.getDescription() == null) {
-                item.setDescription(contentElement.text());
+            if (contentElement != null && post.description == null) {
+                post.description = contentElement.text();
             }
 
             Element pubDate = itemElement.selectFirst("published");
             if (pubDate != null) {
-                item.setPubDate(Parser.parseDate(pubDate.text()));
+                post.pubDate = Parser.parseDate(pubDate.text());
             }
 
             Elements author = itemElement.select("author");
             if (!author.isEmpty()) {
                 Element authorName = author.select("name").first();
                 if(authorName != null){
-                    item.setAuthor(authorName.text());
+                    post.author = authorName.text();
                 }
             }
 
             Elements categories = itemElement.select("category");
             if (!categories.isEmpty()) {
                 for (Element category : categories){
-                    item.addCategory(category.attr("term"));
+                    post.addCategory(category.attr("term"));
                 }
             }
 
-            Element source = itemElement.selectFirst("source");
-            if (source != null) {
-                Element originalSource = source.selectFirst("id");
-                if(originalSource != null){
-                    item.setSource(originalSource.text());
-                }
-            }
 
-            handleNullParams(item);
-            feed.addItem(item);
+            handleNullParams(post);
+            feed.addItem(post);
         }
     }
-    private void handleNullParams(Item item){
-        if(item.getAuthor() == null){
-            item.setAuthor(feed.getTitle());
+    private void handleNullParams(Post post){
+        if(post.author == null){
+            post.author = feed.getTitle();
         }
     }
 }

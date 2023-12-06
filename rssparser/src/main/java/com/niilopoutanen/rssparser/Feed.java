@@ -1,5 +1,7 @@
 package com.niilopoutanen.rssparser;
 
+import com.niilopoutanen.rss.Post;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +23,7 @@ public class Feed {
     private Integer ttl;
     private String imageUrl;
     private String rating;
-    private List<Item> items = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     public String getTitle() {
         return title;
@@ -156,21 +158,21 @@ public class Feed {
         this.rating = rating;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<Post> getPosts() {
+        return posts;
     }
     public int getItemCount(){
-        return items.size();
+        return posts.size();
     }
-    public Item getItemAt(int index) {
-        return items.get(index);
-    }
-
-    public void setItems(List<Item> items){
-        this.items = items;
+    public Post getItemAt(int index) {
+        return posts.get(index);
     }
 
-    public void addItem(Item item){
-        this.items.add(item);
+    public void setPosts(List<Post> posts){
+        this.posts = posts;
+    }
+
+    public void addItem(Post item){
+        this.posts.add(item);
     }
 }

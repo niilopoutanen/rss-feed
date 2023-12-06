@@ -1,14 +1,12 @@
 package com.niilopoutanen.rssparser;
 
-import com.niilopoutanen.rssparser.*;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
-import java.sql.Date;
-import java.time.Instant;
-import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.niilopoutanen.rss.Post;
 
 class ParserTest {
     @Test
@@ -17,9 +15,9 @@ class ParserTest {
         Feed feed;
         try {
             feed = parser.load("https://www.9to5mac.com/feed");
-            Item item = feed.getItemAt(1);
-            assertNotNull(item.getImageUrl());
-            assertFalse(feed.getItems().isEmpty());
+            Post post = feed.getItemAt(1);
+            assertNotNull(post.image);
+            assertFalse(feed.getPosts().isEmpty());
         }
         catch (RSSException e) {
             e.printStackTrace();

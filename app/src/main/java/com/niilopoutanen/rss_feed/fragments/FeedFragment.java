@@ -167,7 +167,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
                 Parser parser = new Parser();
                 try {
                     Feed feed = parser.load(source.getFeedUrl());
-                    loadedItems.addAll(feed.getItems());
+                    loadedItems.addAll(feed.getPosts());
                 } catch (RSSException e) {
                     Activity activity = getActivity();
                     if(activity != null && isAdded()){
