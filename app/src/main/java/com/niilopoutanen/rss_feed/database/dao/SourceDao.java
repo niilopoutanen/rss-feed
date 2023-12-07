@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.database.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.niilopoutanen.rss.Source;
@@ -15,4 +16,7 @@ public interface SourceDao {
 
     @Delete
     void delete(Source source);
+
+    @Insert
+    void insert(Source source);
 }

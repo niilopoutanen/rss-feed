@@ -25,11 +25,15 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.SourceValidator;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.RSSException;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddSourceFragment extends Fragment {
 
@@ -84,10 +88,9 @@ public class AddSourceFragment extends Fragment {
                     sourceToSave.visible = showInFeed.isChecked();
                     if (source != null) {
                         sourceToSave.id = source.id;
-                        SaveSystem.saveContent(context, sourceToSave);
-                    } else {
-                        SaveSystem.saveContent(context, sourceToSave);
                     }
+                    save(sourceToSave);
+                    
                     activity.runOnUiThread(() -> {
                         progressBar.setVisibility(View.GONE);
                         closeFragment(null);
@@ -116,6 +119,14 @@ public class AddSourceFragment extends Fragment {
         });
     }
 
+    private void save(Source source){
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            AppDatabase database = AppDatabase.getInstance(context);
+            database.sourceDao().insert(source);
+        });
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
