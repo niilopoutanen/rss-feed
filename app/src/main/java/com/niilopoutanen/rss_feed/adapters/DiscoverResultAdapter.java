@@ -21,7 +21,7 @@ import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.SourceItem;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rssparser.WebUtils;

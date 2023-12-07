@@ -61,7 +61,7 @@ import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.Arrays;
@@ -136,7 +136,11 @@ public class SettingsFragment extends Fragment {
         rootView.findViewById(R.id.settings_openChangelog).setOnClickListener(v -> {
             Intent changeLogIntent = new Intent(context, FeedActivity.class);
             String url = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions.rss";
-            Source changeLog = new Source(context.getString(R.string.changelog), url, null);
+
+            Source changeLog = new Source();
+            changeLog.title = context.getString(R.string.changelog);
+            changeLog.url = url;
+
             changeLogIntent.putExtra("source", changeLog);
             startActivity(changeLogIntent);
         });

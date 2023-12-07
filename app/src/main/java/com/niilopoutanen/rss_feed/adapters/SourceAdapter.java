@@ -28,7 +28,7 @@ import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.fragments.SourceItem;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.squareup.picasso.Picasso;

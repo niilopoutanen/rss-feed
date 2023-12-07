@@ -4,7 +4,7 @@ package com.niilopoutanen.rss_feed.utils;
 import androidx.annotation.NonNull;
 
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.IconFinder;
@@ -29,7 +29,7 @@ public class SourceValidator {
         this.source = source;
     }
     public void validate(@NonNull Callback<Source> callback) {
-        if(source.getFeedUrl() == null || source.getFeedUrl().isEmpty()){
+        if(source.url == null || source.url.isEmpty()){
             callback.onError(new RSSException(R.string.error_empty_url ,"Feed url cannot be null"));
             return;
         }
@@ -49,37 +49,37 @@ public class SourceValidator {
     }
 
     private void getFeed() throws RSSException{
-        URL feedUrl = WebUtils.findFeed(WebUtils.formatUrl(source.getFeedUrl()));
+        URL feedUrl = WebUtils.findFeed(WebUtils.formatUrl(source.url));
         if(feedUrl != null){
-            source.setFeedUrl(feedUrl.toString());
+            source.url = feedUrl.toString();
         }
         else{
             throw new RSSException(R.string.error_invalid_url, "invalid URL");
         }
         Parser parser = new Parser();
-        feed = parser.load(source.getFeedUrl());
+        feed = parser.load(source.url);
     }
     private void getIcon(){
         if(feed.getImageUrl() == null){
-            source.setImageUrl(IconFinder.get(source.getFeedUrl()));
+            source.image = IconFinder.get(source.url);
         }
         else{
-            source.setImageUrl(IconFinder.get(source.getFeedUrl(), new String[] {feed.getImageUrl()}));
+            source.image = IconFinder.get(source.url, new String[] {feed.getImageUrl()});
         }
     }
     private void getTitle() throws RSSException {
         // If name is already set, do nothing
-        if(source.getName() != null && !source.getName().isEmpty()){
+        if(source.title != null && !source.title.isEmpty()){
             return;
         }
         // If feed was parsed, get the title from there
         if(feed != null && feed.getTitle() != null && !feed.getTitle().isEmpty()){
-            source.setName(feed.getTitle());
+            source.title = feed.getTitle();
         }
         // If feed failed to parse, try the homepage
         else{
             try {
-                URL homePage = WebUtils.getBaseUrl(source.getFeedUrl());
+                URL homePage = WebUtils.getBaseUrl(source.url);
                 if(homePage == null){
                     return;
                 }
@@ -88,19 +88,19 @@ public class SourceValidator {
 
                 // Check if the title has a separator
                 if (title.contains(" | ")) {
-                    source.setName(title.split(" \\| ")[0]);
+                    source.title = title.split(" \\| ")[0];
                     return;
                 } else if (title.contains(" - ")) {
-                    source.setName(title.split(" - ")[0]);
+                    source.title = title.split(" - ")[0];
                     return;
                 }
 
-                source.setName(title);
+                source.title = title;
             } catch (IOException e) {
                 throw new RSSException(e.getMessage());
             }
         }
-        if(source.getName() == null || source.getName().isEmpty()){
+        if(source.title == null || source.title.isEmpty()){
             throw new RSSException(R.string.error_name_not_found, "Name not valid");
         }
     }

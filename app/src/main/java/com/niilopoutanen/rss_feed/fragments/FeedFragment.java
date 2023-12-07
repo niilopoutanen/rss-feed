@@ -31,7 +31,7 @@ import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.Parser;
@@ -72,7 +72,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     public FeedFragment(Source source, Preferences preferences) {
         //single source view
         sources.add(source);
-        viewTitle = source.getName();
+        viewTitle = source.title;
         this.preferences = preferences;
         this.singleView = true;
     }
@@ -161,12 +161,12 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
         // Submit each update to the executor
         executor.execute(() -> {
             for (Source source : sources) {
-                if (!source.isVisibleInFeed() && !singleView) {
+                if (!source.visible && !singleView) {
                     continue;
                 }
                 Parser parser = new Parser();
                 try {
-                    Feed feed = parser.load(source.getFeedUrl());
+                    Feed feed = parser.load(source.url);
                     loadedItems.addAll(feed.getPosts());
                 } catch (RSSException e) {
                     Activity activity = getActivity();
@@ -198,7 +198,7 @@ public class FeedFragment extends Fragment implements RecyclerViewInterface {
     private void showError(int errorCode, Source errorCause) {
         switch (errorCode) {
             case 429:
-                adapter.addNotification(context.getString(R.string.error_too_many_requests), String.format(context.getString(R.string.error_too_many_requests_msg), errorCause.getFeedUrl()));
+                adapter.addNotification(context.getString(R.string.error_too_many_requests), String.format(context.getString(R.string.error_too_many_requests_msg), errorCause.url));
                 break;
             case 0:
                 adapter.addNotification(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));

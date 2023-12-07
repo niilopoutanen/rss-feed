@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.SourceValidator;
@@ -56,9 +56,9 @@ public class AddSourceFragment extends Fragment {
         if (source == null) {
             return;
         }
-        feedUrl.setText(source.getFeedUrl());
-        feedName.setText(source.getName());
-        showInFeed.setChecked(source.isVisibleInFeed());
+        feedUrl.setText(source.url);
+        feedName.setText(source.title);
+        showInFeed.setChecked(source.visible);
         title.setText(context.getString(R.string.updatesource));
 
         TextView buttonText = (TextView) ((RelativeLayout)addSourceButton).getChildAt(0);
@@ -69,15 +69,24 @@ public class AddSourceFragment extends Fragment {
         showError("");
         Activity activity = (Activity) context;
         progressBar.setVisibility(View.VISIBLE);
-        SourceValidator validator = new SourceValidator(new Source(feedName.getText().toString(), feedUrl.getText().toString(), null));
+        Source toValidate = new Source();
+        toValidate.title = feedName.getText().toString();
+        toValidate.url = feedUrl.getText().toString();
+        SourceValidator validator = new SourceValidator(toValidate);
         validator.validate(new Callback<Source>() {
             @Override
             public void onResult(Source result) {
                 if (result != null) {
+                    Source sourceToSave = new Source();
+                    sourceToSave.title = result.title;
+                    sourceToSave.url = result.url;
+                    sourceToSave.image = result.image;
+                    sourceToSave.visible = showInFeed.isChecked();
                     if (source != null) {
-                        SaveSystem.saveContent(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
+                        sourceToSave.id = source.id;
+                        SaveSystem.saveContent(context, sourceToSave);
                     } else {
-                        SaveSystem.saveContent(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
+                        SaveSystem.saveContent(context, sourceToSave);
                     }
                     activity.runOnUiThread(() -> {
                         progressBar.setVisibility(View.GONE);

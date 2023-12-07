@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.WebUtils;
 
@@ -57,11 +57,11 @@ public class SaveSystem {
             sources = loadContent(context);
             //Check if the source already exists
             sources.removeIf(sourceObj -> {
-                if (source.getId() == null || sourceObj.getId() == null) {
+                if (source.id == 0 || sourceObj.id == 0) {
                     // If id not present
-                    return sourceObj.getFeedUrl().equals(source.getFeedUrl());
+                    return sourceObj.url.equals(source.url);
                 }
-                return sourceObj.getId().equals(source.getId());
+                return sourceObj.id == source.id;
             });
 
             sources.add(source);

@@ -31,10 +31,9 @@ import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.WebUtils;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -74,9 +73,9 @@ public class SourceItem extends RecyclerView.ViewHolder{
     }
 
     public void bindData(Source source, FragmentManager manager){
-        title.setText(source.getName());
+        title.setText(source.title);
         desc.setVisibility(View.GONE);
-        loadIcon(source.getImageUrl());
+        loadIcon(source.image);
         initButton(source, manager);
     }
     public void bindData(FeedResult result){
@@ -146,7 +145,7 @@ public class SourceItem extends RecyclerView.ViewHolder{
         Drawable plus = AppCompatResources.getDrawable(context, R.drawable.icon_plus);
 
         for (Source source : savedSources) {
-            if (source.getFeedUrl().equalsIgnoreCase(WebUtils.formatUrl(result.feedId).toString())) {
+            if (source.url.equalsIgnoreCase(WebUtils.formatUrl(result.feedId).toString())) {
                 result.alreadyAdded = true;
                 setIcon(checkmark);
                 return;
@@ -157,7 +156,12 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
         button.setOnClickListener(v -> {
             if (!result.alreadyAdded) {
-                SaveSystem.saveContent(v.getContext(), new Source(result.title, WebUtils.formatUrl(result.feedId).toString(), result.visualUrl));
+                Source source = new Source();
+                source.title = result.title;
+                source.url = WebUtils.formatUrl(result.feedId).toString();
+                source.image = result.visualUrl;
+
+                SaveSystem.saveContent(v.getContext(), source);
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
                 setIcon(checkmark);
             } else {
@@ -169,8 +173,11 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
         container.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FeedActivity.class);
-            Source tempSource = new Source(result.title, WebUtils.formatUrl(result.feedId).toString(), result.visualUrl);
-            intent.putExtra("source", tempSource);
+            Source source = new Source();
+            source.title = result.title;
+            source.url = WebUtils.formatUrl(result.feedId).toString();
+            source.image = result.visualUrl;
+            intent.putExtra("source", source);
             intent.putExtra("preferences", PreferencesManager.loadPreferences(v.getContext()));
             v.getContext().startActivity(intent);
         });
