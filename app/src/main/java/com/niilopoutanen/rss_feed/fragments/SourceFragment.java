@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,11 +23,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
+import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SourceFragment extends Fragment {
 
@@ -63,10 +67,16 @@ public class SourceFragment extends Fragment {
     }
 
     public void update() {
-        sources = SaveSystem.loadContent(context);
-        if (adapter != null) {
-            adapter.updateSources(sources);
-        }
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            AppDatabase database = AppDatabase.getInstance(context);
+            sources = database.sourceDao().getAll();
+            ((Activity)context).runOnUiThread(() -> {
+                if (adapter != null) {
+                    adapter.updateSources(sources);
+                }
+            });
+        });
     }
 
     @Override

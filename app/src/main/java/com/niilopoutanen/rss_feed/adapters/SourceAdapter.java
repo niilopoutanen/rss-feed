@@ -87,6 +87,9 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
+        if(sources == null){
+            return 0;
+        }
         return sources.size();
     }
 

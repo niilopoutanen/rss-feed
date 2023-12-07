@@ -90,7 +90,7 @@ public class AddSourceFragment extends Fragment {
                         sourceToSave.id = source.id;
                     }
                     save(sourceToSave);
-                    
+
                     activity.runOnUiThread(() -> {
                         progressBar.setVisibility(View.GONE);
                         closeFragment(null);
