@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,7 +35,6 @@ import java.util.concurrent.Executors;
 
 public class SourceFragment extends Fragment {
 
-    private List<Source> sources;
     private SourceAdapter adapter;
     private Context context;
     private Preferences preferences;
@@ -67,15 +67,11 @@ public class SourceFragment extends Fragment {
     }
 
     public void update() {
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            AppDatabase database = AppDatabase.getInstance(context);
-            sources = database.sourceDao().getAll();
-            ((Activity)context).runOnUiThread(() -> {
-                if (adapter != null) {
-                    adapter.updateSources(sources);
-                }
-            });
+        AppDatabase database = AppDatabase.getInstance(context);
+        database.sourceDao().getAll().observe(this, sources -> {
+            if (adapter != null) {
+                adapter.updateSources(sources);
+            }
         });
     }
 
@@ -93,7 +89,7 @@ public class SourceFragment extends Fragment {
 
         sourcesRecyclerView = rootView.findViewById(R.id.sources_recyclerview);
 
-        adapter = new SourceAdapter(sources, sourcesRecyclerView, getParentFragmentManager());
+        adapter = new SourceAdapter(null, sourcesRecyclerView, getParentFragmentManager());
         sourcesRecyclerView.setAdapter(adapter);
         sourcesRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         sourcesRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
