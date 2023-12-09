@@ -44,17 +44,18 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<Source> sources;
     private Context context;
     private Source tempSource;
-    private FragmentManager manager;
+    private final FragmentManager manager;
 
     private final Runnable undoDelete = new Runnable() {
         @Override
         public void run() {
             if (tempSource != null) {
-                sources = SaveSystem.loadContent(context);
-                sources.add(tempSource);
-                SaveSystem.saveContent(context, sources);
-                notifyItemChanged(sources.size());
-                tempSource = null;
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(() -> {
+                    AppDatabase database = AppDatabase.getInstance(context);
+                    database.sourceDao().insert(tempSource);
+                    tempSource = null;
+                });
             }
         }
     };
