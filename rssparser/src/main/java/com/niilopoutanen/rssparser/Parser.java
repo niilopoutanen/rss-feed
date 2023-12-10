@@ -1,5 +1,8 @@
 package com.niilopoutanen.rssparser;
 
+import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rss.Source;
+
 import org.jsoup.nodes.Document;
 
 import java.net.URL;
@@ -7,6 +10,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,6 +27,19 @@ public class Parser {
         load(url, null);
     }
 
+    public List<Post> get(List<Source> sources){
+        List<Post> posts = new ArrayList<>();
+        for(Source source : sources){
+            try{
+                Feed feed = load(source.url);
+                posts.addAll(feed.getPosts());
+            }
+            catch (RSSException ignored){}
+
+        }
+        Collections.sort(posts);
+        return posts;
+    }
 
     public Feed load(String url) throws RSSException {
         try{

@@ -26,6 +26,7 @@ import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rssparser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,8 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
 
         AppDatabase database = AppDatabase.getInstance(context);
         database.sourceDao().getAll().observe(this.getViewLifecycleOwner(), sources -> {
-            // Load here and set posts
+            Parser parser = new Parser();
+            posts = parser.get(sources);
         });
     }
 
