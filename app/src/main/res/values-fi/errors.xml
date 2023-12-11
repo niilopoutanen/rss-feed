@@ -4,6 +4,7 @@
     <string name="error_name_not_found">Lähteen nimen automaattinen täyttö ei onnistunut. Kirjoita se manuaalisesti.</string>
     <string name="error_adding_source">Virhe lisätessä lähdettä. Yritä uudelleen.</string>
     <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
+    <string name="error_invalid_image">Tämä kuva ei ole kelvollinen tai ei ole enään olemassa.</string>
     <string name="error_invalid_feed">RSS-syötteen url-osoite on virheellinen.</string>
     <string name="error_invalid_feed_msg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
 

@@ -82,6 +82,9 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(sources == null){
+            return;
+        }
         Source source = sources.get(position);
         if(holder instanceof SourceItem){
             SourceItem sourceItem = (SourceItem)holder;
