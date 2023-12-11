@@ -26,6 +26,7 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.SourceValidator;
@@ -120,12 +121,8 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void save(Source source){
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            AppDatabase database = AppDatabase.getInstance(context);
-            database.sourceDao().insert(source);
-        });
-
+        AppRepository repository = new AppRepository(context);
+        repository.insert(source);
     }
 
     @Override
