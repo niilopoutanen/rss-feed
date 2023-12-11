@@ -1,5 +1,7 @@
 package com.niilopoutanen.rssparser;
 
+import android.telecom.Call;
+
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
 
@@ -39,6 +41,23 @@ public class Parser {
         }
         Collections.sort(posts);
         return posts;
+    }
+    public void get(List<Source> sources, Callback<List<Post>> callback){
+        Executor executor = Executors.newSingleThreadExecutor();
+        List<Post> posts = new ArrayList<>();
+        executor.execute(() -> {
+            for(Source source : sources){
+                try{
+                    Feed feed = load(source.url);
+                    posts.addAll(feed.getPosts());
+                }
+                catch (RSSException r){
+                    callback.onError(r);
+                }
+            }
+            Collections.sort(posts);
+            callback.onResult(posts);
+        });
     }
 
     public Feed load(String url) throws RSSException {

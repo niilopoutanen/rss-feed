@@ -15,6 +15,7 @@ import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_NOTICE = 2;
-    private final List<Post> posts;
+    private List<Post> posts;
     private final Map<String, String> notices = new HashMap<>();
     private final Context context;
     private final Preferences preferences;
@@ -32,6 +33,16 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.context = context;
         this.preferences = preferences;
         this.recyclerViewInterface = recyclerViewInterface;
+    }
+    public FeedAdapter(Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
+        this.context = context;
+        this.preferences = preferences;
+        this.recyclerViewInterface = recyclerViewInterface;
+    }
+    public void update(List<Post> newPosts){
+        this.posts = new ArrayList<>(newPosts);
+        notices.clear();
+        notifyDataSetChanged();
     }
     public void update(){
         notices.clear();

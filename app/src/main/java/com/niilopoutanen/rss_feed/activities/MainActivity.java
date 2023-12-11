@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
+import com.niilopoutanen.rss_feed.fragments.NewFeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
 import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
@@ -29,7 +30,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Preferences preferences;
-    List<Source> sources = new ArrayList<>();
     private Fragment currentFragment;
     private UpdateDialog dialog;
 
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
         }
-        sources = SaveSystem.loadContent(MainActivity.this);
 
 
         // Navigation bar init
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = new FeedFragment(sources, preferences);
+                    currentFragment = new NewFeedFragment(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
@@ -85,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.nav_settings) {
                 currentFragment = new SettingsFragment(MainActivity.this);
             } else if (itemId == R.id.nav_feed) {
-                sources = SaveSystem.loadContent(MainActivity.this);
-                currentFragment = new FeedFragment(sources, preferences);
+                currentFragment = new NewFeedFragment(preferences);
             } else if (itemId == R.id.nav_content) {
                 currentFragment = new SourceFragment(MainActivity.this, preferences);
             } else if (itemId == R.id.nav_discover) {
@@ -97,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNav.findViewById(R.id.nav_feed).setOnLongClickListener(v -> {
-            if (currentFragment instanceof FeedFragment) {
-                FeedFragment feedFragment = (FeedFragment) currentFragment;
+            if (currentFragment instanceof NewFeedFragment) {
+                NewFeedFragment feedFragment = (NewFeedFragment) currentFragment;
                 feedFragment.scrollToTop();
                 return true; // Event has been consumed
             }
