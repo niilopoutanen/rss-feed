@@ -25,7 +25,7 @@ public class AppRepository {
         sources = sourceDao.getAll();
     }
 
-    LiveData<List<Source>> getAll() {
+    public LiveData<List<Source>> getAll() {
         return sources;
     }
 
