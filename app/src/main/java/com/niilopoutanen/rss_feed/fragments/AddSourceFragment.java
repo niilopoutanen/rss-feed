@@ -131,7 +131,6 @@ public class AddSourceFragment extends Fragment {
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-
     }
 
     @Override

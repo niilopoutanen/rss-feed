@@ -25,6 +25,7 @@ import com.google.android.material.transition.MaterialFadeThrough;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.SaveSystem;
@@ -59,21 +60,18 @@ public class SourceFragment extends Fragment {
         setReenterTransition(new MaterialFadeThrough());
         postponeEnterTransition();
 
-        update();
+        AppRepository repository = new AppRepository(context);
+        repository.getAll().observe(this, sources -> {
+            if (adapter != null) {
+                adapter.updateSources(sources);
+            }
+        });
 
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
     }
 
-    public void update() {
-        AppDatabase database = AppDatabase.getInstance(context);
-        database.sourceDao().getAll().observe(this, sources -> {
-            if (adapter != null) {
-                adapter.updateSources(sources);
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,13 +114,5 @@ public class SourceFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
-    }
-
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        update();
     }
 }

@@ -30,6 +30,7 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -80,8 +81,8 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        AppDatabase database = AppDatabase.getInstance(context);
-        database.sourceDao().getAll().observe(this.getViewLifecycleOwner(), sources -> {
+        AppRepository repository = new AppRepository(context);
+        repository.getAll().observe(this.getViewLifecycleOwner(), sources -> {
             if(!isValid(sources)){
                 return;
             }
