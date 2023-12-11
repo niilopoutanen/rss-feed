@@ -3,6 +3,9 @@ package com.niilopoutanen.rss_feed.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +37,7 @@ import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Parser;
 import com.niilopoutanen.rssparser.RSSException;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +82,9 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
 
         AppDatabase database = AppDatabase.getInstance(context);
         database.sourceDao().getAll().observe(this.getViewLifecycleOwner(), sources -> {
+            if(!isValid(sources)){
+                return;
+            }
             Parser parser = new Parser();
             swipeRefreshLayout.setRefreshing(true);
             parser.get(sources, new Callback<List<Post>>() {
@@ -122,6 +129,42 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
 
         update();
         return rootView;
+    }
+
+    private boolean isValid(List<Source> sources) {
+        if (sources.size() == 0) {
+            showError(0, null);
+            return false;
+        }
+        if (!isAdded()) {
+            return false;
+        }
+        ConnectivityManager connectionManager = context.getSystemService(ConnectivityManager.class);
+        NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
+        if (currentNetwork == null || !currentNetwork.isConnected()) {
+            showError(1, null);
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private void showError(int errorCode, Source errorCause) {
+        switch (errorCode) {
+            case 429:
+                adapter.addNotification(context.getString(R.string.error_too_many_requests), String.format(context.getString(R.string.error_too_many_requests_msg), errorCause.url));
+                break;
+            case 0:
+                adapter.addNotification(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));
+                break;
+            case 1:
+                adapter.addNotification(context.getString(R.string.error_no_internet), context.getString(R.string.error_no_internet_msg));
+                break;
+            case HttpURLConnection.HTTP_NOT_FOUND:
+            default:
+                adapter.addNotification(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
+                break;
+        }
+        if(swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
     @Override
     public void onItemClick(int position) {
