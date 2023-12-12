@@ -112,7 +112,7 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
         });
 
 
-        adapter = new FeedAdapter(posts, context, preferences, this);
+        adapter = new FeedAdapter(context, preferences, this);
         recyclerView.setAdapter(adapter);
 
         final int columns = getResources().getInteger(R.integer.feed_columns);
