@@ -143,7 +143,6 @@ public class NewFeedFragment extends Fragment {
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
         swipeRefreshLayout.setOnRefreshListener(this::update);
 
-        update();
         return rootView;
     }
 
