@@ -47,7 +47,7 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
-    private List<Post> posts = new ArrayList<>();
+    private List<Source> sources = new ArrayList<>();
     private boolean singleView = false;
     private int sourceId;
     public NewFeedFragment(){}
@@ -74,37 +74,38 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
 
 
     public void update(){
-        adapter.update(posts);
-        swipeRefreshLayout.setRefreshing(false);
+        if (!isValid(sources)) return;
+        Parser parser = new Parser();
+        swipeRefreshLayout.setRefreshing(true);
+        parser.get(sources, new Callback<List<Post>>() {
+            @Override
+            public void onResult(List<Post> result) {
+                ((Activity) context).runOnUiThread(() -> {
+                    adapter.update(result);
+                    swipeRefreshLayout.setRefreshing(false);
+                });
+            }
+
+            @Override
+            public void onError(RSSException exception) {
+                showError(exception.getErrorType());
+            }
+        });
+
     }
     private void init(){
         AppRepository repository = new AppRepository(context);
 
-        Observer<List<Source>> observer = sources -> {
-            if (!isValid(sources)) return;
-            Parser parser = new Parser();
-            swipeRefreshLayout.setRefreshing(true);
-            parser.get(sources, new Callback<List<Post>>() {
-                @Override
-                public void onResult(List<Post> result) {
-                    posts = result;
-                    ((Activity) context).runOnUiThread(() -> update());
-                }
-
-                @Override
-                public void onError(RSSException exception) {
-                    showError(exception.getErrorType());
-                }
-            });
-        };
-
         if (!singleView) {
-            repository.getAllSources().observe(this.getViewLifecycleOwner(), observer);
+            repository.getAllSources().observe(this.getViewLifecycleOwner(), sources -> {
+                this.sources = sources;
+                update();
+            });
         } else {
             repository.getSourceById(sourceId).observe(this.getViewLifecycleOwner(), source -> {
-                List<Source> temp = new ArrayList<>();
-                temp.add(source);
-                observer.onChanged(temp);
+                this.sources.clear();
+                this.sources.add(source);
+                update();
             });
         }
     }
