@@ -104,7 +104,7 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
         container.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("source", source);
+            bundle.putSerializable("source_id", source.id);
             bundle.putSerializable("preferences", preferences);
             Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
             feedIntent.putExtras(bundle);

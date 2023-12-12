@@ -17,7 +17,7 @@ public interface SourceDao {
     @Query("SELECT * FROM source")
     LiveData<List<Source>> getAll();
 
-    @Query("SELECT * FROM source WHERE id == :id")
+    @Query("SELECT * FROM source WHERE id=:id")
     LiveData<Source> getById(int id);
 
     @Delete
