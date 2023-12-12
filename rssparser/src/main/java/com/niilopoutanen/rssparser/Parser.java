@@ -29,34 +29,40 @@ public class Parser {
         load(url, null);
     }
 
-    public List<Post> get(List<Source> sources){
+    public List<Post> get(List<Source> sources) throws RSSException{
         List<Post> posts = new ArrayList<>();
-        for(Source source : sources){
-            try{
-                Feed feed = load(source.url);
-                posts.addAll(feed.getPosts());
-            }
-            catch (RSSException ignored){}
+        if(sources == null)return posts;
 
+        for(Source source : sources){
+            if(source == null || !source.visible)continue;
+            Feed feed = load(source.url);
+            posts.addAll(feed.getPosts());
         }
         Collections.sort(posts);
         return posts;
     }
+    public void get(Source source, Callback<List<Post>> callback){
+        List<Source> tempList = new ArrayList<>();
+        tempList.add(source);
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try{
+                callback.onResult(get(tempList));
+            }
+            catch (RSSException r){
+                callback.onError(r);
+            }
+        });
+    }
     public void get(List<Source> sources, Callback<List<Post>> callback){
         Executor executor = Executors.newSingleThreadExecutor();
-        List<Post> posts = new ArrayList<>();
         executor.execute(() -> {
-            for(Source source : sources){
-                try{
-                    Feed feed = load(source.url);
-                    posts.addAll(feed.getPosts());
-                }
-                catch (RSSException r){
-                    callback.onError(r);
-                }
+            try {
+                callback.onResult(get(sources));
             }
-            Collections.sort(posts);
-            callback.onResult(posts);
+            catch (RSSException r){
+                callback.onError(r);
+            }
         });
     }
 

@@ -1,6 +1,5 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,15 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
-import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
-
-import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class SourceFragment extends Fragment {
 
@@ -61,7 +53,7 @@ public class SourceFragment extends Fragment {
         postponeEnterTransition();
 
         AppRepository repository = new AppRepository(context);
-        repository.getAll().observe(this, sources -> {
+        repository.getAllSources().observe(this, sources -> {
             if (adapter != null) {
                 adapter.updateSources(sources);
             }

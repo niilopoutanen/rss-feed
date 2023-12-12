@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,7 +29,6 @@ import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
-import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
@@ -50,11 +48,17 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
     private List<Post> posts = new ArrayList<>();
+    private boolean singleView = false;
+    private int sourceId;
     public NewFeedFragment(){}
     public NewFeedFragment(Preferences preferences){
         this.preferences = preferences;
     }
-
+    public NewFeedFragment(int sourceId, Preferences preferences){
+        this.preferences = preferences;
+        this.sourceId = sourceId;
+        this.singleView = true;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,22 +77,18 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
         adapter.update(posts);
         swipeRefreshLayout.setRefreshing(false);
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
-
+    private void init(){
         AppRepository repository = new AppRepository(context);
-        repository.getAll().observe(this.getViewLifecycleOwner(), sources -> {
-            if(!isValid(sources)){
-                return;
-            }
+
+        Observer<List<Source>> observer = sources -> {
+            if (!isValid(sources)) return;
             Parser parser = new Parser();
             swipeRefreshLayout.setRefreshing(true);
             parser.get(sources, new Callback<List<Post>>() {
                 @Override
                 public void onResult(List<Post> result) {
                     posts = result;
-                    ((Activity)context).runOnUiThread(() -> update());
+                    ((Activity) context).runOnUiThread(() -> update());
                 }
 
                 @Override
@@ -96,7 +96,23 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
                     showError(exception.getErrorType());
                 }
             });
-        });
+        };
+
+        if (!singleView) {
+            repository.getAllSources().observe(this.getViewLifecycleOwner(), observer);
+        } else {
+            repository.getSourceById(sourceId).observe(this.getViewLifecycleOwner(), source -> {
+                List<Source> temp = new ArrayList<>();
+                temp.add(source);
+                observer.onChanged(temp);
+            });
+        }
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
+
+        init();
 
         recyclerView = rootView.findViewById(R.id.feed_container);
 

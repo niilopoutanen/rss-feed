@@ -25,10 +25,13 @@ public class AppRepository {
         sources = sourceDao.getAll();
     }
 
-    public LiveData<List<Source>> getAll() {
+    public LiveData<List<Source>> getAllSources() {
         return sources;
     }
 
+    public LiveData<Source> getSourceById(int id){
+        return sourceDao.getById(id);
+    }
     public void insert(Source source) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             sourceDao.insert(source);
