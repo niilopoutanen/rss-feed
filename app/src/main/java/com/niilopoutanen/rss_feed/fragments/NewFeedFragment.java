@@ -44,6 +44,7 @@ import java.util.List;
 public class NewFeedFragment extends Fragment {
     private Context context;
     private Preferences preferences;
+    TextView title;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
@@ -103,6 +104,8 @@ public class NewFeedFragment extends Fragment {
             });
         } else {
             repository.getSourceById(sourceId).observe(this.getViewLifecycleOwner(), source -> {
+                if(title != null)title.setText(source.title);
+
                 this.sources.clear();
                 this.sources.add(source);
                 update();
@@ -117,10 +120,9 @@ public class NewFeedFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.feed_container);
 
-        TextView toolBarTitle = rootView.findViewById(R.id.feed_header);
-        //toolBarTitle.setText(viewTitle);
+        title = rootView.findViewById(R.id.feed_header);
 
-        ViewCompat.setOnApplyWindowInsetsListener(toolBarTitle, (v, windowInsets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(title, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             mlp.topMargin = insets.top;
