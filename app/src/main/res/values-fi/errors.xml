@@ -15,7 +15,7 @@
     <string name="error_no_sources_msg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
 
     <string name="error_too_many_requests">Liian monta pyyntöä.</string>
-    <string name="error_too_many_requests_msg">Olet lähettänyt liian monta pyyntöä osoitteesen %s. Odota hetki ja yritä uudelleen.</string>
+    <string name="error_too_many_requests_msg">Olet lähettänyt liian monta latauspyyntöä. Odota hetki ja yritä uudelleen.</string>
 
     <string name="error_empty_url">URL-osoite ei voi olla tyhjä.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>

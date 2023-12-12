@@ -15,7 +15,7 @@
     <string name="error_no_sources_msg">You have not added any sources to your feed yet. Go to the content- or discover-tab to add some.</string>
 
     <string name="error_too_many_requests">Too many requests.</string>
-    <string name="error_too_many_requests_msg">You have sent too many requests to %s. Wait for a while and try again.</string>
+    <string name="error_too_many_requests_msg">You have sent too many requests. Wait for a while and try again.</string>
 
     <string name="error_empty_url">URL cannot be empty.</string>
     <string name="error_url">Error reading from url.</string>

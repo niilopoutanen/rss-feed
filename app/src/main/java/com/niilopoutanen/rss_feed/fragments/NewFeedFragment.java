@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -45,7 +46,6 @@ import java.util.List;
 public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
     private Context context;
     private Preferences preferences;
-    private int colorAccent;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
@@ -64,12 +64,8 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
 
-        colorAccent = PreferencesManager.getAccentColor(context);
-
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-
-
     }
 
 
@@ -97,7 +93,7 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
 
                 @Override
                 public void onError(RSSException exception) {
-                    exception.printStackTrace();
+                    showError(exception.getErrorType());
                 }
             });
         });
@@ -124,7 +120,7 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
         recyclerView.setLayoutManager(manager);
 
         swipeRefreshLayout = rootView.findViewById(R.id.recyclerview_refresher);
-        swipeRefreshLayout.setColorSchemeColors(colorAccent);
+        swipeRefreshLayout.setColorSchemeColors(PreferencesManager.getAccentColor(context));
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
         swipeRefreshLayout.setOnRefreshListener(this::update);
 
@@ -134,7 +130,7 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
 
     private boolean isValid(List<Source> sources) {
         if (sources.size() == 0) {
-            showError(0, null);
+            showError(0);
             return false;
         }
         if (!isAdded()) {
@@ -143,16 +139,16 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
         ConnectivityManager connectionManager = context.getSystemService(ConnectivityManager.class);
         NetworkInfo currentNetwork = connectionManager.getActiveNetworkInfo();
         if (currentNetwork == null || !currentNetwork.isConnected()) {
-            showError(1, null);
+            showError(1);
             return false;
         } else {
             return true;
         }
     }
-    private void showError(int errorCode, Source errorCause) {
+    private void showError(int errorCode) {
         switch (errorCode) {
             case 429:
-                adapter.addNotification(context.getString(R.string.error_too_many_requests), String.format(context.getString(R.string.error_too_many_requests_msg), errorCause.url));
+                adapter.addNotification(context.getString(R.string.error_too_many_requests), context.getString(R.string.error_too_many_requests_msg));
                 break;
             case 0:
                 adapter.addNotification(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));
@@ -197,4 +193,9 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("preferences", preferences);
+    }
 }
