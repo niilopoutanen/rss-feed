@@ -246,7 +246,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
     }
     private static void setCardSpacing(View view, Context context) {
         int margin = PreferencesManager.dpToPx(10, context);
-        int gap = PreferencesManager.dpToPx(FeedFragment.CARDGAP_DP, context);
+        int gap = PreferencesManager.dpToPx(20, context);
 
         boolean hasSideGap = context.getResources().getInteger(R.integer.feed_columns) > 1;
 

@@ -1,9 +1,11 @@
 package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -11,33 +13,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements RecyclerViewInterface{
 
     private final int TYPE_NOTICE = 2;
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<>();
     private final Map<String, String> notices = new HashMap<>();
     private final Context context;
     private final Preferences preferences;
-    private final RecyclerViewInterface recyclerViewInterface;
-    public FeedAdapter(List<Post> posts, Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
-        this.posts = posts;
+
+    public FeedAdapter(Context context, Preferences preferences){
         this.context = context;
         this.preferences = preferences;
-        this.recyclerViewInterface = recyclerViewInterface;
-    }
-    public FeedAdapter(Context context, Preferences preferences, RecyclerViewInterface recyclerViewInterface){
-        this.context = context;
-        this.preferences = preferences;
-        this.recyclerViewInterface = recyclerViewInterface;
     }
     public void update(List<Post> newPosts){
         this.posts = new ArrayList<>(newPosts);
@@ -62,7 +59,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return createNotice();
         }
         else{
-            return FeedCard.create(parent, preferences, recyclerViewInterface);
+            return FeedCard.create(parent, preferences, this);
         }
     }
 
@@ -123,5 +120,29 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return 0;
         }
         return posts.size();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        // Index out of bounds catch
+        if (position >= posts.size()) {
+            return;
+        }
+        Post clicked = posts.get(position);
+        if(clicked.link != null){
+            Intent articleIntent = new Intent(context, ArticleActivity.class);
+            articleIntent.putExtra("preferences", preferences);
+            articleIntent.putExtra("post", posts.get(position));
+
+            context.startActivity(articleIntent);
+        }
+        else{
+            Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+
     }
 }

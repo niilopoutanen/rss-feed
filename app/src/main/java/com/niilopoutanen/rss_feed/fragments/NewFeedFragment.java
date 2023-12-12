@@ -41,7 +41,7 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
+public class NewFeedFragment extends Fragment {
     private Context context;
     private Preferences preferences;
     private RecyclerView recyclerView;
@@ -129,7 +129,7 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
         });
 
 
-        adapter = new FeedAdapter(context, preferences, this);
+        adapter = new FeedAdapter(context, preferences);
         recyclerView.setAdapter(adapter);
 
         final int columns = getResources().getInteger(R.integer.feed_columns);
@@ -180,30 +180,7 @@ public class NewFeedFragment extends Fragment implements RecyclerViewInterface {
         }
         if(swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
-    @Override
-    public void onItemClick(int position) {
-        // Index out of bounds catch
-        if (position >= posts.size()) {
-            return;
-        }
-        Post clicked = posts.get(position);
-        if(clicked.link != null){
-            Intent articleIntent = new Intent(context, ArticleActivity.class);
-            articleIntent.putExtra("preferences", preferences);
-            articleIntent.putExtra("post", posts.get(position));
 
-            PreferencesManager.vibrate(recyclerView.getChildAt(0));
-            context.startActivity(articleIntent);
-        }
-        else{
-            Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onItemLongClick(int position) {
-
-    }
     public void scrollToTop() {
         if (recyclerView != null) {
             recyclerView.smoothScrollToPosition(0);
