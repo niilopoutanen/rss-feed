@@ -49,7 +49,7 @@ public class NewFeedFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
     private List<Source> sources = new ArrayList<>();
-    private boolean singleView = false;
+    private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
     private int sourceId;
     public NewFeedFragment(){}
     public NewFeedFragment(Preferences preferences){
@@ -58,7 +58,7 @@ public class NewFeedFragment extends Fragment {
     public NewFeedFragment(int sourceId, Preferences preferences){
         this.preferences = preferences;
         this.sourceId = sourceId;
-        this.singleView = true;
+        this.type = FEED_TYPE.TYPE_SINGLE;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class NewFeedFragment extends Fragment {
     private void init(){
         AppRepository repository = new AppRepository(context);
 
-        if (!singleView) {
+        if (type == FEED_TYPE.TYPE_MULTI) {
             repository.getAllSources().observe(this.getViewLifecycleOwner(), sources -> {
                 this.sources = sources;
                 update();
@@ -193,4 +193,6 @@ public class NewFeedFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
     }
+
+    private enum FEED_TYPE{ TYPE_SINGLE, TYPE_MULTI }
 }
