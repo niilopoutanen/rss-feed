@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -26,12 +27,19 @@ public class Parser {
     public Parser(){
 
     }
-    public void get(String url){
+    public void load(String url){
         Document document = WebUtils.connect(url);
         parse(document);
     }
-    public void get(List<Source> sources){
-        throw new NotImplementedError();
+    public static List<Post> loadMultiple(List<Source> sources){
+        List<Post> posts = new ArrayList<>();
+        for(Source source : sources){
+            Parser parser = new Parser();
+            parser.load(source.url);
+            posts.addAll(parser.posts);
+        }
+        Collections.sort(posts);
+        return posts;
     }
 
     public void parse(Document document){
