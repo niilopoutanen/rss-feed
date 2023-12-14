@@ -27,6 +27,16 @@ public class WebUtils {
     public static String connect(URL url, boolean returnString) throws IOException, RSSException {
         return fetch(url);
     }
+    public static Document connect(String urlStr){
+        try{
+            URL url = new URL(urlStr);
+            String result = fetch(url);
+            Document document = Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
+            return document;
+        }
+        catch (Exception ignored){}
+        return null;
+    }
 
     private static String fetch(URL url) throws IOException, RSSException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

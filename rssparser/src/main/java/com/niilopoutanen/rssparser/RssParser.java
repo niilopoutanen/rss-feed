@@ -1,13 +1,17 @@
 package com.niilopoutanen.rssparser;
 
 import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rss.Source;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class RssParser {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RssParser extends ParserBase {
     private final Feed feed = new Feed();
 
     public Feed parse(Document document){
@@ -24,21 +28,25 @@ public class RssParser {
         Element titleElement = channel.selectFirst("title");
         if(titleElement != null){
             feed.setTitle(titleElement.text());
+            source.title = titleElement.text();
         }
 
         Element linkElement = channel.selectFirst("link");
         if (linkElement != null) {
             feed.setLink(linkElement.text());
+            source.url = linkElement.text();
         }
 
         Element descElement = channel.selectFirst("description");
         if (descElement != null) {
             feed.setDescription(descElement.text());
+            source.description = descElement.text();
         }
 
         Element languageElement = channel.selectFirst("language");
         if (languageElement != null) {
             feed.setLanguage(languageElement.text());
+            source.language = languageElement.text();
         }
 
         Element copyrightElement = channel.selectFirst("copyright");
@@ -156,6 +164,7 @@ public class RssParser {
 
             handleNullParams(post);
             feed.addItem(post);
+            posts.add(post);
         }
     }
 

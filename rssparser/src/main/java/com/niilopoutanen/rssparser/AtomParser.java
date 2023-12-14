@@ -1,14 +1,19 @@
 package com.niilopoutanen.rssparser;
 
 import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rss.Source;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class AtomParser {
+import java.util.ArrayList;
+import java.util.List;
+
+public class AtomParser extends ParserBase {
     private final Feed feed = new Feed();
+
 
     public Feed parse(Document document){
         parseFeed(document);
