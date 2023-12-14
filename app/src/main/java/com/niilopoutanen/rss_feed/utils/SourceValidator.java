@@ -3,8 +3,8 @@ package com.niilopoutanen.rss_feed.utils;
 
 import androidx.annotation.NonNull;
 
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.Feed;
 import com.niilopoutanen.rssparser.IconFinder;

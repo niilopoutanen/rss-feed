@@ -1,7 +1,5 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.Font.ROBOTO_MONO;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;

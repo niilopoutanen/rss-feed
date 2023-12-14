@@ -19,22 +19,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.database.AppDatabase;
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rss_feed.utils.SourceValidator;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.RSSException;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class AddSourceFragment extends Fragment {
 

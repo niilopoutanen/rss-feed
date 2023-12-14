@@ -17,7 +17,6 @@ import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.fragments.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;

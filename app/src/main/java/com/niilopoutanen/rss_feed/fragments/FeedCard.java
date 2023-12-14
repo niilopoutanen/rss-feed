@@ -32,8 +32,6 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
-import java.util.Date;
-
 public class FeedCard extends RecyclerView.ViewHolder{
     private final TextView title;
     private final TextView desc;
