@@ -14,11 +14,9 @@ import java.util.List;
 public class AtomParser extends ParserBase {
     private final Feed feed = new Feed();
 
-
-    public Feed parse(Document document){
+    public void parse(Document document){
         parseFeed(document);
         parseItems(document.select("entry"));
-        return this.feed;
     }
 
     private void parseFeed(Document document){

@@ -95,11 +95,11 @@ public class Parser {
     private void parse(Document document){
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
-            this.feed = rssParser.parse(document);
+            //this.feed = rssParser.parse(document);
         }
         else if(WebUtils.isAtom(document)){
             AtomParser atomParser = new AtomParser();
-            this.feed = atomParser.parse(document);
+            //this.feed = atomParser.parse(document);
         }
     }
     public static Date parseDate(String dateString){

@@ -14,10 +14,9 @@ import java.util.List;
 public class RssParser extends ParserBase {
     private final Feed feed = new Feed();
 
-    public Feed parse(Document document){
+    public void parse(Document document){
         parseFeed(document);
         parseItems(document.select("item"));
-        return this.feed;
     }
 
     private void parseFeed(Document document){

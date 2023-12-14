@@ -3,6 +3,8 @@ package com.niilopoutanen.rssparser;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
 
+import org.jsoup.nodes.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,4 +20,6 @@ public abstract class ParserBase {
     public List<Post> getPosts() {
         return posts;
     }
+
+    public abstract void parse(Document document);
 }
