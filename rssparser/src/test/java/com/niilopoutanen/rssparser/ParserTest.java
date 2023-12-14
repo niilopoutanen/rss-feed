@@ -1,12 +1,15 @@
 package com.niilopoutanen.rssparser;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import com.niilopoutanen.rss.Post;
+
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.niilopoutanen.rss.Post;
 
 class ParserTest {
     @Test

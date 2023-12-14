@@ -1,7 +1,5 @@
 package com.niilopoutanen.rssparser;
 
-import android.telecom.Call;
-
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
 

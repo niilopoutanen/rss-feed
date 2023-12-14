@@ -1,6 +1,5 @@
 package com.niilopoutanen.rss;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
