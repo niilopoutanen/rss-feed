@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
 public class AtomParser extends ParserBase {
 
 
-    private void parseSource(Document document){
+    protected void parseSource(Document document){
         Element channel = document.selectFirst("feed");
         if(channel == null){
             return;
@@ -41,7 +41,7 @@ public class AtomParser extends ParserBase {
             source.image = icon.text();
         }
     }
-    private void parsePosts(Document document){
+    protected void parsePosts(Document document){
         Elements itemObjects = document.select("entry");
         for (Element itemElement : itemObjects) {
             Post post = new Post();

@@ -26,10 +26,6 @@ public abstract class ParserBase {
         parsePosts(document);
     }
 
-    private void parseSource(Document document){
-
-    }
-    private void parsePosts(Document document){
-
-    }
+    protected abstract void parseSource(Document document);
+    protected abstract void parsePosts(Document document);
 }

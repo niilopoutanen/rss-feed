@@ -10,7 +10,7 @@ import org.jsoup.select.Elements;
 
 public class RssParser extends ParserBase {
 
-    private void parseSource(Document document){
+    protected void parseSource(Document document){
         Element channel = document.selectFirst("channel");
         if(channel == null){
             return;
@@ -35,7 +35,7 @@ public class RssParser extends ParserBase {
             source.language = languageElement.text();
         }
     }
-    private void parsePosts(Document document){
+    protected void parsePosts(Document document){
         Elements itemObjects = document.select("item");
         for (Element itemElement : itemObjects) {
             Post post = new Post();
