@@ -1,8 +1,7 @@
 package com.niilopoutanen.rssparser.parsers;
 
 import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rssparser.Feed;
-import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rssparser.NewParser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,8 +9,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class RssParser extends ParserBase {
-    private final Feed feed = new Feed();
-
 
     private void parseSource(Document document){
         Element channel = document.selectFirst("channel");
@@ -20,48 +17,22 @@ public class RssParser extends ParserBase {
         }
         Element titleElement = channel.selectFirst("title");
         if(titleElement != null){
-            feed.setTitle(titleElement.text());
             source.title = titleElement.text();
         }
 
         Element linkElement = channel.selectFirst("link");
         if (linkElement != null) {
-            feed.setLink(linkElement.text());
             source.url = linkElement.text();
         }
 
         Element descElement = channel.selectFirst("description");
         if (descElement != null) {
-            feed.setDescription(descElement.text());
             source.description = descElement.text();
         }
 
         Element languageElement = channel.selectFirst("language");
         if (languageElement != null) {
-            feed.setLanguage(languageElement.text());
             source.language = languageElement.text();
-        }
-
-        Element copyrightElement = channel.selectFirst("copyright");
-        if (copyrightElement != null) {
-            feed.setCopyright(copyrightElement.text());
-        }
-
-        Element pubDateElement = channel.selectFirst("pubDate");
-        if (pubDateElement != null) {
-            feed.setPubDate(pubDateElement.text());
-        }
-
-        Element lastBuildDateElement = channel.selectFirst("lastBuildDate");
-        if (lastBuildDateElement != null) {
-            feed.setLastBuildDate(lastBuildDateElement.text());
-        }
-
-        Elements categories = channel.select("category");
-        if (categories.size() > 0) {
-            for(Element category : categories){
-                feed.addCategory(category.text());
-            }
         }
     }
     private void parsePosts(Document document){
@@ -96,7 +67,7 @@ public class RssParser extends ParserBase {
 
             Element pubDateElement = itemElement.selectFirst("pubDate");
             if (pubDateElement != null) {
-                post.pubDate = Parser.parseDate(pubDateElement.text());
+                post.pubDate = NewParser.parseDate(pubDateElement.text());
             }
 
             Element summaryElement = itemElement.selectFirst("summary");
@@ -133,7 +104,7 @@ public class RssParser extends ParserBase {
             if (contentEncoded != null && post.image == null) {
                 int startIndex = contentEncoded.toString().indexOf("<img");
                 if (startIndex != -1 && post.image == null) {
-                    post.image = Parser.parsePattern(contentEncoded.toString(), "src");
+                    post.image = NewParser.parsePattern(contentEncoded.toString(), "src");
                 }
             }
 
@@ -145,7 +116,7 @@ public class RssParser extends ParserBase {
             if (descElement != null && post.image == null) {
                 int startIndex = descElement.toString().indexOf("<img");
                 if (startIndex != -1 && post.image == null) {
-                    post.image = Parser.parsePattern(descElement.toString(), "src");
+                    post.image = NewParser.parsePattern(descElement.toString(), "src");
                 }
             }
 
@@ -157,10 +128,9 @@ public class RssParser extends ParserBase {
             }
 
             if(post.author == null){
-                post.author = feed.getTitle();
+                post.author = source.title;
             }
 
-            feed.addItem(post);
             posts.add(post);
         }
     }

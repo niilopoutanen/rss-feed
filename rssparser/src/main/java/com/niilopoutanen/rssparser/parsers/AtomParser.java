@@ -1,8 +1,7 @@
 package com.niilopoutanen.rssparser.parsers;
 
 import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rssparser.Feed;
-import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rssparser.NewParser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,7 +9,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class AtomParser extends ParserBase {
-    private final Feed feed = new Feed();
 
 
     private void parseSource(Document document){
@@ -20,47 +18,27 @@ public class AtomParser extends ParserBase {
         }
         Element titleElement = channel.selectFirst("title");
         if(titleElement != null){
-            feed.setTitle(titleElement.text());
             source.title = titleElement.text();
-        }
-
-        Element lastBuildDate = channel.selectFirst("updated");
-        if(lastBuildDate != null){
-            feed.setLastBuildDate(Parser.parseDate(lastBuildDate.text()));
         }
 
         Element link = channel.selectFirst("link");
         if(link != null){
-            feed.setLink(link.attr("href"));
             source.url = link.attr("href");
         }
 
-        Element category = channel.selectFirst("category");
-        if(category != null){
-            feed.addCategory(category.attr("term"));
-        }
-
         Element guid = channel.selectFirst("id");
-        if(guid != null && feed.getLink() == null){
-            feed.setLink(guid.text());
+        if(guid != null && source.url == null){
             source.url = guid.text();
         }
 
         Element image = channel.selectFirst("logo");
         if(image != null){
-            feed.setImageUrl(image.text());
             source.image = image.text();
         }
 
         Element icon = channel.selectFirst("icon");
-        if(icon != null && feed.getImageUrl() == null){
-            feed.setImageUrl(icon.text());
+        if(icon != null && source.image == null){
             source.image = icon.text();
-        }
-
-        Element copyright = channel.selectFirst("rights");
-        if(copyright != null){
-            feed.setCopyright(copyright.text());
         }
     }
     private void parsePosts(Document document){
@@ -97,7 +75,7 @@ public class AtomParser extends ParserBase {
 
             Element pubDate = itemElement.selectFirst("published");
             if (pubDate != null) {
-                post.pubDate = Parser.parseDate(pubDate.text());
+                post.pubDate = NewParser.parseDate(pubDate.text());
             }
 
             Elements author = itemElement.select("author");
@@ -117,10 +95,10 @@ public class AtomParser extends ParserBase {
 
 
             if(post.author == null){
-                post.author = feed.getTitle();
+                post.author = source.title;
             }
 
-            feed.addItem(post);
+            posts.add(post);
         }
     }
 

@@ -14,18 +14,10 @@ import java.net.URL;
 class ParserTest {
     @Test
     void loadFromUrl(){
-        Parser parser = new Parser();
-        Feed feed;
-        try {
-            feed = parser.load("https://www.9to5mac.com/feed");
-            Post post = feed.getItemAt(1);
-            assertNotNull(post.image);
-            assertFalse(feed.getPosts().isEmpty());
-        }
-        catch (RSSException e) {
-            e.printStackTrace();
-            fail();
-        }
+        NewParser parser = new NewParser();
+        parser.get("https://www.9to5mac.com/feed");
+        Post post = parser.posts.get(1);
+        assertNotNull(post.image);
     }
 
     @Test
