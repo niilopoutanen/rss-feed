@@ -17,11 +17,11 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewParser {
+public class Parser {
     public Source source;
     public List<Post> posts = new ArrayList<>();
 
-    public NewParser(){
+    public Parser(){
 
     }
     public void get(String url){

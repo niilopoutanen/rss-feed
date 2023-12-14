@@ -1,7 +1,7 @@
 package com.niilopoutanen.rssparser.parsers;
 
 import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rssparser.NewParser;
+import com.niilopoutanen.rssparser.Parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -75,7 +75,7 @@ public class AtomParser extends ParserBase {
 
             Element pubDate = itemElement.selectFirst("published");
             if (pubDate != null) {
-                post.pubDate = NewParser.parseDate(pubDate.text());
+                post.pubDate = Parser.parseDate(pubDate.text());
             }
 
             Elements author = itemElement.select("author");

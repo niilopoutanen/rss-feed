@@ -1,7 +1,7 @@
 package com.niilopoutanen.rssparser.parsers;
 
 import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rssparser.NewParser;
+import com.niilopoutanen.rssparser.Parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -67,7 +67,7 @@ public class RssParser extends ParserBase {
 
             Element pubDateElement = itemElement.selectFirst("pubDate");
             if (pubDateElement != null) {
-                post.pubDate = NewParser.parseDate(pubDateElement.text());
+                post.pubDate = Parser.parseDate(pubDateElement.text());
             }
 
             Element summaryElement = itemElement.selectFirst("summary");
@@ -104,7 +104,7 @@ public class RssParser extends ParserBase {
             if (contentEncoded != null && post.image == null) {
                 int startIndex = contentEncoded.toString().indexOf("<img");
                 if (startIndex != -1 && post.image == null) {
-                    post.image = NewParser.parsePattern(contentEncoded.toString(), "src");
+                    post.image = Parser.parsePattern(contentEncoded.toString(), "src");
                 }
             }
 
@@ -116,7 +116,7 @@ public class RssParser extends ParserBase {
             if (descElement != null && post.image == null) {
                 int startIndex = descElement.toString().indexOf("<img");
                 if (startIndex != -1 && post.image == null) {
-                    post.image = NewParser.parsePattern(descElement.toString(), "src");
+                    post.image = Parser.parsePattern(descElement.toString(), "src");
                 }
             }
 

@@ -14,7 +14,7 @@ import java.net.URL;
 class ParserTest {
     @Test
     void loadFromUrl(){
-        NewParser parser = new NewParser();
+        Parser parser = new Parser();
         parser.get("https://www.9to5mac.com/feed");
         Post post = parser.posts.get(1);
         assertNotNull(post.image);
