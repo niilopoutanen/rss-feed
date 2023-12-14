@@ -17,6 +17,8 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kotlin.NotImplementedError;
+
 public class Parser {
     public Source source;
     public List<Post> posts = new ArrayList<>();
@@ -28,18 +30,21 @@ public class Parser {
         Document document = WebUtils.connect(url);
         parse(document);
     }
+    public void get(List<Source> sources){
+        throw new NotImplementedError();
+    }
 
     public void parse(Document document){
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
             rssParser.parse(document);
-            source = rssParser.getSource();
+            source = (rssParser.getSource());
             posts = rssParser.getPosts();
         }
         else if(WebUtils.isAtom(document)){
             AtomParser atomParser = new AtomParser();
             atomParser.parse(document);
-            source = atomParser.getSource();
+            source = (atomParser.getSource());
             posts = atomParser.getPosts();
         }
     }

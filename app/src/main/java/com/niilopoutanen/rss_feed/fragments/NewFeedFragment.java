@@ -73,19 +73,10 @@ public class NewFeedFragment extends Fragment {
         if (!isValid(sources)) return;
         Parser parser = new Parser();
         swipeRefreshLayout.setRefreshing(true);
-        parser.get(sources, new Callback<List<Post>>() {
-            @Override
-            public void onResult(List<Post> result) {
-                ((Activity) context).runOnUiThread(() -> {
-                    adapter.update(result);
-                    swipeRefreshLayout.setRefreshing(false);
-                });
-            }
-
-            @Override
-            public void onError(RSSException exception) {
-                showError(exception.getErrorType());
-            }
+        parser.get(sources);
+        ((Activity) context).runOnUiThread(() -> {
+            adapter.update(parser.posts);
+            swipeRefreshLayout.setRefreshing(false);
         });
 
     }
