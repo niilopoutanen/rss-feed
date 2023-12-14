@@ -14,12 +14,8 @@ import java.util.List;
 public class RssParser extends ParserBase {
     private final Feed feed = new Feed();
 
-    public void parse(Document document){
-        parseFeed(document);
-        parseItems(document.select("item"));
-    }
 
-    private void parseFeed(Document document){
+    private void parseSource(Document document){
         Element channel = document.selectFirst("channel");
         if(channel == null){
             return;
@@ -70,7 +66,8 @@ public class RssParser extends ParserBase {
             }
         }
     }
-    private void parseItems(Elements itemObjects){
+    private void parsePosts(Document document){
+        Elements itemObjects = document.select("item");
         for (Element itemElement : itemObjects) {
             Post post = new Post();
             Element titleElement = itemElement.selectFirst("title");
@@ -161,15 +158,12 @@ public class RssParser extends ParserBase {
                 }
             }
 
-            handleNullParams(post);
+            if(post.author == null){
+                post.author = feed.getTitle();
+            }
+
             feed.addItem(post);
             posts.add(post);
-        }
-    }
-
-    private void handleNullParams(Post post){
-        if(post.author == null){
-            post.author = feed.getTitle();
         }
     }
 }

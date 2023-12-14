@@ -14,12 +14,8 @@ import java.util.List;
 public class AtomParser extends ParserBase {
     private final Feed feed = new Feed();
 
-    public void parse(Document document){
-        parseFeed(document);
-        parseItems(document.select("entry"));
-    }
 
-    private void parseFeed(Document document){
+    private void parseSource(Document document){
         Element channel = document.selectFirst("feed");
         if(channel == null){
             return;
@@ -27,6 +23,7 @@ public class AtomParser extends ParserBase {
         Element titleElement = channel.selectFirst("title");
         if(titleElement != null){
             feed.setTitle(titleElement.text());
+            source.title = titleElement.text();
         }
 
         Element lastBuildDate = channel.selectFirst("updated");
@@ -37,6 +34,7 @@ public class AtomParser extends ParserBase {
         Element link = channel.selectFirst("link");
         if(link != null){
             feed.setLink(link.attr("href"));
+            source.url = link.attr("href");
         }
 
         Element category = channel.selectFirst("category");
@@ -47,16 +45,19 @@ public class AtomParser extends ParserBase {
         Element guid = channel.selectFirst("id");
         if(guid != null && feed.getLink() == null){
             feed.setLink(guid.text());
+            source.url = guid.text();
         }
 
         Element image = channel.selectFirst("logo");
         if(image != null){
             feed.setImageUrl(image.text());
+            source.image = image.text();
         }
 
         Element icon = channel.selectFirst("icon");
         if(icon != null && feed.getImageUrl() == null){
             feed.setImageUrl(icon.text());
+            source.image = icon.text();
         }
 
         Element copyright = channel.selectFirst("rights");
@@ -64,7 +65,8 @@ public class AtomParser extends ParserBase {
             feed.setCopyright(copyright.text());
         }
     }
-    private void parseItems(Elements itemObjects){
+    private void parsePosts(Document document){
+        Elements itemObjects = document.select("entry");
         for (Element itemElement : itemObjects) {
             Post post = new Post();
             Element titleElement = itemElement.selectFirst("title");
@@ -116,13 +118,12 @@ public class AtomParser extends ParserBase {
             }
 
 
-            handleNullParams(post);
+            if(post.author == null){
+                post.author = feed.getTitle();
+            }
+
             feed.addItem(post);
         }
     }
-    private void handleNullParams(Post post){
-        if(post.author == null){
-            post.author = feed.getTitle();
-        }
-    }
+
 }
