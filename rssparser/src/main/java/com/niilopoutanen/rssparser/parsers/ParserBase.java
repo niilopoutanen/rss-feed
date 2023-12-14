@@ -1,4 +1,4 @@
-package com.niilopoutanen.rssparser;
+package com.niilopoutanen.rssparser.parsers;
 
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;

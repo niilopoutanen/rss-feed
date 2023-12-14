@@ -2,6 +2,8 @@ package com.niilopoutanen.rssparser;
 
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rssparser.parsers.AtomParser;
+import com.niilopoutanen.rssparser.parsers.RssParser;
 
 import org.jsoup.nodes.Document;
 
