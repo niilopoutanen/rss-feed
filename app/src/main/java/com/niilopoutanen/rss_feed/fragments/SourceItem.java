@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.activities.MainActivity;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
@@ -139,19 +140,9 @@ public class SourceItem extends RecyclerView.ViewHolder{
     }
     private void initButton(FeedResult result){
         createIcon();
-        List<Source> savedSources = SaveSystem.loadContent(context);
 
-        Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
         Drawable plus = AppCompatResources.getDrawable(context, R.drawable.icon_plus);
 
-        for (Source source : savedSources) {
-            if (source.url.equalsIgnoreCase(WebUtils.formatUrl(result.feedId).toString())) {
-                result.alreadyAdded = true;
-                setIcon(checkmark);
-                return;
-            }
-        }
-        // If not added
         setIcon(plus);
 
         button.setOnClickListener(v -> {
@@ -161,8 +152,11 @@ public class SourceItem extends RecyclerView.ViewHolder{
                 source.url = WebUtils.formatUrl(result.feedId).toString();
                 source.image = result.visualUrl;
 
-                SaveSystem.saveContent(v.getContext(), source);
+                AppRepository repository = new AppRepository(context);
+                repository.insert(source);
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
+
+                Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
                 setIcon(checkmark);
             } else {
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourcealreadyadded), Toast.LENGTH_LONG).show();

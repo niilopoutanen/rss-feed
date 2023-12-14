@@ -19,5 +19,5 @@ public class Source implements Serializable {
     public String image;
     public String language;
 
-    public boolean visible;
+    public boolean visible = true;
 }
