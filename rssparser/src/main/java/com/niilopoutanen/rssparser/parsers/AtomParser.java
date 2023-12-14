@@ -10,7 +10,6 @@ import org.jsoup.select.Elements;
 
 public class AtomParser extends ParserBase {
 
-
     protected void parseSource(Document document){
         Element channel = document.selectFirst("feed");
         if(channel == null){
