@@ -14,7 +14,6 @@ import java.net.URL;
 class ParserTest {
     @Test
     void loadFromUrl(){
-        assertTrue(true);
         Parser parser = new Parser();
         parser.load("https://www.9to5mac.com/feed");
         Post post = parser.posts.get(1);
@@ -34,7 +33,7 @@ class ParserTest {
 
     @Test
     void findFeeds() throws RSSException {
-        String[] urls = new String[]{"www.9to5mac.com", "https://www.youtube.com/@Apple"};
+        String[] urls = new String[]{"www.9to5mac.com", "https://www.youtube.com/@Apple", "iltalehti.fi", "hs.fi"};
         for(String url : urls){
             FeedFinder feedFinder = new FeedFinder();
             URL result = feedFinder.find(url);
