@@ -12,8 +12,8 @@ import java.util.List;
 public class FeedFinder {
     private URL url;
     private URL result;
-    public URL find(String urlStr) throws MalformedURLException, RSSException {
-        this.url = new URL(urlStr);
+    public URL find(String urlStr) throws RSSException {
+        this.url = WebUtils.formatUrl(urlStr);
         lookup();
 
         return result;
@@ -22,7 +22,7 @@ public class FeedFinder {
     private void lookup() throws RSSException{
         try{
             Document document = WebUtils.connect(url);
-            Elements links = document.head().select("link[type=application/rss+xml]");
+            Elements links = document.select("link[type=application/rss+xml]");
             if(links.size() > 0){
                 result = new URL(links.get(0).attr("href"));
             }

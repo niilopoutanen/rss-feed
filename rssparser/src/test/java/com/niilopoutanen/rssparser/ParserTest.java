@@ -8,11 +8,13 @@ import com.niilopoutanen.rss.Post;
 
 import org.junit.jupiter.api.Test;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 class ParserTest {
     @Test
     void loadFromUrl(){
+        assertTrue(true);
         Parser parser = new Parser();
         parser.load("https://www.9to5mac.com/feed");
         Post post = parser.posts.get(1);
@@ -27,6 +29,16 @@ class ParserTest {
         }
         catch (Exception e){
             fail(e);
+        }
+    }
+
+    @Test
+    void findFeeds() throws RSSException {
+        String[] urls = new String[]{"www.9to5mac.com", "view-source:https://www.youtube.com/@Apple"};
+        for(String url : urls){
+            FeedFinder feedFinder = new FeedFinder();
+            URL result = feedFinder.find(url);
+            assertNotNull(result);
         }
     }
 }
