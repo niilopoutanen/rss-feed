@@ -34,7 +34,7 @@ class ParserTest {
 
     @Test
     void findFeeds() throws RSSException {
-        String[] urls = new String[]{"www.9to5mac.com", "view-source:https://www.youtube.com/@Apple"};
+        String[] urls = new String[]{"www.9to5mac.com", "https://www.youtube.com/@Apple"};
         for(String url : urls){
             FeedFinder feedFinder = new FeedFinder();
             URL result = feedFinder.find(url);
