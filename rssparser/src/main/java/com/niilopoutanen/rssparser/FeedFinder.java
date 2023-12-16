@@ -19,6 +19,9 @@ public class FeedFinder {
         return result;
     }
 
+    public URL getResult(){
+        return result;
+    }
     private void lookup() throws RSSException{
         try{
             Document document = WebUtils.connect(url);
