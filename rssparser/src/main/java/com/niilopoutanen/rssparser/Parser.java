@@ -34,13 +34,13 @@ public class Parser {
         }
         FeedFinder feedFinder = new FeedFinder();
         feedFinder.find(userInput.url);
-        if(feedFinder.getResult() != null || !feedFinder.getResult().toString().isEmpty(){
+        if(feedFinder.getResult() != null || !feedFinder.getResult().toString().isEmpty()){
             result.url = feedFinder.getResult().toString();
         }
 
         result.image = IconFinder.get(result.url);
 
-        
+
 
         return result;
     }
