@@ -27,23 +27,6 @@ public class Parser {
     public Parser(){
 
     }
-    public Source validate(Source userInput) throws RSSException{
-        Source result = new Source();
-        if(userInput.url == null || userInput.url.isEmpty()){
-            throw new RSSException("empty url");
-        }
-        FeedFinder feedFinder = new FeedFinder();
-        feedFinder.find(userInput.url);
-        if(feedFinder.getResult() != null || !feedFinder.getResult().toString().isEmpty()){
-            result.url = feedFinder.getResult().toString();
-        }
-
-        result.image = IconFinder.get(result.url);
-
-
-
-        return result;
-    }
     public void load(String url){
         Document document = WebUtils.connect(url);
         parse(document);
