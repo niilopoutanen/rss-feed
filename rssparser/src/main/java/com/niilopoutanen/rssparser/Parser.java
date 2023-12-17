@@ -78,6 +78,13 @@ public class Parser {
             source = (atomParser.getSource());
             posts = atomParser.getPosts();
         }
+
+        if(source != null){
+            if(source.image == null || source.image.isEmpty()){
+                source.image = IconFinder.get(source.url);
+            }
+        }
+
     }
 
     public static Date parseDate(String dateString){
