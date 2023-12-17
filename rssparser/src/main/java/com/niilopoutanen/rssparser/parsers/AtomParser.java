@@ -15,6 +15,7 @@ public class AtomParser extends ParserBase {
         if(channel == null){
             return;
         }
+
         Element titleElement = channel.selectFirst("title");
         if(titleElement != null){
             source.title = titleElement.text();
@@ -22,7 +23,7 @@ public class AtomParser extends ParserBase {
 
         Element link = channel.selectFirst("link");
         if(link != null){
-            source.url = link.attr("href");
+            source.home = link.attr("href");
         }
 
         Element guid = channel.selectFirst("id");

@@ -50,6 +50,7 @@ public class Parser {
     public void load(String url){
         Document document = WebUtils.connect(url);
         parse(document);
+        source.url = url;
     }
     public static List<Post> loadMultiple(List<Source> sources){
         List<Post> posts = new ArrayList<>();
@@ -78,13 +79,6 @@ public class Parser {
             source = (atomParser.getSource());
             posts = atomParser.getPosts();
         }
-
-        if(source != null){
-            if(source.image == null || source.image.isEmpty()){
-                source.image = IconFinder.get(source.url);
-            }
-        }
-
     }
 
     public static Date parseDate(String dateString){

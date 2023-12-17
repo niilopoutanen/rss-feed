@@ -15,6 +15,7 @@ public class RssParser extends ParserBase {
         if(channel == null){
             return;
         }
+
         Element titleElement = channel.selectFirst("title");
         if(titleElement != null){
             source.title = titleElement.text();
@@ -22,7 +23,7 @@ public class RssParser extends ParserBase {
 
         Element linkElement = channel.selectFirst("link");
         if (linkElement != null) {
-            source.url = linkElement.text();
+            source.home = linkElement.text();
         }
 
         Element descElement = channel.selectFirst("description");

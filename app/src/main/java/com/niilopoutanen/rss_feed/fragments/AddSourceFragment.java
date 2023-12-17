@@ -26,6 +26,7 @@ import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rssparser.IconFinder;
 import com.niilopoutanen.rssparser.Parser;
 
 import java.util.concurrent.Executor;
@@ -78,7 +79,13 @@ public class AddSourceFragment extends Fragment {
                 Parser parser = new Parser();
                 parser.load(userInput.url);
                 source = parser.source;
+                source.url = userInput.url;
                 source.visible = showInFeed.isChecked();
+
+                if(source.image == null || source.image.isEmpty()){
+                    source.image = IconFinder.get(source.url);
+                }
+
                 save(source);
 
                 activity.runOnUiThread(() -> {
