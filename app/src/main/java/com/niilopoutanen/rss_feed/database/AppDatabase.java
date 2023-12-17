@@ -21,15 +21,16 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+              Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            AppDatabase.class,
-                            DB_NAME
-                    )
-                    .build();
+                                context.getApplicationContext(),
+                                AppDatabase.class,
+                                DB_NAME
+                      )
+                      .build();
         }
         return instance;
     }

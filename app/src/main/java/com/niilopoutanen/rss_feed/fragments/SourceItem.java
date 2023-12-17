@@ -30,7 +30,7 @@ import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.WebUtils;
 import com.squareup.picasso.Picasso;
 
-public class SourceItem extends RecyclerView.ViewHolder{
+public class SourceItem extends RecyclerView.ViewHolder {
     private final TextView title;
     private final TextView desc;
     private final ImageView icon;
@@ -39,6 +39,7 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
     private final Preferences preferences;
     private final Context context;
+
     public SourceItem(@NonNull View itemView, Preferences preferences, Context context) {
         super(itemView);
         this.preferences = preferences;
@@ -61,13 +62,14 @@ public class SourceItem extends RecyclerView.ViewHolder{
         return new SourceItem(view, preferences, context);
     }
 
-    public void bindData(Source source, FragmentManager manager){
+    public void bindData(Source source, FragmentManager manager) {
         title.setText(source.title);
         desc.setVisibility(View.GONE);
         loadIcon(source.image);
         initButton(source, manager);
     }
-    public void bindData(FeedResult result){
+
+    public void bindData(FeedResult result) {
         title.setText(result.title);
         desc.setText(result.description);
         loadIcon(result.visualUrl);
@@ -75,8 +77,8 @@ public class SourceItem extends RecyclerView.ViewHolder{
     }
 
 
-    private void loadIcon(String iconUrl){
-        if(iconUrl == null || iconUrl.isEmpty()){
+    private void loadIcon(String iconUrl) {
+        if (iconUrl == null || iconUrl.isEmpty()) {
             icon.setBackground(AppCompatResources.getDrawable(context, R.drawable.element_background));
         }
         int iconSize = PreferencesManager.dpToPx(60, context);
@@ -86,7 +88,7 @@ public class SourceItem extends RecyclerView.ViewHolder{
                   .into(icon);
     }
 
-    private void initButton(Source source, FragmentManager manager){
+    private void initButton(Source source, FragmentManager manager) {
         Drawable edit = AppCompatResources.getDrawable(context, R.drawable.icon_edit);
         createIcon();
         setIcon(edit);
@@ -109,7 +111,8 @@ public class SourceItem extends RecyclerView.ViewHolder{
             transaction.commit();
         });
     }
-    private void createIcon(){
+
+    private void createIcon() {
         View action = new View(context);
         int size = PreferencesManager.dpToPx(15, context);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(size, size);
@@ -119,14 +122,16 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
         button.addView(action);
     }
-    private void setIcon(Drawable icon){
+
+    private void setIcon(Drawable icon) {
         View action = button.getChildAt(0);
-        if (action == null){
+        if (action == null) {
             return;
         }
         action.setBackground(icon);
     }
-    private void initButton(FeedResult result){
+
+    private void initButton(FeedResult result) {
         createIcon();
 
         Drawable plus = AppCompatResources.getDrawable(context, R.drawable.icon_plus);
@@ -150,7 +155,6 @@ public class SourceItem extends RecyclerView.ViewHolder{
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourcealreadyadded), Toast.LENGTH_LONG).show();
             }
         });
-
 
 
         container.setOnClickListener(v -> {

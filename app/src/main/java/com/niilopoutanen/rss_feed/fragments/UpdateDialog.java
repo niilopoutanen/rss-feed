@@ -62,10 +62,12 @@ public class UpdateDialog {
     public void show() {
         sheet.show();
     }
-    public void dismiss(){
+
+    public void dismiss() {
         sheet.dismiss();
     }
-    public boolean isShowing(){
+
+    public boolean isShowing() {
         return sheet.isShowing();
     }
 }

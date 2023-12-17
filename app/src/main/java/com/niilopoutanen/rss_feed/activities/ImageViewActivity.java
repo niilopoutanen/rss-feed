@@ -41,7 +41,7 @@ public class ImageViewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             url = extras.getString("imageurl");
-            if(url == null){
+            if (url == null) {
                 Toast.makeText(this, getString(R.string.error_invalid_image), Toast.LENGTH_LONG).show();
                 return;
             }

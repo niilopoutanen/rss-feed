@@ -46,15 +46,20 @@ public class FeedFragment extends Fragment {
     private List<Source> sources = new ArrayList<>();
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
     private int sourceId;
-    public FeedFragment(){}
-    public FeedFragment(Preferences preferences){
+
+    public FeedFragment() {
+    }
+
+    public FeedFragment(Preferences preferences) {
         this.preferences = preferences;
     }
-    public FeedFragment(int sourceId, Preferences preferences){
+
+    public FeedFragment(int sourceId, Preferences preferences) {
         this.preferences = preferences;
         this.sourceId = sourceId;
         this.type = FEED_TYPE.TYPE_SINGLE;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +74,7 @@ public class FeedFragment extends Fragment {
     }
 
 
-    public void update(){
+    public void update() {
         if (!isValid(sources)) return;
         swipeRefreshLayout.setRefreshing(true);
         Executor executor = Executors.newSingleThreadExecutor();
@@ -81,7 +86,8 @@ public class FeedFragment extends Fragment {
             });
         });
     }
-    private void init(){
+
+    private void init() {
         AppRepository repository = new AppRepository(context);
 
         if (type == FEED_TYPE.TYPE_MULTI) {
@@ -91,7 +97,7 @@ public class FeedFragment extends Fragment {
             });
         } else {
             repository.getSourceById(sourceId).observe(this.getViewLifecycleOwner(), source -> {
-                if(title != null)title.setText(source.title);
+                if (title != null) title.setText(source.title);
 
                 this.sources.clear();
                 this.sources.add(source);
@@ -99,6 +105,7 @@ public class FeedFragment extends Fragment {
             });
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
@@ -150,6 +157,7 @@ public class FeedFragment extends Fragment {
             return true;
         }
     }
+
     private void showError(int errorCode) {
         switch (errorCode) {
             case 429:
@@ -166,7 +174,7 @@ public class FeedFragment extends Fragment {
                 adapter.addNotification(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
                 break;
         }
-        if(swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
 
     public void scrollToTop() {
@@ -181,5 +189,5 @@ public class FeedFragment extends Fragment {
         outState.putSerializable("preferences", preferences);
     }
 
-    private enum FEED_TYPE{ TYPE_SINGLE, TYPE_MULTI }
+    private enum FEED_TYPE {TYPE_SINGLE, TYPE_MULTI}
 }

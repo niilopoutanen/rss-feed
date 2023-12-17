@@ -62,7 +62,7 @@ public class AddSourceFragment extends Fragment {
         showInFeed.setChecked(source.visible);
         title.setText(context.getString(R.string.updatesource));
 
-        TextView buttonText = (TextView) ((RelativeLayout)addSourceButton).getChildAt(0);
+        TextView buttonText = (TextView) ((RelativeLayout) addSourceButton).getChildAt(0);
         buttonText.setText(context.getString(R.string.update));
     }
 
@@ -75,14 +75,14 @@ public class AddSourceFragment extends Fragment {
         userInput.url = feedUrl.getText().toString();
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            if(Parser.isValid(userInput)){
+            if (Parser.isValid(userInput)) {
                 Parser parser = new Parser();
                 parser.load(userInput.url);
                 source = parser.source;
                 source.url = userInput.url;
                 source.visible = showInFeed.isChecked();
 
-                if(source.image == null || source.image.isEmpty()){
+                if (source.image == null || source.image.isEmpty()) {
                     source.image = IconFinder.get(source.url);
                 }
 
@@ -92,8 +92,7 @@ public class AddSourceFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     closeFragment(null);
                 });
-            }
-            else{
+            } else {
                 activity.runOnUiThread(() -> {
                     showError(context.getString(R.string.error_adding_source));
                 });
@@ -102,7 +101,7 @@ public class AddSourceFragment extends Fragment {
 
     }
 
-    private void save(Source source){
+    private void save(Source source) {
         AppRepository repository = new AppRepository(context);
         repository.insert(source);
     }
@@ -183,7 +182,7 @@ public class AddSourceFragment extends Fragment {
         if (view != null) {
             PreferencesManager.vibrate(view);
         }
-        if(isAdded()){
+        if (isAdded()) {
             getParentFragmentManager().popBackStack();
         }
     }

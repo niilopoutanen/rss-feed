@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements RecyclerViewInterface{
+public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements RecyclerViewInterface {
 
     private final int TYPE_NOTICE = 2;
     private List<Post> posts = new ArrayList<>();
@@ -31,38 +31,40 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final Context context;
     private final Preferences preferences;
 
-    public FeedAdapter(Context context, Preferences preferences){
+    public FeedAdapter(Context context, Preferences preferences) {
         this.context = context;
         this.preferences = preferences;
     }
-    public void update(List<Post> newPosts){
+
+    public void update(List<Post> newPosts) {
         this.posts = new ArrayList<>(newPosts);
         notices.clear();
         notifyDataSetChanged();
     }
-    public void update(){
+
+    public void update() {
         notices.clear();
         notifyDataSetChanged();
     }
 
-    public void addNotification(String text, String desc){
+    public void addNotification(String text, String desc) {
         posts.clear();
         notices.clear();
         notices.put(text, desc);
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == TYPE_NOTICE){
+        if (viewType == TYPE_NOTICE) {
             return createNotice();
-        }
-        else{
+        } else {
             return FeedCard.create(parent, preferences, this);
         }
     }
 
-    private RecyclerView.ViewHolder createNotice(){
+    private RecyclerView.ViewHolder createNotice() {
         LinearLayout container = new LinearLayout(context);
         container.setOrientation(LinearLayout.VERTICAL);
 
@@ -78,44 +80,44 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         container.addView(textView);
         container.addView(textDesc);
-        return new RecyclerView.ViewHolder(container) {};
+        return new RecyclerView.ViewHolder(container) {
+        };
     }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof FeedCard){
-            if(posts.size() > position){
-                ((FeedCard)holder).bindData(posts.get(position));
+        if (holder instanceof FeedCard) {
+            if (posts.size() > position) {
+                ((FeedCard) holder).bindData(posts.get(position));
             }
 
-        }
-        else{
+        } else {
             LinearLayout container = (LinearLayout) holder.itemView;
 
-            Map.Entry<String,String> entry = notices.entrySet().iterator().next();
+            Map.Entry<String, String> entry = notices.entrySet().iterator().next();
 
-            TextView textView = (TextView)container.getChildAt(0);
+            TextView textView = (TextView) container.getChildAt(0);
             textView.setText(entry.getKey());
 
-            TextView textDesc = (TextView)container.getChildAt(1);
+            TextView textDesc = (TextView) container.getChildAt(1);
             textDesc.setText(entry.getValue());
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (notices.size() > 0 ){
+        if (notices.size() > 0) {
             return TYPE_NOTICE;
-        }
-        else {
+        } else {
             return 1;
         }
     }
+
     @Override
     public int getItemCount() {
         if (notices.size() > 0) {
             return notices.size();
-        }
-        else if(posts == null){
+        } else if (posts == null) {
             return 0;
         }
         return posts.size();
@@ -128,14 +130,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             return;
         }
         Post clicked = posts.get(position);
-        if(clicked.link != null){
+        if (clicked.link != null) {
             Intent articleIntent = new Intent(context, ArticleActivity.class);
             articleIntent.putExtra("preferences", preferences);
             articleIntent.putExtra("post", posts.get(position));
 
             context.startActivity(articleIntent);
-        }
-        else{
+        } else {
             Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
         }
     }

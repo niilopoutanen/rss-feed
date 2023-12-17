@@ -11,15 +11,16 @@ import com.niilopoutanen.rss_feed.database.dao.SourceDao;
 import java.util.List;
 
 public class AppRepository {
-    private SourceDao sourceDao;
-    private LiveData<List<Source>> sources;
+    private final SourceDao sourceDao;
+    private final LiveData<List<Source>> sources;
 
-    public AppRepository(Application application){
+    public AppRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getInstance(application);
         sourceDao = appDatabase.sourceDao();
         sources = sourceDao.getAll();
     }
-    public AppRepository(Context context){
+
+    public AppRepository(Context context) {
         AppDatabase appDatabase = AppDatabase.getInstance(context);
         sourceDao = appDatabase.sourceDao();
         sources = sourceDao.getAll();
@@ -29,9 +30,10 @@ public class AppRepository {
         return sources;
     }
 
-    public LiveData<Source> getSourceById(int id){
+    public LiveData<Source> getSourceById(int id) {
         return sourceDao.getById(id);
     }
+
     public void insert(Source source) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             sourceDao.insert(source);

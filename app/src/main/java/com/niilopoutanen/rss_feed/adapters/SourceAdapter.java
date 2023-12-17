@@ -50,7 +50,6 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     };
 
 
-
     public SourceAdapter(List<Source> sources, RecyclerView recyclerView, FragmentManager manager) {
         this.sources = sources;
         this.recyclerView = recyclerView;
@@ -71,12 +70,12 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(sources == null){
+        if (sources == null) {
             return;
         }
         Source source = sources.get(position);
-        if(holder instanceof SourceItem){
-            SourceItem sourceItem = (SourceItem)holder;
+        if (holder instanceof SourceItem) {
+            SourceItem sourceItem = (SourceItem) holder;
             sourceItem.bindData(source, manager);
         }
     }
@@ -84,7 +83,7 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        if(sources == null){
+        if (sources == null) {
             return 0;
         }
         return sources.size();

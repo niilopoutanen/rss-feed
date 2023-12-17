@@ -30,8 +30,7 @@ public class WebUtils {
         try{
             URL url = new URL(urlStr);
             String result = fetch(url);
-            Document document = Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
-            return document;
+            return Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
         }
         catch (Exception e){
             e.printStackTrace();

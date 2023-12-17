@@ -32,7 +32,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
-public class FeedCard extends RecyclerView.ViewHolder{
+public class FeedCard extends RecyclerView.ViewHolder {
     private final TextView title;
     private final TextView desc;
     private final TextView author;
@@ -43,6 +43,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
 
     private final Preferences preferences;
     private final Context context;
+
     public FeedCard(@NonNull View itemView, Preferences preferences, Context context, RecyclerViewInterface recyclerViewInterface) {
         super(itemView);
         this.preferences = preferences;
@@ -73,7 +74,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
 
         View view;
 
-        switch (preferences.s_feedcardstyle){
+        switch (preferences.s_feedcardstyle) {
             case SMALL:
                 view = inflater.inflate(R.layout.feedcard_small, parent, false);
                 break;
@@ -92,7 +93,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
         return new FeedCard(view, preferences, context, recyclerViewInterface);
     }
 
-    public void bindData(Post post){
+    public void bindData(Post post) {
         setPreferences();
 
         title.setVisibility(post.title == null ? View.GONE : View.VISIBLE);
@@ -111,11 +112,11 @@ public class FeedCard extends RecyclerView.ViewHolder{
         loadIcons(post);
     }
 
-    private void setPreferences(){
-        if(preferences == null){
+    private void setPreferences() {
+        if (preferences == null) {
             return;
         }
-        
+
         if (!preferences.s_feedcard_authorvisible || !preferences.s_feedcard_datevisible) {
             desc.setMaxLines(3);
         }
@@ -125,7 +126,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
         desc.setVisibility(preferences.s_feedcard_descvisible ? View.VISIBLE : View.GONE);
         date.setVisibility(preferences.s_feedcard_datevisible ? View.VISIBLE : View.GONE);
 
-        if(preferences.s_animateclicks){
+        if (preferences.s_animateclicks) {
             Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
             Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
             container.setOnTouchListener((view, motionEvent) -> {
@@ -143,7 +144,7 @@ public class FeedCard extends RecyclerView.ViewHolder{
 
     }
 
-    private void loadImage(Post post){
+    private void loadImage(Post post) {
         // Cancel last load call
         image.setImageDrawable(null);
         Picasso.get().cancelRequest(image);
@@ -152,12 +153,10 @@ public class FeedCard extends RecyclerView.ViewHolder{
         // Load image
         if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.NONE) {
             image.setVisibility(View.GONE);
-        }
-        else if (post.image == null) {
+        } else if (post.image == null) {
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             image.setLayoutParams(layoutParams);
-        }
-        else {
+        } else {
             if (preferences.s_feedcardstyle == Preferences.FeedCardStyle.LARGE) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                           LinearLayout.LayoutParams.MATCH_PARENT,
@@ -195,21 +194,22 @@ public class FeedCard extends RecyclerView.ViewHolder{
         }
     }
 
-    private void loadIcons(Post post){
-        if(post.link == null){
+    private void loadIcons(Post post) {
+        if (post.link == null) {
             createIcon(R.drawable.icon_no_article, R.string.tooltip_post_no_article);
         }
 
     }
-    private void createIcon(@DrawableRes int iconResource, @StringRes int toolTipResource){
-        if(iconContainer == null){
+
+    private void createIcon(@DrawableRes int iconResource, @StringRes int toolTipResource) {
+        if (iconContainer == null) {
             return;
         }
 
         View icon = new View(context);
         int size = PreferencesManager.dpToPx(15, context);
         ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(size, size);
-        layoutParams.setMargins(PreferencesManager.dpToPx(5, context),0,0,0);
+        layoutParams.setMargins(PreferencesManager.dpToPx(5, context), 0, 0, 0);
         icon.setLayoutParams(layoutParams);
 
         Drawable drawable = AppCompatResources.getDrawable(context, iconResource);
@@ -225,23 +225,24 @@ public class FeedCard extends RecyclerView.ViewHolder{
             iconContainer.addView(icon);
         }
     }
-    public int getImageWidth(){
+
+    public int getImageWidth() {
         switch (preferences.s_feedcardstyle) {
             case LARGE:
-                if(context instanceof MainActivity){
+                if (context instanceof MainActivity) {
                     return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_LARGE, context);
-                }
-                else if(context instanceof FeedActivity){
+                } else if (context instanceof FeedActivity) {
                     return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_LARGE_FULLSCREEN, context);
                 }
             case SMALL:
                 return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_SMALL, context);
             case NONE:
-                return  0;
+                return 0;
             default:
                 return PreferencesManager.getImageWidth(PreferencesManager.FEED_IMAGE_LARGE, context);
         }
     }
+
     private static void setCardSpacing(View view, Context context) {
         int margin = PreferencesManager.dpToPx(10, context);
         int gap = PreferencesManager.dpToPx(20, context);
@@ -249,10 +250,9 @@ public class FeedCard extends RecyclerView.ViewHolder{
         boolean hasSideGap = context.getResources().getInteger(R.integer.feed_columns) > 1;
 
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        if(!hasSideGap){
+        if (!hasSideGap) {
             layoutParams.setMargins(0, 0, 0, gap);
-        }
-        else {
+        } else {
             layoutParams.setMargins(0, 0, margin, margin);
         }
 

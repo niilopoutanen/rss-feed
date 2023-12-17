@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Migrations {
-    public static void Migrate0_1(Context context){
+    public static void Migrate0_1(Context context) {
         String filename = "rssfeed.content";
         List<Source> sources = new ArrayList<>();
         try {
@@ -31,7 +31,7 @@ public class Migrations {
         }
 
         AppRepository repository = new AppRepository(context);
-        for(Source source : sources){
+        for (Source source : sources) {
             repository.insert(source);
         }
 

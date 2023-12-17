@@ -55,7 +55,6 @@ public class ArticleActivity extends AppCompatActivity {
     private Preferences preferences;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +64,7 @@ public class ArticleActivity extends AppCompatActivity {
         }
         EdgeToEdge.enable(this);
         preferences = (Preferences) extras.get("preferences");
-        post  = (Post) extras.get("post");
+        post = (Post) extras.get("post");
 
         if (savedInstanceState != null) {
             resultData = savedInstanceState.getString("content");
@@ -93,8 +92,7 @@ public class ArticleActivity extends AppCompatActivity {
                         initWebView(getString(R.string.error_url));
                     } else if (e.getErrorType() == HttpURLConnection.HTTP_CLIENT_TIMEOUT) {
                         initWebView(getString(R.string.error_host));
-                    }
-                    else{
+                    } else {
                         initWebView(getString(R.string.error_notsupported));
                     }
                 }
@@ -109,11 +107,10 @@ public class ArticleActivity extends AppCompatActivity {
 
         if (preferences.s_articlefullscreen) {
             Window window = getWindow();
-            if(window != null){
-                 window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (window != null) {
+                window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             }
         }
-
 
 
         // Insets to bottom control
@@ -132,36 +129,36 @@ public class ArticleActivity extends AppCompatActivity {
             articleMlp.bottomMargin = insets.bottom;
             articleMlp.topMargin = insets.top;
             articleView.setLayoutParams(articleMlp);
-            
+
             v.setLayoutParams(mlp);
             return WindowInsetsCompat.CONSUMED;
         });
 
 
-        if(!preferences.s_article_show_controls){
+        if (!preferences.s_article_show_controls) {
             footerToggle.setVisibility(View.GONE);
         }
 
     }
 
 
-    private void showControls(){
+    private void showControls() {
         BottomSheetDialog sheet = new BottomSheetDialog(this);
         sheet.setContentView(R.layout.dialog_article_controls);
         sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
         Window window = sheet.getWindow();
-        if(window != null) window.setNavigationBarColor(getColor(R.color.element));
+        if (window != null) window.setNavigationBarColor(getColor(R.color.element));
         sheet.show();
 
         View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
-        if(openInBrowser != null) openInBrowser.setOnClickListener(v -> {
+        if (openInBrowser != null) openInBrowser.setOnClickListener(v -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.link)));
             sheet.dismiss();
         });
 
         View share = sheet.findViewById(R.id.article_share);
-        if(share != null)share.setOnClickListener(v -> {
+        if (share != null) share.setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, post.link);
@@ -186,18 +183,19 @@ public class ArticleActivity extends AppCompatActivity {
         });
     }
 
-    private void initWebView(String html){
+    private void initWebView(String html) {
         Document document = Jsoup.parse(html);
 
         Elements h1Elements = document.select("h1");
-        if(h1Elements.isEmpty()){
-            if(post.title != null){
+        if (h1Elements.isEmpty()) {
+            if (post.title != null) {
                 Element title = new Element("h1").text(post.title);
                 document.body().prependChild(title);
             }
         }
         articleView.setWebViewClient(new WebViewClient() {
-            @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 runOnUiThread(() -> openWebView(request.getUrl().toString()));
                 return true;
             }
@@ -271,11 +269,9 @@ public class ArticleActivity extends AppCompatActivity {
                 Article article = readability.parse();
                 runOnUiThread(() -> callBack.onResult(article.getContent()));
 
-            }
-            catch (RSSException r){
-                runOnUiThread(() ->  callBack.onError(r));
-            }
-            catch (Exception e) {
+            } catch (RSSException r) {
+                runOnUiThread(() -> callBack.onError(r));
+            } catch (Exception e) {
                 runOnUiThread(() -> callBack.onError(new RSSException(e.getMessage())));
             }
         });
@@ -290,7 +286,7 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(articleView != null){
+        if (articleView != null) {
             articleView.destroy();
         }
     }

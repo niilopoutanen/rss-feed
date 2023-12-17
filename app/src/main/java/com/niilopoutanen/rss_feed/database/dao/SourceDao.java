@@ -25,6 +25,7 @@ public interface SourceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Source source);
+
     @Update
     void update(Source source);
 }

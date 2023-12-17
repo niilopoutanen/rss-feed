@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        if(orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             getWindow().setNavigationBarColor(getColor(R.color.navbarBg));
         }
 
@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
     @Override
     protected void onDestroy() {
         if (dialog != null && dialog.isShowing()) {

@@ -29,11 +29,10 @@ public class DebugActivity extends AppCompatActivity {
         initControls();
     }
 
-    private void initControls(){
+    private void initControls() {
         LinearLayout container = findViewById(R.id.debug_container);
 
         findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
-
 
 
         String details = "v" + BuildConfig.VERSION_NAME + ", BuildCode " + BuildConfig.VERSION_CODE +
@@ -46,7 +45,7 @@ public class DebugActivity extends AppCompatActivity {
                   + "\n Display: " + Build.DISPLAY
                   + "\n Product: " + Build.PRODUCT
                   + "\n DateTime: " + Date.from(Instant.now()).toString();
-        ((TextView)findViewById(R.id.debug_device_details)).setText(details);
+        ((TextView) findViewById(R.id.debug_device_details)).setText(details);
 
 
         findViewById(R.id.debug_open_article_with_url).setOnClickListener(v -> {

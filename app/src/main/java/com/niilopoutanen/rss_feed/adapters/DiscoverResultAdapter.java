@@ -31,8 +31,8 @@ public class DiscoverResultAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         FeedResult result = results.get(position);
-        if(holder instanceof SourceItem){
-            ((SourceItem)holder).bindData(result);
+        if (holder instanceof SourceItem) {
+            ((SourceItem) holder).bindData(result);
         }
     }
 

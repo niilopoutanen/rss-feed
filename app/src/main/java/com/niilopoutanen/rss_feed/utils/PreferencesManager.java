@@ -162,7 +162,7 @@ public class PreferencesManager {
         }
     }
 
-    public static Category.Country getUserLocale(){
+    public static Category.Country getUserLocale() {
         String locale = Locale.getDefault().getLanguage();
         Category.Country userLocale;
         if ("fi".equals(locale)) {
@@ -360,15 +360,13 @@ public class PreferencesManager {
             return totalWidth - dpToPx(40 * columnCount, context);
         }
         if (imageType == FEED_IMAGE_LARGE_FULLSCREEN) {
-            if(columnCount > 1){
+            if (columnCount > 1) {
                 return totalWidth - dpToPx(20 * columnCount, context);
-            }
-            else{
+            } else {
                 // Keep the same values if vertical
                 return totalWidth - dpToPx(40 * columnCount, context);
             }
-        }
-        else if (imageType == FEED_IMAGE_SMALL) {
+        } else if (imageType == FEED_IMAGE_SMALL) {
             return dpToPx(100, context);
         } else if (imageType == ARTICLE_IMAGE) {
             int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
@@ -396,7 +394,7 @@ public class PreferencesManager {
      * @return String representation of the date
      */
     public static String formatDate(Date date, DateStyle dateStyle, Context context) {
-        if(date == null || dateStyle == null || context == null){
+        if (date == null || dateStyle == null || context == null) {
             return "";
         }
         Instant now = Instant.now();

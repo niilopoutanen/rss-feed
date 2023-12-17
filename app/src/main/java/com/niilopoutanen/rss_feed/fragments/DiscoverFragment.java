@@ -77,7 +77,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         setReenterTransition(new MaterialFadeThrough());
 
 
-
         postponeEnterTransition();
         loadData();
     }
@@ -88,11 +87,10 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         }
         categories = Category.getCategories(PreferencesManager.getUserLocale());
 
-        if(categoryAdapter != null){
+        if (categoryAdapter != null) {
             categoryAdapter.setCategories(categories);
             progressBar.setVisibility(View.GONE);
         }
-
 
 
     }
@@ -133,7 +131,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         Executor executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
-            if(query.equals(Category.CATEGORY_RECOMMENDED)){
+            if (query.equals(Category.CATEGORY_RECOMMENDED)) {
                 callBack.onResult(loadRecommendations());
                 return;
             }
@@ -173,8 +171,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             String result = WebUtils.connectRaw(url);
             results = FeedResult.parseResult(new JSONObject(result));
 
-        } 
-        catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         return results;
     }
@@ -196,11 +194,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         progressBar = rootView.findViewById(R.id.discover_progress);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
-        categoryAdapter = new DiscoverCategoryAdapter(categories,context, this);
+        categoryAdapter = new DiscoverCategoryAdapter(categories, context, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         categoryRecyclerView.post(this::startPostponedEnterTransition);
-        
+
         resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);
@@ -228,7 +226,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int position = categoryRecyclerView.getChildAdapterPosition(v);
-        for(Category category : categories){
+        for (Category category : categories) {
             category.setActive(false);
         }
 
