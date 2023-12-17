@@ -20,8 +20,7 @@ public class WebUtils {
     public static Document connect(URL url) throws IOException, RSSException {
         String result = fetch(url);
         // Return the fetched data as a JSoup document
-        Document document = Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
-        return document;
+        return Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
     }
 
     public static String connect(URL url, boolean returnString) throws IOException, RSSException {
@@ -34,7 +33,9 @@ public class WebUtils {
             Document document = Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
             return document;
         }
-        catch (Exception ignored){}
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 

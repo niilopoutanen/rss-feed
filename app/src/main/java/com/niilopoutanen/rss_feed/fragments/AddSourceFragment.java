@@ -26,9 +26,10 @@ import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SourceValidator;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
+import com.niilopoutanen.rssparser.Parser;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddSourceFragment extends Fragment {
 
@@ -68,50 +69,30 @@ public class AddSourceFragment extends Fragment {
         showError("");
         Activity activity = (Activity) context;
         progressBar.setVisibility(View.VISIBLE);
-        Source toValidate = new Source();
-        toValidate.title = feedName.getText().toString();
-        toValidate.url = feedUrl.getText().toString();
-        SourceValidator validator = new SourceValidator(toValidate);
-        validator.validate(new Callback<Source>() {
-            @Override
-            public void onResult(Source result) {
-                if (result != null) {
-                    Source sourceToSave = new Source();
-                    sourceToSave.title = result.title;
-                    sourceToSave.url = result.url;
-                    sourceToSave.image = result.image;
-                    sourceToSave.visible = showInFeed.isChecked();
-                    if (source != null) {
-                        sourceToSave.id = source.id;
-                    }
-                    save(sourceToSave);
+        Source userInput = new Source();
+        userInput.title = feedName.getText().toString();
+        userInput.url = feedUrl.getText().toString();
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            if(Parser.isValid(userInput)){
+                Parser parser = new Parser();
+                parser.load(userInput.url);
+                source = parser.source;
+                source.visible = showInFeed.isChecked();
+                save(source);
 
-                    activity.runOnUiThread(() -> {
-                        progressBar.setVisibility(View.GONE);
-                        closeFragment(null);
-                    });
-                } else {
-                    activity.runOnUiThread(() -> {
-                        showError(context.getString(R.string.error_adding_source));
-                    });
-                }
-            }
-
-            @Override
-            public void onError(RSSException exception) {
                 activity.runOnUiThread(() -> {
-                    String msg = context.getString(exception.getErrorType());
-                    if(!msg.isEmpty()){
-                        showError(msg);
-                    }
-                    else{
-                        showError(context.getString(R.string.error_adding_source));
-                    }
-                    exception.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
+                    closeFragment(null);
                 });
-
+            }
+            else{
+                activity.runOnUiThread(() -> {
+                    showError(context.getString(R.string.error_adding_source));
+                });
             }
         });
+
     }
 
     private void save(Source source){

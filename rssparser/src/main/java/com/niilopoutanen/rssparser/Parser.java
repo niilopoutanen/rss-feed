@@ -7,6 +7,7 @@ import com.niilopoutanen.rssparser.parsers.RssParser;
 
 import org.jsoup.nodes.Document;
 
+import java.net.URL;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -27,6 +28,25 @@ public class Parser {
     public Parser(){
 
     }
+    public static boolean isValid(Source source){
+        if(source == null || source.url == null || source.url.isEmpty()){
+            return false;
+        }
+        try{
+            FeedFinder feedFinder = new FeedFinder();
+            feedFinder.find(source.url);
+            URL result = feedFinder.getResult();
+            if(result == null || source.url.isEmpty()){
+                return false;
+            }
+            source.url = result.toString();
+        }
+        catch (RSSException r){
+            return false;
+        }
+
+        return true;
+    }
     public void load(String url){
         Document document = WebUtils.connect(url);
         parse(document);
@@ -43,6 +63,9 @@ public class Parser {
     }
 
     public void parse(Document document){
+        if(document == null){
+            return;
+        }
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
             rssParser.parse(document);

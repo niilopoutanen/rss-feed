@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
@@ -32,6 +33,8 @@ import com.niilopoutanen.rssparser.Parser;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class NewFeedFragment extends Fragment {
     private Context context;
@@ -69,11 +72,14 @@ public class NewFeedFragment extends Fragment {
     public void update(){
         if (!isValid(sources)) return;
         swipeRefreshLayout.setRefreshing(true);
-        ((Activity) context).runOnUiThread(() -> {
-            adapter.update(Parser.loadMultiple(sources));
-            swipeRefreshLayout.setRefreshing(false);
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            List<Post> posts = Parser.loadMultiple(sources);
+            ((Activity) context).runOnUiThread(() -> {
+                adapter.update(posts);
+                swipeRefreshLayout.setRefreshing(false);
+            });
         });
-
     }
     private void init(){
         AppRepository repository = new AppRepository(context);
