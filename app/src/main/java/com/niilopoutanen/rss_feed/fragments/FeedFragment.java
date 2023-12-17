@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class NewFeedFragment extends Fragment {
+public class FeedFragment extends Fragment {
     private Context context;
     private Preferences preferences;
     TextView title;
@@ -46,11 +46,11 @@ public class NewFeedFragment extends Fragment {
     private List<Source> sources = new ArrayList<>();
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
     private int sourceId;
-    public NewFeedFragment(){}
-    public NewFeedFragment(Preferences preferences){
+    public FeedFragment(){}
+    public FeedFragment(Preferences preferences){
         this.preferences = preferences;
     }
-    public NewFeedFragment(int sourceId, Preferences preferences){
+    public FeedFragment(int sourceId, Preferences preferences){
         this.preferences = preferences;
         this.sourceId = sourceId;
         this.type = FEED_TYPE.TYPE_SINGLE;

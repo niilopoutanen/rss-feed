@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.fragments.NewFeedFragment;
+import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
@@ -29,7 +29,7 @@ public class FeedActivity extends AppCompatActivity {
             if(preferences == null){
                 preferences = PreferencesManager.loadPreferences(this);
             }
-            NewFeedFragment feedFragment = new NewFeedFragment(sourceId, preferences);
+            FeedFragment feedFragment = new FeedFragment(sourceId, preferences);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.feedactivity_container, feedFragment);
             transaction.commit();

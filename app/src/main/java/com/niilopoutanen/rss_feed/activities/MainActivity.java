@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
-import com.niilopoutanen.rss_feed.fragments.NewFeedFragment;
+import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
 import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = new NewFeedFragment(preferences);
+                    currentFragment = new FeedFragment(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.nav_settings) {
                 currentFragment = new SettingsFragment(MainActivity.this);
             } else if (itemId == R.id.nav_feed) {
-                currentFragment = new NewFeedFragment(preferences);
+                currentFragment = new FeedFragment(preferences);
             } else if (itemId == R.id.nav_content) {
                 currentFragment = new SourceFragment(MainActivity.this, preferences);
             } else if (itemId == R.id.nav_discover) {
@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNav.findViewById(R.id.nav_feed).setOnLongClickListener(v -> {
-            if (currentFragment instanceof NewFeedFragment) {
-                NewFeedFragment feedFragment = (NewFeedFragment) currentFragment;
+            if (currentFragment instanceof FeedFragment) {
+                FeedFragment feedFragment = (FeedFragment) currentFragment;
                 feedFragment.scrollToTop();
                 return true; // Event has been consumed
             }
