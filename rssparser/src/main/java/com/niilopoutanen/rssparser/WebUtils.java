@@ -23,7 +23,7 @@ public class WebUtils {
         return Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
     }
 
-    public static String connect(URL url, boolean returnString) throws IOException, RSSException {
+    public static String connectRaw(URL url) throws IOException, RSSException {
         return fetch(url);
     }
     public static Document connect(String urlStr){

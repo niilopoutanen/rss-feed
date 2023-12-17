@@ -140,7 +140,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
             try {
                 URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
-                String result = WebUtils.connect(queryUrl, true);
+                String result = WebUtils.connectRaw(queryUrl);
                 List<FeedResult> results = FeedResult.parseResult(new JSONObject(result));
                 callBack.onResult(results);
             } catch (Exception e) {
@@ -170,7 +170,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             }
 
             url = new URL(baseURL + fileName);
-            String result = WebUtils.connect(url, true);
+            String result = WebUtils.connectRaw(url);
             results = FeedResult.parseResult(new JSONObject(result));
 
         } 
