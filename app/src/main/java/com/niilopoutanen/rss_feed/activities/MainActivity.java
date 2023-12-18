@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.database.Migrations;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkUpdate();
+        init();
         preferences = PreferencesManager.loadPreferences(this);
         PreferencesManager.setSavedTheme(this, preferences);
         EdgeToEdge.enable(this);
@@ -111,19 +112,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
-    }
-
-    private void checkUpdate() {
+    private void init(){
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
         if (isFirstLaunch && !isFinishing() && !isDestroyed()) {
             dialog = new UpdateDialog(this);
             dialog.show();
         }
+
+        Migrations.Migrate0_1(this);
     }
+
+
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
@@ -143,5 +142,12 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
+    }
+
 
 }

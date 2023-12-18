@@ -25,6 +25,9 @@ public class Migrations {
                 ois.close();
                 fis.close();
             }
+            else{
+                return;
+            }
 
         } catch (IOException | ClassNotFoundException e) {
             FirebaseCrashlytics.getInstance().recordException(e);
