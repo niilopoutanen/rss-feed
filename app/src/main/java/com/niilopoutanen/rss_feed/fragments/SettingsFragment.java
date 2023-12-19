@@ -32,6 +32,7 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.ThemeMode;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -45,6 +46,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
@@ -227,12 +230,25 @@ public class SettingsFragment extends Fragment {
         export.setOnClickListener(v -> {
 
         });
+        ActivityResultLauncher<Intent> filePickerResult = registerForActivityResult(
+                  new ActivityResultContracts.StartActivityForResult(),
+                  result -> {
+                      if (result.getResultCode() == Activity.RESULT_OK) {
+                          Intent data = result.getData();
+                          if(data != null){
+                              Uri uri = data.getData();
+                              String path = uri.getPath();
+                          }
+
+                      }
+                  });
+
         RelativeLayout imp = rootView.findViewById(R.id.settings_import);
         imp.setOnClickListener(v -> {
             Intent filePicker = new Intent(Intent.ACTION_GET_CONTENT);
             filePicker.setType("*/*");
             filePicker = Intent.createChooser(filePicker, "Select a file to import");
-            startActivity(filePicker);
+            filePickerResult.launch(filePicker);
         });
 
         setSavedData();
@@ -381,5 +397,4 @@ public class SettingsFragment extends Fragment {
         }
         PreferencesManager.saveEnumPreference(SP_COLORACCENT, PREFS_UI, selectedColor, context);
     }
-
 }
