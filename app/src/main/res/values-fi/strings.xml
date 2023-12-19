@@ -113,4 +113,5 @@
         <item quantity="one">Tuotiin %d lähde</item>
         <item quantity="other">Tuotiin %d lähdettä</item>
     </plurals>
+    <string name="select_file_import">Valitse tuotava tiedosto</string>
 </resources>

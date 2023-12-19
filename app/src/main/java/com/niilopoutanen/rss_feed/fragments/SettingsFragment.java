@@ -241,7 +241,7 @@ public class SettingsFragment extends Fragment {
                 @Override
                 public void onChanged(List<Source> sources) {
                     String content = Opml.encode(sources);
-                    File file = Opml.cacheFile(content, context);
+                    File file = Opml.cacheFile(context.getString(R.string.rssfeed_sources), content, context);
                     if(file == null){
                         return;
                     }
@@ -250,15 +250,15 @@ public class SettingsFragment extends Fragment {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/plain");
                     intent.putExtra(Intent.EXTRA_STREAM, uri);
-                    intent.putExtra(Intent.EXTRA_TITLE, "RSS-Feed sources");
+                    intent.putExtra(Intent.EXTRA_TITLE, context.getString(R.string.rssfeed_sources));
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                     intent.setClipData(new ClipData(
-                            "Subscribed sources from RSS-Feed",
+                            context.getString(R.string.rssfeed_export_desc),
                             new String[] {"text/plain"},
                             new ClipData.Item(uri)
                     ));
-                    startActivity(Intent.createChooser(intent, "Save sources"));
+                    startActivity(Intent.createChooser(intent, context.getString(R.string.save_sources)));
                     repository.getAllSources().removeObserver(this);
                 }
             });
@@ -289,7 +289,7 @@ public class SettingsFragment extends Fragment {
         imp.setOnClickListener(v -> {
             Intent filePicker = new Intent(Intent.ACTION_GET_CONTENT);
             filePicker.setType("*/*");
-            filePicker = Intent.createChooser(filePicker, "Select a file to import");
+            filePicker = Intent.createChooser(filePicker, context.getString(R.string.select_file_import));
             filePickerResult.launch(filePicker);
         });
 

@@ -93,9 +93,9 @@ public class Opml {
     }
 
 
-    public static File cacheFile(String content, Context context) {
+    public static File cacheFile(String filename, String content, Context context) {
         try {
-            String fileName = "RSS-Feed sources.opml";
+            String fileName =  filename + ".opml";
 
             File tempFile = new File(context.getCacheDir(), fileName);
 
@@ -110,7 +110,7 @@ public class Opml {
             return null;
         }
     }
-    public static List<Source> loadData(ActivityResult result, Context context) throws InvalidObjectException, IOException {
+    public static List<Source> loadData(ActivityResult result, Context context) throws IOException {
         if (result.getResultCode() == Activity.RESULT_OK) {
             Intent data = result.getData();
             if(data == null || data.getData() == null){

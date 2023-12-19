@@ -135,4 +135,8 @@
         <item quantity="one">Imported %d source</item>
         <item quantity="other">Imported %d sources</item>
     </plurals>
+    <string name="select_file_import">Select file to import</string>
+    <string name="save_sources">Save sources</string>
+    <string name="rssfeed_sources">RSS-Feed sources</string>
+    <string name="rssfeed_export_desc">Subscribed sources from RSS-Feed</string>
 </resources>
