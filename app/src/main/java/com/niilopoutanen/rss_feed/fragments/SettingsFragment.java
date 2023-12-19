@@ -223,6 +223,18 @@ public class SettingsFragment extends Fragment {
         });
 
 
+        RelativeLayout export = rootView.findViewById(R.id.settings_export);
+        export.setOnClickListener(v -> {
+
+        });
+        RelativeLayout imp = rootView.findViewById(R.id.settings_import);
+        imp.setOnClickListener(v -> {
+            Intent filePicker = new Intent(Intent.ACTION_GET_CONTENT);
+            filePicker.setType("*/*");
+            filePicker = Intent.createChooser(filePicker, "Select a file to import");
+            startActivity(filePicker);
+        });
+
         setSavedData();
 
         articlesInBrowser.setOnCheckedChangeListener((buttonView, isChecked) -> {
