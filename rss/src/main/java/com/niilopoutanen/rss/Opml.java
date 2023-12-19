@@ -1,9 +1,15 @@
 package com.niilopoutanen.rss;
 
+import android.content.Context;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.ByteArrayInputStream;
@@ -19,7 +25,9 @@ public class Opml {
                 "  <head>\n" +
                     "    <title>RSS-Feed subscriptions</title>\n" +
                 "  </head>\n" +
-                "  <body>%s</body>\n" +
+                "  <body>\n" +
+                    "%s\n" +
+                "  </body>\n" +
             "</opml>";
 
     public static String encode(List<Source> sources) {
@@ -74,5 +82,24 @@ public class Opml {
         }
 
         return true;
+    }
+
+
+    public static File cacheFile(String content, Context context) {
+        try {
+            String fileName = "RSS-Feed sources.opml";
+
+            File tempFile = new File(context.getCacheDir(), fileName);
+
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            osw.write(content);
+            osw.close();
+
+            return tempFile;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

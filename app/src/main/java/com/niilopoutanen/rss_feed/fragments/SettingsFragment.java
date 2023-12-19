@@ -35,6 +35,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.ThemeMode;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -51,22 +53,27 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import com.google.android.material.slider.Slider;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss.Opml;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -228,8 +235,40 @@ public class SettingsFragment extends Fragment {
 
         RelativeLayout export = rootView.findViewById(R.id.settings_export);
         export.setOnClickListener(v -> {
+            AppRepository repository = new AppRepository(context);
+            repository.getAllSources().observe(SettingsFragment.this.getViewLifecycleOwner(), new Observer<List<Source>>() {
+                @Override
+                public void onChanged(List<Source> sources) {
+                    String content = Opml.encode(sources);
+                    File file = Opml.cacheFile(content, context);
+                    if(file == null){
+                        return;
+                    }
+                    Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
 
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                    intent.putExtra(Intent.EXTRA_TITLE, "RSS-Feed sources");
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    Intent chooser = Intent.createChooser(intent, "Save sources");
+
+                    List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
+
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        String packageName = resolveInfo.activityInfo.packageName;
+                        context.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+
+                    startActivity(chooser);
+
+                    repository.getAllSources().removeObserver(this);
+                }
+            });
         });
+
+
         ActivityResultLauncher<Intent> filePickerResult = registerForActivityResult(
                   new ActivityResultContracts.StartActivityForResult(),
                   result -> {
