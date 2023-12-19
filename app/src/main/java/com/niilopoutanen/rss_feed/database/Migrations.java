@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -50,7 +51,7 @@ public class Migrations {
 
     }
 
-    private static class Compatibility{
+    private static class Compatibility implements Serializable {
         private static final long serialVersionUID = 1L;
         private UUID id;
         private String name;
