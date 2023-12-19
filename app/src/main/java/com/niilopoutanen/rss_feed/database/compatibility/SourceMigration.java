@@ -1,9 +1,9 @@
-package com.niilopoutanen.rss_feed.database;
+package com.niilopoutanen.rss_feed.database.compatibility;
 
 import android.content.Context;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,9 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Migrations {
-    public static void Migrate0_1(Context context) {
-        String filename = "rssfeed.content";
+public class SourceMigration {
+    private final static String filename = "rssfeed.content";
+    public static boolean needed(Context context){
+        File file = context.getFileStreamPath(filename);
+        return file != null && file.exists();
+    }
+
+
+    public static void migrate(Context context){
+        List<Compatibility> oldData = loadOldData(context);
+        if(oldData != null){
+            insertToDatabase(oldData, context);
+            deleteOldData(context);
+        }
+    }
+
+    private static List<Compatibility> loadOldData(Context context){
         List<Compatibility> oldData = new ArrayList<>();
         try {
             File file = context.getFileStreamPath(filename);
@@ -30,13 +44,16 @@ public class Migrations {
                 fis.close();
             }
             else{
-                return;
+                return null;
             }
 
         } catch (IOException | ClassNotFoundException e) {
             FirebaseCrashlytics.getInstance().recordException(e);
         }
 
+        return oldData;
+    }
+    private static void insertToDatabase(List<Compatibility> oldData, Context context){
         List<com.niilopoutanen.rss.Source> sources = new ArrayList<>();
         for(Compatibility old : oldData){
             com.niilopoutanen.rss.Source source = new com.niilopoutanen.rss.Source();
@@ -50,9 +67,14 @@ public class Migrations {
         for (com.niilopoutanen.rss.Source source : sources) {
             repository.insert(source);
         }
-
     }
 
+    private static void deleteOldData(Context context){
+        File file = context.getFileStreamPath(filename);
+        if (file != null && file.exists()) {
+            file.delete();
+        }
+    }
     private static class Compatibility implements Serializable {
         private static final long serialVersionUID = 1L;
         private UUID id;
@@ -61,6 +83,7 @@ public class Migrations {
         private String imageUrl;
         private Boolean showInFeed;
     }
+
     private static class HackedObjectInputStream extends ObjectInputStream {
 
         public HackedObjectInputStream(InputStream in) throws IOException {

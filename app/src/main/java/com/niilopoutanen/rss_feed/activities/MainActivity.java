@@ -13,7 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.database.Migrations;
+import com.niilopoutanen.rss_feed.database.compatibility.Migrations;
+import com.niilopoutanen.rss_feed.database.compatibility.SourceMigration;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
@@ -119,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        Migrations.Migrate0_1(this);
+        if(SourceMigration.needed(this)){
+            SourceMigration.migrate(this);
+        }
     }
 
 
