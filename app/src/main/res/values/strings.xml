@@ -131,5 +131,8 @@
     <string name="export_sources">Export sources</string>
     <string name="import_export">Import/Export</string>
     <string name="import_export_desc">Import or export your sources across other apps. OMPL-format is used to transfer the data.</string>
-
+    <plurals name="imported_sources">
+        <item quantity="one">Imported %d source</item>
+        <item quantity="other">Imported %d sources</item>
+    </plurals>
 </resources>

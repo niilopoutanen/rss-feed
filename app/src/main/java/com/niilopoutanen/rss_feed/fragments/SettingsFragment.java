@@ -36,8 +36,6 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -65,6 +63,7 @@ import androidx.lifecycle.Observer;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss.Opml;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.BuildConfig;
@@ -75,6 +74,7 @@ import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -258,11 +258,7 @@ public class SettingsFragment extends Fragment {
                             new String[] {"text/plain"},
                             new ClipData.Item(uri)
                     ));
-
-                    Intent chooser = Intent.createChooser(intent, "Save sources");
-
-                    startActivity(chooser);
-
+                    startActivity(Intent.createChooser(intent, "Save sources"));
                     repository.getAllSources().removeObserver(this);
                 }
             });
@@ -273,10 +269,17 @@ public class SettingsFragment extends Fragment {
                   new ActivityResultContracts.StartActivityForResult(),
                   result -> {
                       if (result.getResultCode() == Activity.RESULT_OK) {
-                          Intent data = result.getData();
-                          if(data != null){
-                              Uri uri = data.getData();
-                              String path = uri.getPath();
+                          try {
+                              List<Source> sources = Opml.loadData(result, context);
+                              if(sources != null && !sources.isEmpty()){
+                                  AppRepository repository = new AppRepository(context);
+                                  for(Source source : sources){
+                                      repository.insert(source);
+                                  }
+                                  Toast.makeText(context, context.getResources().getQuantityString(R.plurals.imported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
+                              }
+                          } catch (IOException e) {
+                              FirebaseCrashlytics.getInstance().recordException(e);
                           }
 
                       }

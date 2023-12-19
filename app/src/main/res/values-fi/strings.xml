@@ -109,4 +109,8 @@
     <string name="import_export">Tuo/Vie</string>
     <string name="import_export_desc">Tuo tai vie lähteesi muiden sovellusten välillä. Tiedon siirtoon käytetään OPML-tietomuotoa.</string>
 
+    <plurals name="imported_sources">
+        <item quantity="one">Tuotiin %d lähde</item>
+        <item quantity="other">Tuotiin %d lähdettä</item>
+    </plurals>
 </resources>
