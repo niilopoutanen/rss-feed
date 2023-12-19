@@ -127,5 +127,9 @@
     <string name="tooltip_post_no_article">This post does not have a article included, only the summary.</string>
     <string name="view_changelog">View changelog</string>
     <string name="changelog">Changelog</string>
+    <string name="import_sources">Import sources</string>
+    <string name="export_sources">Export sources</string>
+    <string name="import_export">Import/Export</string>
+    <string name="import_export_desc">Import or export your sources across other apps. OMPL-format is used to transfer the data.</string>
 
 </resources>

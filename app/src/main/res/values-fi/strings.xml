@@ -102,5 +102,11 @@
     <string name="article_show_categories">Näytä julkaisun kategoriat</string>
     <string name="update">Päivitä</string>
     <string name="tooltip_post_no_article">Tässä julkaisussa ei ole artikkelia, vaan pelkästään yhteenveto.</string>
+    <string name="view_changelog">Katso versiohistoria</string>
+    <string name="changelog">Versiohistoria</string>
+    <string name="import_sources">Tuo tilaukset</string>
+    <string name="export_sources">Vie tilaukset</string>
+    <string name="import_export">Tuo/Vie</string>
+    <string name="import_export_desc">Tuo tai vie lähteesi muiden sovellusten välillä. Tiedon siirtoon käytetään OPML-tietomuotoa.</string>
 
 </resources>

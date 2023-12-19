@@ -178,6 +178,7 @@
 
         </LinearLayout>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -680,6 +681,97 @@
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
         </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/import_export"
+            android:textColor="@color/textSecondary"
+            android:textSize="13sp"
+            app:fontFamily="@font/inter_medium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/element_background"
+            android:orientation="vertical">
+
+
+
+            <RelativeLayout
+                android:id="@+id/settings_import"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:minHeight="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/import_sources"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <View
+                    android:layout_width="9dp"
+                    android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/arrow"
+                    android:backgroundTint="@color/white"
+                    android:rotation="180" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
+            <RelativeLayout
+                android:id="@+id/settings_export"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:minHeight="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/export_sources"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <View
+                    android:layout_width="9dp"
+                    android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/arrow"
+                    android:backgroundTint="@color/white"
+                    android:rotation="180" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/import_export_desc"
+            android:textColor="@color/textSecondary"
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
