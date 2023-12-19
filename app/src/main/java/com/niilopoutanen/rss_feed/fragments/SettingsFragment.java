@@ -185,13 +185,13 @@ public class SettingsFragment extends Fragment {
         });
 
         colorAccentButtons = Arrays.asList(
-                  rootView.findViewById(R.id.checkboxblue_accentcolor),
-                  rootView.findViewById(R.id.checkboxviolet_accentcolor),
-                  rootView.findViewById(R.id.checkboxpink_accentcolor),
-                  rootView.findViewById(R.id.checkboxred_accentcolor),
-                  rootView.findViewById(R.id.checkboxorange_accentcolor),
-                  rootView.findViewById(R.id.checkboxyellow_accentcolor),
-                  rootView.findViewById(R.id.checkboxgreen_accentcolor)
+                rootView.findViewById(R.id.checkboxblue_accentcolor),
+                rootView.findViewById(R.id.checkboxviolet_accentcolor),
+                rootView.findViewById(R.id.checkboxpink_accentcolor),
+                rootView.findViewById(R.id.checkboxred_accentcolor),
+                rootView.findViewById(R.id.checkboxorange_accentcolor),
+                rootView.findViewById(R.id.checkboxyellow_accentcolor),
+                rootView.findViewById(R.id.checkboxgreen_accentcolor)
         );
 
 
@@ -242,7 +242,7 @@ public class SettingsFragment extends Fragment {
                 public void onChanged(List<Source> sources) {
                     String content = Opml.encode(sources);
                     File file = Opml.cacheFile(context.getString(R.string.rssfeed_sources), content, context);
-                    if(file == null){
+                    if (file == null) {
                         return;
                     }
                     Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
@@ -255,7 +255,7 @@ public class SettingsFragment extends Fragment {
 
                     intent.setClipData(new ClipData(
                             context.getString(R.string.rssfeed_export_desc),
-                            new String[] {"text/plain"},
+                            new String[]{"text/plain"},
                             new ClipData.Item(uri)
                     ));
                     startActivity(Intent.createChooser(intent, context.getString(R.string.save_sources)));
@@ -265,25 +265,23 @@ public class SettingsFragment extends Fragment {
         });
 
 
-        ActivityResultLauncher<Intent> filePickerResult = registerForActivityResult(
-                  new ActivityResultContracts.StartActivityForResult(),
-                  result -> {
-                      if (result.getResultCode() == Activity.RESULT_OK) {
-                          try {
-                              List<Source> sources = Opml.loadData(result, context);
-                              if(sources != null && !sources.isEmpty()){
-                                  AppRepository repository = new AppRepository(context);
-                                  for(Source source : sources){
-                                      repository.insert(source);
-                                  }
-                                  Toast.makeText(context, context.getResources().getQuantityString(R.plurals.imported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
-                              }
-                          } catch (IOException e) {
-                              FirebaseCrashlytics.getInstance().recordException(e);
-                          }
+        ActivityResultLauncher<Intent> filePickerResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                try {
+                    List<Source> sources = Opml.loadData(result, context);
+                    if (sources != null && !sources.isEmpty()) {
+                        AppRepository repository = new AppRepository(context);
+                        for (Source source : sources) {
+                            repository.insert(source);
+                        }
+                        Toast.makeText(context, context.getResources().getQuantityString(R.plurals.imported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                }
 
-                      }
-                  });
+            }
+        });
 
         RelativeLayout imp = rootView.findViewById(R.id.settings_import);
         imp.setOnClickListener(v -> {
