@@ -8,7 +8,9 @@ import com.niilopoutanen.rss.Source;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectStreamClass;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Migrations {
             File file = context.getFileStreamPath(filename);
             if (file != null && file.exists()) {
                 FileInputStream fis = context.openFileInput(filename);
-                ObjectInputStream ois = new ObjectInputStream(fis);
+                HackedObjectInputStream ois = new HackedObjectInputStream(fis);
                 oldData = (List<Compatibility>) ois.readObject();
                 ois.close();
                 fis.close();
@@ -35,9 +37,9 @@ public class Migrations {
             FirebaseCrashlytics.getInstance().recordException(e);
         }
 
-        List<Source> sources = new ArrayList<>();
+        List<com.niilopoutanen.rss.Source> sources = new ArrayList<>();
         for(Compatibility old : oldData){
-            Source source = new Source();
+            com.niilopoutanen.rss.Source source = new com.niilopoutanen.rss.Source();
             source.title = old.name;
             source.url = old.feedUrl;
             source.image = old.imageUrl;
@@ -45,7 +47,7 @@ public class Migrations {
         }
 
         AppRepository repository = new AppRepository(context);
-        for (Source source : sources) {
+        for (com.niilopoutanen.rss.Source source : sources) {
             repository.insert(source);
         }
 
@@ -58,5 +60,30 @@ public class Migrations {
         private String feedUrl;
         private String imageUrl;
         private Boolean showInFeed;
+    }
+    private static class HackedObjectInputStream extends ObjectInputStream {
+
+        public HackedObjectInputStream(InputStream in) throws IOException {
+            super(in);
+        }
+
+        @Override
+        protected ObjectStreamClass readClassDescriptor() {
+            try{
+                ObjectStreamClass resultClassDescriptor = super.readClassDescriptor();
+
+                if (resultClassDescriptor.getName().equals("com.niilopoutanen.rss_feed.models.Source")){
+                    resultClassDescriptor = ObjectStreamClass.lookup(Compatibility.class);
+
+                }
+
+                return resultClassDescriptor;
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+
+        }
     }
 }
