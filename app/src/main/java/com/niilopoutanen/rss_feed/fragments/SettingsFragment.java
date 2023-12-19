@@ -33,6 +33,7 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.ThemeMode;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -252,14 +253,13 @@ public class SettingsFragment extends Fragment {
                     intent.putExtra(Intent.EXTRA_TITLE, "RSS-Feed sources");
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
+                    intent.setClipData(new ClipData(
+                            "Subscribed sources from RSS-Feed",
+                            new String[] {"text/plain"},
+                            new ClipData.Item(uri)
+                    ));
+
                     Intent chooser = Intent.createChooser(intent, "Save sources");
-
-                    List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
-
-                    for (ResolveInfo resolveInfo : resInfoList) {
-                        String packageName = resolveInfo.activityInfo.packageName;
-                        context.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    }
 
                     startActivity(chooser);
 
