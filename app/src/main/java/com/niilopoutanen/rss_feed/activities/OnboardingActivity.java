@@ -26,9 +26,8 @@ public class OnboardingActivity extends AppCompatActivity {
 
 
     private void initVersion(){
-        ImageView coverView = findViewById(R.id.onboarding_version_cover);
+        ImageView coverView = findViewById(R.id.onboarding_version_cover_image);
         Picasso.get().load(COVER_URL)
-                  .transform(new MaskTransformation(this, R.drawable.image_rounded))
                   .into(coverView);
 
         TextView versionTitle = findViewById(R.id.onboarding_version_title);
