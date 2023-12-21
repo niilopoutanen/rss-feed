@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".activities.OnboardingActivity"
+    android:orientation="vertical"
     android:padding="20dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/onboarding_version_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:cardCornerRadius="20dp"
         app:cardBackgroundColor="@color/transparent"
         app:cardElevation="0dp"
@@ -35,10 +33,7 @@
         android:layout_marginTop="20dp"
         android:textSize="18sp"
         app:fontFamily="@font/inter_bold"
-        android:textColor="@color/textPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_version_cover" />
+        android:textColor="@color/textPrimary"/>
 
 
     <LinearLayout
@@ -46,11 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_version_title">
+        android:orientation="horizontal">
 
         <View
             android:layout_width="32dp"
@@ -88,11 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_version_change_1">
+        android:orientation="horizontal">
 
         <View
             android:layout_width="32dp"
@@ -124,4 +111,61 @@
 
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/onboarding_version_change_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/featureicon3"
+            android:backgroundTint="?attr/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/feature3"
+                android:textColor="@color/textPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:text="@string/feature3desc"
+                android:textColor="@color/textSecondary" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="?attr/colorAccent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/continua"
+            android:layout_centerInParent="true"
+            app:fontFamily="@font/inter_semibold"
+            android:textColor="@color/textPrimary"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+</LinearLayout>
