@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -115,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
-        if (isFirstLaunch && !isFinishing() && !isDestroyed()) {
-            dialog = new UpdateDialog(this);
-            dialog.show();
+        if (true || isFirstLaunch && !isFinishing() && !isDestroyed()) {
+            Intent onboardingIntent = new Intent(this, OnboardingActivity.class);
+            startActivity(onboardingIntent);
         }
 
         if(SourceMigration.needed(this)){
