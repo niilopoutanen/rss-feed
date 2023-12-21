@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -39,13 +40,13 @@ import java.util.concurrent.Executors;
 public class FeedFragment extends Fragment {
     private Context context;
     private Preferences preferences;
+    private AppRepository repository;
     TextView title;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
     private List<Source> sources = new ArrayList<>();
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
-    private int sourceId;
 
     public FeedFragment() {
     }
@@ -54,17 +55,26 @@ public class FeedFragment extends Fragment {
         this.preferences = preferences;
     }
 
+    public FeedFragment(Preferences preferences, FEED_TYPE type){
+        this.preferences = preferences;
+        this.type = type;
+    }
     public FeedFragment(int sourceId, Preferences preferences) {
         this.preferences = preferences;
-        this.sourceId = sourceId;
         this.type = FEED_TYPE.TYPE_SINGLE;
+        showSingle(sourceId);
+    }
+    public FeedFragment(Source source, Preferences preferences){
+        this.preferences = preferences;
+        this.type = FEED_TYPE.TYPE_SINGLE;
+        showSingle(source);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-
+        repository = new AppRepository(context);
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
@@ -74,6 +84,34 @@ public class FeedFragment extends Fragment {
     }
 
 
+    public void showSingle(int id){
+        if(repository == null){
+            repository = new AppRepository(context);
+        }
+
+        repository.getSourceById(id).observe(this.getViewLifecycleOwner(), source -> {
+            if(source == null)return;
+
+            if (source.title != null && title != null){
+                title.setText(source.title);
+            }
+
+            this.sources.clear();
+            this.sources.add(source);
+            update();
+        });
+    }
+    public void showSingle(Source source){
+        if(source == null)return;
+
+        if (source.title != null && title != null){
+            title.setText(source.title);
+        }
+
+        this.sources.clear();
+        this.sources.add(source);
+        update();
+    }
     public void update() {
         if (!isValid(sources)) return;
         swipeRefreshLayout.setRefreshing(true);
@@ -88,28 +126,34 @@ public class FeedFragment extends Fragment {
     }
 
     private void init() {
-        AppRepository repository = new AppRepository(context);
+        if(repository == null){
+            repository = new AppRepository(context);
+        }
 
         if (type == FEED_TYPE.TYPE_MULTI) {
             repository.getAllSources().observe(this.getViewLifecycleOwner(), sources -> {
                 this.sources = sources;
                 update();
             });
-        } else {
-            repository.getSourceById(sourceId).observe(this.getViewLifecycleOwner(), source -> {
-                if(source == null)return;
-
-                if (source.title != null && title != null){
-                    title.setText(source.title);
-                }
-
-                this.sources.clear();
-                this.sources.add(source);
-                update();
-            });
         }
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (type == FEED_TYPE.TYPE_SINGLE && getArguments() != null) {
+            int sourceId = getArguments().getInt("sourceId", Integer.MIN_VALUE);
+            if(sourceId != Integer.MIN_VALUE){
+                showSingle(sourceId);
+                return;
+            }
+            Source source = (Source)getArguments().getSerializable("source");
+            if(source != null){
+                showSingle(source);
+            }
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
@@ -193,5 +237,5 @@ public class FeedFragment extends Fragment {
         outState.putSerializable("preferences", preferences);
     }
 
-    private enum FEED_TYPE {TYPE_SINGLE, TYPE_MULTI}
+    public enum FEED_TYPE {TYPE_SINGLE, TYPE_MULTI}
 }

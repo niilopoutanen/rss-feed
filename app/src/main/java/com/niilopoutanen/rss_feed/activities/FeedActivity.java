@@ -29,7 +29,11 @@ public class FeedActivity extends AppCompatActivity {
             if (preferences == null) {
                 preferences = PreferencesManager.loadPreferences(this);
             }
-            FeedFragment feedFragment = new FeedFragment(sourceId, preferences);
+            FeedFragment feedFragment = new FeedFragment(preferences, FeedFragment.FEED_TYPE.TYPE_SINGLE);
+            Bundle args = new Bundle();
+            args.putInt("sourceId", sourceId);
+            feedFragment.setArguments(args);
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.feedactivity_container, feedFragment);
             transaction.commit();
