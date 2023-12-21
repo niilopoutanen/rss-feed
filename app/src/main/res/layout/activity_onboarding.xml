@@ -7,7 +7,8 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.OnboardingActivity"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:gravity="center_horizontal">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/onboarding_version_cover"
@@ -155,6 +156,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
     <RelativeLayout
+        android:id="@+id/onboarding_version_continue"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/button_background"
@@ -168,4 +170,12 @@
             android:textColor="@color/textPrimary"
             android:textSize="14sp"/>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/onboarding_version_do_not_show"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="@string/donot_show_again"
+        android:gravity="center"
+        app:fontFamily="@font/inter"/>
 </LinearLayout>
