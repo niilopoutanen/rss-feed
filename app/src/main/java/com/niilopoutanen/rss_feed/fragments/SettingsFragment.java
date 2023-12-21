@@ -144,17 +144,7 @@ public class SettingsFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         });
-        rootView.findViewById(R.id.settings_openChangelog).setOnClickListener(v -> {
-            Intent changeLogIntent = new Intent(context, FeedActivity.class);
-            String url = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/versions/versions.rss";
 
-            Source changeLog = new Source();
-            changeLog.title = context.getString(R.string.changelog);
-            changeLog.url = url;
-
-            changeLogIntent.putExtra("source", changeLog);
-            startActivity(changeLogIntent);
-        });
         rootView.findViewById(R.id.settings_createIssue).setOnClickListener(v -> {
             String url = "https://github.com/niilopoutanen/RSS-Feed/issues/new";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

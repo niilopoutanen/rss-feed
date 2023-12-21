@@ -97,7 +97,11 @@ public class FeedFragment extends Fragment {
             });
         } else {
             repository.getSourceById(sourceId).observe(this.getViewLifecycleOwner(), source -> {
-                if (title != null) title.setText(source.title);
+                if(source == null)return;
+
+                if (source.title != null && title != null){
+                    title.setText(source.title);
+                }
 
                 this.sources.clear();
                 this.sources.add(source);
