@@ -118,4 +118,5 @@
     <string name="rssfeed_sources">RSS-Syötteen lähteet</string>
     <string name="rssfeed_export_desc">Tilatut lähteet RSS-Syötteestä</string>
     <string name="whats_new">Mitä uutta?</string>
+    <string name="settings_headertype">Otsikon tyyli</string>
 </resources>

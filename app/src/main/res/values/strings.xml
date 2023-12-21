@@ -44,6 +44,7 @@
     <string name="accentcolor">Accent color</string>
     <string name="settings_font">Font used in articles</string>
     <string name="settings_launchwindow">Launch window</string>
+    <string name="settings_headertype">Header style</string>
     <string name="settings_launchwindow_additional">The selected window opens when starting the app.</string>
     <string name="haptics">Haptics</string>
 
@@ -86,6 +87,12 @@
         <item>Short</item>
         <item>Time since</item>
         <item>Time only</item>
+    </string-array>
+    <string-array name="header_types">
+        <item>Heavy</item>
+        <item>Bold</item>
+        <item>Medium</item>
+        <item>light</item>
     </string-array>
 
     <string name="whats_new_in">What\'s new %1$s in</string>

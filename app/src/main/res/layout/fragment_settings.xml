@@ -315,6 +315,50 @@
                         android:tag="false" />
                 </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/element_border" />
+
+            <RelativeLayout
+                android:id="@+id/settings_headertypesettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:minHeight="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/settings_headertype"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <TextView
+                    android:id="@+id/headertype_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf="@id/headertype_arrow"
+                    android:textColor="@color/textSecondary" />
+
+                <View
+                    android:id="@+id/headertype_arrow"
+                    android:layout_width="9dp"
+                    android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/arrow"
+                    android:backgroundTint="@color/white"
+                    android:rotation="180" />
+
+            </RelativeLayout>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"

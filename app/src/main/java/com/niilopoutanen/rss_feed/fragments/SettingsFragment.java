@@ -24,6 +24,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
@@ -71,6 +73,7 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.io.File;
@@ -80,9 +83,7 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    TextView themeSelected;
-    TextView fontSelected;
-    TextView launchwindowSelected;
+    TextView themeSelected, fontSelected, launchwindowSelected, headertypeSelected;
     SwitchCompat articlesInBrowser, articleFullScreen, articleShowControls, articleShowCategories;
     SwitchCompat imagecache;
     SwitchCompat animateClicks;
@@ -223,6 +224,12 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.vibrate(v);
         });
 
+        headertypeSelected = rootView.findViewById(R.id.headertype_selected);
+        RelativeLayout headerTypeSettings = rootView.findViewById(R.id.settings_headertypesettings);
+        headerTypeSettings.setOnClickListener(v -> {
+            openDropDownSettings(Preferences.HeaderType.class, getString(R.string.settings_headertype), "");
+            PreferencesManager.vibrate(v);
+        });
 
         RelativeLayout export = rootView.findViewById(R.id.settings_export);
         export.setOnClickListener(v -> {
@@ -359,6 +366,9 @@ public class SettingsFragment extends Fragment {
 
         ThemeMode selectedTheme = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
+
+        Preferences.HeaderType selectedHeader = PreferencesManager.getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
+        headertypeSelected.setText(getResources().getStringArray(R.array.header_types)[selectedHeader.ordinal()]);
 
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context));
 

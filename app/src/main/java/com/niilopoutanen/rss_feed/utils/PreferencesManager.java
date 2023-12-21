@@ -38,6 +38,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
@@ -59,6 +61,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
@@ -224,6 +227,26 @@ public class PreferencesManager {
         }
     }
 
+    public static TextView getHeader(Context context, String text){
+        TextView header = new TextView(context);
+        header.setText(text);
+        switch (loadPreferences(context).s_headertype){
+            case FAT:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_black));
+                break;
+            case BOLD:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_bold));
+                break;
+            case MEDIUM:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_medium));
+                break;
+            case LIGHT:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_regular));
+                break;
+        }
+
+        return header;
+    }
     /**
      * Loads the saved preferences from disk
      *
@@ -246,6 +269,7 @@ public class PreferencesManager {
         preferences.s_hide_sourcealert = getBooleanPreference(SP_HIDE_SOURCE_ALERT, PREFS_FUNCTIONALITY, SP_HIDE_SOURCE_ALERT_DEFAULT, context);
         preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
         preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
+        preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);
