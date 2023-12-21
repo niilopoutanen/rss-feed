@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
-        if (true || isFirstLaunch && !isFinishing() && !isDestroyed()) {
+        if (isFirstLaunch && !isFinishing() && !isDestroyed()) {
             Intent onboardingIntent = new Intent(this, OnboardingActivity.class);
             startActivity(onboardingIntent);
         }

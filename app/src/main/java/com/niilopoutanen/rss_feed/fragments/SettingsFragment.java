@@ -326,10 +326,12 @@ public class SettingsFragment extends Fragment {
         //material you
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
             rootView.findViewById(R.id.settings_colortile).setVisibility(View.GONE);
+            rootView.findViewById(R.id.settings_theme_separator).setVisibility(View.GONE);
         }
         //no dark theme support
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             rootView.findViewById(R.id.settings_themesettings).setVisibility(View.GONE);
+            rootView.findViewById(R.id.settings_theme_separator).setVisibility(View.GONE);
         }
     }
 

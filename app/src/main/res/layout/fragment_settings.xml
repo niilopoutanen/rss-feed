@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@string/settingsheader_colors"
+            android:text="@string/settings_theme"
             android:textColor="@color/textSecondary"
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
@@ -192,6 +192,7 @@
             </RelativeLayout>
 
             <View
+                android:id="@+id/settings_theme_separator"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
