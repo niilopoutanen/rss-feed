@@ -9,11 +9,11 @@
     android:padding="20dp">
 
     <ImageView
-        android:id="@+id/onboarding_version"
+        android:id="@+id/onboarding_version_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="150dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/version"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,13 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/whatsnew"
         android:textSize="18sp"
         app:fontFamily="@font/inter_bold"
         android:textColor="@color/textPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_version" />
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_version_cover" />
 
 
     <LinearLayout
