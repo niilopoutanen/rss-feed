@@ -43,7 +43,7 @@
     <string name="description_visible">Kuvaus näkyvissä</string>
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
-    <string name="whatsnew">Mitä uutta versiossa</string>
+    <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
     <string name="feature1">Tuo/vie</string>
     <string name="feature1desc">Voit nyt jakaa tilatut lähteesi muiden tuettujen sovellusten kanssa käyttämällä OPML tuonti/vienti-ominaisuutta asetuksissa.</string>
     <string name="feature2">Uusittu tietojen tallennusmekanismi</string>
@@ -114,4 +114,8 @@
         <item quantity="other">Tuotiin %d lähdettä</item>
     </plurals>
     <string name="select_file_import">Valitse tuotava tiedosto</string>
+    <string name="save_sources">Tallenna lähteet</string>
+    <string name="rssfeed_sources">RSS-Syötteen lähteet</string>
+    <string name="rssfeed_export_desc">Tilatut lähteet RSS-Syötteestä</string>
+    <string name="whats_new">Mitä uutta?</string>
 </resources>

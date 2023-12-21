@@ -22,7 +22,7 @@
         android:id="@+id/updatedialog_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/whatsnew"
+        android:text="@string/whats_new_in"
         android:textColor="@color/textPrimary"
         android:textSize="20sp"
         app:fontFamily="@font/inter_bold"

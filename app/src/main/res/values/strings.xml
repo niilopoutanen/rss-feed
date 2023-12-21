@@ -88,7 +88,8 @@
         <item>Time only</item>
     </string-array>
 
-    <string name="whatsnew">What\'s new in</string>
+    <string name="whats_new_in">What\'s new %1$s in</string>
+    <string name="whats_new">What\'s new?</string>
 
     <string name="feature1">Import/Export</string>
     <string name="feature1desc">You can now share your subscribed sources across other supported apps using OPML import/export in the settings.</string>
