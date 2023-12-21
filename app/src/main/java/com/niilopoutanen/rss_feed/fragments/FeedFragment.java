@@ -59,16 +59,6 @@ public class FeedFragment extends Fragment {
         this.preferences = preferences;
         this.type = type;
     }
-    public FeedFragment(int sourceId, Preferences preferences) {
-        this.preferences = preferences;
-        this.type = FEED_TYPE.TYPE_SINGLE;
-        showSingle(sourceId);
-    }
-    public FeedFragment(Source source, Preferences preferences){
-        this.preferences = preferences;
-        this.type = FEED_TYPE.TYPE_SINGLE;
-        showSingle(source);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -143,8 +133,8 @@ public class FeedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (type == FEED_TYPE.TYPE_SINGLE && getArguments() != null) {
-            int sourceId = getArguments().getInt("sourceId", Integer.MIN_VALUE);
-            if(sourceId != Integer.MIN_VALUE){
+            int sourceId = getArguments().getInt("sourceId", 0);
+            if(sourceId != 0){
                 showSingle(sourceId);
                 return;
             }

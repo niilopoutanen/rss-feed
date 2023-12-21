@@ -6,6 +6,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.models.Preferences;
@@ -25,6 +26,7 @@ public class FeedActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             int sourceId = bundle.getInt("source_id");
+            Source source = (Source)bundle.getSerializable("source");
             preferences = (Preferences) bundle.getSerializable("preferences");
             if (preferences == null) {
                 preferences = PreferencesManager.loadPreferences(this);
@@ -32,6 +34,7 @@ public class FeedActivity extends AppCompatActivity {
             FeedFragment feedFragment = new FeedFragment(preferences, FeedFragment.FEED_TYPE.TYPE_SINGLE);
             Bundle args = new Bundle();
             args.putInt("sourceId", sourceId);
+            args.putSerializable("source", source);
             feedFragment.setArguments(args);
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
