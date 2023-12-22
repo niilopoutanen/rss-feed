@@ -70,11 +70,15 @@
         <item>Vain aika</item>
     </string-array>
     <string-array name="header_types">
+        <item>Lihava</item>
         <item>Paksu</item>
-        <item>Iso</item>
         <item>Medium</item>
         <item>Kevyt</item>
-        <item>Piilotettu</item>
+    </string-array>
+    <string-array name="header_sizes">
+        <item>Pieni</item>
+        <item>Normaali</item>
+        <item>Iso</item>
     </string-array>
 
     <plurals name="minutes_ago">

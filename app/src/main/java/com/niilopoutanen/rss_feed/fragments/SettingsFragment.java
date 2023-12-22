@@ -24,6 +24,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
@@ -83,7 +85,7 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    TextView themeSelected, fontSelected, launchwindowSelected, headertypeSelected;
+    TextView themeSelected, fontSelected, launchwindowSelected, headertypeSelected, headerSizeSelected;
     SwitchCompat articlesInBrowser, articleFullScreen, articleShowControls, articleShowCategories;
     SwitchCompat imagecache;
     SwitchCompat animateClicks;
@@ -233,6 +235,13 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.vibrate(v);
         });
 
+        headerSizeSelected = rootView.findViewById(R.id.headersize_selected);
+        RelativeLayout headerSizeSettings = rootView.findViewById(R.id.settings_headersizesettings);
+        headerSizeSettings.setOnClickListener(v -> {
+            openDropDownSettings(Preferences.HeaderSize.class, context.getString(R.string.settings_headersize), "");
+            PreferencesManager.vibrate(v);
+        });
+
         RelativeLayout export = rootView.findViewById(R.id.settings_export);
         export.setOnClickListener(v -> {
             AppRepository repository = new AppRepository(context);
@@ -371,6 +380,9 @@ public class SettingsFragment extends Fragment {
 
         Preferences.HeaderType selectedHeader = PreferencesManager.getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
         headertypeSelected.setText(getResources().getStringArray(R.array.header_types)[selectedHeader.ordinal()]);
+
+        Preferences.HeaderSize selectedHeaderSize = PreferencesManager.getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
+        headerSizeSelected.setText(getResources().getStringArray(R.array.header_sizes)[selectedHeaderSize.ordinal()]);
 
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context));
 

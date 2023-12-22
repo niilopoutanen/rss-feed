@@ -360,6 +360,43 @@
                     android:rotation="180" />
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settings_headersizesettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:minHeight="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/settings_headersize"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <TextView
+                    android:id="@+id/headersize_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf="@id/headersize_arrow"
+                    android:textColor="@color/textSecondary" />
+
+                <View
+                    android:id="@+id/headersize_arrow"
+                    android:layout_width="9dp"
+                    android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/arrow"
+                    android:backgroundTint="@color/white"
+                    android:rotation="180" />
+
+            </RelativeLayout>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"

@@ -44,6 +44,8 @@ public class Preferences implements Serializable {
     public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.BLUE;
     public static final String SP_HEADERTYPE = "header_type";
     public static final HeaderType SP_HEADERTYPE_DEFAULT = HeaderType.FAT;
+    public static final String SP_HEADERSIZE = "header_size";
+    public static final HeaderSize SP_HEADERSIZE_DEFAULT = HeaderSize.NORMAL;
     public static final String SP_FONTSIZE = "font_size";
     public static final int SP_FONTSIZE_DEFAULT = 15;
     public static final String SP_VERSION = "version";
@@ -58,6 +60,7 @@ public class Preferences implements Serializable {
     public Font s_font;
     public LaunchWindow s_launchwindow;
     public HeaderType s_headertype;
+    public HeaderSize s_headersize;
     public boolean s_articlesinbrowser;
     public boolean s_feedcard_authorvisible;
     public boolean s_feedcard_titlevisible;
@@ -101,6 +104,9 @@ public class Preferences implements Serializable {
     }
 
     public enum HeaderType {
-        FAT, BOLD, MEDIUM, LIGHT, HIDDEN
+        FAT, BOLD, MEDIUM, LIGHT
+    }
+    public enum HeaderSize {
+        SMALL, NORMAL, LARGE
     }
 }

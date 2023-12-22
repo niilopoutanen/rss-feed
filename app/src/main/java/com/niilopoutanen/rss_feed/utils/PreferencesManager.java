@@ -38,6 +38,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT;
@@ -228,7 +230,8 @@ public class PreferencesManager {
     }
 
     public static void setHeader(Context context, TextView header){
-        switch (loadPreferences(context).s_headertype){
+        Preferences preferences = loadPreferences(context);
+        switch (preferences.s_headertype){
             case FAT:
                 header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_black));
                 break;
@@ -241,8 +244,18 @@ public class PreferencesManager {
             case LIGHT:
                 header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_regular));
                 break;
-            case HIDDEN:
-                header.setVisibility(View.GONE);
+        }
+        switch (preferences.s_headersize){
+            case SMALL:
+                header.setTextSize(20);
+                break;
+
+            case NORMAL:
+                header.setTextSize(30);
+                break;
+
+            case LARGE:
+                header.setTextSize(40);
                 break;
         }
     }
@@ -269,6 +282,7 @@ public class PreferencesManager {
         preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
         preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
         preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
+        preferences.s_headersize = getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);

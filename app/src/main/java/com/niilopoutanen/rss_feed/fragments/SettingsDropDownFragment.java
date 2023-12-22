@@ -7,6 +7,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
 import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
@@ -113,6 +115,10 @@ public class SettingsDropDownFragment extends Fragment {
             Preferences.HeaderType selected = PreferencesManager.getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
             return index == selected.ordinal();
         }
+        if (Preferences.HeaderSize.class.equals(type)) {
+            Preferences.HeaderSize selected = PreferencesManager.getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
+            return index == selected.ordinal();
+        }
         if (ThemeMode.class.equals(type)) {
             ThemeMode selected = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
             switch (selected) {
@@ -196,6 +202,19 @@ public class SettingsDropDownFragment extends Fragment {
                 item.setOnClickListener(view -> {
                     Preferences.HeaderType selectedHeader = Preferences.HeaderType.values()[index];
                     PreferencesManager.saveEnumPreference(SP_HEADERTYPE, PREFS_UI, selectedHeader, context);
+                    closeFragment(view);
+                });
+            }
+        } else if(Preferences.HeaderSize.class.equals(type)){
+            String[] headerNames = context.getResources().getStringArray(R.array.header_sizes);
+            for (int i = 0; i < headerNames.length; i++) {
+                boolean isLast = i == headerNames.length - 1;
+                RelativeLayout item = addViews(headerNames[i], verifySelected(i, Preferences.HeaderSize.class), isLast, null);
+                final int index = i;
+
+                item.setOnClickListener(view -> {
+                    Preferences.HeaderSize selectedHeaderSize = Preferences.HeaderSize.values()[index];
+                    PreferencesManager.saveEnumPreference(SP_HEADERSIZE, PREFS_UI, selectedHeaderSize, context);
                     closeFragment(view);
                 });
             }
