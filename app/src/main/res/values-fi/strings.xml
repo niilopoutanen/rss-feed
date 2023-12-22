@@ -69,6 +69,14 @@
         <item>Aika julkaisusta</item>
         <item>Vain aika</item>
     </string-array>
+    <string-array name="header_types">
+        <item>Paksu</item>
+        <item>Iso</item>
+        <item>Medium</item>
+        <item>Kevyt</item>
+        <item>Piilotettu</item>
+    </string-array>
+
     <plurals name="minutes_ago">
         <item quantity="one">%d minuutti sitten</item>
         <item quantity="other">%d minuuttia sitten</item>

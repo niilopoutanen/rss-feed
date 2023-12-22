@@ -125,6 +125,8 @@ public class SettingsFragment extends Fragment {
             return WindowInsetsCompat.CONSUMED;
         });
 
+        PreferencesManager.setHeader(context, rootView.findViewById(R.id.settings_header));
+
         String versionText = "v" + BuildConfig.VERSION_NAME;
         ((TextView) rootView.findViewById(R.id.settings_version)).setText(versionText);
 

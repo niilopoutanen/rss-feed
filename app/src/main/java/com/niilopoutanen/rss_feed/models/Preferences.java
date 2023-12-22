@@ -101,6 +101,6 @@ public class Preferences implements Serializable {
     }
 
     public enum HeaderType {
-        FAT, BOLD, MEDIUM, LIGHT
+        FAT, BOLD, MEDIUM, LIGHT, HIDDEN
     }
 }

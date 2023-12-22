@@ -227,9 +227,7 @@ public class PreferencesManager {
         }
     }
 
-    public static TextView getHeader(Context context, String text){
-        TextView header = new TextView(context);
-        header.setText(text);
+    public static void setHeader(Context context, TextView header){
         switch (loadPreferences(context).s_headertype){
             case FAT:
                 header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_black));
@@ -243,9 +241,10 @@ public class PreferencesManager {
             case LIGHT:
                 header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_regular));
                 break;
+            case HIDDEN:
+                header.setVisibility(View.GONE);
+                break;
         }
-
-        return header;
     }
     /**
      * Loads the saved preferences from disk

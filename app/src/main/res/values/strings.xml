@@ -92,7 +92,8 @@
         <item>Heavy</item>
         <item>Bold</item>
         <item>Medium</item>
-        <item>light</item>
+        <item>Light</item>
+        <item>Hidden</item>
     </string-array>
 
     <string name="whats_new_in">What\'s new %1$s in</string>

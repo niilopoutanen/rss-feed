@@ -153,6 +153,7 @@ public class FeedFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.feed_container);
 
         title = rootView.findViewById(R.id.feed_header);
+        PreferencesManager.setHeader(context, title);
 
         ViewCompat.setOnApplyWindowInsetsListener(title, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());

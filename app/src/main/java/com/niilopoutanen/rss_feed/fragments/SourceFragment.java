@@ -25,6 +25,7 @@ import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 public class SourceFragment extends Fragment {
 
@@ -77,6 +78,7 @@ public class SourceFragment extends Fragment {
             return WindowInsetsCompat.CONSUMED;
         });
 
+        PreferencesManager.setHeader(context, rootView.findViewById(R.id.sources_header));
         sourcesRecyclerView = rootView.findViewById(R.id.sources_recyclerview);
 
         adapter = new SourceAdapter(null, sourcesRecyclerView, getParentFragmentManager());
