@@ -22,8 +22,6 @@
         app:layout_constraintTop_toBottomOf="@+id/bottomSheetDragHandleView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:divider="@color/element_border"
-        app:showDividers="middle"
         android:padding="20dp">
 
         <LinearLayout
