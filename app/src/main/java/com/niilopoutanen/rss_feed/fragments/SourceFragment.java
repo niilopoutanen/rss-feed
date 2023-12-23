@@ -53,13 +53,6 @@ public class SourceFragment extends Fragment {
         setReenterTransition(new MaterialFadeThrough());
         postponeEnterTransition();
 
-        AppRepository repository = new AppRepository(context);
-        repository.getAllSources().observe(this, sources -> {
-            if (adapter != null) {
-                adapter.updateSources(sources);
-            }
-        });
-
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
@@ -69,6 +62,14 @@ public class SourceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sources, container, false);
+
+        AppRepository repository = new AppRepository(context);
+        repository.getAllSources().observe(this, sources -> {
+            if (adapter != null) {
+                adapter.updateSources(sources);
+            }
+        });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.sources_container), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
