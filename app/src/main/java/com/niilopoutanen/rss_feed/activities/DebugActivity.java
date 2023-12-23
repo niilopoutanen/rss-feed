@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.activities;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class DebugActivity extends AppCompatActivity {
 
     private void initControls() {
         LinearLayout container = findViewById(R.id.debug_container);
+
+        PreferencesManager.setHeader(this, findViewById(R.id.debug_header));
 
         findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
 
@@ -65,6 +68,11 @@ public class DebugActivity extends AppCompatActivity {
                       })
                       .setNegativeButton("Cancel", null)
                       .show();
+        });
+
+        findViewById(R.id.debug_showchangelog).setOnClickListener(v -> {
+            Intent onBoardingIntent = new Intent(DebugActivity.this, OnboardingActivity.class);
+            startActivity(onBoardingIntent);
         });
 
 
