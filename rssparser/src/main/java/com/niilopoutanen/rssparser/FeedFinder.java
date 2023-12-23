@@ -14,7 +14,16 @@ public class FeedFinder {
     private URL result;
     public URL find(String urlStr) throws RSSException {
         this.url = WebUtils.formatUrl(urlStr);
-        lookup();
+
+        try{
+            if(this.url != null && WebUtils.rssExists(this.url)){
+                this.result = this.url;
+            }
+        }
+        catch (IOException e) {
+            lookup();
+        }
+
 
         return result;
     }
