@@ -11,7 +11,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 
@@ -30,6 +33,7 @@ public class OnboardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
 
         initVersion();
+
     }
 
 
@@ -41,7 +45,6 @@ public class OnboardingActivity extends AppCompatActivity {
 
         View continueButton = findViewById(R.id.onboarding_version_continue);
         continueButton.setOnClickListener(v -> {
-            PreferencesManager.setLatestVersion(this);
             finish();
         });
         continueButton.setOnTouchListener((view, event) -> {
@@ -61,5 +64,11 @@ public class OnboardingActivity extends AppCompatActivity {
             PreferencesManager.saveBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, false, OnboardingActivity.this);
             finish();
         });
+    }
+
+    @Override
+    public void finish(){
+        PreferencesManager.setLatestVersion(OnboardingActivity.this);
+        super.finish();
     }
 }
