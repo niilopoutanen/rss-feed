@@ -18,12 +18,13 @@ public class FeedFinder {
         try{
             if(this.url != null && WebUtils.rssExists(this.url)){
                 this.result = this.url;
+                return result;
             }
         }
-        catch (IOException e) {
-            lookup();
-        }
+        catch (IOException ignored) {}
 
+
+        lookup();
 
         return result;
     }

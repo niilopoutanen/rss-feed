@@ -55,6 +55,7 @@ public class Parser {
     public static List<Post> loadMultiple(List<Source> sources){
         List<Post> posts = new ArrayList<>();
         for(Source source : sources){
+            if(!source.visible)continue;
             Parser parser = new Parser();
             parser.load(source.url);
             posts.addAll(parser.posts);
