@@ -120,7 +120,7 @@ public class ArticleActivity extends AppCompatActivity {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.bottomMargin = Math.max(insets.right, PreferencesManager.dpToPx(10, this));
+            mlp.bottomMargin = Math.max(insets.bottom, PreferencesManager.dpToPx(10, this));
             mlp.rightMargin = Math.max(insets.right, PreferencesManager.dpToPx(10, this));
             footerToggle.getBackground().setAlpha(128);
             footerToggle.getChildAt(0).getBackground().setAlpha(128);
