@@ -36,8 +36,7 @@ public class AddSourceFragment extends Fragment {
 
     private Source source;
 
-    private EditText feedUrl;
-    private EditText feedName;
+    private EditText feedUrl, feedName;
     private MaterialSwitch showInFeed;
     private TextView title;
     private LinearLayout bottomContainer;
@@ -78,8 +77,20 @@ public class AddSourceFragment extends Fragment {
             if (Parser.isValid(userInput)) {
                 Parser parser = new Parser();
                 parser.load(userInput.url);
+
+                //set id if it exists
+                if(source != null){
+                    parser.source.id = source.id;
+                }
+
                 source = parser.source;
                 source.url = userInput.url;
+
+                //set name if not empty
+                if(userInput.title != null && !userInput.title.isEmpty()){
+                    source.title = userInput.title;
+                }
+
                 source.visible = showInFeed.isChecked();
 
                 if (source.image == null || source.image.isEmpty()) {

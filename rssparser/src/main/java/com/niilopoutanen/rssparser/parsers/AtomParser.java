@@ -66,11 +66,13 @@ public class AtomParser extends ParserBase {
             }
             Element summaryElement = itemElement.selectFirst("summary");
             if (summaryElement != null && post.description == null) {
-                post.description = summaryElement.text();
+                Element desc = Jsoup.parse(summaryElement.text()).body();
+                post.description = desc.text();
             }
             Element contentElement = itemElement.selectFirst("content");
             if (contentElement != null && post.description == null) {
-                post.description = contentElement.text();
+                Element desc = Jsoup.parse(contentElement.text()).body();
+                post.description = desc.text();
             }
 
             Element pubDate = itemElement.selectFirst("published");
