@@ -44,6 +44,7 @@
     <string name="accentcolor">Accent color</string>
     <string name="settings_font">Font used in articles</string>
     <string name="settings_launchwindow">Launch window</string>
+    <string name="settings_headertype">Header style</string>
     <string name="settings_launchwindow_additional">The selected window opens when starting the app.</string>
     <string name="haptics">Haptics</string>
 
@@ -87,17 +88,29 @@
         <item>Time since</item>
         <item>Time only</item>
     </string-array>
+    <string-array name="header_types">
+        <item>Heavy</item>
+        <item>Bold</item>
+        <item>Medium</item>
+        <item>Light</item>
+    </string-array>
+    <string-array name="header_sizes">
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
+    </string-array>
 
-    <string name="whatsnew">What\'s new in</string>
+    <string name="whats_new_in">What\'s new %1$s in</string>
+    <string name="whats_new">What\'s new?</string>
 
-    <string name="feature1">Updated Discover page</string>
-    <string name="feature1desc">New recommended section with tested feeds, and cleaner user interface.</string>
+    <string name="feature1">Import/Export</string>
+    <string name="feature1desc">You can now share your subscribed sources across other supported apps using OPML import/export in the settings.</string>
 
-    <string name="feature2">Post categories now visible in article reader</string>
-    <string name="feature2desc">If the publisher provides info about the post they write, such as: category=news, it is now visible when you read the article.</string>
+    <string name="feature2">Reworked data storing</string>
+    <string name="feature2desc">The app now has a stronger database for storing user data on your device.</string>
 
-    <string name="feature3">App stability</string>
-    <string name="feature3desc">Enhanced app stability, less crashes</string>
+    <string name="feature3">UI enhancements</string>
+    <string name="feature3desc">Small modifications to the user interface</string>
 
 
 
@@ -127,5 +140,18 @@
     <string name="tooltip_post_no_article">This post does not have a article included, only the summary.</string>
     <string name="view_changelog">View changelog</string>
     <string name="changelog">Changelog</string>
-
+    <string name="import_sources">Import sources</string>
+    <string name="export_sources">Export sources</string>
+    <string name="import_export">Import/Export</string>
+    <string name="import_export_desc">Import or export your sources across other apps. OMPL-format is used to transfer the data.</string>
+    <plurals name="imported_sources">
+        <item quantity="one">Imported %d source</item>
+        <item quantity="other">Imported %d sources</item>
+    </plurals>
+    <string name="select_file_import">Select file to import</string>
+    <string name="save_sources">Save sources</string>
+    <string name="rssfeed_sources">RSS-Feed sources</string>
+    <string name="rssfeed_export_desc">Subscribed sources from RSS-Feed</string>
+    <string name="settings_headersize">Header size</string>
+    <string name="show_changelog">Show changelog</string>
 </resources>

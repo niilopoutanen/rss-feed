@@ -5,11 +5,9 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -19,11 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
@@ -32,7 +30,6 @@ import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rssparser.Callback;
 import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rssparser.WebUtils;
@@ -42,7 +39,6 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -81,7 +77,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         setReenterTransition(new MaterialFadeThrough());
 
 
-
         postponeEnterTransition();
         loadData();
     }
@@ -92,11 +87,10 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         }
         categories = Category.getCategories(PreferencesManager.getUserLocale());
 
-        if(categoryAdapter != null){
+        if (categoryAdapter != null) {
             categoryAdapter.setCategories(categories);
             progressBar.setVisibility(View.GONE);
         }
-
 
 
     }
@@ -137,18 +131,18 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         Executor executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
-            if(query.equals(Category.CATEGORY_RECOMMENDED)){
+            if (query.equals(Category.CATEGORY_RECOMMENDED)) {
                 callBack.onResult(loadRecommendations());
                 return;
             }
 
             try {
                 URL queryUrl = new URL(FEEDLY_ENDPOINT + query + "&count=" + FEEDLY_ENDPOINT_FETCHCOUNT + "&locale=en");
-                String result = WebUtils.connect(queryUrl, true);
+                String result = WebUtils.connectRaw(queryUrl);
                 List<FeedResult> results = FeedResult.parseResult(new JSONObject(result));
                 callBack.onResult(results);
             } catch (Exception e) {
-                e.printStackTrace();
+                FirebaseCrashlytics.getInstance().recordException(e);
             }
 
         });
@@ -174,11 +168,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             }
 
             url = new URL(baseURL + fileName);
-            String result = WebUtils.connect(url, true);
+            String result = WebUtils.connectRaw(url);
             results = FeedResult.parseResult(new JSONObject(result));
 
-        } 
-        catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         return results;
     }
@@ -196,15 +190,16 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             return WindowInsetsCompat.CONSUMED;
         });
 
+        PreferencesManager.setHeader(context, rootView.findViewById(R.id.discover_header));
 
         progressBar = rootView.findViewById(R.id.discover_progress);
 
         categoryRecyclerView = rootView.findViewById(R.id.discover_categories_recyclerview);
-        categoryAdapter = new DiscoverCategoryAdapter(categories,context, this);
+        categoryAdapter = new DiscoverCategoryAdapter(categories, context, this);
         categoryRecyclerView.setAdapter(categoryAdapter);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         categoryRecyclerView.post(this::startPostponedEnterTransition);
-        
+
         resultsRecyclerView = rootView.findViewById(R.id.discover_results_recyclerview);
         resultAdapter = new DiscoverResultAdapter(results);
         resultsRecyclerView.setAdapter(resultAdapter);
@@ -232,7 +227,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int position = categoryRecyclerView.getChildAdapterPosition(v);
-        for(Category category : categories){
+        for (Category category : categories) {
             category.setActive(false);
         }
 

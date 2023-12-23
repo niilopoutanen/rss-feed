@@ -43,13 +43,13 @@
     <string name="description_visible">Kuvaus näkyvissä</string>
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
-    <string name="whatsnew">Mitä uutta versiossa</string>
-    <string name="feature1">Päivitetty Tutki-välilehti</string>
-    <string name="feature1desc">Uusi suositeltu-osio jossa on testatusti toimivia syötteitä, + siistimpi käyttöliittymä</string>
-    <string name="feature2">Julkaisun kategoriat näkyvät nyt artikkelia lukiessasi</string>
-    <string name="feature2desc">Jos julkaisija antaa tietoja kirjoittamastaan artikkelista, kuten: kategoria=uutiset, se näkyy artikkelia lukiessasi.</string>
-    <string name="feature3">Sovelluksen vakauden parantamista</string>
-    <string name="feature3desc">Vähemmän bugeja.</string>
+    <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
+    <string name="feature1">Tuo/vie</string>
+    <string name="feature1desc">Voit nyt jakaa tilatut lähteesi muiden tuettujen sovellusten kanssa käyttämällä OPML tuonti/vienti-ominaisuutta asetuksissa.</string>
+    <string name="feature2">Uusittu tietojen tallennusmekanismi</string>
+    <string name="feature2desc">Sovellus käyttää nyt vahvempaa tietokantaa käyttäjätietojen tallentamiseen laitteellasi.</string>
+    <string name="feature3">Käyttöliittymän parannuksia</string>
+    <string name="feature3desc">Pieniä muutoksia ja parannuksiä käyttöliitymään.</string>
 
 
     <string-array name="theme_modes">
@@ -69,6 +69,18 @@
         <item>Aika julkaisusta</item>
         <item>Vain aika</item>
     </string-array>
+    <string-array name="header_types">
+        <item>Lihava</item>
+        <item>Paksu</item>
+        <item>Medium</item>
+        <item>Kevyt</item>
+    </string-array>
+    <string-array name="header_sizes">
+        <item>Pieni</item>
+        <item>Normaali</item>
+        <item>Iso</item>
+    </string-array>
+
     <plurals name="minutes_ago">
         <item quantity="one">%d minuutti sitten</item>
         <item quantity="other">%d minuuttia sitten</item>
@@ -102,5 +114,23 @@
     <string name="article_show_categories">Näytä julkaisun kategoriat</string>
     <string name="update">Päivitä</string>
     <string name="tooltip_post_no_article">Tässä julkaisussa ei ole artikkelia, vaan pelkästään yhteenveto.</string>
+    <string name="view_changelog">Katso versiohistoria</string>
+    <string name="changelog">Versiohistoria</string>
+    <string name="import_sources">Tuo tilaukset</string>
+    <string name="export_sources">Vie tilaukset</string>
+    <string name="import_export">Tuo/Vie</string>
+    <string name="import_export_desc">Tuo tai vie lähteesi muiden sovellusten välillä. Tiedon siirtoon käytetään OPML-tietomuotoa.</string>
 
+    <plurals name="imported_sources">
+        <item quantity="one">Tuotiin %d lähde</item>
+        <item quantity="other">Tuotiin %d lähdettä</item>
+    </plurals>
+    <string name="select_file_import">Valitse tuotava tiedosto</string>
+    <string name="save_sources">Tallenna lähteet</string>
+    <string name="rssfeed_sources">RSS-Syötteen lähteet</string>
+    <string name="rssfeed_export_desc">Tilatut lähteet RSS-Syötteestä</string>
+    <string name="whats_new">Mitä uutta?</string>
+    <string name="settings_headertype">Otsikon tyyli</string>
+    <string name="settings_headersize">Otsikon koko</string>
+    <string name="show_changelog">Näytä muutoshistoria</string>
 </resources>

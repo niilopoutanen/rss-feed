@@ -1,5 +1,10 @@
 package com.niilopoutanen.rssparser;
 
+import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rssparser.parsers.AtomParser;
+import com.niilopoutanen.rssparser.parsers.RssParser;
+
 import org.jsoup.nodes.Document;
 
 import java.net.URL;
@@ -7,61 +12,76 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kotlin.NotImplementedError;
+
 public class Parser {
-    private Feed feed = new Feed();
+    public Source source;
+    public List<Post> posts = new ArrayList<>();
 
-    public Parser(){ }
-    public Parser(String url){
-        load(url, null);
+    public Parser(){
+
     }
-
-
-    public Feed load(String url) throws RSSException {
+    public static boolean isValid(Source source){
+        if(source == null || source.url == null || source.url.isEmpty()){
+            return false;
+        }
         try{
-            Document document = WebUtils.connect(new URL(url));
-            parse(document);
+            FeedFinder feedFinder = new FeedFinder();
+            feedFinder.find(source.url);
+            URL result = feedFinder.getResult();
+            if(result == null || source.url.isEmpty()){
+                return false;
+            }
+            source.url = result.toString();
         }
         catch (RSSException r){
-            throw r;
-        }
-        catch (Exception e){
-            throw new RSSException(e.getMessage());
+            return false;
         }
 
-        return feed;
+        return true;
     }
-    public void load(String url, Callback<Feed> callback){
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            try{
-                Document document = WebUtils.connect(new URL(url));
-                parse(document);
-                if (callback != null) callback.onResult(feed);
-            }
-            catch (Exception e){
-                if (callback != null) callback.onError(new RSSException(e.getMessage()));
-            }
-        });
+    public void load(String url){
+        Document document = WebUtils.connect(url);
+        parse(document);
+        source.url = url;
+    }
+    public static List<Post> loadMultiple(List<Source> sources){
+        List<Post> posts = new ArrayList<>();
+        for(Source source : sources){
+            if(!source.visible)continue;
+            Parser parser = new Parser();
+            parser.load(source.url);
+            posts.addAll(parser.posts);
+        }
+        Collections.sort(posts);
+        return posts;
     }
 
-    private void parse(Document document){
+    public void parse(Document document){
+        if(document == null){
+            return;
+        }
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
-            this.feed = rssParser.parse(document);
+            rssParser.parse(document);
+            source = (rssParser.getSource());
+            posts = rssParser.getPosts();
         }
         else if(WebUtils.isAtom(document)){
             AtomParser atomParser = new AtomParser();
-            this.feed = atomParser.parse(document);
+            atomParser.parse(document);
+            source = (atomParser.getSource());
+            posts = atomParser.getPosts();
         }
     }
+
     public static Date parseDate(String dateString){
         List<DateTimeFormatter> formats = new ArrayList<>();
         formats.add(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
@@ -79,7 +99,6 @@ public class Parser {
 
         return null;
     }
-
     public static String parsePattern(String raw, String attribute){
         String regexPattern = attribute + "=\"(.*?)\"";
         Pattern pattern = Pattern.compile(regexPattern);

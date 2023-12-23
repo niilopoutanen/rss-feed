@@ -2,6 +2,7 @@ package com.niilopoutanen.rss;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -9,27 +10,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity(tableName = "post")
+@Entity(tableName = "post", foreignKeys = {@ForeignKey(entity = Source.class, parentColumns = "id", childColumns = "sourceId", onDelete = ForeignKey.CASCADE)})
 public class Post implements Comparable<Post>, Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
-    @ColumnInfo(name = "title")
+    private int sourceId;
     public String title;
-    @ColumnInfo(name = "link")
     public String link;
-    @ColumnInfo(name = "description")
     public String description;
-    @ColumnInfo(name = "author")
     public String author;
-    @ColumnInfo(name = "categories")
     private final List<String> categories = new ArrayList<>();
-    @ColumnInfo(name = "comments")
     private final List<String> comments = new ArrayList<>();
-    @ColumnInfo(name = "image")
     public String image;
-    @ColumnInfo(name = "pubDate")
     public Date pubDate;
 
     public void addComment(String comment){

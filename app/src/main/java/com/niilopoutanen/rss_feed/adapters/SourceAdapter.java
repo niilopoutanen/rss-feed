@@ -1,18 +1,13 @@
 package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,38 +18,36 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.activities.FeedActivity;
-import com.niilopoutanen.rss_feed.fragments.SourceItem;
-import com.niilopoutanen.rss_feed.models.MaskTransformation;
-import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.squareup.picasso.Picasso;
+import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.database.AppDatabase;
+import com.niilopoutanen.rss_feed.database.DatabaseThread;
+import com.niilopoutanen.rss_feed.fragments.SourceItem;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final RecyclerView recyclerView;
     private List<Source> sources;
     private Context context;
     private Source tempSource;
-    private FragmentManager manager;
+    private final FragmentManager manager;
 
     private final Runnable undoDelete = new Runnable() {
         @Override
         public void run() {
             if (tempSource != null) {
-                sources = SaveSystem.loadContent(context);
-                sources.add(tempSource);
-                SaveSystem.saveContent(context, sources);
-                notifyItemChanged(sources.size());
-                tempSource = null;
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(() -> {
+                    AppDatabase database = AppDatabase.getInstance(context);
+                    database.sourceDao().insert(tempSource);
+                    tempSource = null;
+                });
             }
         }
     };
-
 
 
     public SourceAdapter(List<Source> sources, RecyclerView recyclerView, FragmentManager manager) {
@@ -77,9 +70,12 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (sources == null) {
+            return;
+        }
         Source source = sources.get(position);
-        if(holder instanceof SourceItem){
-            SourceItem sourceItem = (SourceItem)holder;
+        if (holder instanceof SourceItem) {
+            SourceItem sourceItem = (SourceItem) holder;
             sourceItem.bindData(source, manager);
         }
     }
@@ -87,19 +83,24 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
+        if (sources == null) {
+            return 0;
+        }
         return sources.size();
     }
 
 
-    public Source removeItem(int position) {
-        List<Source> sourcesTemp = SaveSystem.loadContent(context);
-        Source sourceToRemove = sourcesTemp.get(position);
-        sourcesTemp.remove(sourceToRemove);
-        SaveSystem.saveContent(context, sourcesTemp);
-        sources.remove(position);
-        notifyItemRemoved(position);
-
-        return sourceToRemove;
+    public void removeItem(int position, DatabaseThread<Source> thread) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Source target = sources.get(position);
+                AppDatabase database = AppDatabase.getInstance(context);
+                database.sourceDao().delete(target);
+                thread.complete(target);
+            }
+        });
     }
 
     public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
@@ -118,7 +119,7 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            tempSource = removeItem(position);
+            removeItem(position, result -> tempSource = result);
 
             Snackbar snackbar = Snackbar.make(recyclerView, context.getString(R.string.sourceremoved), Snackbar.LENGTH_LONG);
             snackbar.setAction(R.string.cancel, v -> undoDelete.run());

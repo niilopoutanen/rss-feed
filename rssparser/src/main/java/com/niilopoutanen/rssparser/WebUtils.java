@@ -3,7 +3,6 @@ package com.niilopoutanen.rssparser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,12 +20,22 @@ public class WebUtils {
     public static Document connect(URL url) throws IOException, RSSException {
         String result = fetch(url);
         // Return the fetched data as a JSoup document
-        Document document = Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
-        return document;
+        return Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
     }
 
-    public static String connect(URL url, boolean returnString) throws IOException, RSSException {
+    public static String connectRaw(URL url) throws IOException, RSSException {
         return fetch(url);
+    }
+    public static Document connect(String urlStr){
+        try{
+            URL url = new URL(urlStr);
+            String result = fetch(url);
+            return Jsoup.parse(result, "", org.jsoup.parser.Parser.xmlParser());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static String fetch(URL url) throws IOException, RSSException {

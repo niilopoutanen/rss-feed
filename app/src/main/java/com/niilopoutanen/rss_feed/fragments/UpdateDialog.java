@@ -37,7 +37,7 @@ public class UpdateDialog {
         sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
         TextView header = sheet.findViewById(R.id.updatedialog_header);
-        String headerText = context.getString(R.string.whatsnew) + " v" + BuildConfig.VERSION_NAME + "?";
+        String headerText = context.getString(R.string.whats_new_in) + " v" + BuildConfig.VERSION_NAME + "?";
         header.setText(headerText);
 
         sheet.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(context));
@@ -62,10 +62,12 @@ public class UpdateDialog {
     public void show() {
         sheet.show();
     }
-    public void dismiss(){
+
+    public void dismiss() {
         sheet.dismiss();
     }
-    public boolean isShowing(){
+
+    public boolean isShowing() {
         return sheet.isShowing();
     }
 }

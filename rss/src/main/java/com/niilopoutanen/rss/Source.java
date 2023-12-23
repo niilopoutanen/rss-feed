@@ -1,8 +1,8 @@
 package com.niilopoutanen.rss;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 
 import java.io.Serializable;
 
@@ -15,9 +15,10 @@ public class Source implements Serializable {
     public String description;
 
     public String url;
+    public String home;
 
     public String image;
     public String language;
 
-    public boolean visible;
+    public boolean visible = true;
 }

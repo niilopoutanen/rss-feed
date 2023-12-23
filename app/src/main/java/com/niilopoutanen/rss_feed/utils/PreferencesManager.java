@@ -38,12 +38,18 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_VERSION;
@@ -59,6 +65,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
@@ -162,7 +169,7 @@ public class PreferencesManager {
         }
     }
 
-    public static Category.Country getUserLocale(){
+    public static Category.Country getUserLocale() {
         String locale = Locale.getDefault().getLanguage();
         Category.Country userLocale;
         if ("fi".equals(locale)) {
@@ -224,6 +231,36 @@ public class PreferencesManager {
         }
     }
 
+    public static void setHeader(Context context, TextView header){
+        Preferences preferences = loadPreferences(context);
+        switch (preferences.s_headertype){
+            case FAT:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_black));
+                break;
+            case BOLD:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_bold));
+                break;
+            case MEDIUM:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_medium));
+                break;
+            case LIGHT:
+                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_regular));
+                break;
+        }
+        switch (preferences.s_headersize){
+            case SMALL:
+                header.setTextSize(20);
+                break;
+
+            case NORMAL:
+                header.setTextSize(30);
+                break;
+
+            case LARGE:
+                header.setTextSize(40);
+                break;
+        }
+    }
     /**
      * Loads the saved preferences from disk
      *
@@ -246,6 +283,9 @@ public class PreferencesManager {
         preferences.s_hide_sourcealert = getBooleanPreference(SP_HIDE_SOURCE_ALERT, PREFS_FUNCTIONALITY, SP_HIDE_SOURCE_ALERT_DEFAULT, context);
         preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
         preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
+        preferences.s_showchangelog = getBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, SP_SHOW_CHANGELOG_DEFAULT, context);
+        preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
+        preferences.s_headersize = getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);
@@ -360,15 +400,13 @@ public class PreferencesManager {
             return totalWidth - dpToPx(40 * columnCount, context);
         }
         if (imageType == FEED_IMAGE_LARGE_FULLSCREEN) {
-            if(columnCount > 1){
+            if (columnCount > 1) {
                 return totalWidth - dpToPx(20 * columnCount, context);
-            }
-            else{
+            } else {
                 // Keep the same values if vertical
                 return totalWidth - dpToPx(40 * columnCount, context);
             }
-        }
-        else if (imageType == FEED_IMAGE_SMALL) {
+        } else if (imageType == FEED_IMAGE_SMALL) {
             return dpToPx(100, context);
         } else if (imageType == ARTICLE_IMAGE) {
             int excessValue = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, displayMetrics);
@@ -396,7 +434,7 @@ public class PreferencesManager {
      * @return String representation of the date
      */
     public static String formatDate(Date date, DateStyle dateStyle, Context context) {
-        if(date == null || dateStyle == null || context == null){
+        if (date == null || dateStyle == null || context == null) {
             return "";
         }
         Instant now = Instant.now();

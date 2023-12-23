@@ -22,14 +22,14 @@
         app:layout_constraintTop_toBottomOf="@+id/bottomSheetDragHandleView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:divider="@color/element_border"
-        app:showDividers="middle"
         android:padding="20dp">
 
         <LinearLayout
+            android:background="@drawable/input_background"
+            android:backgroundTint="@color/surface_border"
             android:id="@+id/article_open_in_browser"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
@@ -47,9 +47,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/input_background"
+            android:backgroundTint="@color/surface_border"
             android:id="@+id/article_share"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">

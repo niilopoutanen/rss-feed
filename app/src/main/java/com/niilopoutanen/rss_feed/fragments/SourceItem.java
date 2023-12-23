@@ -5,15 +5,10 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,24 +19,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
-import com.niilopoutanen.rss_feed.activities.MainActivity;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
-import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
 import com.niilopoutanen.rssparser.WebUtils;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
-import java.util.List;
-
-public class SourceItem extends RecyclerView.ViewHolder{
+public class SourceItem extends RecyclerView.ViewHolder {
     private final TextView title;
     private final TextView desc;
     private final ImageView icon;
@@ -50,6 +39,7 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
     private final Preferences preferences;
     private final Context context;
+
     public SourceItem(@NonNull View itemView, Preferences preferences, Context context) {
         super(itemView);
         this.preferences = preferences;
@@ -72,13 +62,14 @@ public class SourceItem extends RecyclerView.ViewHolder{
         return new SourceItem(view, preferences, context);
     }
 
-    public void bindData(Source source, FragmentManager manager){
+    public void bindData(Source source, FragmentManager manager) {
         title.setText(source.title);
         desc.setVisibility(View.GONE);
         loadIcon(source.image);
         initButton(source, manager);
     }
-    public void bindData(FeedResult result){
+
+    public void bindData(FeedResult result) {
         title.setText(result.title);
         desc.setText(result.description);
         loadIcon(result.visualUrl);
@@ -86,8 +77,8 @@ public class SourceItem extends RecyclerView.ViewHolder{
     }
 
 
-    private void loadIcon(String iconUrl){
-        if(iconUrl == null || iconUrl.isEmpty()){
+    private void loadIcon(String iconUrl) {
+        if (iconUrl == null || iconUrl.isEmpty()) {
             icon.setBackground(AppCompatResources.getDrawable(context, R.drawable.element_background));
         }
         int iconSize = PreferencesManager.dpToPx(60, context);
@@ -97,14 +88,14 @@ public class SourceItem extends RecyclerView.ViewHolder{
                   .into(icon);
     }
 
-    private void initButton(Source source, FragmentManager manager){
+    private void initButton(Source source, FragmentManager manager) {
         Drawable edit = AppCompatResources.getDrawable(context, R.drawable.icon_edit);
         createIcon();
         setIcon(edit);
 
         container.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("source", source);
+            bundle.putSerializable("source_id", source.id);
             bundle.putSerializable("preferences", preferences);
             Intent feedIntent = new Intent(v.getContext(), FeedActivity.class);
             feedIntent.putExtras(bundle);
@@ -120,7 +111,8 @@ public class SourceItem extends RecyclerView.ViewHolder{
             transaction.commit();
         });
     }
-    private void createIcon(){
+
+    private void createIcon() {
         View action = new View(context);
         int size = PreferencesManager.dpToPx(15, context);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(size, size);
@@ -130,28 +122,20 @@ public class SourceItem extends RecyclerView.ViewHolder{
 
         button.addView(action);
     }
-    private void setIcon(Drawable icon){
+
+    private void setIcon(Drawable icon) {
         View action = button.getChildAt(0);
-        if (action == null){
+        if (action == null) {
             return;
         }
         action.setBackground(icon);
     }
-    private void initButton(FeedResult result){
-        createIcon();
-        List<Source> savedSources = SaveSystem.loadContent(context);
 
-        Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
+    private void initButton(FeedResult result) {
+        createIcon();
+
         Drawable plus = AppCompatResources.getDrawable(context, R.drawable.icon_plus);
 
-        for (Source source : savedSources) {
-            if (source.url.equalsIgnoreCase(WebUtils.formatUrl(result.feedId).toString())) {
-                result.alreadyAdded = true;
-                setIcon(checkmark);
-                return;
-            }
-        }
-        // If not added
         setIcon(plus);
 
         button.setOnClickListener(v -> {
@@ -161,14 +145,16 @@ public class SourceItem extends RecyclerView.ViewHolder{
                 source.url = WebUtils.formatUrl(result.feedId).toString();
                 source.image = result.visualUrl;
 
-                SaveSystem.saveContent(v.getContext(), source);
+                AppRepository repository = new AppRepository(context);
+                repository.insert(source);
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourceadded), Toast.LENGTH_LONG).show();
+
+                Drawable checkmark = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
                 setIcon(checkmark);
             } else {
                 Toast.makeText(v.getContext(), v.getContext().getString(R.string.sourcealreadyadded), Toast.LENGTH_LONG).show();
             }
         });
-
 
 
         container.setOnClickListener(v -> {

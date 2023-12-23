@@ -1,67 +1,48 @@
-package com.niilopoutanen.rssparser;
+package com.niilopoutanen.rssparser.parsers;
 
 import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rssparser.Parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class AtomParser {
-    private final Feed feed = new Feed();
+public class AtomParser extends ParserBase {
 
-    public Feed parse(Document document){
-        parseFeed(document);
-        parseItems(document.select("entry"));
-        return this.feed;
-    }
-
-    private void parseFeed(Document document){
+    protected void parseSource(Document document){
         Element channel = document.selectFirst("feed");
         if(channel == null){
             return;
         }
+
         Element titleElement = channel.selectFirst("title");
         if(titleElement != null){
-            feed.setTitle(titleElement.text());
-        }
-
-        Element lastBuildDate = channel.selectFirst("updated");
-        if(lastBuildDate != null){
-            feed.setLastBuildDate(Parser.parseDate(lastBuildDate.text()));
+            source.title = titleElement.text();
         }
 
         Element link = channel.selectFirst("link");
         if(link != null){
-            feed.setLink(link.attr("href"));
-        }
-
-        Element category = channel.selectFirst("category");
-        if(category != null){
-            feed.addCategory(category.attr("term"));
+            source.home = link.attr("href");
         }
 
         Element guid = channel.selectFirst("id");
-        if(guid != null && feed.getLink() == null){
-            feed.setLink(guid.text());
+        if(guid != null && source.url == null){
+            source.url = guid.text();
         }
 
         Element image = channel.selectFirst("logo");
         if(image != null){
-            feed.setImageUrl(image.text());
+            source.image = image.text();
         }
 
         Element icon = channel.selectFirst("icon");
-        if(icon != null && feed.getImageUrl() == null){
-            feed.setImageUrl(icon.text());
-        }
-
-        Element copyright = channel.selectFirst("rights");
-        if(copyright != null){
-            feed.setCopyright(copyright.text());
+        if(icon != null && source.image == null){
+            source.image = icon.text();
         }
     }
-    private void parseItems(Elements itemObjects){
+    protected void parsePosts(Document document){
+        Elements itemObjects = document.select("entry");
         for (Element itemElement : itemObjects) {
             Post post = new Post();
             Element titleElement = itemElement.selectFirst("title");
@@ -85,11 +66,13 @@ public class AtomParser {
             }
             Element summaryElement = itemElement.selectFirst("summary");
             if (summaryElement != null && post.description == null) {
-                post.description = summaryElement.text();
+                Element desc = Jsoup.parse(summaryElement.text()).body();
+                post.description = desc.text();
             }
             Element contentElement = itemElement.selectFirst("content");
             if (contentElement != null && post.description == null) {
-                post.description = contentElement.text();
+                Element desc = Jsoup.parse(contentElement.text()).body();
+                post.description = desc.text();
             }
 
             Element pubDate = itemElement.selectFirst("published");
@@ -113,13 +96,12 @@ public class AtomParser {
             }
 
 
-            handleNullParams(post);
-            feed.addItem(post);
+            if(post.author == null){
+                post.author = source.title;
+            }
+
+            posts.add(post);
         }
     }
-    private void handleNullParams(Post post){
-        if(post.author == null){
-            post.author = feed.getTitle();
-        }
-    }
+
 }

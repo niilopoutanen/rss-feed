@@ -19,24 +19,24 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.utils.SourceValidator;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
+import com.niilopoutanen.rssparser.IconFinder;
+import com.niilopoutanen.rssparser.Parser;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddSourceFragment extends Fragment {
 
     private Source source;
 
-    private EditText feedUrl;
-    private EditText feedName;
+    private EditText feedUrl, feedName;
     private MaterialSwitch showInFeed;
     private TextView title;
     private LinearLayout bottomContainer;
@@ -61,7 +61,7 @@ public class AddSourceFragment extends Fragment {
         showInFeed.setChecked(source.visible);
         title.setText(context.getString(R.string.updatesource));
 
-        TextView buttonText = (TextView) ((RelativeLayout)addSourceButton).getChildAt(0);
+        TextView buttonText = (TextView) ((RelativeLayout) addSourceButton).getChildAt(0);
         buttonText.setText(context.getString(R.string.update));
     }
 
@@ -69,53 +69,53 @@ public class AddSourceFragment extends Fragment {
         showError("");
         Activity activity = (Activity) context;
         progressBar.setVisibility(View.VISIBLE);
-        Source toValidate = new Source();
-        toValidate.title = feedName.getText().toString();
-        toValidate.url = feedUrl.getText().toString();
-        SourceValidator validator = new SourceValidator(toValidate);
-        validator.validate(new Callback<Source>() {
-            @Override
-            public void onResult(Source result) {
-                if (result != null) {
-                    Source sourceToSave = new Source();
-                    sourceToSave.title = result.title;
-                    sourceToSave.url = result.url;
-                    sourceToSave.image = result.image;
-                    sourceToSave.visible = showInFeed.isChecked();
-                    if (source != null) {
-                        sourceToSave.id = source.id;
-                        SaveSystem.saveContent(context, sourceToSave);
-                    } else {
-                        SaveSystem.saveContent(context, sourceToSave);
-                    }
-                    activity.runOnUiThread(() -> {
-                        progressBar.setVisibility(View.GONE);
-                        closeFragment(null);
-                    });
-                } else {
-                    activity.runOnUiThread(() -> {
-                        showError(context.getString(R.string.error_adding_source));
-                    });
+        Source userInput = new Source();
+        userInput.title = feedName.getText().toString();
+        userInput.url = feedUrl.getText().toString();
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            if (Parser.isValid(userInput)) {
+                Parser parser = new Parser();
+                parser.load(userInput.url);
+
+                //set id if it exists
+                if(source != null){
+                    parser.source.id = source.id;
                 }
-            }
 
-            @Override
-            public void onError(RSSException exception) {
+                source = parser.source;
+                source.url = userInput.url;
+
+                //set name if not empty
+                if(userInput.title != null && !userInput.title.isEmpty()){
+                    source.title = userInput.title;
+                }
+
+                source.visible = showInFeed.isChecked();
+
+                if (source.image == null || source.image.isEmpty()) {
+                    source.image = IconFinder.get(source.url);
+                }
+
+                save(source);
+
                 activity.runOnUiThread(() -> {
-                    String msg = context.getString(exception.getErrorType());
-                    if(!msg.isEmpty()){
-                        showError(msg);
-                    }
-                    else{
-                        showError(context.getString(R.string.error_adding_source));
-                    }
-                    exception.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
+                    closeFragment(null);
                 });
-
+            } else {
+                activity.runOnUiThread(() -> {
+                    showError(context.getString(R.string.error_adding_source));
+                });
             }
         });
+
     }
 
+    private void save(Source source) {
+        AppRepository repository = new AppRepository(context);
+        repository.insert(source);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,6 @@ public class AddSourceFragment extends Fragment {
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-
     }
 
     @Override
@@ -194,7 +193,7 @@ public class AddSourceFragment extends Fragment {
         if (view != null) {
             PreferencesManager.vibrate(view);
         }
-        if(isAdded()){
+        if (isAdded()) {
             getParentFragmentManager().popBackStack();
         }
     }

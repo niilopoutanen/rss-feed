@@ -1,7 +1,5 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.Font.ROBOTO_MONO;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
@@ -31,37 +29,38 @@ public class ArticleView extends WebView {
         this.context = context;
         init();
     }
-    public ArticleView(Context context, AttributeSet attrs){
+
+    public ArticleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         init();
     }
 
 
-    private void init(){
+    private void init() {
         WebSettings webSettings = getSettings();
         webSettings.setJavaScriptEnabled(true);
         addJavascriptInterface(this, "Android");
     }
-    public void loadDocument(Document document, List<String> categories){
-        if(PreferencesManager.loadPreferences(context).s_article_show_categories && categories.size() > 0){
+
+    public void loadDocument(Document document, List<String> categories) {
+        if (PreferencesManager.loadPreferences(context).s_article_show_categories && categories.size() > 0) {
             Element container = new Element("div");
             container.id("rssfeed-categories");
 
-            for(String category : categories){
+            for (String category : categories) {
                 Element item = new Element("div");
                 item.addClass("category");
                 item.append(category);
                 container.appendChild(item);
             }
             Elements titles = document.select("h1");
-            if(titles.size() > 0){
+            if (titles.size() > 0) {
                 Element title = titles.first();
-                if(title != null){
+                if (title != null) {
                     title.after(createSection(null, container));
                 }
-            }
-            else{
+            } else {
                 document.prependChild(createSection(null, container));
             }
         }
@@ -72,7 +71,7 @@ public class ArticleView extends WebView {
         loadDocument(document);
     }
 
-    private String getCSS(){
+    private String getCSS() {
         Preferences preferences = PreferencesManager.loadPreferences(context);
         String css =
                   "<style>\n" +
@@ -210,7 +209,7 @@ public class ArticleView extends WebView {
         String fontFace = "file:///android_res";
         String boldFontFace = "file:///android_res";
 
-        switch (preferences.s_font){
+        switch (preferences.s_font) {
             case INTER:
                 fontFace += "/font/inter_regular.ttf";
                 boldFontFace += "/font/inter_bold.ttf";
@@ -242,18 +241,19 @@ public class ArticleView extends WebView {
         return css;
     }
 
-    private static String formatColor(int colorID){
+    private static String formatColor(int colorID) {
         int red = (colorID >> 16) & 0xFF;
         int green = (colorID >> 8) & 0xFF;
         int blue = colorID & 0xFF;
 
-        return String.format(Locale.US ,"rgb(%d, %d, %d)", red, green, blue);
+        return String.format(Locale.US, "rgb(%d, %d, %d)", red, green, blue);
     }
-    private static Element createSection(String title, Element child){
+
+    private static Element createSection(String title, Element child) {
         Element section = new Element("div");
         section.addClass("rssfeed-section");
 
-        if(title != null){
+        if (title != null) {
             Element header = new Element("p");
             header.append(title);
             section.appendChild(header);
@@ -263,16 +263,17 @@ public class ArticleView extends WebView {
 
         return section;
     }
-    public void loadDocument(Document document){
+
+    public void loadDocument(Document document) {
         Elements images = document.select("img");
-        for(Element image: images){
+        for (Element image : images) {
             image.attr("onclick", "event.preventDefault(); Android.onImageClick(this.src);");
         }
 
         super.loadDataWithBaseURL(null, document.html(), "text/html", "charset=utf-8", "");
     }
 
-    public void setInsets(int top, int bottom){
+    public void setInsets(int top, int bottom) {
         String javascript = "javascript:(function() { " +
                   "document.body.style.paddingTop = '" + top + "px';" +
                   "document.body.style.paddingBottom = '" + bottom + "px';" +

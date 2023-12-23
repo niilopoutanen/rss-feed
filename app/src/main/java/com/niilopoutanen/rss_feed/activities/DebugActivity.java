@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.activities;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,11 +30,12 @@ public class DebugActivity extends AppCompatActivity {
         initControls();
     }
 
-    private void initControls(){
+    private void initControls() {
         LinearLayout container = findViewById(R.id.debug_container);
 
-        findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
+        PreferencesManager.setHeader(this, findViewById(R.id.debug_header));
 
+        findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
 
 
         String details = "v" + BuildConfig.VERSION_NAME + ", BuildCode " + BuildConfig.VERSION_CODE +
@@ -46,7 +48,7 @@ public class DebugActivity extends AppCompatActivity {
                   + "\n Display: " + Build.DISPLAY
                   + "\n Product: " + Build.PRODUCT
                   + "\n DateTime: " + Date.from(Instant.now()).toString();
-        ((TextView)findViewById(R.id.debug_device_details)).setText(details);
+        ((TextView) findViewById(R.id.debug_device_details)).setText(details);
 
 
         findViewById(R.id.debug_open_article_with_url).setOnClickListener(v -> {
@@ -66,6 +68,11 @@ public class DebugActivity extends AppCompatActivity {
                       })
                       .setNegativeButton("Cancel", null)
                       .show();
+        });
+
+        findViewById(R.id.debug_showchangelog).setOnClickListener(v -> {
+            Intent onBoardingIntent = new Intent(DebugActivity.this, OnboardingActivity.class);
+            startActivity(onBoardingIntent);
         });
 
 

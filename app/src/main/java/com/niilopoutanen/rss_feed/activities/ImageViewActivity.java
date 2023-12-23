@@ -29,7 +29,6 @@ import java.net.URL;
 public class ImageViewActivity extends AppCompatActivity {
 
     String url;
-    int width, height;
     Bitmap bitmap;
     TouchImageView imageView;
 
@@ -42,8 +41,10 @@ public class ImageViewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             url = extras.getString("imageurl");
-            width = extras.getInt("width");
-            height = extras.getInt("height");
+            if (url == null) {
+                Toast.makeText(this, getString(R.string.error_invalid_image), Toast.LENGTH_LONG).show();
+                return;
+            }
         }
 
         imageView = findViewById(R.id.imageview);

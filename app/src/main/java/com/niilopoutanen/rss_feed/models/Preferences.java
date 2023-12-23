@@ -40,8 +40,14 @@ public class Preferences implements Serializable {
     public static final DateStyle SP_FEEDCARD_DATESTYLE_DEFAULT = DateStyle.TIMESINCE;
     public static final String SP_ANIMATE_CLICKS = "animate_clicks";
     public static final boolean SP_ANIMATE_CLICKS_DEFAULT = true;
+    public static final String SP_SHOW_CHANGELOG = "show_changelog";
+    public static final boolean SP_SHOW_CHANGELOG_DEFAULT = true;
     public static final String SP_COLORACCENT = "coloraccent";
     public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.BLUE;
+    public static final String SP_HEADERTYPE = "header_type";
+    public static final HeaderType SP_HEADERTYPE_DEFAULT = HeaderType.FAT;
+    public static final String SP_HEADERSIZE = "header_size";
+    public static final HeaderSize SP_HEADERSIZE_DEFAULT = HeaderSize.NORMAL;
     public static final String SP_FONTSIZE = "font_size";
     public static final int SP_FONTSIZE_DEFAULT = 15;
     public static final String SP_VERSION = "version";
@@ -55,6 +61,8 @@ public class Preferences implements Serializable {
     public FeedCardStyle s_feedcardstyle;
     public Font s_font;
     public LaunchWindow s_launchwindow;
+    public HeaderType s_headertype;
+    public HeaderSize s_headersize;
     public boolean s_articlesinbrowser;
     public boolean s_feedcard_authorvisible;
     public boolean s_feedcard_titlevisible;
@@ -67,6 +75,7 @@ public class Preferences implements Serializable {
     public boolean s_imagecache;
     public boolean s_haptics;
     public boolean s_animateclicks;
+    public boolean s_showchangelog;
     public int s_fontsize;
     public DateStyle s_feedcard_datestyle;
 
@@ -95,5 +104,12 @@ public class Preferences implements Serializable {
 
     public enum ColorAccent {
         BLUE, VIOLET, PINK, RED, ORANGE, YELLOW, GREEN
+    }
+
+    public enum HeaderType {
+        FAT, BOLD, MEDIUM, LIGHT
+    }
+    public enum HeaderSize {
+        SMALL, NORMAL, LARGE
     }
 }

@@ -1,28 +1,23 @@
 package com.niilopoutanen.rssparser;
 
-import org.junit.jupiter.api.Test;
-
-import java.net.URL;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.niilopoutanen.rss.Post;
+
+import org.junit.jupiter.api.Test;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 class ParserTest {
     @Test
     void loadFromUrl(){
         Parser parser = new Parser();
-        Feed feed;
-        try {
-            feed = parser.load("https://www.9to5mac.com/feed");
-            Post post = feed.getItemAt(1);
-            assertNotNull(post.image);
-            assertFalse(feed.getPosts().isEmpty());
-        }
-        catch (RSSException e) {
-            e.printStackTrace();
-            fail();
-        }
+        parser.load("https://www.9to5mac.com/feed");
+        Post post = parser.posts.get(1);
+        assertNotNull(post.image);
     }
 
     @Test
@@ -33,6 +28,16 @@ class ParserTest {
         }
         catch (Exception e){
             fail(e);
+        }
+    }
+
+    @Test
+    void findFeeds() throws RSSException {
+        String[] urls = new String[]{"www.9to5mac.com", "https://www.youtube.com/@Apple", "iltalehti.fi", "hs.fi"};
+        for(String url : urls){
+            FeedFinder feedFinder = new FeedFinder();
+            URL result = feedFinder.find(url);
+            assertNotNull(result);
         }
     }
 }
