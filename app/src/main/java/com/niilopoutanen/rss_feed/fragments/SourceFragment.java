@@ -64,7 +64,7 @@ public class SourceFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_sources, container, false);
 
         AppRepository repository = new AppRepository(context);
-        repository.getAllSources().observe(this, sources -> {
+        repository.getAllSources().observe(getViewLifecycleOwner(), sources -> {
             if (adapter != null) {
                 adapter.updateSources(sources);
             }
