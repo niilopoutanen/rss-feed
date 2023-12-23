@@ -49,10 +49,7 @@ public class ArticleView extends WebView {
             container.id("rssfeed-categories");
 
             for (String category : categories) {
-                Element item = new Element("div");
-                item.addClass("category");
-                item.append(category);
-                container.appendChild(item);
+                container.appendChild(createCategory(category));
             }
             Elements titles = document.select("h1");
             if (titles.size() > 0) {
@@ -68,7 +65,20 @@ public class ArticleView extends WebView {
         Element head = document.head();
         head.append(getCSS());
 
+        setWebContentsDebuggingEnabled(true);
         loadDocument(document);
+    }
+
+    private Element createCategory(String name){
+        Element category = new Element("div");
+        category.addClass("category");
+
+        Element text = new Element("p");
+        text.text(name);
+
+        category.appendChild(text);
+
+        return category;
     }
 
     private String getCSS() {
@@ -185,7 +195,11 @@ public class ArticleView extends WebView {
                             "        padding: 5px 15px;\n" +
                             "        border: 1px solid '$ELEMENTBORDER';\n" +
                             "        font-size: 0.8rem;\n" +
+                            "        white-space: nowrap;\n" +
                             "        color: '$TEXTSECONDARY';\n" +
+                            "    }\n" +
+                            "    #rssfeed-categories p{\n" +
+                            "        margin: 0;\n" +
                             "    }\n" +
                             "    .rssfeed_section{\n" +
                             "        display: flex;\n" +
