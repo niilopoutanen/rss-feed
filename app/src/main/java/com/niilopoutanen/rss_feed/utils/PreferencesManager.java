@@ -48,6 +48,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_VERSION;
@@ -281,6 +283,7 @@ public class PreferencesManager {
         preferences.s_hide_sourcealert = getBooleanPreference(SP_HIDE_SOURCE_ALERT, PREFS_FUNCTIONALITY, SP_HIDE_SOURCE_ALERT_DEFAULT, context);
         preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
         preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
+        preferences.s_showchangelog = getBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, SP_SHOW_CHANGELOG_DEFAULT, context);
         preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
         preferences.s_headersize = getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
 

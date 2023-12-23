@@ -32,6 +32,8 @@ import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG;
+import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME;
 import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.models.Preferences.ThemeMode;
@@ -47,6 +49,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,9 +90,7 @@ public class SettingsFragment extends Fragment {
 
     TextView themeSelected, fontSelected, launchwindowSelected, headertypeSelected, headerSizeSelected;
     SwitchCompat articlesInBrowser, articleFullScreen, articleShowControls, articleShowCategories;
-    SwitchCompat imagecache;
-    SwitchCompat animateClicks;
-    SwitchCompat haptics;
+    SwitchCompat imagecache, animateClicks, haptics, showChangelog;
     Slider fontSizeSlider;
     List<RelativeLayout> colorAccentButtons;
     private Context context;
@@ -203,6 +204,7 @@ public class SettingsFragment extends Fragment {
         haptics = rootView.findViewById(R.id.switch_haptics);
         imagecache = rootView.findViewById(R.id.switch_cache);
         animateClicks = rootView.findViewById(R.id.switch_animateclicks);
+        showChangelog = rootView.findViewById(R.id.switch_showchangelog);
         fontSizeSlider = rootView.findViewById(R.id.slider_fontsize);
 
         themeSelected = rootView.findViewById(R.id.theme_selected);
@@ -329,6 +331,10 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.saveBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
+        showChangelog.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            PreferencesManager.saveBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, isChecked, context);
+            PreferencesManager.vibrate(buttonView);
+        });
         fontSizeSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
             public void onStartTrackingTouch(@NonNull Slider slider) {
@@ -397,6 +403,8 @@ public class SettingsFragment extends Fragment {
         imagecache.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context));
 
         animateClicks.setChecked(PreferencesManager.getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context));
+
+        showChangelog.setChecked(PreferencesManager.getBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, SP_SHOW_CHANGELOG_DEFAULT, context));
 
         fontSizeSlider.setValue(PreferencesManager.getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context));
 

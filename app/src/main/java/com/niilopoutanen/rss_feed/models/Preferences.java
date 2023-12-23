@@ -40,6 +40,8 @@ public class Preferences implements Serializable {
     public static final DateStyle SP_FEEDCARD_DATESTYLE_DEFAULT = DateStyle.TIMESINCE;
     public static final String SP_ANIMATE_CLICKS = "animate_clicks";
     public static final boolean SP_ANIMATE_CLICKS_DEFAULT = true;
+    public static final String SP_SHOW_CHANGELOG = "show_changelog";
+    public static final boolean SP_SHOW_CHANGELOG_DEFAULT = true;
     public static final String SP_COLORACCENT = "coloraccent";
     public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.BLUE;
     public static final String SP_HEADERTYPE = "header_type";
@@ -73,6 +75,7 @@ public class Preferences implements Serializable {
     public boolean s_imagecache;
     public boolean s_haptics;
     public boolean s_animateclicks;
+    public boolean s_showchangelog;
     public int s_fontsize;
     public DateStyle s_feedcard_datestyle;
 
