@@ -124,7 +124,7 @@ public class SettingsFragment extends Fragment {
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.settings_container), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             int defaultPadding = PreferencesManager.dpToPx(10, context);
-            v.setPadding(defaultPadding, insets.top, defaultPadding, insets.top);
+            v.setPadding(defaultPadding, insets.top, defaultPadding, insets.bottom);
             return WindowInsetsCompat.CONSUMED;
         });
 
