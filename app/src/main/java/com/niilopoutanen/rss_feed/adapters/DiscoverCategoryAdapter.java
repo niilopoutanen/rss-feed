@@ -52,7 +52,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView itemTitle = ((ItemViewHolder) holder).textView;
         itemTitle.setText(category.getName());
 
-        View icon = ((ItemViewHolder)holder).icon;
+        View icon = ((ItemViewHolder) holder).icon;
         icon.setBackground(AppCompatResources.getDrawable(context, category.getIconId()));
 
         View container = holder.itemView;
@@ -69,7 +69,7 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
 
 
-        if(PreferencesManager.loadPreferences(context).s_animateclicks){
+        if (PreferencesManager.loadPreferences(context).s_animateclicks) {
             Animation scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down);
             Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up);
             container.setOnTouchListener((view, motionEvent) -> {

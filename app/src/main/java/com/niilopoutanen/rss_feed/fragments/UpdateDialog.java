@@ -31,13 +31,13 @@ public class UpdateDialog {
      */
     private void initializeSheet() {
         PreferencesManager.setSavedTheme((Activity) context, PreferencesManager.loadPreferences(context));
-        sheet = new BottomSheetDialog(context, R.style.BottomSheetStyle);
+        sheet = new BottomSheetDialog(context);
 
         sheet.setContentView(R.layout.dialog_update);
         sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
         TextView header = sheet.findViewById(R.id.updatedialog_header);
-        String headerText = context.getString(R.string.whatsnew) + " v" + BuildConfig.VERSION_NAME + "?";
+        String headerText = context.getString(R.string.whats_new_in) + " v" + BuildConfig.VERSION_NAME + "?";
         header.setText(headerText);
 
         sheet.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(context));
@@ -58,10 +58,16 @@ public class UpdateDialog {
         });
     }
 
-    /**
-     * Shows the sheet
-     */
+
     public void show() {
         sheet.show();
+    }
+
+    public void dismiss() {
+        sheet.dismiss();
+    }
+
+    public boolean isShowing() {
+        return sheet.isShowing();
     }
 }

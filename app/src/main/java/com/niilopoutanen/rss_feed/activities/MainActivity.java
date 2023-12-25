@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -13,29 +14,27 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.database.compatibility.Migrations;
+import com.niilopoutanen.rss_feed.database.compatibility.SourceMigration;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
 import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     Preferences preferences;
-    List<Source> sources = new ArrayList<>();
     private Fragment currentFragment;
+    private UpdateDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkUpdate();
+        init();
         preferences = PreferencesManager.loadPreferences(this);
         PreferencesManager.setSavedTheme(this, preferences);
         EdgeToEdge.enable(this);
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
         }
-        sources = SaveSystem.loadContent(MainActivity.this);
 
 
         // Navigation bar init
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = new FeedFragment(sources, preferences);
+                    currentFragment = new FeedFragment(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
@@ -84,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.nav_settings) {
                 currentFragment = new SettingsFragment(MainActivity.this);
             } else if (itemId == R.id.nav_feed) {
-                sources = SaveSystem.loadContent(MainActivity.this);
-                currentFragment = new FeedFragment(sources, preferences);
+                currentFragment = new FeedFragment(preferences);
             } else if (itemId == R.id.nav_content) {
                 currentFragment = new SourceFragment(MainActivity.this, preferences);
             } else if (itemId == R.id.nav_discover) {
@@ -111,25 +108,25 @@ public class MainActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        if(orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             getWindow().setNavigationBarColor(getColor(R.color.navbarBg));
         }
 
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
-    }
-
-    private void checkUpdate() {
+    private void init(){
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
-        if (isFirstLaunch) {
-            UpdateDialog dialog = new UpdateDialog(this);
-            dialog.show();
+        if (isFirstLaunch && !isFinishing() && !isDestroyed()) {
+            Intent onboardingIntent = new Intent(this, OnboardingActivity.class);
+            startActivity(onboardingIntent);
+        }
+
+        if(SourceMigration.needed(this)){
+            SourceMigration.migrate(this);
         }
     }
+
+
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
@@ -140,6 +137,20 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
     }
 
 

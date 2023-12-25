@@ -9,115 +9,25 @@
         android:layout_centerHorizontal="true"
         android:layout_height="match_parent"
         android:visibility="gone"/>
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/article_footer_toggle"
+        android:layout_width="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
+        android:background="@drawable/element_background"
+        android:padding="5dp"
         android:layout_alignParentRight="true"
-        android:id="@+id/article_footer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_alignParentBottom="true">
 
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/article_footer_controls"
-            android:gravity="center_vertical"
+        <View
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/article_focusmode"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/element_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/icon_focus"
-                    android:backgroundTint="?attr/colorAccent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/article_focusmode"
-                    android:textColor="@color/textPrimary" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/article_viewinbrowser"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/element_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/icon_popup"
-                    android:backgroundTint="?attr/colorAccent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/view_in_browser"
-                    android:textColor="@color/textPrimary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/article_share"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/element_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/icon_share"
-                    android:backgroundTint="?attr/colorAccent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/share"
-                    android:textColor="@color/textPrimary" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <Space
-            android:layout_width="30dp"
-            android:layout_height="match_parent"/>
-        <RelativeLayout
-            android:id="@+id/article_footer_toggle"
-            android:layout_width="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_height="40dp"
-            android:background="@drawable/element_background"
-            android:padding="5dp">
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/icon_menu"
-                android:backgroundTint="?attr/colorAccent"/>
-        </RelativeLayout>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/icon_menu"
+            android:backgroundTint="?attr/colorAccent" />
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/article_load"

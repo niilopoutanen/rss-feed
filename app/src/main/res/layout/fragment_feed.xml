@@ -15,7 +15,9 @@
             android:id="@+id/feed_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@string/feed_header"
@@ -30,6 +32,7 @@
         android:id="@+id/recyclerview_refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView

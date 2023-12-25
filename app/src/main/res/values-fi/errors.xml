@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_invalid_url">Antamasi URL-osoite ei kelpaa.</string>
+    <string name="error_name_not_found">Lähteen nimen automaattinen täyttö ei onnistunut. Kirjoita se manuaalisesti.</string>
+    <string name="error_adding_source">Virhe lisätessä lähdettä. Yritä uudelleen.</string>
+    <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
+    <string name="error_invalid_image">Tämä kuva ei ole kelvollinen tai ei ole enään olemassa.</string>
+    <string name="error_invalid_feed">RSS-syötteen url-osoite on virheellinen.</string>
+    <string name="error_invalid_feed_msg">Julkaisijan RSS-syöte saattaa olla vanhentunut, tai url-osoite voi olla muuttunut. Syötettä ei voitu avata.</string>
+
+    <string name="error_no_internet">Ei internet-yhteyttä.</string>
+    <string name="error_no_internet_msg">Syötettä ei voitu ladata. Yhdistä internettiin ja yritä uudelleen.</string>
+
+    <string name="error_no_sources">Yhtään lähdettä ei ole lisätty.</string>
+    <string name="error_no_sources_msg">Et ole vielä lisännyt yhtäkään lähdettä syötteeseesi. Mene sisältö- tai tutki-välilehteen ja lisää niitä.</string>
+
+    <string name="error_too_many_requests">Liian monta pyyntöä.</string>
+    <string name="error_too_many_requests_msg">Olet lähettänyt liian monta latauspyyntöä. Odota hetki ja yritä uudelleen.</string>
+
+    <string name="error_empty_url">URL-osoite ei voi olla tyhjä.</string>
+    <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
+    <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
+    <string name="error_no_write_access">Et ole antanut sovellukselle lupaa tallentaa tiedostoja.</string>
+    <string name="error_no_email_found">Sähköpostisovellusta ei löydetty. Lähetä palautetta osoitteeseen niilo.poutanen@gmail.com</string>
+    <string name="error_post_no_url">Artikkelia ei voi avata. Julkaisuun ei ole lisättyä URL-osoitetta.</string>
+
+</resources>

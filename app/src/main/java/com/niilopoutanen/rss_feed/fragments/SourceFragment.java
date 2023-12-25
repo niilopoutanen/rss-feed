@@ -20,17 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.models.Source;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
-
-import java.util.List;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 public class SourceFragment extends Fragment {
 
-    private List<Source> sources;
     private SourceAdapter adapter;
     private Context context;
     private Preferences preferences;
@@ -55,23 +53,23 @@ public class SourceFragment extends Fragment {
         setReenterTransition(new MaterialFadeThrough());
         postponeEnterTransition();
 
-        update();
-
         if (savedInstanceState != null) {
             preferences = (Preferences) savedInstanceState.getSerializable("preferences");
         }
     }
 
-    public void update() {
-        sources = SaveSystem.loadContent(context);
-        if (adapter != null) {
-            adapter.updateSources(sources);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sources, container, false);
+
+        AppRepository repository = new AppRepository(context);
+        repository.getAllSources().observe(getViewLifecycleOwner(), sources -> {
+            if (adapter != null) {
+                adapter.updateSources(sources);
+            }
+        });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.sources_container), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -81,9 +79,10 @@ public class SourceFragment extends Fragment {
             return WindowInsetsCompat.CONSUMED;
         });
 
+        PreferencesManager.setHeader(context, rootView.findViewById(R.id.sources_header));
         sourcesRecyclerView = rootView.findViewById(R.id.sources_recyclerview);
 
-        adapter = new SourceAdapter(sources, sourcesRecyclerView, getParentFragmentManager());
+        adapter = new SourceAdapter(null, sourcesRecyclerView, getParentFragmentManager());
         sourcesRecyclerView.setAdapter(adapter);
         sourcesRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         sourcesRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
@@ -110,13 +109,5 @@ public class SourceFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("preferences", preferences);
-    }
-
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        update();
     }
 }

@@ -22,20 +22,21 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Source;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rss_feed.utils.SaveSystem;
-import com.niilopoutanen.rss_feed.utils.SourceValidator;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
+import com.niilopoutanen.rssparser.IconFinder;
+import com.niilopoutanen.rssparser.Parser;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddSourceFragment extends Fragment {
 
     private Source source;
 
-    private EditText feedUrl;
-    private EditText feedName;
+    private EditText feedUrl, feedName;
     private MaterialSwitch showInFeed;
     private TextView title;
     private LinearLayout bottomContainer;
@@ -55,12 +56,12 @@ public class AddSourceFragment extends Fragment {
         if (source == null) {
             return;
         }
-        feedUrl.setText(source.getFeedUrl());
-        feedName.setText(source.getName());
-        showInFeed.setChecked(source.isVisibleInFeed());
+        feedUrl.setText(source.url);
+        feedName.setText(source.title);
+        showInFeed.setChecked(source.visible);
         title.setText(context.getString(R.string.updatesource));
 
-        TextView buttonText = (TextView) ((RelativeLayout)addSourceButton).getChildAt(0);
+        TextView buttonText = (TextView) ((RelativeLayout) addSourceButton).getChildAt(0);
         buttonText.setText(context.getString(R.string.update));
     }
 
@@ -68,36 +69,53 @@ public class AddSourceFragment extends Fragment {
         showError("");
         Activity activity = (Activity) context;
         progressBar.setVisibility(View.VISIBLE);
-        SourceValidator.validate(feedUrl.getText().toString(), feedName.getText().toString(), new Callback<Source>() {
-            @Override
-            public void onResult(Source result) {
-                if (result != null) {
-                    if (source != null) {
-                        SaveSystem.saveContent(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked(), source.getId()));
-                    } else {
-                        SaveSystem.saveContent(context, new Source(result.getName(), result.getFeedUrl(), result.getImageUrl(), showInFeed.isChecked()));
-                    }
-                    activity.runOnUiThread(() -> {
-                        progressBar.setVisibility(View.GONE);
-                        closeFragment(null);
-                    });
-                } else {
-                    activity.runOnUiThread(() -> {
-                        showError("Error with adding source. Please try again");
-                        activity.runOnUiThread(() -> progressBar.setVisibility(View.GONE));
-                    });
+        Source userInput = new Source();
+        userInput.title = feedName.getText().toString();
+        userInput.url = feedUrl.getText().toString();
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            if (Parser.isValid(userInput)) {
+                Parser parser = new Parser();
+                parser.load(userInput.url);
 
+                //set id if it exists
+                if(source != null){
+                    parser.source.id = source.id;
                 }
 
-            }
+                source = parser.source;
+                source.url = userInput.url;
 
-            @Override
-            public void onError(RSSException e) {
+                //set name if not empty
+                if(userInput.title != null && !userInput.title.isEmpty()){
+                    source.title = userInput.title;
+                }
 
+                source.visible = showInFeed.isChecked();
+
+                if (source.image == null || source.image.isEmpty()) {
+                    source.image = IconFinder.get(source.url);
+                }
+
+                save(source);
+
+                activity.runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    closeFragment(null);
+                });
+            } else {
+                activity.runOnUiThread(() -> {
+                    showError(context.getString(R.string.error_adding_source));
+                });
             }
-        }, context);
+        });
+
     }
 
+    private void save(Source source) {
+        AppRepository repository = new AppRepository(context);
+        repository.insert(source);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +123,6 @@ public class AddSourceFragment extends Fragment {
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-
     }
 
     @Override
@@ -150,6 +167,7 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void showError(String errorMessage) {
+        progressBar.setVisibility(View.GONE);
         for (int i = 0; i < bottomContainer.getChildCount(); i++) {
             View childView = bottomContainer.getChildAt(i);
             if (childView != null && childView.getTag() != null && childView.getTag().equals("error-message")) {
@@ -175,6 +193,8 @@ public class AddSourceFragment extends Fragment {
         if (view != null) {
             PreferencesManager.vibrate(view);
         }
-        getParentFragmentManager().popBackStack();
+        if (isAdded()) {
+            getParentFragmentManager().popBackStack();
+        }
     }
 }

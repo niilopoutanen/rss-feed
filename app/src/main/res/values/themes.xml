@@ -52,14 +52,6 @@
         <item name="colorAccent">@color/accentGreen</item>
     </style>
 
-    <style name="BottomSheetStyle" parent="ThemeOverlay.Material3.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheetDialog</item>
-    </style>
-
-    <style name="BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
-        <item name="backgroundTint">@android:color/transparent</item>
-    </style>
-
     <style name="RSSFeedStyle.NavActive" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/surface</item>
     </style>

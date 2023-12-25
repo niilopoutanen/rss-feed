@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.activities;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,10 +11,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Item;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -29,11 +30,12 @@ public class DebugActivity extends AppCompatActivity {
         initControls();
     }
 
-    private void initControls(){
+    private void initControls() {
         LinearLayout container = findViewById(R.id.debug_container);
 
-        findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
+        PreferencesManager.setHeader(this, findViewById(R.id.debug_header));
 
+        findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
 
 
         String details = "v" + BuildConfig.VERSION_NAME + ", BuildCode " + BuildConfig.VERSION_CODE +
@@ -46,7 +48,7 @@ public class DebugActivity extends AppCompatActivity {
                   + "\n Display: " + Build.DISPLAY
                   + "\n Product: " + Build.PRODUCT
                   + "\n DateTime: " + Date.from(Instant.now()).toString();
-        ((TextView)findViewById(R.id.debug_device_details)).setText(details);
+        ((TextView) findViewById(R.id.debug_device_details)).setText(details);
 
 
         findViewById(R.id.debug_open_article_with_url).setOnClickListener(v -> {
@@ -58,14 +60,19 @@ public class DebugActivity extends AppCompatActivity {
                       .setPositiveButton("OK", (dialog, which) -> {
                           Intent articleIntent = new Intent(DebugActivity.this, ArticleActivity.class);
                           articleIntent.putExtra("preferences", PreferencesManager.loadPreferences(DebugActivity.this));
-                          Item item = new Item();
-                          item.setLink(input.getText().toString());
-                          articleIntent.putExtra("item", item);
+                          Post post = new Post();
+                          post.link = input.getText().toString();
+                          articleIntent.putExtra("post", post);
 
                           startActivity(articleIntent);
                       })
                       .setNegativeButton("Cancel", null)
                       .show();
+        });
+
+        findViewById(R.id.debug_showchangelog).setOnClickListener(v -> {
+            Intent onBoardingIntent = new Intent(DebugActivity.this, OnboardingActivity.class);
+            startActivity(onBoardingIntent);
         });
 
 

@@ -1,8 +1,5 @@
 package com.niilopoutanen.rss_feed.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -28,12 +25,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.ArticleView;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.Item;
 import com.niilopoutanen.rssparser.RSSException;
 import com.niilopoutanen.rssparser.WebUtils;
 
@@ -47,17 +44,15 @@ import org.jsoup.select.Elements;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class ArticleActivity extends AppCompatActivity {
     private ProgressBar articleLoader;
-    private Item post;
+    private Post post;
     private ArticleView articleView;
     private String resultData;
     private Preferences preferences;
-
 
 
     @Override
@@ -67,9 +62,9 @@ public class ArticleActivity extends AppCompatActivity {
         if (extras == null) {
             return;
         }
-
+        EdgeToEdge.enable(this);
         preferences = (Preferences) extras.get("preferences");
-        post  = (Item)extras.get("item");
+        post = (Post) extras.get("post");
 
         if (savedInstanceState != null) {
             resultData = savedInstanceState.getString("content");
@@ -84,7 +79,7 @@ public class ArticleActivity extends AppCompatActivity {
         initializeBase();
 
         if (resultData == null || resultData.isEmpty()) {
-            readabilityProcessor(post.getLink(), new Callback<String>() {
+            processArticle(post.link, new Callback<String>() {
                 @Override
                 public void onResult(String result) {
                     resultData = result;
@@ -97,8 +92,7 @@ public class ArticleActivity extends AppCompatActivity {
                         initWebView(getString(R.string.error_url));
                     } else if (e.getErrorType() == HttpURLConnection.HTTP_CLIENT_TIMEOUT) {
                         initWebView(getString(R.string.error_host));
-                    }
-                    else{
+                    } else {
                         initWebView(getString(R.string.error_notsupported));
                     }
                 }
@@ -109,116 +103,99 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
+        articleView = findViewById(R.id.articleview);
+
         if (preferences.s_articlefullscreen) {
             Window window = getWindow();
-            if(window != null){
-                 window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (window != null) {
+                window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             }
         }
 
-        findViewById(R.id.article_viewinbrowser).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.getLink()))));
-        findViewById(R.id.article_share).setOnClickListener(v -> {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, post.getLink());
-            shareIntent.putExtra(Intent.EXTRA_TITLE, post.getTitle());
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.sharepost)));
 
-        });
-
-        // Insets to bottom controls
-        LinearLayout footer = findViewById(R.id.article_footer);
-        ViewCompat.setOnApplyWindowInsetsListener(footer, (v, windowInsets) -> {
+        // Insets to bottom control
+        RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
+        footerToggle.setOnClickListener(v -> showControls());
+        ViewCompat.setOnApplyWindowInsetsListener(footerToggle, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.leftMargin = insets.left;
-            mlp.bottomMargin = insets.bottom;
-            mlp.rightMargin = insets.right;
+            mlp.bottomMargin = Math.max(insets.bottom, PreferencesManager.dpToPx(10, this));
+            mlp.rightMargin = Math.max(insets.right, PreferencesManager.dpToPx(10, this));
+            footerToggle.getBackground().setAlpha(128);
+            footerToggle.getChildAt(0).getBackground().setAlpha(128);
+
+            ViewGroup.MarginLayoutParams articleMlp = (ViewGroup.MarginLayoutParams) articleView.getLayoutParams();
+            articleMlp.bottomMargin = insets.bottom;
+            articleMlp.topMargin = insets.top;
+            articleView.setLayoutParams(articleMlp);
+
             v.setLayoutParams(mlp);
             return WindowInsetsCompat.CONSUMED;
         });
 
 
-        View focusMode = findViewById(R.id.article_focusmode);
-        if(focusMode != null){
-            focusMode.setOnClickListener(v -> {
-                ViewGroup.LayoutParams params = articleView.getLayoutParams();
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                int width = (int)(displayMetrics.widthPixels * 0.6f);
-                if(params.width == ViewGroup.LayoutParams.MATCH_PARENT){
-                    params.width = width;
-                }
-                else {
-                    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                }
-                articleView.setLayoutParams(params);
-            });
-        }
-
-        RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
-        if(preferences.s_article_show_controls){
-            footerToggle.getBackground().setAlpha(120);
-            footerToggle.getChildAt(0).getBackground().setAlpha(120);
-            footerToggle.setOnClickListener(v -> toggleControls(footerToggle));
-        }
-        else{
+        if (!preferences.s_article_show_controls) {
             footerToggle.setVisibility(View.GONE);
         }
 
-
     }
 
 
-    private void toggleControls(ViewGroup toggle){
-        LinearLayout controls = findViewById(R.id.article_footer_controls);
-        boolean visible = controls.getVisibility() == View.VISIBLE;
+    private void showControls() {
+        BottomSheetDialog sheet = new BottomSheetDialog(this);
+        sheet.setContentView(R.layout.dialog_article_controls);
+        sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
-        if(visible){
-            ObjectAnimator slideDown = ObjectAnimator.ofFloat(controls, "translationY", 0, PreferencesManager.dpToPx(60, this));
-            slideDown.setInterpolator(new AccelerateDecelerateInterpolator());
-            slideDown.setDuration(200);
-            slideDown.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    controls.setVisibility(View.GONE);
-                }
-            });
-            slideDown.start();
-            toggle.getBackground().setAlpha(120);
-            toggle.getChildAt(0).getBackground().setAlpha(120);
-        }
-        else {
-            controls.setVisibility(View.VISIBLE);
+        Window window = sheet.getWindow();
+        if (window != null) window.setNavigationBarColor(getColor(R.color.element));
+        sheet.show();
 
-            ObjectAnimator slideUp = ObjectAnimator.ofFloat(controls, "translationY", PreferencesManager.dpToPx(60, this), 0);
-            slideUp.setInterpolator(new AccelerateDecelerateInterpolator());
-            slideUp.setDuration(200);
+        View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
+        if (openInBrowser != null) openInBrowser.setOnClickListener(v -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.link)));
+            sheet.dismiss();
+        });
 
-            slideUp.start();
-            toggle.getBackground().setAlpha(255);
-            toggle.getChildAt(0).getBackground().setAlpha(255);
-        }
+        View share = sheet.findViewById(R.id.article_share);
+        if (share != null) share.setOnClickListener(v -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, post.link);
+            shareIntent.putExtra(Intent.EXTRA_TITLE, post.title);
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.sharepost)));
+            sheet.dismiss();
+        });
+
+        View focusMode = sheet.findViewById(R.id.article_focusmode);
+        if (focusMode != null) focusMode.setOnClickListener(v -> {
+            ViewGroup.LayoutParams params = articleView.getLayoutParams();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = (int) (displayMetrics.widthPixels * 0.6f);
+            if (params.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+                params.width = width;
+            } else {
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            }
+            articleView.setLayoutParams(params);
+            sheet.dismiss();
+        });
     }
 
-
-
-    private void initWebView(String html){
-        articleView = findViewById(R.id.articleview);
-
-
+    private void initWebView(String html) {
         Document document = Jsoup.parse(html);
 
         Elements h1Elements = document.select("h1");
-        if(h1Elements.isEmpty()){
-            if(post.getTitle() != null){
-                Element title = new Element("h1").text(post.getTitle());
+        if (h1Elements.isEmpty()) {
+            if (post.title != null) {
+                Element title = new Element("h1").text(post.title);
                 document.body().prependChild(title);
             }
         }
         articleView.setWebViewClient(new WebViewClient() {
-            @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 runOnUiThread(() -> openWebView(request.getUrl().toString()));
                 return true;
             }
@@ -236,14 +213,9 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Opens a WebView sheet
-     *
-     * @param url       URL to open
-     */
     private void openWebView(String url) {
 
-        final BottomSheetDialog webViewSheet = new BottomSheetDialog(this, R.style.BottomSheetStyle);
+        final BottomSheetDialog webViewSheet = new BottomSheetDialog(this);
         webViewSheet.setContentView(R.layout.dialog_webview);
         webViewSheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         webViewSheet.getBehavior().setDraggable(false);
@@ -286,7 +258,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    private void readabilityProcessor(String url, Callback<String> callBack) {
+    private void processArticle(String url, Callback<String> callBack) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
@@ -297,11 +269,9 @@ public class ArticleActivity extends AppCompatActivity {
                 Article article = readability.parse();
                 runOnUiThread(() -> callBack.onResult(article.getContent()));
 
-            }
-            catch (RSSException r){
-                runOnUiThread(() ->  callBack.onError(r));
-            }
-            catch (Exception e) {
+            } catch (RSSException r) {
+                runOnUiThread(() -> callBack.onError(r));
+            } catch (Exception e) {
                 runOnUiThread(() -> callBack.onError(new RSSException(e.getMessage())));
             }
         });
@@ -316,7 +286,7 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(articleView != null){
+        if (articleView != null) {
             articleView.destroy();
         }
     }

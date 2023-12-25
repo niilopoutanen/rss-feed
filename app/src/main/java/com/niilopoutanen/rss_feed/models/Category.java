@@ -8,13 +8,14 @@ import java.util.List;
 public class Category {
     public static final String CATEGORY_RECOMMENDED = "$RSSFEED_RECOMMENDED";
     public static final List<Category> categories = new ArrayList<>();
+
     static {
         categories.add(new Category("Recommended", R.drawable.icon_star, CATEGORY_RECOMMENDED));
         categories.add(new Category("News", R.drawable.icon_news, "News"));
         categories.add(new Category("Tech", R.drawable.icon_mouse, "Tech"));
         categories.add(new Category("Sports", R.drawable.icon_baseball, "Sports"));
         categories.add(new Category("Cars", R.drawable.icon_car, "Cars"));
-        categories.add(new Category("Politics", R.drawable.icon_briefcase , "Politics"));
+        categories.add(new Category("Politics", R.drawable.icon_briefcase, "Politics"));
         categories.add(new Category("Movies", R.drawable.icon_movies, "Movies"));
         categories.add(new Category("Marketing", R.drawable.icon_megaphone, "Marketing"));
         categories.add(new Category("Science", R.drawable.icon_microscope, "Science"));
@@ -24,6 +25,7 @@ public class Category {
     }
 
     public static final List<Category> categoriesFI = new ArrayList<>();
+
     static {
         categoriesFI.add(new Category("Suositeltu", R.drawable.icon_star, CATEGORY_RECOMMENDED));
         categoriesFI.add(new Category("Uutiset", R.drawable.icon_news, "Uutiset"));
@@ -38,11 +40,13 @@ public class Category {
         categoriesFI.add(new Category("Ruoka", R.drawable.icon_food, "Food"));
         categoriesFI.add(new Category("Videopelit", R.drawable.icon_controller, "Gaming"));
     }
+
     private final String name;
     private final int iconId;
     private final String query;
 
     private boolean isActive;
+
     public boolean isActive() {
 
         return isActive;
@@ -70,8 +74,8 @@ public class Category {
         return iconId;
     }
 
-    public static List<Category> getCategories(Country locale){
-        switch (locale){
+    public static List<Category> getCategories(Country locale) {
+        switch (locale) {
             case FI:
                 return categoriesFI;
             case EN:
@@ -80,7 +84,7 @@ public class Category {
         return null;
     }
 
-    public enum Country{
+    public enum Country {
         FI, EN
     }
 }
