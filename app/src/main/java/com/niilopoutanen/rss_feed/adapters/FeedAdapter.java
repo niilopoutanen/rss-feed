@@ -48,7 +48,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     public void addNotification(String text, String desc) {
-        posts.clear();
+        if(posts != null) posts.clear();
         notices.clear();
         notices.put(text, desc);
         notifyDataSetChanged();

@@ -59,7 +59,7 @@ public class Parser {
     public static List<Post> loadMultiple(List<Source> sources){
         List<Post> posts = new ArrayList<>();
         for(Source source : sources){
-            if(source == null || !source.visible)continue;
+            if(source == null || !source.visible) continue;
             Parser parser = new Parser();
             parser.load(source.url);
             posts.addAll(parser.posts);
@@ -69,9 +69,8 @@ public class Parser {
     }
 
     public void parse(Document document){
-        if(document == null){
-            return;
-        }
+        if(document == null) return;
+
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
             rssParser.parse(document);
