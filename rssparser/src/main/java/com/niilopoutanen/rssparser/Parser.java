@@ -48,6 +48,8 @@ public class Parser {
         return true;
     }
     public void load(String url){
+        if(url == null || url.isEmpty()) return;
+
         Document document = WebUtils.connect(url);
         parse(document);
         if(source != null){
@@ -57,7 +59,7 @@ public class Parser {
     public static List<Post> loadMultiple(List<Source> sources){
         List<Post> posts = new ArrayList<>();
         for(Source source : sources){
-            if(!source.visible)continue;
+            if(source == null || !source.visible)continue;
             Parser parser = new Parser();
             parser.load(source.url);
             posts.addAll(parser.posts);
