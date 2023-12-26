@@ -50,7 +50,9 @@ public class Parser {
     public void load(String url){
         Document document = WebUtils.connect(url);
         parse(document);
-        source.url = url;
+        if(source != null){
+            source.url = url;
+        }
     }
     public static List<Post> loadMultiple(List<Source> sources){
         List<Post> posts = new ArrayList<>();
@@ -71,13 +73,13 @@ public class Parser {
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
             rssParser.parse(document);
-            source = (rssParser.getSource());
+            source = rssParser.getSource();
             posts = rssParser.getPosts();
         }
         else if(WebUtils.isAtom(document)){
             AtomParser atomParser = new AtomParser();
             atomParser.parse(document);
-            source = (atomParser.getSource());
+            source = atomParser.getSource();
             posts = atomParser.getPosts();
         }
     }
