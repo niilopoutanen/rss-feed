@@ -113,4 +113,13 @@ public class Parser {
             return "";
         }
     }
+
+    public static String trim(String original, int maxLength) {
+        if (original == null || original.length() <= maxLength) {
+            return original;
+        } else {
+            return original.substring(0, maxLength - 3) + "...";
+        }
+    }
+
 }

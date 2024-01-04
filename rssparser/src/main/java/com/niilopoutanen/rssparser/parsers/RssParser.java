@@ -28,7 +28,7 @@ public class RssParser extends ParserBase {
 
         Element descElement = channel.selectFirst("description");
         if (descElement != null) {
-            source.description = descElement.text();
+            source.description = Parser.trim(descElement.text(), 100);
         }
 
         Element languageElement = channel.selectFirst("language");
