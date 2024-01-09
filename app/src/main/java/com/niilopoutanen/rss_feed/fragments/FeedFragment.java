@@ -26,6 +26,7 @@ import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
+import com.niilopoutanen.rss_feed.adapters.NewFeedAdapter;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -44,7 +45,7 @@ public class FeedFragment extends Fragment {
     TextView title;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private FeedAdapter adapter;
+    private NewFeedAdapter adapter;
     private List<Source> sources = new ArrayList<>();
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
 
@@ -164,7 +165,7 @@ public class FeedFragment extends Fragment {
         });
 
 
-        adapter = new FeedAdapter(context, preferences);
+        adapter = new NewFeedAdapter(context);
         recyclerView.setAdapter(adapter);
 
         final int columns = getResources().getInteger(R.integer.feed_columns);
@@ -198,6 +199,7 @@ public class FeedFragment extends Fragment {
     }
 
     private void showError(int errorCode) {
+        /*
         switch (errorCode) {
             case 429:
                 adapter.addNotification(context.getString(R.string.error_too_many_requests), context.getString(R.string.error_too_many_requests_msg));
@@ -213,6 +215,7 @@ public class FeedFragment extends Fragment {
                 adapter.addNotification(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
                 break;
         }
+        */
         if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
 

@@ -14,10 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
-    private Context context;
+    private final Context context;
     List<Post> posts = new ArrayList<>();
     public NewFeedAdapter(Context context){
         this.context = context;
+    }
+    public void update(List<Post> posts){
+        this.posts = new ArrayList<>(posts);
+        notifyDataSetChanged();
     }
     @NonNull
     @Override

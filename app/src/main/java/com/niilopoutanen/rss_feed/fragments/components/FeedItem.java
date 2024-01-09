@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
@@ -35,10 +36,26 @@ public abstract class FeedItem {
 
         LayoutInflater inflater = LayoutInflater.from(context);
         content = (ViewGroup) inflater.inflate(getLayoutResource(), null, false);
+        setSpacing();
     }
 
     public abstract void bind(Post post);
 
+    protected void setSpacing(){
+        int margin = PreferencesManager.dpToPx(10, context);
+        int gap = PreferencesManager.dpToPx(20, context);
+
+        boolean hasSideGap = context.getResources().getInteger(R.integer.feed_columns) > 1;
+
+        ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (!hasSideGap) {
+            layoutParams.setMargins(0, 0, 0, gap);
+        } else {
+            layoutParams.setMargins(0, 0, margin, margin);
+        }
+
+        content.setLayoutParams(layoutParams);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final FeedItem feedItem;
