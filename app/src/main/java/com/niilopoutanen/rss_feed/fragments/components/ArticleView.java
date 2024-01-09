@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed.fragments;
+package com.niilopoutanen.rss_feed.fragments.components;
 
 import android.content.Context;
 import android.content.Intent;

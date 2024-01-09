@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
-import com.niilopoutanen.rss_feed.fragments.FeedCard;
+import com.niilopoutanen.rss_feed.fragments.components.FeedCard;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 

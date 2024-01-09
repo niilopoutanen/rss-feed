@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed.fragments;
+package com.niilopoutanen.rss_feed.fragments.components;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.fragments.AddSourceFragment;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;

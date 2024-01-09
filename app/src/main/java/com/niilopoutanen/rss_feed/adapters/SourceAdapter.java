@@ -22,7 +22,7 @@ import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.DatabaseThread;
-import com.niilopoutanen.rss_feed.fragments.SourceItem;
+import com.niilopoutanen.rss_feed.fragments.components.SourceItem;
 
 import java.util.List;
 import java.util.concurrent.Executor;

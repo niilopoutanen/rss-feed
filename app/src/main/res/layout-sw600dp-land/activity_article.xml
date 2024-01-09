@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.niilopoutanen.rss_feed.fragments.ArticleView
+    <com.niilopoutanen.rss_feed.fragments.components.ArticleView
         android:id="@+id/articleview"
         android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
