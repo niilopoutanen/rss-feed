@@ -38,4 +38,16 @@ public abstract class FeedItem {
     }
 
     public abstract void bind(Post post);
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        private final FeedItem feedItem;
+        public ViewHolder(@NonNull FeedItem feedItem) {
+            super(feedItem.getContent());
+            this.feedItem = feedItem;
+        }
+        public void bind(Post post){
+            feedItem.bind(post);
+        }
+    }
 }
