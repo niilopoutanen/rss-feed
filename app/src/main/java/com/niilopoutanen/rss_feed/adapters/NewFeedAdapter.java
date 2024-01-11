@@ -58,11 +58,10 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
     public void onBindViewHolder(@NonNull FeedItem.ViewHolder holder, int position) {
         switch (getItemViewType(position)){
             case Type.POST:
-                holder.bind(posts.get(position));
+                holder.bind(posts.get(position - 1));
                 break;
             case Type.NOTICE:
-                if(notices == null || notices.size() == 0) return;
-                holder.bind(notices.get(position));
+                holder.bind(notices.get(position - 1));
                 break;
             case Type.HEADER:
                 holder.bind(context.getString(R.string.feed_header));
