@@ -28,11 +28,14 @@ public class NewFeedCard extends FeedItem{
     }
 
     @Override
-    public void bind(Post post) {
-        TextView title = getContent().findViewById(R.id.feedcard_title);
-        TextView description = getContent().findViewById(R.id.feedcard_description);
+    public void bind(Object data) {
+        if(data instanceof Post){
+            Post post = (Post)data;
+            TextView title = getContent().findViewById(R.id.feedcard_title);
+            TextView description = getContent().findViewById(R.id.feedcard_description);
 
-        title.setText(post.title);
-        description.setText(post.description);
+            title.setText(post.title);
+            description.setText(post.description);
+        }
     }
 }

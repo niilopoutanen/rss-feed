@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.fragments.components;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.io.InvalidObjectException;
+import java.util.Map;
 
 public abstract class FeedItem {
     private ViewGroup content;
@@ -39,7 +41,7 @@ public abstract class FeedItem {
         setSpacing();
     }
 
-    public abstract void bind(Post post);
+    public abstract void bind(Object data);
 
     protected void setSpacing(){
         int margin = PreferencesManager.dpToPx(10, context);
@@ -63,8 +65,8 @@ public abstract class FeedItem {
             super(feedItem.getContent());
             this.feedItem = feedItem;
         }
-        public void bind(Post post){
-            feedItem.bind(post);
+        public void bind(Object data){
+            feedItem.bind(data);
         }
     }
 }

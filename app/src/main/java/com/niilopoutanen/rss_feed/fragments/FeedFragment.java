@@ -199,23 +199,23 @@ public class FeedFragment extends Fragment {
     }
 
     private void showError(int errorCode) {
-        /*
+
         switch (errorCode) {
             case 429:
-                adapter.addNotification(context.getString(R.string.error_too_many_requests), context.getString(R.string.error_too_many_requests_msg));
+                adapter.notify(context.getString(R.string.error_too_many_requests), context.getString(R.string.error_too_many_requests_msg));
                 break;
             case 0:
-                adapter.addNotification(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));
+                adapter.notify(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));
                 break;
             case 1:
-                adapter.addNotification(context.getString(R.string.error_no_internet), context.getString(R.string.error_no_internet_msg));
+                adapter.notify(context.getString(R.string.error_no_internet), context.getString(R.string.error_no_internet_msg));
                 break;
             case HttpURLConnection.HTTP_NOT_FOUND:
             default:
-                adapter.addNotification(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
+                adapter.notify(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
                 break;
         }
-        */
+
         if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
 

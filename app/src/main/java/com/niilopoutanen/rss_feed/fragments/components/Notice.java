@@ -6,6 +6,10 @@ import android.widget.TextView;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 
+import java.util.List;
+
+import kotlin.NotImplementedError;
+
 public class Notice extends FeedItem{
     public Notice(Context context) {
         super(context);
@@ -17,11 +21,15 @@ public class Notice extends FeedItem{
     }
 
     @Override
-    public void bind(Post post) {
-        TextView header = getContent().findViewById(R.id.feed_notice_header);
-        TextView text = getContent().findViewById(R.id.feed_notice_text);
+    public void bind(Object data) {
+        if(data instanceof String[]){
+            String[] notice = (String[]) data;
+            TextView header = getContent().findViewById(R.id.feed_notice_header);
+            TextView text = getContent().findViewById(R.id.feed_notice_text);
 
-        header.setText(post.title);
-        text.setText(post.description);
+            header.setText(notice[0]);
+            text.setText(notice[1]);
+        }
+
     }
 }
