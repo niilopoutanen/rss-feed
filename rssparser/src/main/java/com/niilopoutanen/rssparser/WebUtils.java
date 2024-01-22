@@ -39,6 +39,7 @@ public class WebUtils {
     }
 
     private static String fetch(URL url) throws IOException, RSSException {
+        if(url == null) return "";
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         // Set request method
