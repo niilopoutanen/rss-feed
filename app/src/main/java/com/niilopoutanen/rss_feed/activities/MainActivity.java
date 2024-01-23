@@ -138,9 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
         super.onDestroy();
     }
 
