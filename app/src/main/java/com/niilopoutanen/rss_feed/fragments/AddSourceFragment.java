@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
@@ -113,6 +114,12 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void save(Source source) {
+        Bundle logBundle = new Bundle();
+        logBundle.putString("source_name", source.title);
+        logBundle.putString("source_url", source.url);
+        FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(context);
+        analytics.logEvent("add_source", logBundle);
+
         AppRepository repository = new AppRepository(context);
         repository.insert(source);
     }
