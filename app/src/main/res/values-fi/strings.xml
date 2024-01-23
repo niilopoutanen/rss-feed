@@ -44,10 +44,10 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
-    <string name="feature1">Tuo/vie</string>
-    <string name="feature1desc">Voit nyt jakaa tilatut lähteesi muiden tuettujen sovellusten kanssa käyttämällä OPML tuonti/vienti-ominaisuutta asetuksissa.</string>
-    <string name="feature2">Uusittu tietojen tallennusmekanismi</string>
-    <string name="feature2desc">Sovellus käyttää nyt vahvempaa tietokantaa käyttäjätietojen tallentamiseen laitteellasi.</string>
+    <string name="feature1">Asetusten korjaus</string>
+    <string name="feature1desc">Muutama asetus ei toiminut niinkun piti, nyt toimii.</string>
+    <string name="feature2">Virhekorjauksia</string>
+    <string name="feature2desc">Muutama virhe korjattiin sieltä sun täältä.</string>
     <string name="feature3">Käyttöliittymän parannuksia</string>
     <string name="feature3desc">Pieniä muutoksia ja parannuksiä käyttöliitymään.</string>
 
