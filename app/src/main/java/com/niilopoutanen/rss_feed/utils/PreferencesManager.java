@@ -227,10 +227,6 @@ public class PreferencesManager {
         if (doNotShowDialog) {
             return false;
         }
-        //for bugfix version
-        else if(lastVersionUsed == 20){
-            return false;
-        }
         else{
             return currentVersion > lastVersionUsed;
         }
