@@ -94,8 +94,6 @@ public class FeedCard extends RecyclerView.ViewHolder {
     }
 
     public void bindData(Post post) {
-        setPreferences();
-
         title.setVisibility(post.title == null ? View.GONE : View.VISIBLE);
         title.setText(post.title);
 
@@ -107,6 +105,8 @@ public class FeedCard extends RecyclerView.ViewHolder {
 
         author.setVisibility(post.author == null ? View.GONE : View.VISIBLE);
         author.setText(post.author);
+
+        setPreferences();
 
         loadImage(post);
         loadIcons(post);
