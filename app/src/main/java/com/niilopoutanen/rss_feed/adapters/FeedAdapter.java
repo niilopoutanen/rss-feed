@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -131,11 +132,17 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         }
         Post clicked = posts.get(position);
         if (clicked.link != null) {
-            Intent articleIntent = new Intent(context, ArticleActivity.class);
-            articleIntent.putExtra("preferences", preferences);
-            articleIntent.putExtra("post", posts.get(position));
+            if(preferences.s_articlesinbrowser){
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(posts.get(position).link));
+                context.startActivity(browserIntent);
+            }
+            else{
+                Intent articleIntent = new Intent(context, ArticleActivity.class);
+                articleIntent.putExtra("preferences", preferences);
+                articleIntent.putExtra("post", posts.get(position));
+                context.startActivity(articleIntent);
+            }
 
-            context.startActivity(articleIntent);
         } else {
             Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
         }
