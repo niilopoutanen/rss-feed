@@ -13,14 +13,10 @@ import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
 import com.niilopoutanen.rss_feed.fragments.components.Header;
 import com.niilopoutanen.rss_feed.fragments.components.NewFeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.Notice;
-import com.niilopoutanen.rss_feed.fragments.components.SourceHeader;
+import com.niilopoutanen.rss_feed.fragments.components.ExtendedHeader;
 import com.niilopoutanen.rss_feed.models.FeedData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
     private final Context context;
@@ -54,7 +50,7 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
                 return new FeedItem.ViewHolder(new Header(context));
 
             case FeedData.Types.HEADER_SOURCE:
-                return new FeedItem.ViewHolder(new SourceHeader(context));
+                return new FeedItem.ViewHolder(new ExtendedHeader(context));
 
             case FeedData.Types.POST:
                 return new FeedItem.ViewHolder(new NewFeedCard(context));

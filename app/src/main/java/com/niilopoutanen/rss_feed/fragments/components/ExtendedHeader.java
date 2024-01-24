@@ -6,21 +6,21 @@ import android.widget.TextView;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 
-public class SourceHeader extends FeedItem{
-    public SourceHeader(Context context) {
+public class ExtendedHeader extends FeedItem{
+    public ExtendedHeader(Context context) {
         super(context);
     }
 
     @Override
     public int getLayoutResource() {
-        return R.layout.feed_sourceheader;
+        return R.layout.feed_extendedheader;
     }
 
     @Override
     public void bind(Object data) {
         if(data instanceof Source){
             Source source = (Source) data;
-            TextView title = getContent().findViewById(R.id.source_header_title);
+            TextView title = getContent().findViewById(R.id.extended_header_title);
             title.setText(source.title);
         }
     }
