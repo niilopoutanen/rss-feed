@@ -86,7 +86,7 @@ public class FeedFragment extends Fragment {
             if (source.title != null && title != null){
                 title.setText(source.title);
             }*/
-
+            adapter.setHeader(source);
             this.sources.clear();
             this.sources.add(source);
             update();
@@ -99,7 +99,7 @@ public class FeedFragment extends Fragment {
         if (source.title != null && title != null){
             title.setText(source.title);
         }*/
-
+        adapter.setHeader(source);
         this.sources.clear();
         this.sources.add(source);
         update();

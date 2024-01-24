@@ -13,6 +13,7 @@ import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
 import com.niilopoutanen.rss_feed.fragments.components.Header;
 import com.niilopoutanen.rss_feed.fragments.components.NewFeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.Notice;
+import com.niilopoutanen.rss_feed.fragments.components.SourceHeader;
 import com.niilopoutanen.rss_feed.models.FeedData;
 
 import java.util.ArrayList;
@@ -28,10 +29,6 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
         this.context = context;
         data.setHeader(context.getString(R.string.feed_header));
     }
-    public NewFeedAdapter(Context context, Source header){
-        this.context = context;
-        data.setHeader(header);
-    }
     public void update(List<Post> newPosts) {
         data.setPosts(newPosts);
         notifyDataSetChanged();
@@ -46,12 +43,18 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
         data.addNotice(title, desc);
         notifyDataSetChanged();
     }
+    public void setHeader(Source header){
+        data.setHeader(header);
+    }
     @NonNull
     @Override
     public FeedItem.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
             case FeedData.Types.HEADER:
-                return new FeedItem.ViewHolder(new Header(context)) ;
+                return new FeedItem.ViewHolder(new Header(context));
+
+            case FeedData.Types.HEADER_SOURCE:
+                return new FeedItem.ViewHolder(new SourceHeader(context));
 
             case FeedData.Types.POST:
                 return new FeedItem.ViewHolder(new NewFeedCard(context));
