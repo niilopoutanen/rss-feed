@@ -81,11 +81,6 @@ public class FeedFragment extends Fragment {
 
         repository.getSourceById(id).observe(this.getViewLifecycleOwner(), source -> {
             if(source == null)return;
-
-            /*
-            if (source.title != null && title != null){
-                title.setText(source.title);
-            }*/
             adapter.setHeader(source);
             this.sources.clear();
             this.sources.add(source);
@@ -94,11 +89,6 @@ public class FeedFragment extends Fragment {
     }
     public void showSingle(Source source){
         if(source == null)return;
-
-        /*
-        if (source.title != null && title != null){
-            title.setText(source.title);
-        }*/
         adapter.setHeader(source);
         this.sources.clear();
         this.sources.add(source);
