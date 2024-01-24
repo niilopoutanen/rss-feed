@@ -42,7 +42,6 @@ public class FeedFragment extends Fragment {
     private Context context;
     private Preferences preferences;
     private AppRepository repository;
-    TextView title;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private NewFeedAdapter adapter;
@@ -83,9 +82,10 @@ public class FeedFragment extends Fragment {
         repository.getSourceById(id).observe(this.getViewLifecycleOwner(), source -> {
             if(source == null)return;
 
+            /*
             if (source.title != null && title != null){
                 title.setText(source.title);
-            }
+            }*/
 
             this.sources.clear();
             this.sources.add(source);
@@ -95,9 +95,10 @@ public class FeedFragment extends Fragment {
     public void showSingle(Source source){
         if(source == null)return;
 
+        /*
         if (source.title != null && title != null){
             title.setText(source.title);
-        }
+        }*/
 
         this.sources.clear();
         this.sources.add(source);
@@ -153,14 +154,10 @@ public class FeedFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.feed_container);
 
-        title = rootView.findViewById(R.id.feed_header);
-        PreferencesManager.setHeader(context, title);
 
-        ViewCompat.setOnApplyWindowInsetsListener(title, (v, windowInsets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
+            recyclerView.setPadding(recyclerView.getPaddingLeft(), insets.top, recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
             return WindowInsetsCompat.CONSUMED;
         });
 

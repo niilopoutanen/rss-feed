@@ -7,11 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
 import com.niilopoutanen.rss_feed.fragments.components.Header;
 import com.niilopoutanen.rss_feed.fragments.components.NewFeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.Notice;
+import com.niilopoutanen.rss_feed.models.FeedData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,83 +23,60 @@ import java.util.Map;
 
 public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
     private final Context context;
-    List<Post> posts = new ArrayList<>();
-    List<String[]> notices = new ArrayList<>();
+    private final FeedData data = new FeedData();
     public NewFeedAdapter(Context context){
         this.context = context;
+        data.setHeader(context.getString(R.string.feed_header));
     }
-    public void update(List<Post> posts){
-        this.posts = new ArrayList<>(posts);
+    public NewFeedAdapter(Context context, Source header){
+        this.context = context;
+        data.setHeader(header);
+    }
+    public void update(List<Post> newPosts) {
+        data.setPosts(newPosts);
         notifyDataSetChanged();
     }
-    public void notify(String title, String desc){
-        notices.add(new String[]{title, desc});
+
+    public void update() {
+        data.clearNotices();
+        notifyDataSetChanged();
+    }
+
+    public void notify(String title, String desc) {
+        data.addNotice(title, desc);
         notifyDataSetChanged();
     }
     @NonNull
     @Override
     public FeedItem.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
-            case Type.HEADER:
+            case FeedData.Types.HEADER:
                 return new FeedItem.ViewHolder(new Header(context)) ;
 
-            case Type.POST:
+            case FeedData.Types.POST:
                 return new FeedItem.ViewHolder(new NewFeedCard(context));
 
-            case Type.NOTICE:
+            case FeedData.Types.NOTICE:
                 return new FeedItem.ViewHolder(new Notice(context));
 
-            case Type.NULL:
             default:
-                return null;
-
+                return new FeedItem.ViewHolder(new Notice(context));
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull FeedItem.ViewHolder holder, int position) {
-        switch (getItemViewType(position)){
-            case Type.POST:
-                holder.bind(posts.get(position - 1));
-                break;
-            case Type.NOTICE:
-                holder.bind(notices.get(position - 1));
-                break;
-            case Type.HEADER:
-                holder.bind(context.getString(R.string.feed_header));
-                break;
-        }
-
+        holder.bind(data.get(position));
     }
 
     @Override
     public int getItemCount() {
-        if(notices.size() == 0){
-            return posts.size() + 1;
-        }
-        return notices.size() + 1;
+        return data.count();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0){
-            return Type.HEADER;
-        }
-        else if(notices.size() > 0){
-            return Type.NOTICE;
-        }
-        else if(posts.size() > 0 && position < posts.size()){
-            return Type.POST;
-        }
-        return Type.NULL;
+        return data.getItemType(position);
     }
 
-
-    public static class Type{
-        final static int NULL = -1;
-        final static int HEADER = 0;
-        final static int POST = 1;
-        final static int NOTICE = 2;
-
-    }
 }
