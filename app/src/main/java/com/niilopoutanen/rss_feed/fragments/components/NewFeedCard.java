@@ -16,7 +16,9 @@ import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.activities.MainActivity;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 public class NewFeedCard extends FeedItem{
     public NewFeedCard(Context context) {
@@ -63,9 +65,14 @@ public class NewFeedCard extends FeedItem{
             }
 
             if (post.image != null && !post.image.isEmpty() && preferences.s_feedcardstyle != Preferences.FeedCardStyle.NONE) {
-                Picasso.get().load(post.image).into(image);
+                RequestCreator requestCreator = Picasso.get().load(post.image);
+                if (!preferences.s_imagecache) {
+                    requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
+                }
+                requestCreator.into(image);
             } else {
                 image.setVisibility(View.GONE);
+                getContent().findViewById(R.id.feedcard_image_container).setVisibility(View.GONE);
             }
 
             if(preferences.s_feedcardstyle == Preferences.FeedCardStyle.SMALL){
