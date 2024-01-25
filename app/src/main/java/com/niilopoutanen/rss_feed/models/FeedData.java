@@ -90,7 +90,7 @@ public class FeedData {
             if(notices.size() > 0 && notices.size() > index){
                 return Types.NOTICE;
             }
-            else if(posts.size() > index){
+            else if(posts != null && posts.size() > index){
                 return Types.POST;
             }
         }

@@ -56,8 +56,6 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
                 return new FeedItem.ViewHolder(new NewFeedCard(context));
 
             case FeedData.Types.NOTICE:
-                return new FeedItem.ViewHolder(new Notice(context));
-
             default:
                 return new FeedItem.ViewHolder(new Notice(context));
         }
