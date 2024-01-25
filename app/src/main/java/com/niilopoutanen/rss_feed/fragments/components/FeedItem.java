@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.io.InvalidObjectException;
@@ -22,6 +23,7 @@ public abstract class FeedItem {
     private ViewGroup content;
     protected Context context;
     protected Preferences preferences;
+    protected Object data;
     public FeedItem( Context context) {
         this.context = context;
         this.preferences = PreferencesManager.loadPreferences(context);
@@ -32,15 +34,20 @@ public abstract class FeedItem {
     }
     public abstract @LayoutRes int getLayoutResource();
 
-
+    public abstract void onClick();
     private void inflate(){
         if(getLayoutResource() == -1) throw new IllegalArgumentException("No layout resource set");
 
         LayoutInflater inflater = LayoutInflater.from(context);
         content = (ViewGroup) inflater.inflate(getLayoutResource(), null, false);
+        content.setOnClickListener(v -> FeedItem.this.onClick());
         setSpacing();
     }
 
+    public void setData(Object data){
+        this.data = data;
+        bind(data);
+    }
     public abstract void bind(Object data);
 
     protected void setSpacing(){
@@ -66,7 +73,8 @@ public abstract class FeedItem {
             this.feedItem = feedItem;
         }
         public void bind(Object data){
-            feedItem.bind(data);
+            feedItem.setData(data);
         }
     }
+
 }

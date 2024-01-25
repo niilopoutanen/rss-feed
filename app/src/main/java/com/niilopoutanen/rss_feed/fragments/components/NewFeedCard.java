@@ -1,17 +1,20 @@
 package com.niilopoutanen.rss_feed.fragments.components;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.activities.ArticleActivity;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.activities.MainActivity;
 import com.niilopoutanen.rss_feed.models.Preferences;
@@ -28,6 +31,21 @@ public class NewFeedCard extends FeedItem{
     @Override
     public int getLayoutResource() {
         return R.layout.feedcard;
+    }
+
+    @Override
+    public void onClick() {
+        if(data instanceof Post){
+            Post clicked = (Post) data;
+            if (clicked.link != null) {
+                Intent articleIntent = new Intent(context, ArticleActivity.class);
+                articleIntent.putExtra("preferences", preferences);
+                articleIntent.putExtra("post", clicked);
+                context.startActivity(articleIntent);
+            } else {
+                Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override

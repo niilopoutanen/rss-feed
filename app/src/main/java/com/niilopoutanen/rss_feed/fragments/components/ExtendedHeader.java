@@ -26,6 +26,11 @@ public class ExtendedHeader extends FeedItem{
     }
 
     @Override
+    public void onClick() {
+
+    }
+
+    @Override
     public void bind(Object data) {
         if(data instanceof Source){
             Source source = (Source) data;

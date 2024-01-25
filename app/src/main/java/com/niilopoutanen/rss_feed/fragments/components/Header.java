@@ -18,6 +18,11 @@ public class Header extends FeedItem{
     }
 
     @Override
+    public void onClick() {
+
+    }
+
+    @Override
     public void bind(Object text) {
         if(text instanceof String){
             TextView title = getContent().findViewById(R.id.feed_title);

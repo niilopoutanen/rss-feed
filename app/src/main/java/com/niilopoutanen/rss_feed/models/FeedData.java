@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.models;
 
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,6 +95,7 @@ public class FeedData {
         }
         return -1;
     }
+
 
     public static class Types{
         public static final int HEADER = 0;

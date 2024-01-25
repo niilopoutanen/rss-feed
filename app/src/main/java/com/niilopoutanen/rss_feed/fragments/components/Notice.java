@@ -21,6 +21,11 @@ public class Notice extends FeedItem{
     }
 
     @Override
+    public void onClick() {
+
+    }
+
+    @Override
     public void bind(Object data) {
         if(data instanceof String[]){
             String[] notice = (String[]) data;
