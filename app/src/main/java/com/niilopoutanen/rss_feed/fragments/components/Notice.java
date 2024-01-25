@@ -28,8 +28,8 @@ public class Notice extends FeedItem{
 
     @Override
     public void bind(Object data) {
-        if(data instanceof FeedData.Notice){
-            FeedData.Notice notice = (FeedData.Notice) data;
+        if(data instanceof NoticeData){
+            NoticeData notice = (NoticeData) data;
             TextView header = getContent().findViewById(R.id.feed_notice_header);
             TextView text = getContent().findViewById(R.id.feed_notice_text);
 
@@ -37,5 +37,13 @@ public class Notice extends FeedItem{
             text.setText(notice.desc);
         }
 
+    }
+    public static class NoticeData{
+        public final String title;
+        public final String desc;
+        public NoticeData(String title, String desc){
+            this.title = title;
+            this.desc = desc;
+        }
     }
 }

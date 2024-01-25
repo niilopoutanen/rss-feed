@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.models;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
+import com.niilopoutanen.rss_feed.fragments.components.Notice;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +13,7 @@ import java.util.Map;
 
 public class FeedData {
     private List<Post> posts = new ArrayList<>();
-    private final List<Notice> notices = new ArrayList<>();
+    private final List<Notice.NoticeData> notices = new ArrayList<>();
     private Source sourceHeader;
     private String header;
     public int count(){
@@ -42,7 +43,7 @@ public class FeedData {
         this.posts.clear();
     }
     public void addNotice(String title, String desc){
-        this.notices.add(new Notice(title, desc));
+        this.notices.add(new Notice.NoticeData(title, desc));
     }
     public void clearNotices(){
         this.notices.clear();
@@ -102,14 +103,6 @@ public class FeedData {
         public static final int HEADER_SOURCE = 1;
         public static final int POST = 2;
         public static final int NOTICE = 3;
-    }
-    public static class Notice{
-        public final String title;
-        public final String desc;
-        public Notice(String title, String desc){
-            this.title = title;
-            this.desc = desc;
-        }
     }
 }
 
