@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.models.FeedData;
 
 import java.util.List;
 
@@ -21,19 +22,19 @@ public class Notice extends FeedItem{
     }
 
     @Override
-    public void onClick() {
+    public void onClick(Object data) {
 
     }
 
     @Override
     public void bind(Object data) {
-        if(data instanceof String[]){
-            String[] notice = (String[]) data;
+        if(data instanceof FeedData.Notice){
+            FeedData.Notice notice = (FeedData.Notice) data;
             TextView header = getContent().findViewById(R.id.feed_notice_header);
             TextView text = getContent().findViewById(R.id.feed_notice_text);
 
-            header.setText(notice[0]);
-            text.setText(notice[1]);
+            header.setText(notice.title);
+            text.setText(notice.desc);
         }
 
     }

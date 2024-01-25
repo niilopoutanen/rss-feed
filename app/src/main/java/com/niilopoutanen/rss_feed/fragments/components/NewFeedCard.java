@@ -34,7 +34,7 @@ public class NewFeedCard extends FeedItem{
     }
 
     @Override
-    public void onClick() {
+    public void onClick(Object data) {
         if(data instanceof Post){
             Post clicked = (Post) data;
             if (clicked.link != null) {

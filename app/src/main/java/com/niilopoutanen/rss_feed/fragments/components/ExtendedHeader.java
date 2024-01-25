@@ -26,7 +26,7 @@ public class ExtendedHeader extends FeedItem{
     }
 
     @Override
-    public void onClick() {
+    public void onClick(Object data) {
 
     }
 
