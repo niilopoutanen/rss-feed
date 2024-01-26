@@ -25,6 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.components.ArticleView;
@@ -71,9 +72,7 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
-
         setContentView(R.layout.activity_article);
-
         articleLoader = findViewById(R.id.article_load);
 
         initializeBase();
@@ -100,6 +99,11 @@ public class ArticleActivity extends AppCompatActivity {
         } else {
             initWebView(resultData);
         }
+
+        Bundle params = new Bundle();
+        params.putString("url", post.link);
+        params.putString("source_name", post.title);
+        FirebaseAnalytics.getInstance(this).logEvent("read_article", params);
     }
 
     private void initializeBase() {
@@ -159,6 +163,11 @@ public class ArticleActivity extends AppCompatActivity {
 
         View share = sheet.findViewById(R.id.article_share);
         if (share != null) share.setOnClickListener(v -> {
+            Bundle params = new Bundle();
+            params.putString("url", post.link);
+            params.putString("source_name", post.title);
+            FirebaseAnalytics.getInstance(this).logEvent("share_article", params);
+
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, post.link);

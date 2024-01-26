@@ -25,7 +25,6 @@ import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.fragments.AddSourceFragment;
 import com.niilopoutanen.rss_feed.models.FeedResult;
-import com.niilopoutanen.rss_feed.models.MaskTransformation;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.WebUtils;
@@ -84,7 +83,6 @@ public class SourceItem extends RecyclerView.ViewHolder {
         }
         int iconSize = PreferencesManager.dpToPx(60, context);
         Picasso.get().load(iconUrl)
-                  .transform(new MaskTransformation(context, R.drawable.element_background))
                   .resize(iconSize, iconSize)
                   .into(icon);
     }

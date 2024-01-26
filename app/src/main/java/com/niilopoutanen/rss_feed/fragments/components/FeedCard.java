@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.fragments.components;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
