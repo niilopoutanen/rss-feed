@@ -1,9 +1,11 @@
 package com.niilopoutanen.rss_feed.fragments.components;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +29,13 @@ public class ExtendedHeader extends FeedItem{
 
     @Override
     public void onClick(Object data) {
-
+        if(data instanceof Source){
+            Source source = (Source) data;
+            if(source.home == null || source.home.isEmpty()) return;
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+            browserIntent.setData(Uri.parse(source.home));
+            context.startActivity(browserIntent);
+        }
     }
 
     @Override

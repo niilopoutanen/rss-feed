@@ -146,6 +146,7 @@ public class SourceItem extends RecyclerView.ViewHolder {
                 source.url = WebUtils.formatUrl(result.feedId).toString();
                 source.image = result.visualUrl;
                 source.description = result.description;
+                source.home = result.website;
 
                 AppRepository repository = new AppRepository(context);
                 repository.insert(source);
