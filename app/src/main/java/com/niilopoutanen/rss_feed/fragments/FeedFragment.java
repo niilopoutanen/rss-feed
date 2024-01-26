@@ -155,6 +155,12 @@ public class FeedFragment extends Fragment {
 
         final int columns = getResources().getInteger(R.integer.feed_columns);
         GridLayoutManager manager = new GridLayoutManager(rootView.getContext(), columns);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 ? columns : 1;
+            }
+        });
         recyclerView.setLayoutManager(manager);
 
         swipeRefreshLayout = rootView.findViewById(R.id.recyclerview_refresher);
