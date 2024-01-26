@@ -24,7 +24,7 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.adapters.NewFeedAdapter;
+import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
@@ -42,7 +42,7 @@ public class FeedFragment extends Fragment {
     private AppRepository repository;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private NewFeedAdapter adapter;
+    private FeedAdapter adapter;
     private List<Source> sources = new ArrayList<>();
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
 
@@ -150,7 +150,7 @@ public class FeedFragment extends Fragment {
         });
 
 
-        adapter = new NewFeedAdapter(context);
+        adapter = new FeedAdapter(context);
         recyclerView.setAdapter(adapter);
 
         final int columns = getResources().getInteger(R.integer.feed_columns);

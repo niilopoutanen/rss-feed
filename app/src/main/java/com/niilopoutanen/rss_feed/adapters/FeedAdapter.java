@@ -11,17 +11,17 @@ import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
 import com.niilopoutanen.rss_feed.fragments.components.Header;
-import com.niilopoutanen.rss_feed.fragments.components.NewFeedCard;
+import com.niilopoutanen.rss_feed.fragments.components.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.Notice;
 import com.niilopoutanen.rss_feed.fragments.components.ExtendedHeader;
 import com.niilopoutanen.rss_feed.models.FeedData;
 
 import java.util.List;
 
-public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
     private final Context context;
     private final FeedData data = new FeedData();
-    public NewFeedAdapter(Context context){
+    public FeedAdapter(Context context){
         this.context = context;
         data.setHeader(context.getString(R.string.feed_header));
     }
@@ -53,7 +53,7 @@ public class NewFeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
                 return new FeedItem.ViewHolder(new ExtendedHeader(context));
 
             case FeedData.Types.POST:
-                return new FeedItem.ViewHolder(new NewFeedCard(context));
+                return new FeedItem.ViewHolder(new FeedCard(context));
 
             case FeedData.Types.NOTICE:
             default:

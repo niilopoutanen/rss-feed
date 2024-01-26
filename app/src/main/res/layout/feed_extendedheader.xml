@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textSecondary"
             app:fontFamily="@font/inter_medium"
-            android:maxLines="3"
+            android:maxLines="2"
             android:ellipsize="end"/>
     </LinearLayout>
 

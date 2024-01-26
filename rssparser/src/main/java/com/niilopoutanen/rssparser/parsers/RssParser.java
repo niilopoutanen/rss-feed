@@ -114,6 +114,12 @@ public class RssParser extends ParserBase {
                 post.image = enclosure.attr("url");
             }
 
+            Element mediaImg = itemElement.selectFirst("media|content");
+            if(mediaImg != null && !mediaImg.attr("url").isEmpty() && post.image == null){
+                post.image = mediaImg.attr("url");
+            }
+
+
             if (descElement != null && post.image == null) {
                 int startIndex = descElement.toString().indexOf("<img");
                 if (startIndex != -1 && post.image == null) {
