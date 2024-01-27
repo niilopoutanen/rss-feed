@@ -181,6 +181,16 @@ public class PreferencesManager {
             return 0;
         }
     }
+    public static String getVersionName(Context context){
+        try{
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return pInfo.versionName;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+    }
 
     /**
      * Checks if the user is launching the version for the first time
@@ -190,13 +200,15 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         // set to true if you do not want the user to see update dialog.
         // for example on a very minor update
+        return true;
+        /*
         boolean doNotShowDialog = false;
 
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
 
         if (doNotShowDialog) {
-            return false;
+            return true;
         }
         //for bugfix version
         else if(lastVersionUsed == 20){
@@ -204,7 +216,7 @@ public class PreferencesManager {
         }
         else{
             return currentVersion > lastVersionUsed;
-        }
+        }*/
     }
 
     public static void setHeader(Context context, TextView header){

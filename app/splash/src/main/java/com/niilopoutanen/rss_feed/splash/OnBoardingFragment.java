@@ -23,6 +23,10 @@ import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 public class OnBoardingFragment extends Fragment {
     private Context context;
+    public OnBoardingFragment() {}
+    public OnBoardingFragment(Context context){
+        this.context = context;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +36,13 @@ public class OnBoardingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_onboarding, container, false);
-
+        initVersion(rootView);
         return rootView;
     }
 
     private void initVersion(View rootView){
         TextView whatsNew = rootView.findViewById(com.niilopoutanen.rss_feed.common.R.id.onboarding_version_title);
-        String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context) + "'> v" + PreferencesManager.getVersionCode(context) + "</font>";
+        String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context) + "'> v" + PreferencesManager.getVersionName(context) + "</font>";
         String headerText = getString(com.niilopoutanen.rss_feed.common.R.string.whats_new_in, "<br>") + htmlVersion + "?";
         whatsNew.setText(Html.fromHtml(headerText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
