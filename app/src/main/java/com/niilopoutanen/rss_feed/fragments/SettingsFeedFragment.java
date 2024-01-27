@@ -1,20 +1,20 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.DateStyle;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATEVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DESCVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_STYLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATESTYLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATESTYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -38,8 +38,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.Arrays;
 import java.util.List;

@@ -15,8 +15,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Category;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.List;
 

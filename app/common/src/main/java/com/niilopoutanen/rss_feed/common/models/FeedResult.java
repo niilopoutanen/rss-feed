@@ -1,6 +1,4 @@
-package com.niilopoutanen.rss_feed.models;
-
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+package com.niilopoutanen.rss_feed.common.models;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -65,7 +63,7 @@ public class FeedResult {
                 results.add(tempObj);
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            e.printStackTrace();
         }
         return results;
     }

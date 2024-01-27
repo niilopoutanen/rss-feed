@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
-import com.niilopoutanen.rss_feed.models.FeedResult;
+import com.niilopoutanen.rss_feed.common.models.FeedResult;
 import com.niilopoutanen.rss_feed.parser.Callback;
 import com.niilopoutanen.rss_feed.parser.RSSException;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -23,11 +23,11 @@ import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.fragments.AddSourceFragment;
-import com.niilopoutanen.rss_feed.models.FeedResult;
-import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.common.models.FeedResult;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.parser.WebUtils;
 import com.niilopoutanen.rss_feed.rss.Source;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.squareup.picasso.Picasso;
 
 public class SourceItem extends RecyclerView.ViewHolder {

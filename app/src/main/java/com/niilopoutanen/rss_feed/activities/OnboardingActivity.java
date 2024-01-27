@@ -1,7 +1,7 @@
 package com.niilopoutanen.rss_feed.activities;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
 
 import android.os.Bundle;
 import android.text.Html;
@@ -15,7 +15,7 @@ import androidx.core.text.HtmlCompat;
 
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 public class OnboardingActivity extends AppCompatActivity {
     private static final String COVER_URL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/version.jpg";

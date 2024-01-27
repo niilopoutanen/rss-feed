@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed.models;
+package com.niilopoutanen.rss_feed.common.models;
 
 import com.niilopoutanen.rss_feed.common.R;
 

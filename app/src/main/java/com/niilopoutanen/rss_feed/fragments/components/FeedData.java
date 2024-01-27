@@ -1,8 +1,9 @@
-package com.niilopoutanen.rss_feed.models;
+package com.niilopoutanen.rss_feed.fragments.components;
 
 import com.niilopoutanen.rss_feed.fragments.components.Notice;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
+
 
 import java.util.ArrayList;
 import java.util.List;

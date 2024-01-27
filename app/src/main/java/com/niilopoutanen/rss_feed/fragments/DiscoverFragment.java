@@ -26,13 +26,13 @@ import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.FeedResult;
-import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.common.models.Category;
+import com.niilopoutanen.rss_feed.common.models.FeedResult;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.parser.Callback;
 import com.niilopoutanen.rss_feed.parser.RSSException;
 import com.niilopoutanen.rss_feed.parser.WebUtils;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import org.json.JSONObject;
 

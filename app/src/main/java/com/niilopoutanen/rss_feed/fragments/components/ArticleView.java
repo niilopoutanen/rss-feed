@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 
 import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

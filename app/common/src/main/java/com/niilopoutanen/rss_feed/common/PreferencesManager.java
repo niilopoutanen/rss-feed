@@ -1,63 +1,24 @@
-package com.niilopoutanen.rss_feed.utils;
+package com.niilopoutanen.rss_feed.common;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.ColorAccent;
-import static com.niilopoutanen.rss_feed.models.Preferences.DateStyle;
-import static com.niilopoutanen.rss_feed.models.Preferences.FeedCardStyle;
-import static com.niilopoutanen.rss_feed.models.Preferences.Font;
-import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATEVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DESCVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_STYLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HIDE_SOURCE_ALERT_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_VERSION;
-import static com.niilopoutanen.rss_feed.models.Preferences.ThemeMode;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.*;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle.*;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.FeedCardStyle;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.Font.*;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderSize.*;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderType.*;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode.*;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -70,10 +31,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.common.models.Category;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
 
 import java.text.DateFormat;
 import java.time.Duration;
@@ -203,12 +163,23 @@ public class PreferencesManager {
      * Sets the latest version when user accesses it.
      */
     public static void setLatestVersion(Context context) {
-        int versionCode = BuildConfig.VERSION_CODE;
+        int versionCode = getVersionCode(context);
         SharedPreferences prefs = context.getSharedPreferences(PREFS_FUNCTIONALITY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
         editor.putInt(SP_VERSION, versionCode);
         editor.apply();
+    }
+
+    public static int getVersionCode(Context context){
+        try{
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return pInfo.versionCode;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     /**
@@ -221,7 +192,7 @@ public class PreferencesManager {
         // for example on a very minor update
         boolean doNotShowDialog = false;
 
-        int currentVersion = BuildConfig.VERSION_CODE;
+        int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
 
         if (doNotShowDialog) {
@@ -289,8 +260,8 @@ public class PreferencesManager {
         preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
         preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
         preferences.s_showchangelog = getBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, SP_SHOW_CHANGELOG_DEFAULT, context);
-        preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
-        preferences.s_headersize = getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
+        preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
+        preferences.s_headersize = getEnumPreference(SP_HEADERSIZE, PREFS_UI, HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);

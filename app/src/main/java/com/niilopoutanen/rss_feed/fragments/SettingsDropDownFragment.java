@@ -1,21 +1,21 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.Font;
-import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.ThemeMode;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -40,8 +40,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 public class SettingsDropDownFragment extends Fragment {
 
