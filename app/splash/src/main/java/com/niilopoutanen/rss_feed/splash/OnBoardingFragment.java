@@ -21,10 +21,11 @@ import androidx.fragment.app.Fragment;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
-public class OnBoardingFragment extends Fragment {
+public class OnBoardingFragment extends SplashFragment {
     private Context context;
     public OnBoardingFragment() {}
-    public OnBoardingFragment(Context context){
+    public OnBoardingFragment(Context context, Runnable finisher){
+        super(context, finisher);
         this.context = context;
     }
     @Override
@@ -41,14 +42,14 @@ public class OnBoardingFragment extends Fragment {
     }
 
     private void initVersion(View rootView){
-        TextView whatsNew = rootView.findViewById(com.niilopoutanen.rss_feed.common.R.id.onboarding_version_title);
+        TextView whatsNew = rootView.findViewById(R.id.onboarding_version_title);
         String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context) + "'> v" + PreferencesManager.getVersionName(context) + "</font>";
         String headerText = getString(com.niilopoutanen.rss_feed.common.R.string.whats_new_in, "<br>") + htmlVersion + "?";
         whatsNew.setText(Html.fromHtml(headerText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
-        View continueButton = rootView.findViewById(com.niilopoutanen.rss_feed.common.R.id.onboarding_version_continue);
+        View continueButton = rootView.findViewById(R.id.onboarding_version_continue);
         continueButton.setOnClickListener(v -> {
-            ((Activity)context).finish();
+            finisher.run();
         });
         continueButton.setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -62,10 +63,10 @@ public class OnBoardingFragment extends Fragment {
             return true;
         });
 
-        View dismissButton = rootView.findViewById(com.niilopoutanen.rss_feed.common.R.id.onboarding_version_do_not_show);
+        View dismissButton = rootView.findViewById(R.id.onboarding_version_do_not_show);
         dismissButton.setOnClickListener(v -> {
             PreferencesManager.saveBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, false, context);
-            ((Activity)context).finish();
+            finisher.run();
         });
     }
 }

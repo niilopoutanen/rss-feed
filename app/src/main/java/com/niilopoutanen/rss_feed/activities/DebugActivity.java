@@ -14,6 +14,7 @@ import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.splash.SplashActivity;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -70,7 +71,7 @@ public class DebugActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.debug_showchangelog).setOnClickListener(v -> {
-            Intent onBoardingIntent = new Intent(DebugActivity.this, OnboardingActivity.class);
+            Intent onBoardingIntent = new Intent(DebugActivity.this, SplashActivity.class);
             startActivity(onBoardingIntent);
         });
 
