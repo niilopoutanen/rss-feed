@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 /**
@@ -37,7 +37,7 @@ public class UpdateDialog {
         sheet.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
         TextView header = sheet.findViewById(R.id.updatedialog_header);
-        String headerText = context.getString(R.string.whats_new_in) + " v" + BuildConfig.VERSION_NAME + "?";
+        String headerText = context.getString(com.niilopoutanen.rss_feed.common.R.string.whats_new_in) + " v" + BuildConfig.VERSION_NAME + "?";
         header.setText(headerText);
 
         sheet.setOnCancelListener(dialog -> PreferencesManager.setLatestVersion(context));

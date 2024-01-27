@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;

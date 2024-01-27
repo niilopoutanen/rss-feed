@@ -10,16 +10,17 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent">
+
         <TextView
-            android:layout_centerInParent="true"
             android:id="@+id/onboarding_version_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/whats_new"
+            android:textColor="@color/textPrimary"
             android:textSize="30sp"
-            app:fontFamily="@font/inter_black"
-            android:textColor="@color/textPrimary"/>
+            app:fontFamily="@font/inter_black" />
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

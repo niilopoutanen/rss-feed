@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.models.RecyclerViewInterface;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;

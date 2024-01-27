@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.models.FeedData;
 
 import java.util.List;

@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.fragments.AddSourceFragment;

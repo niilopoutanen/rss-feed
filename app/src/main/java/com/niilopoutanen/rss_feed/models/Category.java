@@ -1,6 +1,6 @@
 package com.niilopoutanen.rss_feed.models;
 
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 
 import java.util.ArrayList;
 import java.util.List;

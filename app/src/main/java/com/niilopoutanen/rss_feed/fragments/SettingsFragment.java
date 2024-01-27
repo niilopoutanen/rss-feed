@@ -74,7 +74,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss.Opml;
 import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
 import com.niilopoutanen.rss_feed.database.AppRepository;

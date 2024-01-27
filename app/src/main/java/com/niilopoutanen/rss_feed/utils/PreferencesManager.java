@@ -71,7 +71,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.Preferences;
 

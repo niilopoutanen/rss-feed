@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

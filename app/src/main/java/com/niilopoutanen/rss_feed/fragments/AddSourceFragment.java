@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rssparser.IconFinder;

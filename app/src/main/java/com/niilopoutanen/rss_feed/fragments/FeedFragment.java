@@ -23,7 +23,7 @@ import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss.Post;
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;

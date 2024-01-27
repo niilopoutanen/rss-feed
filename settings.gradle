@@ -17,3 +17,5 @@ rootProject.name = "RSS-Feed"
 include ':app'
 include ':rssparser'
 include ':rss'
+include ':app:splash'
+include ':app:common'

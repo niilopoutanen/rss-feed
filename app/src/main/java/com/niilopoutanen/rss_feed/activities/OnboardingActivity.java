@@ -20,7 +20,7 @@ import androidx.core.text.HtmlCompat;
 
 
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.squareup.picasso.Picasso;
 

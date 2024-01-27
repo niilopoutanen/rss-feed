@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.DatabaseThread;
 import com.niilopoutanen.rss_feed.fragments.components.SourceItem;
