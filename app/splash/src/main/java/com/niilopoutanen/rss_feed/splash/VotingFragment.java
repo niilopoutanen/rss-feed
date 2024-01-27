@@ -40,6 +40,7 @@ public class VotingFragment extends SplashFragment {
         icons.add("icon1.png");
         icons.add("icon2.png");
         icons.add("icon3.png");
+        icons.add("icon4.png");
 
         CardView container = rootView.findViewById(R.id.splash_voting_icon_container);
         FadeContainer fadeContainer = new FadeContainer(context);
@@ -47,10 +48,11 @@ public class VotingFragment extends SplashFragment {
         for(String url : icons){
             ImageView icon = new ImageView(context);
             Picasso.get().load(baseUrl + url).into(icon);
-            fadeContainer.addView(icon);
+            fadeContainer.add(icon);
         }
 
         container.addView(fadeContainer);
+        fadeContainer.start();
 
     }
 

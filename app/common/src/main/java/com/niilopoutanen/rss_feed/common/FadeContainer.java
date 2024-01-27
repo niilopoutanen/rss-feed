@@ -11,7 +11,11 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FadeContainer extends FrameLayout {
+    private final List<View> views = new ArrayList<>();
     private final Handler handler = new Handler();
     private int activeIndex = 0;
     private final int FADE_DURATION = 500;
@@ -19,49 +23,36 @@ public class FadeContainer extends FrameLayout {
 
     public FadeContainer(@NonNull Context context) {
         super(context);
-        handler.postDelayed(sequencer, DELAY);
-
     }
 
-    private final Runnable sequencer = new Runnable() {
-        @Override
-        public void run() {
-            fade();
-            handler.postDelayed(this, DELAY + FADE_DURATION);
-        }
-    };
+    public void add(View view){
+        super.addView(view);
+        views.add(view);
+        view.setAlpha(0f);
+    }
+    public void start(){
+        fade();
+        Runnable sequencer = new Runnable() {
+            @Override
+            public void run() {
+                fade();
+                handler.postDelayed(this, FADE_DURATION + DELAY);
+            }
+        };
+        handler.postDelayed(sequencer, DELAY);
+    }
 
     private void fade() {
         int nextIndex = activeIndex + 1;
-        if(nextIndex >= getChildCount()){
+        if(nextIndex >= views.size()){
             nextIndex = 0;
         }
-        View currentView = getChildAt(activeIndex);
-        View nextView = getChildAt(nextIndex);
+        View currentView = views.get(activeIndex);
+        View nextView = views.get(nextIndex);
 
-        nextView.bringToFront();
         nextView.setAlpha(0f);
-        nextView.animate().alpha(1f).setDuration(FADE_DURATION).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(@NonNull Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(@NonNull Animator animation) {
-                currentView.setAlpha(0f);
-            }
-
-            @Override
-            public void onAnimationCancel(@NonNull Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(@NonNull Animator animation) {
-
-            }
-        });
+        nextView.animate().alpha(1f).setDuration(FADE_DURATION);
+        currentView.animate().alpha(0f).setDuration(FADE_DURATION);
         activeIndex = nextIndex;
     }
 
