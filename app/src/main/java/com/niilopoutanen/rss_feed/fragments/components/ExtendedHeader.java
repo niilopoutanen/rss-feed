@@ -3,17 +3,14 @@ package com.niilopoutanen.rss_feed.fragments.components;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
-
-import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.rss.Source;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

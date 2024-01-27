@@ -13,16 +13,16 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
-import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.database.compatibility.Migrations;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.compatibility.SourceMigration;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
 import com.niilopoutanen.rss_feed.fragments.UpdateDialog;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.splash.SplashActivity;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -117,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
     private void init(){
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
         if (isFirstLaunch && !isFinishing() && !isDestroyed()) {
-            Intent onboardingIntent = new Intent(this, OnboardingActivity.class);
-            startActivity(onboardingIntent);
+            Intent splashIntent = new Intent(this, SplashActivity.class);
+            startActivity(splashIntent);
         }
 
         if(SourceMigration.needed(this)){

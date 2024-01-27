@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.niilopoutanen.rss_feed.common.ArticleView
+        android:id="@+id/articleview"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:id="@+id/article_footer_toggle"
+        android:layout_width="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/element_background"
+        android:padding="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/icon_menu"
+            android:backgroundTint="?attr/colorAccent" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/article_load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="?attr/colorAccent" />
+</RelativeLayout>

@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.List;
 

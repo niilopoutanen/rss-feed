@@ -3,9 +3,8 @@ package com.niilopoutanen.rss_feed.fragments.components;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 public class Header extends FeedItem{
     public Header(Context context) {

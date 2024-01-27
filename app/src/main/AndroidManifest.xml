@@ -30,6 +30,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".splash.SplashActivity"
+            android:exported="false"/>
         <activity
             android:name=".activities.OnboardingActivity"
             android:exported="false"/>

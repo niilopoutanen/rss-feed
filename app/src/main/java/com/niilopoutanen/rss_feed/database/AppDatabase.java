@@ -6,8 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.database.dao.SourceDao;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

@@ -21,14 +21,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.rss.Source;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
