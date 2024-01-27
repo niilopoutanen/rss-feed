@@ -1,18 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
     <TextView
+        android:id="@+id/splash_voting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        app:fontFamily="@font/inter_bold"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/inter_black"
         android:text="@string/time_to_vote"
+        android:textColor="@color/textPrimary"
         android:textSize="30sp"
+        app:fontFamily="@font/inter_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/textPrimary"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/splash_voting_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center"
+        android:text="@string/voting_desc"
+        android:textColor="@color/textSecondary"
+        app:fontFamily="@font/inter_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_voting_title" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/splash_voting_icon_container"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="0dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_voting_desc">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/splash_voting_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/i_dont_care"
+        app:fontFamily="@font/inter"
+        app:layout_constraintBottom_toTopOf="@+id/splash_voting_continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/splash_voting_continue"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="?attr/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/continua"
+            android:textColor="@color/textPrimary"
+            android:textSize="14sp"
+            app:fontFamily="@font/inter_semibold" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
