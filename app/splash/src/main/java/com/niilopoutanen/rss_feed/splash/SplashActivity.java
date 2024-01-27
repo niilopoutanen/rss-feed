@@ -42,10 +42,6 @@ public class SplashActivity extends AppCompatActivity {
                         currentStage = Stage.ONBOARDING;
                         break;
                     case ONBOARDING:
-                        setFragment(new VotingFragment(SplashActivity.this, nextStage));
-                        currentStage = Stage.VOTING;
-                        break;
-                    case VOTING:
                         finish();
                         break;
                 }
@@ -56,6 +52,6 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public enum Stage{
-        INITIAL, ONBOARDING, VOTING
+        INITIAL, ONBOARDING
     }
 }
