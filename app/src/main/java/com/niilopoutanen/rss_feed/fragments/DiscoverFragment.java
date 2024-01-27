@@ -30,9 +30,9 @@ import com.niilopoutanen.rss_feed.models.Category;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.models.Preferences;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
-import com.niilopoutanen.rssparser.WebUtils;
+import com.niilopoutanen.rss_feed.parser.Callback;
+import com.niilopoutanen.rss_feed.parser.RSSException;
+import com.niilopoutanen.rss_feed.parser.WebUtils;
 
 import org.json.JSONObject;
 

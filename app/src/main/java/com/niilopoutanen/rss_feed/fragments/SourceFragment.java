@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
-import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.database.AppRepository;

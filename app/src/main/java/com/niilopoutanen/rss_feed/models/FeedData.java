@@ -1,15 +1,11 @@
 package com.niilopoutanen.rss_feed.models;
 
-import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
+import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.fragments.components.Notice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FeedData {
     private List<Post> posts = new ArrayList<>();

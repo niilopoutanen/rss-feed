@@ -16,8 +16,8 @@ import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.models.FeedResult;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
+import com.niilopoutanen.rss_feed.parser.Callback;
+import com.niilopoutanen.rss_feed.parser.RSSException;
 
 import java.util.ArrayList;
 import java.util.List;

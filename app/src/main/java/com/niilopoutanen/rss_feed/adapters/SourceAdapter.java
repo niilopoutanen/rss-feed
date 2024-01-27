@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.niilopoutanen.rss.Source;
+import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.DatabaseThread;

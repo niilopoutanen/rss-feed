@@ -3,13 +3,8 @@ package com.niilopoutanen.rss_feed.fragments.components;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.niilopoutanen.rss.Post;
+import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.models.FeedData;
-
-import java.util.List;
-
-import kotlin.NotImplementedError;
 
 public class Notice extends FeedItem{
     public Notice(Context context) {
