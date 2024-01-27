@@ -6,15 +6,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.rss_feed.rss.Post;
-import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.fragments.components.ExtendedHeader;
+import com.niilopoutanen.rss_feed.fragments.components.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
 import com.niilopoutanen.rss_feed.fragments.components.Header;
-import com.niilopoutanen.rss_feed.fragments.components.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.Notice;
-import com.niilopoutanen.rss_feed.fragments.components.ExtendedHeader;
 import com.niilopoutanen.rss_feed.models.FeedData;
+import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.List;
 

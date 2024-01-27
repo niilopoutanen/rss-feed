@@ -8,21 +8,14 @@ import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.window.OnBackInvokedDispatcher;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
-
 
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.squareup.picasso.Picasso;
 
 public class OnboardingActivity extends AppCompatActivity {
     private static final String COVER_URL = "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/version.jpg";

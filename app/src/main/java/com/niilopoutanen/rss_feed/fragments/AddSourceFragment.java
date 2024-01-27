@@ -22,12 +22,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.rss.Source;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

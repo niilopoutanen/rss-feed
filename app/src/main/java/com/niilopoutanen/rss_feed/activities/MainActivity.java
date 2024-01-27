@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.database.compatibility.Migrations;
 import com.niilopoutanen.rss_feed.database.compatibility.SourceMigration;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;

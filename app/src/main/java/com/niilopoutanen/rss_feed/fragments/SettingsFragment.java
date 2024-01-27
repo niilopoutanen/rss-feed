@@ -70,13 +70,13 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.niilopoutanen.rss_feed.rss.Opml;
-import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.rss.Opml;
+import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.io.File;

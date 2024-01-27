@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.rss.Source;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

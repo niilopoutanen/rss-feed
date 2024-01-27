@@ -12,10 +12,10 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
-import com.niilopoutanen.rss_feed.rss.Post;
-import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.models.Preferences;
+import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;

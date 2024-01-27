@@ -3,7 +3,6 @@ package com.niilopoutanen.rss_feed.rss;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
 import java.io.Serializable;
 
 @Entity(tableName = "source")

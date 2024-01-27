@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import java.sql.Date;

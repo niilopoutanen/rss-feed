@@ -1,7 +1,7 @@
 package com.niilopoutanen.rss_feed.parser.parsers;
 
-import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.rss.Post;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

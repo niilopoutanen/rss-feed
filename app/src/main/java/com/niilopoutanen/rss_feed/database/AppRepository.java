@@ -5,8 +5,8 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.database.dao.SourceDao;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.List;
 

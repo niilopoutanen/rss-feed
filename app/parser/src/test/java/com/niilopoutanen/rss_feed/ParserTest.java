@@ -1,9 +1,5 @@
 package com.niilopoutanen.rss_feed;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import com.niilopoutanen.rss_feed.parser.FeedFinder;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.parser.RSSException;

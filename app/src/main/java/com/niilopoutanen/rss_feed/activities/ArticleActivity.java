@@ -26,14 +26,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.fragments.components.ArticleView;
 import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 import com.niilopoutanen.rss_feed.parser.Callback;
 import com.niilopoutanen.rss_feed.parser.RSSException;
 import com.niilopoutanen.rss_feed.parser.WebUtils;
+import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.utils.PreferencesManager;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
