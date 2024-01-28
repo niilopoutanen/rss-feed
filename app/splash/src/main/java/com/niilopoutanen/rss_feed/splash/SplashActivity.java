@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 switch (currentStage){
                     case INITIAL:
-                        setFragment(new OnBoardingFragment(SplashActivity.this, nextStage));
+                        setFragment(new OnBoardingFragment(SplashActivity.this, this, SplashActivity.this::finish));
                         currentStage = Stage.ONBOARDING;
                         break;
                     case ONBOARDING:
@@ -50,6 +50,11 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void finish() {
+        PreferencesManager.setLatestVersion(this);
+        super.finish();
+    }
 
     public enum Stage{
         INITIAL, ONBOARDING

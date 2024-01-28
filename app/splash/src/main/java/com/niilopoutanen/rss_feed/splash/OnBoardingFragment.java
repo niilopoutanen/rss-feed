@@ -3,7 +3,6 @@ package com.niilopoutanen.rss_feed.splash;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
@@ -17,15 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.Fragment;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 public class OnBoardingFragment extends SplashFragment {
     private Context context;
     public OnBoardingFragment() {}
-    public OnBoardingFragment(Context context, Runnable finisher){
-        super(context, finisher);
+    public OnBoardingFragment(Context context, Runnable next, Runnable skip){
+        super(context, next, skip);
         this.context = context;
     }
     @Override
@@ -49,7 +47,7 @@ public class OnBoardingFragment extends SplashFragment {
 
         View continueButton = rootView.findViewById(R.id.onboarding_version_continue);
         continueButton.setOnClickListener(v -> {
-            finisher.run();
+            next.run();
         });
         continueButton.setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -66,7 +64,7 @@ public class OnBoardingFragment extends SplashFragment {
         View dismissButton = rootView.findViewById(R.id.onboarding_version_do_not_show);
         dismissButton.setOnClickListener(v -> {
             PreferencesManager.saveBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, false, context);
-            finisher.run();
+            next.run();
         });
     }
 }
