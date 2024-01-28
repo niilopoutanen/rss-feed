@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="time_to_vote">Time to vote.</string>
-    <string name="voting_desc">The icon of the app is going to change. What icon would you prefer the most?</string>
-    <string name="i_dont_care">I don\'t care.</string>
-</resources>

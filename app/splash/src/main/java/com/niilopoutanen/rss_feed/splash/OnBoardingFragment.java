@@ -20,12 +20,7 @@ import androidx.core.text.HtmlCompat;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 public class OnBoardingFragment extends SplashFragment {
-    private Context context;
     public OnBoardingFragment() {}
-    public OnBoardingFragment(Context context, Runnable next, Runnable skip){
-        super(context, next, skip);
-        this.context = context;
-    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +42,7 @@ public class OnBoardingFragment extends SplashFragment {
 
         View continueButton = rootView.findViewById(R.id.onboarding_version_continue);
         continueButton.setOnClickListener(v -> {
-            next.run();
+            super.next();
         });
         continueButton.setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -64,7 +59,7 @@ public class OnBoardingFragment extends SplashFragment {
         View dismissButton = rootView.findViewById(R.id.onboarding_version_do_not_show);
         dismissButton.setOnClickListener(v -> {
             PreferencesManager.saveBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, false, context);
-            next.run();
+            super.cancel();
         });
     }
 }

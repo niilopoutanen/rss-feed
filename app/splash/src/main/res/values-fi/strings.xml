@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="time_to_vote">Aika äänestää.</string>
-    <string name="voting_desc">Sovelluksen kuvake tulee muuttumaan. Mistä pidät eniten?</string>
-    <string name="i_dont_care">Ei kiinnosta</string>
-</resources>

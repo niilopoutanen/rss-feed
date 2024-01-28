@@ -103,14 +103,14 @@
     <string name="whats_new_in">What\'s new %1$s in</string>
     <string name="whats_new">What\'s new?</string>
 
-    <string name="feature1">Import/Export</string>
-    <string name="feature1desc">You can now share your subscribed sources across other supported apps using OPML import/export in the settings.</string>
+    <string name="feature1">New icon</string>
+    <string name="feature1desc">The RSS-Feed icon got a refresh</string>
 
-    <string name="feature2">Reworked data storing</string>
-    <string name="feature2desc">The app now has a stronger database for storing user data on your device.</string>
+    <string name="feature2">Enhanced feed</string>
+    <string name="feature2desc">Feed elements got a few UI tweaks and fixes</string>
 
-    <string name="feature3">UI enhancements</string>
-    <string name="feature3desc">Small modifications to the user interface</string>
+    <string name="feature3">Bug fixes</string>
+    <string name="feature3desc">Less bugs and crashes</string>
 
 
 

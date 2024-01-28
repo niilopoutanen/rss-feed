@@ -10,24 +10,26 @@ import com.google.android.material.transition.MaterialSharedAxis;
 
 public abstract class SplashFragment extends Fragment {
     protected Context context;
-    protected Runnable next;
-    protected Runnable skip;
 
 
     public SplashFragment() {
-        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
-        setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-    }
-    public SplashFragment(Context context, Runnable next, Runnable skip){
-        this.context = context;
-        this.next = next;
-        this.skip = skip;
-
+        this.context = getContext();
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }
 
-
+    public void next(){
+        if(getActivity() instanceof SplashActivity){
+            SplashActivity splashActivity = (SplashActivity) getActivity();
+            splashActivity.next();
+        }
+    }
+    public void cancel(){
+        if(getActivity() instanceof SplashActivity){
+            SplashActivity splashActivity = (SplashActivity) getActivity();
+            splashActivity.finish();
+        }
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
