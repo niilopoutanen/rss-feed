@@ -205,7 +205,7 @@ public class ArticleActivity extends AppCompatActivity {
         articleView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                runOnUiThread(() -> openWebView(request.getUrl().toString()));
+                runOnUiThread(() -> openSheet(request.getUrl().toString()));
                 return true;
             }
 
@@ -222,7 +222,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    private void openWebView(String url) {
+    private void openSheet(String url) {
 
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this);
         webViewSheet.setContentView(R.layout.dialog_webview);
