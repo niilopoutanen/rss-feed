@@ -44,12 +44,16 @@ public class AddSourceFragment extends Fragment {
     private View addSourceButton;
     private Context context;
 
-    public AddSourceFragment(Source source, Context context) {
-        this.source = source;
-        this.context = context;
-    }
 
     public AddSourceFragment() {
+    }
+
+    public static AddSourceFragment newInstance(Source source) {
+        Bundle args = new Bundle();
+        args.putSerializable("source", source);
+        AddSourceFragment fragment = new AddSourceFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void loadData() {
@@ -125,6 +129,11 @@ public class AddSourceFragment extends Fragment {
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
+
+        if(getArguments() != null){
+            source = (Source) getArguments().getSerializable("source");
+        }
+        context = getContext();
     }
 
     @Override

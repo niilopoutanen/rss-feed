@@ -98,7 +98,7 @@ public class SourceFragment extends Fragment {
     }
 
     public void openSourceDialog(Source source) {
-        AddSourceFragment addSourceFragment = new AddSourceFragment(source, context);
+        AddSourceFragment addSourceFragment = AddSourceFragment.newInstance(source);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
         transaction.addToBackStack(null);

@@ -103,7 +103,7 @@ public class SourceItem extends RecyclerView.ViewHolder {
         });
 
         button.setOnClickListener(v -> {
-            AddSourceFragment addSourceFragment = new AddSourceFragment(source, context);
+            AddSourceFragment addSourceFragment = AddSourceFragment.newInstance(source);
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
             transaction.addToBackStack(null);
