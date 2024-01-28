@@ -50,19 +50,19 @@ public class MainActivity extends AppCompatActivity {
         if (currentFragment == null) {
             switch (preferences.s_launchwindow) {
                 case SETTINGS:
-                    currentFragment = new SettingsFragment(this);
+                    currentFragment = new SettingsFragment();
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = new FeedFragment(preferences);
+                    currentFragment = FeedFragment.newInstance(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
-                    currentFragment = new SourceFragment(this, preferences);
+                    currentFragment = SourceFragment.newInstance(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_content);
                     break;
                 case DISCOVER:
-                    currentFragment = new DiscoverFragment(this, preferences);
+                    currentFragment = DiscoverFragment.newInstance(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_discover);
                     break;
             }
@@ -78,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
             }
             preferences = PreferencesManager.loadPreferences(MainActivity.this);
             if (itemId == R.id.nav_settings) {
-                currentFragment = new SettingsFragment(MainActivity.this);
+                currentFragment = new SettingsFragment();
             } else if (itemId == R.id.nav_feed) {
-                currentFragment = new FeedFragment(preferences);
+                currentFragment = FeedFragment.newInstance(preferences);
             } else if (itemId == R.id.nav_content) {
-                currentFragment = new SourceFragment(MainActivity.this, preferences);
+                currentFragment = SourceFragment.newInstance(preferences);
             } else if (itemId == R.id.nav_discover) {
-                currentFragment = new DiscoverFragment(MainActivity.this, preferences);
+                currentFragment = DiscoverFragment.newInstance(preferences);
             }
 
             return loadFragment(currentFragment);

@@ -55,23 +55,22 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     NestedScrollView scrollView;
     View progressBar;
 
-    public DiscoverFragment(Context context, Preferences preferences) {
-        this.context = context;
-        this.preferences = preferences;
-    }
 
-    public DiscoverFragment() {
+    public static DiscoverFragment newInstance(Preferences preferences) {
+        Bundle args = new Bundle();
+        args.putSerializable("preferences", preferences);
+        DiscoverFragment fragment = new DiscoverFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            preferences = (Preferences) savedInstanceState.getSerializable("preferences");
+        if (getArguments() != null) {
+            preferences = (Preferences) getArguments().getSerializable("preferences");
         }
-        if (context == null) {
-            context = getContext();
-        }
+        context = getContext();
 
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialFadeThrough());
@@ -237,10 +236,4 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         search(categoryClicked.getQuery());
     }
 
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("preferences", preferences);
-    }
 }

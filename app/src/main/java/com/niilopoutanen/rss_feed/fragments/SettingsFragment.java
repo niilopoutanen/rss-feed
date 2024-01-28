@@ -93,19 +93,13 @@ public class SettingsFragment extends Fragment {
     List<RelativeLayout> colorAccentButtons;
     private Context context;
 
-    public SettingsFragment(Context context) {
-        this.context = context;
-    }
-
     public SettingsFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (context == null) {
-            context = getContext();
-        }
+        context = getContext();
 
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
@@ -170,7 +164,7 @@ public class SettingsFragment extends Fragment {
 
         RelativeLayout feedSettings = rootView.findViewById(R.id.settings_openFeedSettings);
         feedSettings.setOnClickListener(view -> {
-            SettingsFeedFragment settingsFeedFragment = new SettingsFeedFragment(context);
+            SettingsFeedFragment settingsFeedFragment = new SettingsFeedFragment();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_container, settingsFeedFragment);
             transaction.addToBackStack(null);
@@ -358,7 +352,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private <T extends Enum<T>> void openDropDownSettings(Class<?> type, String title, String additionalMessage) {
-        SettingsDropDownFragment dropDownFragment = new SettingsDropDownFragment(title, additionalMessage, type, context);
+        SettingsDropDownFragment dropDownFragment = SettingsDropDownFragment.newInstance(title, additionalMessage, type);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, dropDownFragment);
         transaction.addToBackStack(null);

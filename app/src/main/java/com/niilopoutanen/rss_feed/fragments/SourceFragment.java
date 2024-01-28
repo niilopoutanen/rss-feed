@@ -34,28 +34,27 @@ public class SourceFragment extends Fragment {
     private Preferences preferences;
     private RecyclerView sourcesRecyclerView;
 
-    public SourceFragment(Context context, Preferences preferences) {
-        this.context = context;
-        this.preferences = preferences;
-    }
 
-    public SourceFragment() {
-    }
+    public SourceFragment() {}
 
+    public static SourceFragment newInstance(Preferences preferences) {
+        Bundle args = new Bundle();
+        args.putSerializable("preferences", preferences);
+        SourceFragment fragment = new SourceFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (context == null) {
-            context = getContext();
+        context = getContext();
+        if (getArguments() != null) {
+            preferences = (Preferences) getArguments().getSerializable("preferences");
         }
 
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialFadeThrough());
         postponeEnterTransition();
-
-        if (savedInstanceState != null) {
-            preferences = (Preferences) savedInstanceState.getSerializable("preferences");
-        }
     }
 
 
@@ -103,11 +102,5 @@ public class SourceFragment extends Fragment {
         transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("preferences", preferences);
     }
 }

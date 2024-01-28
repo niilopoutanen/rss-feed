@@ -54,13 +54,7 @@ public class SettingsFeedFragment extends Fragment {
     private Spinner dateSpinner;
     private Context context;
 
-
-    public SettingsFeedFragment(Context context) {
-        this.context = context;
-    }
-
-    public SettingsFeedFragment() {
-    }
+    public SettingsFeedFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,11 +65,8 @@ public class SettingsFeedFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (context == null) {
-            context = getContext();
-        }
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
-
+        context = rootView.getContext();
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.feedsettings_base), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());

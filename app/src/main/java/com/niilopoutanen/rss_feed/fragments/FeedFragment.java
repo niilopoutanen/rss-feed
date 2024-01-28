@@ -46,25 +46,33 @@ public class FeedFragment extends Fragment {
     private List<Source> sources = new ArrayList<>();
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
 
-    public FeedFragment() {
+    public FeedFragment() {}
+
+    public static FeedFragment newInstance(Preferences preferences) {
+        Bundle args = new Bundle();
+        args.putSerializable("preferences", preferences);
+        FeedFragment fragment = new FeedFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+    public static FeedFragment newInstance(Preferences preferences, FEED_TYPE type) {
+        Bundle args = new Bundle();
+        args.putSerializable("preferences", preferences);
+        args.putSerializable("type", type);
+        FeedFragment fragment = new FeedFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
-    public FeedFragment(Preferences preferences) {
-        this.preferences = preferences;
-    }
-
-    public FeedFragment(Preferences preferences, FEED_TYPE type){
-        this.preferences = preferences;
-        this.type = type;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
         repository = new AppRepository(context);
-        if (savedInstanceState != null) {
-            preferences = (Preferences) savedInstanceState.getSerializable("preferences");
+        if (getArguments() != null) {
+            preferences = (Preferences) getArguments().getSerializable("preferences");
+            type = (FEED_TYPE) getArguments().getSerializable("type");
         }
 
         setEnterTransition(new MaterialFadeThrough());
@@ -216,12 +224,6 @@ public class FeedFragment extends Fragment {
         if (recyclerView != null) {
             recyclerView.smoothScrollToPosition(0);
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("preferences", preferences);
     }
 
     public enum FEED_TYPE {TYPE_SINGLE, TYPE_MULTI}

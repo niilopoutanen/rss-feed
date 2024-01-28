@@ -51,22 +51,23 @@ public class SettingsDropDownFragment extends Fragment {
     String title;
     String additionalMessage;
 
-    public SettingsDropDownFragment(String optionTitle, String additionalMessage, Class<?> type, Context context) {
-        this.context = context;
-        this.type = type;
-        this.title = optionTitle;
-        this.additionalMessage = additionalMessage;
+    public static SettingsDropDownFragment newInstance(String optionTitle, String additionalMessage, Class<?> type) {
+        Bundle args = new Bundle();
+        args.putString("title", optionTitle);
+        args.putString("message", additionalMessage);
+        args.putSerializable("class", type);
+        SettingsDropDownFragment fragment = new SettingsDropDownFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
-
-    public SettingsDropDownFragment() {
-    }
+    public SettingsDropDownFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            title = savedInstanceState.getString("title");
-            additionalMessage = savedInstanceState.getString("additionalMessage");
-            type = (Class<?>) savedInstanceState.getSerializable("class");
+        if (getArguments() != null) {
+            title = getArguments().getString("title");
+            additionalMessage = getArguments().getString("message");
+            type = (Class<?>) getArguments().getSerializable("class");
         }
         if (context == null) {
             context = getContext();
@@ -265,13 +266,5 @@ public class SettingsDropDownFragment extends Fragment {
 
         optionsContainer.addView(parent);
         return parent;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("additionalMessage", additionalMessage);
-        outState.putString("title", title);
-        outState.putSerializable("class", type);
     }
 }
