@@ -1,8 +1,12 @@
 package com.niilopoutanen.rss_feed.common.models;
 
+import com.niilopoutanen.rss_feed.parser.WebUtils;
+import com.niilopoutanen.rss_feed.rss.Source;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +70,21 @@ public class FeedResult {
             e.printStackTrace();
         }
         return results;
+    }
+
+
+    public Source getSource(){
+        Source source = new Source();
+        source.title = title;
+        URL url = WebUtils.formatUrl(feedId);
+        if(url != null){
+            source.url = url.toString();
+        }
+        source.home = website;
+        source.description = description;
+        source.image = visualUrl;
+        source.language = language;
+        return source;
     }
 
 }

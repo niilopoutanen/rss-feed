@@ -139,12 +139,7 @@ public class SourceItem extends RecyclerView.ViewHolder {
 
         button.setOnClickListener(v -> {
             if (!result.alreadyAdded) {
-                Source source = new Source();
-                source.title = result.title;
-                source.url = WebUtils.formatUrl(result.feedId).toString();
-                source.image = result.visualUrl;
-                source.description = result.description;
-                source.home = result.website;
+                Source source = result.getSource();
 
                 AppRepository repository = new AppRepository(context);
                 repository.insert(source);
@@ -160,10 +155,8 @@ public class SourceItem extends RecyclerView.ViewHolder {
 
         container.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FeedActivity.class);
-            Source source = new Source();
-            source.title = result.title;
-            source.url = WebUtils.formatUrl(result.feedId).toString();
-            source.image = result.visualUrl;
+            Source source = result.getSource();
+
             intent.putExtra("source", source);
             intent.putExtra("preferences", PreferencesManager.loadPreferences(v.getContext()));
             v.getContext().startActivity(intent);

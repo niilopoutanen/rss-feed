@@ -39,6 +39,12 @@ public class FeedData {
         this.posts.clear();
     }
     public void addNotice(String title, String desc){
+
+        for(Notice.NoticeData notice : notices){
+            if(notice.title.equals(title)){
+                return;
+            }
+        }
         this.notices.add(new Notice.NoticeData(title, desc));
     }
     public void clearNotices(){
@@ -62,6 +68,7 @@ public class FeedData {
             }
         }
         else{
+            index--;
             if(notices.size() > 0 && notices.size() > index){
                 return notices.get(index);
             }
@@ -73,30 +80,29 @@ public class FeedData {
         return null;
     }
 
-    public int getItemType(int index){
-        if (index == 0){
-            if(sourceHeader != null){
-                return Types.HEADER_SOURCE;
-            }
-            else if(header != null){
-                return Types.HEADER;
-            }
+    public int getItemType(int index) {
+        Object item = get(index);
+
+        if (item instanceof Source) {
+            return Types.HEADER_EXTENDED;
         }
-        else{
-            if(notices.size() > 0 && notices.size() > index){
-                return Types.NOTICE;
-            }
-            else if(posts != null && posts.size() > index){
-                return Types.POST;
-            }
+        else if (item instanceof String) {
+            return Types.HEADER;
         }
+        else if (item instanceof Notice.NoticeData) {
+            return Types.NOTICE;
+        }
+        else if (item instanceof Post) {
+            return Types.POST;
+        }
+
         return -1;
     }
 
 
     public static class Types{
         public static final int HEADER = 0;
-        public static final int HEADER_SOURCE = 1;
+        public static final int HEADER_EXTENDED = 1;
         public static final int POST = 2;
         public static final int NOTICE = 3;
     }

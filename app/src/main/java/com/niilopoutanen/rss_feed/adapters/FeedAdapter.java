@@ -49,7 +49,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
             case FeedData.Types.HEADER:
                 return new FeedItem.ViewHolder(new Header(context));
 
-            case FeedData.Types.HEADER_SOURCE:
+            case FeedData.Types.HEADER_EXTENDED:
                 return new FeedItem.ViewHolder(new ExtendedHeader(context));
 
             case FeedData.Types.POST:
