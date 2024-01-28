@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.fragments.components.ExtendedHeader;
-import com.niilopoutanen.rss_feed.fragments.components.FeedCard;
-import com.niilopoutanen.rss_feed.fragments.components.FeedItem;
-import com.niilopoutanen.rss_feed.fragments.components.Header;
-import com.niilopoutanen.rss_feed.fragments.components.Notice;
-import com.niilopoutanen.rss_feed.fragments.components.FeedData;
+import com.niilopoutanen.rss_feed.fragments.components.feed.ExtendedHeader;
+import com.niilopoutanen.rss_feed.fragments.components.feed.FeedCard;
+import com.niilopoutanen.rss_feed.fragments.components.feed.FeedItem;
+import com.niilopoutanen.rss_feed.fragments.components.feed.Header;
+import com.niilopoutanen.rss_feed.fragments.components.feed.Notice;
+import com.niilopoutanen.rss_feed.fragments.components.feed.FeedData;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
 
