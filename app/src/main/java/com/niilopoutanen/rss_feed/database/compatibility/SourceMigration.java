@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,9 +55,9 @@ public class SourceMigration {
         return oldData;
     }
     private static void insertToDatabase(List<Compatibility> oldData, Context context){
-        List<com.niilopoutanen.rss.Source> sources = new ArrayList<>();
+        List<Source> sources = new ArrayList<>();
         for(Compatibility old : oldData){
-            com.niilopoutanen.rss.Source source = new com.niilopoutanen.rss.Source();
+            Source source = new Source();
             source.title = old.name;
             source.url = old.feedUrl;
             source.image = old.imageUrl;
@@ -64,7 +65,7 @@ public class SourceMigration {
         }
 
         AppRepository repository = new AppRepository(context);
-        for (com.niilopoutanen.rss.Source source : sources) {
+        for (Source source : sources) {
             repository.insert(source);
         }
     }

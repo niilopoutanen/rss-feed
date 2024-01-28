@@ -13,14 +13,15 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.compatibility.SourceMigration;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.splash.SplashActivity;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,19 +50,19 @@ public class MainActivity extends AppCompatActivity {
         if (currentFragment == null) {
             switch (preferences.s_launchwindow) {
                 case SETTINGS:
-                    currentFragment = new SettingsFragment(this);
+                    currentFragment = SettingsFragment.newInstance();
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = new FeedFragment(preferences);
+                    currentFragment = FeedFragment.newInstance();
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
-                    currentFragment = new SourceFragment(this, preferences);
+                    currentFragment = SourceFragment.newInstance(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_content);
                     break;
                 case DISCOVER:
-                    currentFragment = new DiscoverFragment(this, preferences);
+                    currentFragment = DiscoverFragment.newInstance(preferences);
                     bottomNav.setSelectedItemId(R.id.nav_discover);
                     break;
             }
@@ -77,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
             }
             preferences = PreferencesManager.loadPreferences(MainActivity.this);
             if (itemId == R.id.nav_settings) {
-                currentFragment = new SettingsFragment(MainActivity.this);
+                currentFragment = SettingsFragment.newInstance();
             } else if (itemId == R.id.nav_feed) {
-                currentFragment = new FeedFragment(preferences);
+                currentFragment = FeedFragment.newInstance();
             } else if (itemId == R.id.nav_content) {
-                currentFragment = new SourceFragment(MainActivity.this, preferences);
+                currentFragment = SourceFragment.newInstance(preferences);
             } else if (itemId == R.id.nav_discover) {
-                currentFragment = new DiscoverFragment(MainActivity.this, preferences);
+                currentFragment = DiscoverFragment.newInstance(preferences);
             }
 
             return loadFragment(currentFragment);
@@ -114,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
     private void init(){
         boolean isFirstLaunch = PreferencesManager.isFirstLaunch(this);
         if (isFirstLaunch && !isFinishing() && !isDestroyed()) {
-            Intent onboardingIntent = new Intent(this, OnboardingActivity.class);
-            startActivity(onboardingIntent);
+            Intent splashIntent = new Intent(this, SplashActivity.class);
+            startActivity(splashIntent);
         }
 
         if(SourceMigration.needed(this)){
@@ -136,10 +137,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {

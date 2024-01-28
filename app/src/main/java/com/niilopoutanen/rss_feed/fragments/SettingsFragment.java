@@ -1,42 +1,42 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.ColorAccent;
-import static com.niilopoutanen.rss_feed.models.Preferences.Font;
-import static com.niilopoutanen.rss_feed.models.Preferences.LaunchWindow;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_FUNCTIONALITY;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_COLORACCENT_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONTSIZE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FONT_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HAPTICS_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERSIZE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_HEADERTYPE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_IMAGECACHE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_THEME_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.ThemeMode;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ANIMATE_CLICKS;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLEFULLSCREEN;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLESINBROWSER;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CONTROLS;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_COLORACCENT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_COLORACCENT_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -49,7 +49,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,15 +70,14 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.niilopoutanen.rss.Opml;
-import com.niilopoutanen.rss.Source;
 import com.niilopoutanen.rss_feed.BuildConfig;
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
-import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.rss.Opml;
+import com.niilopoutanen.rss_feed.rss.Source;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,19 +93,15 @@ public class SettingsFragment extends Fragment {
     List<RelativeLayout> colorAccentButtons;
     private Context context;
 
-    public SettingsFragment(Context context) {
-        this.context = context;
-    }
+    public SettingsFragment() {}
 
-    public SettingsFragment() {
+    public static SettingsFragment newInstance() {
+        return new SettingsFragment();
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (context == null) {
-            context = getContext();
-        }
+        context = getContext();
 
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
@@ -172,7 +166,7 @@ public class SettingsFragment extends Fragment {
 
         RelativeLayout feedSettings = rootView.findViewById(R.id.settings_openFeedSettings);
         feedSettings.setOnClickListener(view -> {
-            SettingsFeedFragment settingsFeedFragment = new SettingsFeedFragment(context);
+            SettingsFeedFragment settingsFeedFragment = new SettingsFeedFragment();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_container, settingsFeedFragment);
             transaction.addToBackStack(null);
@@ -360,7 +354,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private <T extends Enum<T>> void openDropDownSettings(Class<?> type, String title, String additionalMessage) {
-        SettingsDropDownFragment dropDownFragment = new SettingsDropDownFragment(title, additionalMessage, type, context);
+        SettingsDropDownFragment dropDownFragment = SettingsDropDownFragment.newInstance(title, additionalMessage, type);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, dropDownFragment);
         transaction.addToBackStack(null);

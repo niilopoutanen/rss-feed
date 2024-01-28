@@ -1,0 +1,24 @@
+<resources>
+    <style name="RSSFeedStyle" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">?attr/colorAccent</item>
+
+        <item name="android:statusBarColor">@color/windowBg</item>
+
+        <item name="android:windowBackground">@color/windowBg</item>
+        <item name="android:navigationBarColor">@color/windowBg</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:textColorLink">?attr/colorAccent</item>
+
+        <item name="colorAccent">@android:color/system_accent1_400</item>
+        <item name="colorSecondaryContainer">@color/element</item>
+
+        <!-- MaterialSwitch -->
+        <item name="colorSurfaceVariant">@color/surface</item>
+        <item name="colorOutline">@color/surface_border</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+</resources>

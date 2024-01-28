@@ -22,17 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
-import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.models.FeedResult;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
-import com.niilopoutanen.rssparser.WebUtils;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.models.Category;
+import com.niilopoutanen.rss_feed.common.models.FeedResult;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.parser.Callback;
+import com.niilopoutanen.rss_feed.parser.RSSException;
+import com.niilopoutanen.rss_feed.parser.WebUtils;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import org.json.JSONObject;
 
@@ -55,23 +55,22 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     NestedScrollView scrollView;
     View progressBar;
 
-    public DiscoverFragment(Context context, Preferences preferences) {
-        this.context = context;
-        this.preferences = preferences;
-    }
 
-    public DiscoverFragment() {
+    public static DiscoverFragment newInstance(Preferences preferences) {
+        Bundle args = new Bundle();
+        args.putSerializable("preferences", preferences);
+        DiscoverFragment fragment = new DiscoverFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            preferences = (Preferences) savedInstanceState.getSerializable("preferences");
+        if (getArguments() != null) {
+            preferences = (Preferences) getArguments().getSerializable("preferences");
         }
-        if (context == null) {
-            context = getContext();
-        }
+        context = getContext();
 
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialFadeThrough());
@@ -237,10 +236,4 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         search(categoryClicked.getQuery());
     }
 
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("preferences", preferences);
-    }
 }

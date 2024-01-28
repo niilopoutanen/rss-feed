@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,14 +21,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.rss.Source;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -39,34 +38,34 @@ import java.util.concurrent.Executors;
 
 public class FeedFragment extends Fragment {
     private Context context;
-    private Preferences preferences;
     private AppRepository repository;
-    TextView title;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
     private List<Source> sources = new ArrayList<>();
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
 
-    public FeedFragment() {
+    public FeedFragment() {}
+
+    public static FeedFragment newInstance() {
+        return new FeedFragment();
+    }
+    public static FeedFragment newInstance(FEED_TYPE type) {
+        Bundle args = new Bundle();
+        args.putSerializable("type", type);
+        FeedFragment fragment = new FeedFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
-    public FeedFragment(Preferences preferences) {
-        this.preferences = preferences;
-    }
-
-    public FeedFragment(Preferences preferences, FEED_TYPE type){
-        this.preferences = preferences;
-        this.type = type;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
         repository = new AppRepository(context);
-        if (savedInstanceState != null) {
-            preferences = (Preferences) savedInstanceState.getSerializable("preferences");
+        if (getArguments() != null) {
+            type = (FEED_TYPE) getArguments().getSerializable("type");
         }
 
         setEnterTransition(new MaterialFadeThrough());
@@ -81,11 +80,7 @@ public class FeedFragment extends Fragment {
 
         repository.getSourceById(id).observe(this.getViewLifecycleOwner(), source -> {
             if(source == null)return;
-
-            if (source.title != null && title != null){
-                title.setText(source.title);
-            }
-
+            adapter.setHeader(source);
             this.sources.clear();
             this.sources.add(source);
             update();
@@ -93,11 +88,7 @@ public class FeedFragment extends Fragment {
     }
     public void showSingle(Source source){
         if(source == null)return;
-
-        if (source.title != null && title != null){
-            title.setText(source.title);
-        }
-
+        adapter.setHeader(source);
         this.sources.clear();
         this.sources.add(source);
         update();
@@ -147,31 +138,35 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
-
         init();
 
         recyclerView = rootView.findViewById(R.id.feed_container);
+        swipeRefreshLayout = rootView.findViewById(R.id.recyclerview_refresher);
 
-        title = rootView.findViewById(R.id.feed_header);
-        PreferencesManager.setHeader(context, title);
-
-        ViewCompat.setOnApplyWindowInsetsListener(title, (v, windowInsets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
+            recyclerView.setPadding(
+                    recyclerView.getPaddingLeft(),
+                    insets.top,
+                    recyclerView.getPaddingRight(),
+                    recyclerView.getPaddingBottom());
             return WindowInsetsCompat.CONSUMED;
         });
 
 
-        adapter = new FeedAdapter(context, preferences);
+        adapter = new FeedAdapter(context);
         recyclerView.setAdapter(adapter);
 
         final int columns = getResources().getInteger(R.integer.feed_columns);
         GridLayoutManager manager = new GridLayoutManager(rootView.getContext(), columns);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 ? columns : 1;
+            }
+        });
         recyclerView.setLayoutManager(manager);
 
-        swipeRefreshLayout = rootView.findViewById(R.id.recyclerview_refresher);
         swipeRefreshLayout.setColorSchemeColors(PreferencesManager.getAccentColor(context));
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
         swipeRefreshLayout.setOnRefreshListener(this::update);
@@ -198,21 +193,23 @@ public class FeedFragment extends Fragment {
     }
 
     private void showError(int errorCode) {
+
         switch (errorCode) {
             case 429:
-                adapter.addNotification(context.getString(R.string.error_too_many_requests), context.getString(R.string.error_too_many_requests_msg));
+                adapter.notify(context.getString(R.string.error_too_many_requests), context.getString(R.string.error_too_many_requests_msg));
                 break;
             case 0:
-                adapter.addNotification(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));
+                adapter.notify(context.getString(R.string.error_no_sources), context.getString(R.string.error_no_sources_msg));
                 break;
             case 1:
-                adapter.addNotification(context.getString(R.string.error_no_internet), context.getString(R.string.error_no_internet_msg));
+                adapter.notify(context.getString(R.string.error_no_internet), context.getString(R.string.error_no_internet_msg));
                 break;
             case HttpURLConnection.HTTP_NOT_FOUND:
             default:
-                adapter.addNotification(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
+                adapter.notify(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
                 break;
         }
+
         if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -220,12 +217,6 @@ public class FeedFragment extends Fragment {
         if (recyclerView != null) {
             recyclerView.smoothScrollToPosition(0);
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("preferences", preferences);
     }
 
     public enum FEED_TYPE {TYPE_SINGLE, TYPE_MULTI}

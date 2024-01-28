@@ -6,11 +6,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.rss.Source;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 /**
  * Used when viewing a single feed source only.
@@ -31,7 +31,7 @@ public class FeedActivity extends AppCompatActivity {
             if (preferences == null) {
                 preferences = PreferencesManager.loadPreferences(this);
             }
-            FeedFragment feedFragment = new FeedFragment(preferences, FeedFragment.FEED_TYPE.TYPE_SINGLE);
+            FeedFragment feedFragment = FeedFragment.newInstance(FeedFragment.FEED_TYPE.TYPE_SINGLE);
             Bundle args = new Bundle();
             args.putInt("sourceId", sourceId);
             args.putSerializable("source", source);

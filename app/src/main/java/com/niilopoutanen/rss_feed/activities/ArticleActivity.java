@@ -25,14 +25,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.niilopoutanen.rss.Post;
-import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.fragments.ArticleView;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.Callback;
-import com.niilopoutanen.rssparser.RSSException;
-import com.niilopoutanen.rssparser.WebUtils;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.fragments.components.ArticleView;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.parser.Callback;
+import com.niilopoutanen.rss_feed.parser.RSSException;
+import com.niilopoutanen.rss_feed.parser.WebUtils;
+import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import net.dankito.readability4j.Article;
 import net.dankito.readability4j.Readability4J;
@@ -71,9 +72,7 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
-
         setContentView(R.layout.activity_article);
-
         articleLoader = findViewById(R.id.article_load);
 
         initializeBase();
@@ -100,6 +99,11 @@ public class ArticleActivity extends AppCompatActivity {
         } else {
             initWebView(resultData);
         }
+
+        Bundle params = new Bundle();
+        params.putString("url", post.link);
+        params.putString("source_name", post.title);
+        FirebaseAnalytics.getInstance(this).logEvent("read_article", params);
     }
 
     private void initializeBase() {
@@ -159,6 +163,11 @@ public class ArticleActivity extends AppCompatActivity {
 
         View share = sheet.findViewById(R.id.article_share);
         if (share != null) share.setOnClickListener(v -> {
+            Bundle params = new Bundle();
+            params.putString("url", post.link);
+            params.putString("source_name", post.title);
+            FirebaseAnalytics.getInstance(this).logEvent("share_article", params);
+
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, post.link);
@@ -196,7 +205,7 @@ public class ArticleActivity extends AppCompatActivity {
         articleView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                runOnUiThread(() -> openWebView(request.getUrl().toString()));
+                runOnUiThread(() -> openSheet(request.getUrl().toString()));
                 return true;
             }
 
@@ -213,7 +222,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
-    private void openWebView(String url) {
+    private void openSheet(String url) {
 
         final BottomSheetDialog webViewSheet = new BottomSheetDialog(this);
         webViewSheet.setContentView(R.layout.dialog_webview);

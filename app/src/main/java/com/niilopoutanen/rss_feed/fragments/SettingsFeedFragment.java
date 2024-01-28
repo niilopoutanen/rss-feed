@@ -1,20 +1,20 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.models.Preferences.DateStyle;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_LANG;
-import static com.niilopoutanen.rss_feed.models.Preferences.PREFS_UI;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATESTYLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATEVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DESCVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_STYLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
-import static com.niilopoutanen.rss_feed.models.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATESTYLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATESTYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -37,9 +37,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Preferences;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,13 +54,7 @@ public class SettingsFeedFragment extends Fragment {
     private Spinner dateSpinner;
     private Context context;
 
-
-    public SettingsFeedFragment(Context context) {
-        this.context = context;
-    }
-
-    public SettingsFeedFragment() {
-    }
+    public SettingsFeedFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,11 +65,8 @@ public class SettingsFeedFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (context == null) {
-            context = getContext();
-        }
         View rootView = inflater.inflate(R.layout.fragment_settings_feed, container, false);
-
+        context = rootView.getContext();
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.feedsettings_base), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -108,7 +99,7 @@ public class SettingsFeedFragment extends Fragment {
         descSwitch = rootView.findViewById(R.id.switch_description);
         dateSwitch = rootView.findViewById(R.id.switch_date);
 
-        String[] dateModes = context.getResources().getStringArray(R.array.date_modes);
+        String[] dateModes = context.getResources().getStringArray(com.niilopoutanen.rss_feed.common.R.array.date_modes);
         dateSpinner = rootView.findViewById(R.id.spinner_date);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, dateModes);
         adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -167,9 +158,9 @@ public class SettingsFeedFragment extends Fragment {
     }
 
     private void onCardStyleChange(View button, List<View> buttonCollection) {
-        Drawable checkedDrawable = AppCompatResources.getDrawable(context, R.drawable.checkbox_checked);
+        Drawable checkedDrawable = AppCompatResources.getDrawable(context, com.niilopoutanen.rss_feed.common.R.drawable.checkbox_checked);
 
-        Drawable uncheckedDrawable = AppCompatResources.getDrawable(context, R.drawable.checkbox_unchecked);
+        Drawable uncheckedDrawable = AppCompatResources.getDrawable(context, com.niilopoutanen.rss_feed.common.R.drawable.checkbox_unchecked);
 
         boolean isChecked = Boolean.parseBoolean(button.getTag().toString());
         if (isChecked) {

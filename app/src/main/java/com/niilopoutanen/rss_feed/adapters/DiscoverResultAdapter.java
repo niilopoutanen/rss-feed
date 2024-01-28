@@ -5,8 +5,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.rss_feed.fragments.SourceItem;
-import com.niilopoutanen.rss_feed.models.FeedResult;
+import com.niilopoutanen.rss_feed.fragments.components.SourceItem;
+import com.niilopoutanen.rss_feed.common.models.FeedResult;
 
 import java.util.List;
 

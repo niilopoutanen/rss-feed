@@ -22,13 +22,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
-import com.niilopoutanen.rssparser.IconFinder;
-import com.niilopoutanen.rssparser.Parser;
+import com.niilopoutanen.rss_feed.parser.IconFinder;
+import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.rss.Source;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -45,12 +44,16 @@ public class AddSourceFragment extends Fragment {
     private View addSourceButton;
     private Context context;
 
-    public AddSourceFragment(Source source, Context context) {
-        this.source = source;
-        this.context = context;
-    }
 
     public AddSourceFragment() {
+    }
+
+    public static AddSourceFragment newInstance(Source source) {
+        Bundle args = new Bundle();
+        args.putSerializable("source", source);
+        AddSourceFragment fragment = new AddSourceFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void loadData() {
@@ -114,11 +117,7 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void save(Source source) {
-        Bundle logBundle = new Bundle();
-        logBundle.putString("source_name", source.title);
-        logBundle.putString("source_url", source.url);
-        FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(context);
-        analytics.logEvent("add_source", logBundle);
+        source.trim();
 
         AppRepository repository = new AppRepository(context);
         repository.insert(source);
@@ -130,11 +129,17 @@ public class AddSourceFragment extends Fragment {
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
+
+        if(getArguments() != null){
+            source = (Source) getArguments().getSerializable("source");
+        }
+        context = getContext();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_source, container, false);
+        if(context == null) context = rootView.getContext();
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.addsource_header), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());

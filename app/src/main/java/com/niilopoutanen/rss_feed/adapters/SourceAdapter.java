@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.niilopoutanen.rss.Source;
-import com.niilopoutanen.rss_feed.R;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.DatabaseThread;
-import com.niilopoutanen.rss_feed.fragments.SourceItem;
+import com.niilopoutanen.rss_feed.fragments.components.SourceItem;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.List;
 import java.util.concurrent.Executor;

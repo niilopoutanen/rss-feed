@@ -14,9 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niilopoutanen.rss_feed.R;
-import com.niilopoutanen.rss_feed.models.Category;
-import com.niilopoutanen.rss_feed.utils.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.models.Category;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.List;
 
@@ -59,13 +59,13 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         container.setOnClickListener(onClickListener);
 
         if (category.isActive()) {
-            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.element_active)));
-            itemTitle.setTextColor(context.getColor(R.color.textInverted));
-            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textInverted)));
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.element_active)));
+            itemTitle.setTextColor(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textInverted));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textInverted)));
         } else {
-            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.element)));
-            itemTitle.setTextColor(context.getColor(R.color.textPrimary));
-            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textPrimary)));
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.element)));
+            itemTitle.setTextColor(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textPrimary));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textPrimary)));
         }
 
 
