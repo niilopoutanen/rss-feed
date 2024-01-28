@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
         if (currentFragment == null) {
             switch (preferences.s_launchwindow) {
                 case SETTINGS:
-                    currentFragment = new SettingsFragment();
+                    currentFragment = SettingsFragment.newInstance();
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
-                    currentFragment = FeedFragment.newInstance(preferences);
+                    currentFragment = FeedFragment.newInstance();
                     bottomNav.setSelectedItemId(R.id.nav_feed);
                     break;
                 case SOURCES:
@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
             }
             preferences = PreferencesManager.loadPreferences(MainActivity.this);
             if (itemId == R.id.nav_settings) {
-                currentFragment = new SettingsFragment();
+                currentFragment = SettingsFragment.newInstance();
             } else if (itemId == R.id.nav_feed) {
-                currentFragment = FeedFragment.newInstance(preferences);
+                currentFragment = FeedFragment.newInstance();
             } else if (itemId == R.id.nav_content) {
                 currentFragment = SourceFragment.newInstance(preferences);
             } else if (itemId == R.id.nav_discover) {

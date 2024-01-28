@@ -38,7 +38,6 @@ import java.util.concurrent.Executors;
 
 public class FeedFragment extends Fragment {
     private Context context;
-    private Preferences preferences;
     private AppRepository repository;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -48,16 +47,11 @@ public class FeedFragment extends Fragment {
 
     public FeedFragment() {}
 
-    public static FeedFragment newInstance(Preferences preferences) {
-        Bundle args = new Bundle();
-        args.putSerializable("preferences", preferences);
-        FeedFragment fragment = new FeedFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static FeedFragment newInstance() {
+        return new FeedFragment();
     }
-    public static FeedFragment newInstance(Preferences preferences, FEED_TYPE type) {
+    public static FeedFragment newInstance(FEED_TYPE type) {
         Bundle args = new Bundle();
-        args.putSerializable("preferences", preferences);
         args.putSerializable("type", type);
         FeedFragment fragment = new FeedFragment();
         fragment.setArguments(args);
@@ -71,7 +65,6 @@ public class FeedFragment extends Fragment {
         context = getContext();
         repository = new AppRepository(context);
         if (getArguments() != null) {
-            preferences = (Preferences) getArguments().getSerializable("preferences");
             type = (FEED_TYPE) getArguments().getSerializable("type");
         }
 

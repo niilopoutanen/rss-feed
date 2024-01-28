@@ -93,9 +93,11 @@ public class SettingsFragment extends Fragment {
     List<RelativeLayout> colorAccentButtons;
     private Context context;
 
-    public SettingsFragment() {
-    }
+    public SettingsFragment() {}
 
+    public static SettingsFragment newInstance() {
+        return new SettingsFragment();
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
