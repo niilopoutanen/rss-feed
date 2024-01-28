@@ -1,6 +1,5 @@
-package com.niilopoutanen.rss_feed.fragments.components;
+package com.niilopoutanen.rss_feed.fragments.components.feed;
 
-import com.niilopoutanen.rss_feed.fragments.components.Notice;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
 

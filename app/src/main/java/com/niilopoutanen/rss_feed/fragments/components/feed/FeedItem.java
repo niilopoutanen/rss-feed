@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed.fragments.components;
+package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
 import android.view.LayoutInflater;
