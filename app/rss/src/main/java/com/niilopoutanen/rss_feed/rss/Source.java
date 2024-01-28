@@ -20,4 +20,17 @@ public class Source implements Serializable {
     public String language;
 
     public boolean visible = true;
+
+    /**
+     * Use for data safety
+     */
+    public void trim(){
+        if(title != null && title.length() > 200){
+            title = title.substring(0, 200);
+        }
+
+        if(description != null && description.length() > 500){
+            description = description.substring(0, 500);
+        }
+    }
 }

@@ -113,6 +113,8 @@ public class AddSourceFragment extends Fragment {
     }
 
     private void save(Source source) {
+        source.trim();
+
         AppRepository repository = new AppRepository(context);
         repository.insert(source);
     }

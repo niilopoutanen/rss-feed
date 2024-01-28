@@ -84,6 +84,8 @@ public class FeedResult {
         source.description = description;
         source.image = visualUrl;
         source.language = language;
+
+        source.trim();
         return source;
     }
 
