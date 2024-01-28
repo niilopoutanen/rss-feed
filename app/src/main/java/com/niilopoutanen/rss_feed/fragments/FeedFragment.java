@@ -137,15 +137,18 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
-
         init();
 
         recyclerView = rootView.findViewById(R.id.feed_container);
-
+        swipeRefreshLayout = rootView.findViewById(R.id.recyclerview_refresher);
 
         ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            recyclerView.setPadding(recyclerView.getPaddingLeft(), insets.top, recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
+            recyclerView.setPadding(
+                    recyclerView.getPaddingLeft(),
+                    insets.top,
+                    recyclerView.getPaddingRight(),
+                    recyclerView.getPaddingBottom());
             return WindowInsetsCompat.CONSUMED;
         });
 
@@ -163,7 +166,6 @@ public class FeedFragment extends Fragment {
         });
         recyclerView.setLayoutManager(manager);
 
-        swipeRefreshLayout = rootView.findViewById(R.id.recyclerview_refresher);
         swipeRefreshLayout.setColorSchemeColors(PreferencesManager.getAccentColor(context));
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
         swipeRefreshLayout.setOnRefreshListener(this::update);

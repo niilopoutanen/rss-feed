@@ -198,25 +198,10 @@ public class PreferencesManager {
      * @return true if is, false if not
      */
     public static boolean isFirstLaunch(Context context) {
-        // set to true if you do not want the user to see update dialog.
-        // for example on a very minor update
-        return true;
-        /*
-        boolean doNotShowDialog = false;
-
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
 
-        if (doNotShowDialog) {
-            return true;
-        }
-        //for bugfix version
-        else if(lastVersionUsed == 20){
-            return false;
-        }
-        else{
-            return currentVersion > lastVersionUsed;
-        }*/
+        return currentVersion > lastVersionUsed;
     }
 
     public static void setHeader(Context context, TextView header){
