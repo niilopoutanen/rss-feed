@@ -50,9 +50,11 @@ public class FeedFragment extends Fragment {
     public static FeedFragment newInstance() {
         return new FeedFragment();
     }
-    public static FeedFragment newInstance(FEED_TYPE type) {
+    public static FeedFragment newInstance(int sourceId, Source source) {
         Bundle args = new Bundle();
-        args.putSerializable("type", type);
+        args.putInt("id", sourceId);
+        args.putSerializable("source", source);
+        args.putSerializable("type", FEED_TYPE.TYPE_SINGLE);
         FeedFragment fragment = new FeedFragment();
         fragment.setArguments(args);
         return fragment;
@@ -124,7 +126,7 @@ public class FeedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (type == FEED_TYPE.TYPE_SINGLE && getArguments() != null) {
-            int sourceId = getArguments().getInt("sourceId", 0);
+            int sourceId = getArguments().getInt("id", 0);
             if(sourceId != 0){
                 showSingle(sourceId);
                 return;

@@ -31,11 +31,7 @@ public class FeedActivity extends AppCompatActivity {
             if (preferences == null) {
                 preferences = PreferencesManager.loadPreferences(this);
             }
-            FeedFragment feedFragment = FeedFragment.newInstance(FeedFragment.FEED_TYPE.TYPE_SINGLE);
-            Bundle args = new Bundle();
-            args.putInt("sourceId", sourceId);
-            args.putSerializable("source", source);
-            feedFragment.setArguments(args);
+            FeedFragment feedFragment = FeedFragment.newInstance(sourceId, source);
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.feedactivity_container, feedFragment);
