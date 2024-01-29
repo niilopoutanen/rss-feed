@@ -34,7 +34,6 @@ import androidx.core.content.res.ResourcesCompat;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.common.models.Category;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
-
 import java.text.DateFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -200,7 +199,7 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
-        if(lastVersionUsed == 23){
+        if(lastVersionUsed == 23 || lastVersionUsed == 24){
             return false;
         }
         return currentVersion > lastVersionUsed;
