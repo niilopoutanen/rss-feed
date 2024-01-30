@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
@@ -106,6 +107,10 @@ public class FeedFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             });
         });
+
+        Bundle params = new Bundle();
+        params.putString("source_count", String.valueOf(sources.size()));
+        FirebaseAnalytics.getInstance(context).logEvent("load_feed", params);
     }
 
     private void init() {
@@ -211,7 +216,6 @@ public class FeedFragment extends Fragment {
                 adapter.notify(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
                 break;
         }
-
         if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
 
