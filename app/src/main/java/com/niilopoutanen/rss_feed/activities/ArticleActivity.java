@@ -158,7 +158,13 @@ public class ArticleActivity extends AppCompatActivity {
 
         View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
         if (openInBrowser != null) openInBrowser.setOnClickListener(v -> {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.link)));
+            if(post.link != null && !post.link.isEmpty()){
+                Uri uri = Uri.parse(post.link);
+                if(uri != null){
+                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                }
+            }
+
             sheet.dismiss();
         });
 
