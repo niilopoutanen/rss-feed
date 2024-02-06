@@ -72,7 +72,7 @@ public class AddSourceFragment extends Fragment {
     private void saveData() {
         showError("");
         Activity activity = (Activity) context;
-        progressBar.setVisibility(View.VISIBLE);
+        if(progressBar != null) progressBar.setVisibility(View.VISIBLE);
         Source userInput = new Source();
         userInput.title = feedName.getText().toString();
         userInput.url = feedUrl.getText().toString();
