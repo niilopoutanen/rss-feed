@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app/common" />
             <option value="$PROJECT_DIR$/app/parser" />
             <option value="$PROJECT_DIR$/app/rss" />
+            <option value="$PROJECT_DIR$/app/sourcemanager" />
             <option value="$PROJECT_DIR$/app/splash" />
           </set>
         </option>

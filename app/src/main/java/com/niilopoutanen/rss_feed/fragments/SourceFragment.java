@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.sourcemanager.SourceManagerActivity;
 
 public class SourceFragment extends Fragment {
 
@@ -97,10 +99,14 @@ public class SourceFragment extends Fragment {
     }
 
     public void openSourceDialog(Source source) {
+        /*
         AddSourceFragment addSourceFragment = AddSourceFragment.newInstance(source);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
         transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.commit();*/
+
+        Intent intent = new Intent(context, SourceManagerActivity.class);
+        startActivity(intent);
     }
 }
