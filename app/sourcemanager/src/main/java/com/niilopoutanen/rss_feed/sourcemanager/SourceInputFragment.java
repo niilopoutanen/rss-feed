@@ -18,16 +18,19 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.rss.Source;
 
 public class SourceInputFragment extends Fragment {
-
+    private StateListener stateListener;
     private final Source input = new Source();
 
     public Source getInput(){
         return this.input;
     }
+
+    public void setStateListener(StateListener stateListener){
+        this.stateListener = stateListener;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }

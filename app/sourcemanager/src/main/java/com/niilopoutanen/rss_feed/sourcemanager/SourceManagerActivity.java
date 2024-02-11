@@ -3,6 +3,8 @@ package com.niilopoutanen.rss_feed.sourcemanager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
@@ -20,7 +22,7 @@ import app.rive.runtime.kotlin.RiveInitializer;
 import app.rive.runtime.kotlin.core.RendererType;
 import app.rive.runtime.kotlin.core.Rive;
 
-public class SourceManagerActivity extends AppCompatActivity {
+public class SourceManagerActivity extends AppCompatActivity implements StateListener {
     private ManageType type;
     private SourceInputFragment inputFragment;
     private SourceStatusFragment statusFragment;
@@ -39,8 +41,8 @@ public class SourceManagerActivity extends AppCompatActivity {
         setFragment(inputFragment);
 
         findViewById(R.id.sourcemanager_continue).setOnClickListener(v -> {
-            setContinueAllowed(false);
             statusFragment = SourceStatusFragment.newInstance(inputFragment.getInput());
+            statusFragment.setStateListener(this);
             setFragment(statusFragment);
         });
     }
@@ -63,32 +65,30 @@ public class SourceManagerActivity extends AppCompatActivity {
                       Animation.RELATIVE_TO_SELF, 0.0f,
                       Animation.RELATIVE_TO_SELF, 0.0f,
                       Animation.RELATIVE_TO_SELF, 0.0f,
-                      Animation.RELATIVE_TO_SELF, 1.0f
+                      Animation.RELATIVE_TO_SELF, 2.0f
             );
-            animation.setDuration(500);
+            animation.setDuration(300);
             animation.setFillAfter(true);
-
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    // Animation started
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    // Animation ended
-                    primaryButton.clearAnimation(); // Clear animation after it ends
-                    // Hide or remove the button from the layout here
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                    // Animation repeated
-                }
-            });
+            animation.setInterpolator(new AccelerateDecelerateInterpolator());
 
             primaryButton.setClickable(false);
             primaryButton.startAnimation(animation);
         }
+
+        else {
+            Animation animation = new TranslateAnimation(
+                      Animation.RELATIVE_TO_SELF, 0.0f,
+                      Animation.RELATIVE_TO_SELF, 0.0f,
+                      Animation.RELATIVE_TO_SELF, 2.0f,
+                      Animation.RELATIVE_TO_SELF, 0.0f
+            );
+            animation.setDuration(300);
+            animation.setFillAfter(true);
+            animation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+            primaryButton.setClickable(true);
+            primaryButton.startAnimation(animation);
+        }
     }
+
 }

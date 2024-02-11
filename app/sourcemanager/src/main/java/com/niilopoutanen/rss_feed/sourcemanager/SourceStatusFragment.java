@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.sourcemanager;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,11 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.rss.Source;
 
 public class SourceStatusFragment extends Fragment {
-
+    private StateListener stateListener;
     private Source input;
+    public void setStateListener(StateListener stateListener){
+        this.stateListener = stateListener;
+    }
     public static SourceStatusFragment newInstance(Source input) {
         Bundle args = new Bundle();
         args.putSerializable("input", input);
@@ -30,8 +34,12 @@ public class SourceStatusFragment extends Fragment {
         if(getArguments() != null){
             input = (Source) getArguments().getSerializable("input");
         }
+        stateListener.setContinueAllowed(false);
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> stateListener.setContinueAllowed(true), 3000);
     }
 
     @Nullable
