@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.parser.parsers;
 
+import com.niilopoutanen.rss_feed.parser.StateCallback;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
 
@@ -21,7 +22,7 @@ public abstract class ParserBase {
         return posts;
     }
 
-    public void parse(Document document){
+    public void parse(Document document, StateCallback stateCallback){
         parseSource(document);
         parsePosts(document);
     }

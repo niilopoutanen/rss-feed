@@ -12,11 +12,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.parser.StateCallback;
+import com.niilopoutanen.rss_feed.parser.StateManager;
 import com.niilopoutanen.rss_feed.rss.Source;
 
 public class SourceStatusFragment extends Fragment {
     private StateListener stateListener;
     private Source input;
+    private TextView statusText;
     public void setStateListener(StateListener stateListener){
         this.stateListener = stateListener;
     }
@@ -42,14 +46,25 @@ public class SourceStatusFragment extends Fragment {
             stateListener.setContinueAllowed(true);
             stateListener.allowFinish();
         }, 3000);
+
+    }
+
+    public void load(Source input){
+        Parser parser = new Parser();
+        parser.load(input.url, statusMessage -> {
+            if(statusText != null){
+                statusText.setText(statusMessage.msg);
+            }
+        });
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_source_status, container, false);
-        TextView status = rootView.findViewById(R.id.source_status_text);
+        statusText = rootView.findViewById(R.id.source_status_text);
 
+        load(input);
         return rootView;
     }
 }

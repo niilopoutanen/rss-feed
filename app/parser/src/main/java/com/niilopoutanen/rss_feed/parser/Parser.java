@@ -4,7 +4,7 @@ import com.niilopoutanen.rss_feed.parser.parsers.AtomParser;
 import com.niilopoutanen.rss_feed.parser.parsers.RssParser;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
-
+import static com.niilopoutanen.rss_feed.parser.StateManager.StatusMessage;
 import org.jsoup.nodes.Document;
 
 import java.net.URL;
@@ -49,7 +49,21 @@ public class Parser {
         if(url == null || url.isEmpty()) return;
 
         Document document = WebUtils.connect(url);
-        parse(document);
+        parse(document, null);
+        if(source != null){
+            source.url = url;
+        }
+    }
+    public void load(String url, StateCallback stateCallback){
+        if(url == null || url.isEmpty()) return;
+
+        StateManager.notify(stateCallback, new StatusMessage("Connecting to URL", StatusMessage.Type.NEUTRAL));
+
+        Document document = WebUtils.connect(url);
+
+        StateManager.notify(stateCallback, new StatusMessage("Parsing document", StatusMessage.Type.NEUTRAL));
+
+        parse(document, stateCallback);
         if(source != null){
             source.url = url;
         }
@@ -66,18 +80,19 @@ public class Parser {
         return posts;
     }
 
-    public void parse(Document document){
+    public void parse(Document document, StateCallback stateCallback){
         if(document == null) return;
+        StateManager.notify(stateCallback, new StatusMessage("Finding document type", StatusMessage.Type.NEUTRAL));
 
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
-            rssParser.parse(document);
+            rssParser.parse(document, stateCallback);
             source = rssParser.getSource();
             posts = rssParser.getPosts();
         }
         else if(WebUtils.isAtom(document)){
             AtomParser atomParser = new AtomParser();
-            atomParser.parse(document);
+            atomParser.parse(document, stateCallback);
             source = atomParser.getSource();
             posts = atomParser.getPosts();
         }
