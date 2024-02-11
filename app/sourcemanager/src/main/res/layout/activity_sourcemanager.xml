@@ -20,14 +20,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/sourcemanager_frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/sourcemanager_continue"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_weight="1"
-        tools:layout_editor_absoluteX="20dp" />
+        android:layout_marginTop="20dp"/>
 
     <com.niilopoutanen.rss_feed.common.PrimaryButton
         android:id="@+id/sourcemanager_continue"
