@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.rss.Source;
 
@@ -39,7 +38,10 @@ public class SourceStatusFragment extends Fragment {
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
 
         Handler handler = new Handler();
-        handler.postDelayed(() -> stateListener.setContinueAllowed(true), 3000);
+        handler.postDelayed(() -> {
+            stateListener.setContinueAllowed(true);
+            stateListener.allowFinish();
+        }, 3000);
     }
 
     @Nullable

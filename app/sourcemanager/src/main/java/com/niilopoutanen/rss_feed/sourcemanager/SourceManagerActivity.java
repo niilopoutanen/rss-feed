@@ -1,24 +1,18 @@
 package com.niilopoutanen.rss_feed.sourcemanager;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
 
-import app.rive.runtime.kotlin.RiveAnimationView;
-import app.rive.runtime.kotlin.RiveInitializer;
 import app.rive.runtime.kotlin.core.RendererType;
 import app.rive.runtime.kotlin.core.Rive;
 
@@ -89,6 +83,13 @@ public class SourceManagerActivity extends AppCompatActivity implements StateLis
             primaryButton.setClickable(true);
             primaryButton.startAnimation(animation);
         }
+    }
+
+    @Override
+    public void allowFinish() {
+        PrimaryButton primaryButton = findViewById(R.id.sourcemanager_continue);
+        primaryButton.setText(getString(com.niilopoutanen.rss_feed.common.R.string.close));
+        primaryButton.setOnClickListener(v -> finish());
     }
 
 }

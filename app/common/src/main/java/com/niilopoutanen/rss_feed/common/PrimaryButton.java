@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.common;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -15,23 +16,24 @@ import androidx.core.content.res.ResourcesCompat;
 
 
 public class PrimaryButton extends RelativeLayout {
+    private TextView text;
     public PrimaryButton(Context context) {
         super(context);
-        init();
+        init(null);
     }
 
     public PrimaryButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
     public PrimaryButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
 
-    private void init(){
+    private void init(AttributeSet attrs){
         setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_background));
         setBackgroundTintList(ColorStateList.valueOf(PreferencesManager.getAccentColor(getContext())));
         if (PreferencesManager.loadPreferences(getContext()).s_animateclicks){
@@ -48,15 +50,27 @@ public class PrimaryButton extends RelativeLayout {
             });
         }
 
-        TextView text = new TextView(getContext());
+        text = new TextView(getContext());
         RelativeLayout.LayoutParams textParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, PreferencesManager.dpToPx(50, getContext()));
         textParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         text.setLayoutParams(textParams);
         text.setGravity(Gravity.CENTER);
         text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.inter_bold));
         text.setTextSize(14);
-        text.setText("Continue");
+        text.setText(getContext().getString(R.string.continua));
 
+        if(attrs != null){
+            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PrimaryButton);
+            setText(a.getString(R.styleable.PrimaryButton_text));
+
+            a.recycle();
+        }
         addView(text);
+    }
+
+    public void setText(String content){
+        if(text != null && content != null && !content.isEmpty()){
+            text.setText(content);
+        }
     }
 }

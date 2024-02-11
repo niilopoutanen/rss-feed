@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CategoryView">
-        <attr name="icon" format="reference" />
-        <attr name="backgroundColor" format="color" />
-        <attr name="backgroundColorSecondary" format="color" />
-        <attr name="iconColor" format="color" />
+    <declare-styleable name="PrimaryButton">
+        <attr name="text" format="string"/>
     </declare-styleable>
 </resources>
