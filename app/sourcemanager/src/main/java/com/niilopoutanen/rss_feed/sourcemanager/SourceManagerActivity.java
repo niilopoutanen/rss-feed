@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
+import com.niilopoutanen.rss_feed.parser.Callback;
+import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.parser.RSSException;
 
 import app.rive.runtime.kotlin.core.RendererType;
 import app.rive.runtime.kotlin.core.Rive;
@@ -35,9 +38,22 @@ public class SourceManagerActivity extends AppCompatActivity implements StateLis
         setFragment(inputFragment);
 
         findViewById(R.id.sourcemanager_continue).setOnClickListener(v -> {
-            statusFragment = SourceStatusFragment.newInstance(inputFragment.getInput());
-            statusFragment.setStateListener(this);
-            setFragment(statusFragment);
+            Parser.isValid(inputFragment.getInput(), new Callback<Boolean>() {
+                @Override
+                public void onResult(Boolean result) {
+                    if(result){
+                        statusFragment = SourceStatusFragment.newInstance(inputFragment.getInput());
+                        statusFragment.setStateListener(SourceManagerActivity.this);
+                        setFragment(statusFragment);
+                    }
+                }
+
+                @Override
+                public void onError(RSSException exception) {
+
+                }
+            });
+
         });
     }
 

@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +26,10 @@ public class Parser {
 
     public Parser(){
 
+    }
+    public static void isValid(Source source, Callback<Boolean> callback){
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> callback.onResult(isValid(source)));
     }
     public static boolean isValid(Source source){
         if(source == null || source.url == null || source.url.isEmpty()){

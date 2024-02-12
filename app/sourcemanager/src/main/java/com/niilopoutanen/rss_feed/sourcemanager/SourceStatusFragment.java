@@ -1,11 +1,13 @@
 package com.niilopoutanen.rss_feed.sourcemanager;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,13 +43,6 @@ public class SourceStatusFragment extends Fragment {
         stateListener.setContinueAllowed(false);
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            stateListener.setContinueAllowed(true);
-            stateListener.allowFinish();
-        }, 3000);
-
     }
 
     public void load(Source input){
@@ -55,6 +50,13 @@ public class SourceStatusFragment extends Fragment {
         executor.execute(() -> {
             Parser parser = new Parser();
             parser.load(input.url);
+            if(isAdded() && getActivity() != null){
+                getActivity().runOnUiThread(() -> {
+                    stateListener.setContinueAllowed(true);
+                    stateListener.allowFinish();
+                    Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
+                });
+            }
         });
     }
 
