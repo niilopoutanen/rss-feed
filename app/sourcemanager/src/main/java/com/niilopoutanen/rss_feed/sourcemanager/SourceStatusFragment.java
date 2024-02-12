@@ -13,9 +13,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.parser.Parser;
-import com.niilopoutanen.rss_feed.parser.StateCallback;
-import com.niilopoutanen.rss_feed.parser.StateManager;
 import com.niilopoutanen.rss_feed.rss.Source;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SourceStatusFragment extends Fragment {
     private StateListener stateListener;
@@ -50,11 +51,10 @@ public class SourceStatusFragment extends Fragment {
     }
 
     public void load(Source input){
-        Parser parser = new Parser();
-        parser.load(input.url, statusMessage -> {
-            if(statusText != null){
-                statusText.setText(statusMessage.msg);
-            }
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            Parser parser = new Parser();
+            parser.load(input.url);
         });
     }
 
