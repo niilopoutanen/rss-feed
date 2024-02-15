@@ -48,6 +48,11 @@ public class SourceManagerActivity extends StageHostActivity {
         });
     }
 
+    @Override
+    protected void nextFragment(){
+        super.nextFragment();
+        currentFragment.canContinue(aBoolean -> runOnUiThread(() -> setContinueAllowed(aBoolean)));
+    }
 
     @Override
     protected List<StageFragment> getStages() {
@@ -67,35 +72,31 @@ public class SourceManagerActivity extends StageHostActivity {
 
     public void setContinueAllowed(boolean continueAllowed){
         PrimaryButton primaryButton = findViewById(R.id.sourcemanager_continue);
+        Animation animation;
         if(!continueAllowed){
-            Animation animation = new TranslateAnimation(
-                      Animation.RELATIVE_TO_SELF, 0.0f,
-                      Animation.RELATIVE_TO_SELF, 0.0f,
-                      Animation.RELATIVE_TO_SELF, 0.0f,
-                      Animation.RELATIVE_TO_SELF, 2.0f
+            animation = new TranslateAnimation(
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 2.0f
             );
-            animation.setDuration(300);
-            animation.setFillAfter(true);
-            animation.setInterpolator(new AccelerateDecelerateInterpolator());
-
             primaryButton.setClickable(false);
-            primaryButton.startAnimation(animation);
         }
 
         else {
-            Animation animation = new TranslateAnimation(
-                      Animation.RELATIVE_TO_SELF, 0.0f,
-                      Animation.RELATIVE_TO_SELF, 0.0f,
-                      Animation.RELATIVE_TO_SELF, 2.0f,
-                      Animation.RELATIVE_TO_SELF, 0.0f
+            animation = new TranslateAnimation(
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 2.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f
             );
-            animation.setDuration(300);
-            animation.setFillAfter(true);
-            animation.setInterpolator(new AccelerateDecelerateInterpolator());
-
             primaryButton.setClickable(true);
-            primaryButton.startAnimation(animation);
         }
+
+        animation.setDuration(300);
+        animation.setFillAfter(true);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        primaryButton.startAnimation(animation);
     }
 
 

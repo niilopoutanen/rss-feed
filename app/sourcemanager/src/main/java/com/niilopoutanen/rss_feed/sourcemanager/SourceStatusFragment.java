@@ -37,6 +37,7 @@ public class SourceStatusFragment extends StageFragment {
                 if(isAdded() && getActivity() != null){
                     getActivity().runOnUiThread(() -> {
                         Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
+                        //TODO:Must implement continue allowed
                     });
                 }
             });
