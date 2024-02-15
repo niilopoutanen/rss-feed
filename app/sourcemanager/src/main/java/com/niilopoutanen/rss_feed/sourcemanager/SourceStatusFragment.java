@@ -1,8 +1,6 @@
 package com.niilopoutanen.rss_feed.sourcemanager;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.common.StageFragment;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
@@ -30,6 +26,7 @@ public class SourceStatusFragment extends StageFragment {
     public void load(){
         if(data != null && data instanceof Source){
             Source input = (Source) data;
+            setProgressAllowed(false);
             Executor executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
                 Parser parser = new Parser();
@@ -37,7 +34,7 @@ public class SourceStatusFragment extends StageFragment {
                 if(isAdded() && getActivity() != null){
                     getActivity().runOnUiThread(() -> {
                         Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
-                        //TODO:Must implement continue allowed
+                        setProgressAllowed(true);
                     });
                 }
             });

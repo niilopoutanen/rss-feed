@@ -6,22 +6,13 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
 import com.niilopoutanen.rss_feed.common.StageFragment;
 import com.niilopoutanen.rss_feed.common.StageHostActivity;
-import com.niilopoutanen.rss_feed.parser.Callback;
-import com.niilopoutanen.rss_feed.parser.Parser;
-import com.niilopoutanen.rss_feed.parser.RSSException;
-import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import app.rive.runtime.kotlin.core.RendererType;
 import app.rive.runtime.kotlin.core.Rive;
@@ -51,7 +42,7 @@ public class SourceManagerActivity extends StageHostActivity {
     @Override
     protected void nextFragment(){
         super.nextFragment();
-        currentFragment.canContinue(aBoolean -> runOnUiThread(() -> setContinueAllowed(aBoolean)));
+        currentFragment.setLockListener(this::setContinueAllowed);
     }
 
     @Override

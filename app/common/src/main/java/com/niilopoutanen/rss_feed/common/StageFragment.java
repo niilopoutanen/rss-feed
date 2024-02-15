@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 import java.io.Serializable;
-import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public abstract class StageFragment extends Fragment {
     protected Serializable data;
-    private Runnable stageEvent;
+    private Consumer<Boolean> lockListener;
     public StageFragment() {
 
     }
@@ -31,17 +30,12 @@ public abstract class StageFragment extends Fragment {
     public abstract void canContinue(Consumer<Boolean> result);
     public abstract Serializable getState();
 
-    public void setStageEvent(Runnable stageEvent){
-        this.stageEvent = stageEvent;
-    }
-
-    protected void nextStage(){
-        if(stageEvent != null){
-            stageEvent.run();
+    public void setProgressAllowed(boolean progressAllowed){
+        if(lockListener != null){
+            lockListener.accept(progressAllowed);
         }
     }
-
-    public void setState(Object data){
-
+    public void setLockListener(Consumer<Boolean> lockListener){
+        this.lockListener = lockListener;
     }
 }

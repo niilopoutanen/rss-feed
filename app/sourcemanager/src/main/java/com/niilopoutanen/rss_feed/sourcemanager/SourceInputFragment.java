@@ -73,9 +73,18 @@ public class SourceInputFragment extends StageFragment {
     public void canContinue(Consumer<Boolean> result) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            if(url == null) result.accept(false);
-            else if(url.getText().toString().isEmpty()) result.accept(false);
-            else if(!Parser.isValid(input)) result.accept(false);
+            if(url == null) {
+                result.accept(false);
+                return;
+            }
+            else if(url.getText().toString().isEmpty()){
+                result.accept(false);
+                return;
+            }
+            else if(!Parser.isValid(input)){
+                result.accept(false);
+                return;
+            }
             result.accept(true);
         });
     }
