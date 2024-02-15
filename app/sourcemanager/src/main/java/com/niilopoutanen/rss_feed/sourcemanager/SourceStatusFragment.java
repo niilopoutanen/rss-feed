@@ -18,41 +18,30 @@ import com.niilopoutanen.rss_feed.common.StageFragment;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
 
+import java.io.Serializable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 public class SourceStatusFragment extends StageFragment {
-    private Source input;
     private TextView statusText;
 
-    public static SourceStatusFragment newInstance(Source input) {
-        Bundle args = new Bundle();
-        args.putSerializable("input", input);
-        SourceStatusFragment fragment = new SourceStatusFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(getArguments() != null){
-            input = (Source) getArguments().getSerializable("input");
-        }
-        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
-        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-    }
 
-    public void load(Source input){
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            Parser parser = new Parser();
-            parser.load(input.url);
-            if(isAdded() && getActivity() != null){
-                getActivity().runOnUiThread(() -> {
-                    Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
-                });
-            }
-        });
+    public void load(){
+        if(data != null && data instanceof Source){
+            Source input = (Source) data;
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                Parser parser = new Parser();
+                parser.load(input.url);
+                if(isAdded() && getActivity() != null){
+                    getActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            });
+        }
+
     }
 
     @Nullable
@@ -61,17 +50,18 @@ public class SourceStatusFragment extends StageFragment {
         View rootView = inflater.inflate(R.layout.fragment_source_status, container, false);
         statusText = rootView.findViewById(R.id.source_status_text);
 
-        load(input);
+        load();
         return rootView;
     }
 
+
     @Override
-    public boolean canContinue() {
-        return false;
+    public void canContinue(Consumer<Boolean> result) {
+        result.accept(false);
     }
 
     @Override
-    public Object getState() {
+    public Serializable getState() {
         return null;
     }
 }

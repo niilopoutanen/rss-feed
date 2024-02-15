@@ -19,20 +19,16 @@ import com.niilopoutanen.rss_feed.common.StageFragment;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
 
+import java.io.Serializable;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
+
 public class SourceInputFragment extends StageFragment {
     private final Source input = new Source();
     private EditText url, name;
 
-    public Source getInput(){
-        return this.input;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
-        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-    }
 
     @Nullable
     @Override
@@ -72,16 +68,20 @@ public class SourceInputFragment extends StageFragment {
         return rootView;
     }
 
+
     @Override
-    public boolean canContinue() {
-        if(url == null) return false;
-        if(url.getText().toString().isEmpty()) return false;
-        if(!Parser.isValid(input)) return false;
-        return true;
+    public void canContinue(Consumer<Boolean> result) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            if(url == null) result.accept(false);
+            if(url.getText().toString().isEmpty()) result.accept(false);
+            if(!Parser.isValid(input)) result.accept(false);
+            result.accept(true);
+        });
     }
 
     @Override
-    public Object getState() {
+    public Serializable getState() {
         return input;
     }
 }

@@ -21,6 +21,7 @@ import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import app.rive.runtime.kotlin.core.RendererType;
 import app.rive.runtime.kotlin.core.Rive;
@@ -39,9 +40,11 @@ public class SourceManagerActivity extends StageHostActivity {
         setContentView(R.layout.activity_sourcemanager);
 
         findViewById(R.id.sourcemanager_continue).setOnClickListener(v -> {
-            if(currentFragment.canContinue()){
-                nextFragment();
-            }
+            currentFragment.canContinue(isAllowed -> {
+                if(isAllowed){
+                    runOnUiThread(this::nextFragment);
+                }
+            });
         });
     }
 
