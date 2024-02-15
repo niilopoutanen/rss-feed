@@ -14,19 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss_feed.common.StageFragment;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class SourceStatusFragment extends Fragment {
-    private StateListener stateListener;
+public class SourceStatusFragment extends StageFragment {
     private Source input;
     private TextView statusText;
-    public void setStateListener(StateListener stateListener){
-        this.stateListener = stateListener;
-    }
+
     public static SourceStatusFragment newInstance(Source input) {
         Bundle args = new Bundle();
         args.putSerializable("input", input);
@@ -40,7 +38,6 @@ public class SourceStatusFragment extends Fragment {
         if(getArguments() != null){
             input = (Source) getArguments().getSerializable("input");
         }
-        stateListener.setContinueAllowed(false);
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
     }
@@ -52,8 +49,6 @@ public class SourceStatusFragment extends Fragment {
             parser.load(input.url);
             if(isAdded() && getActivity() != null){
                 getActivity().runOnUiThread(() -> {
-                    stateListener.setContinueAllowed(true);
-                    stateListener.allowFinish();
                     Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
                 });
             }
@@ -68,5 +63,15 @@ public class SourceStatusFragment extends Fragment {
 
         load(input);
         return rootView;
+    }
+
+    @Override
+    public boolean canContinue() {
+        return false;
+    }
+
+    @Override
+    public Object getState() {
+        return null;
     }
 }

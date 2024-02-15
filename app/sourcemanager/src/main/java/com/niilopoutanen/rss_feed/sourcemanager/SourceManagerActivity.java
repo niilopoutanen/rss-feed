@@ -12,17 +12,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
+import com.niilopoutanen.rss_feed.common.StageFragment;
+import com.niilopoutanen.rss_feed.common.StageHostActivity;
 import com.niilopoutanen.rss_feed.parser.Callback;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.parser.RSSException;
+import com.niilopoutanen.rss_feed.rss.Source;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import app.rive.runtime.kotlin.core.RendererType;
 import app.rive.runtime.kotlin.core.Rive;
 
-public class SourceManagerActivity extends AppCompatActivity implements StateListener {
+public class SourceManagerActivity extends StageHostActivity {
     private ManageType type;
-    private SourceInputFragment inputFragment;
-    private SourceStatusFragment statusFragment;
 
     public SourceManagerActivity() {}
     public SourceManagerActivity(ManageType type){
@@ -34,35 +38,25 @@ public class SourceManagerActivity extends AppCompatActivity implements StateLis
         Rive.INSTANCE.init(this, RendererType.Rive);
         setContentView(R.layout.activity_sourcemanager);
 
-        inputFragment = new SourceInputFragment();
-        setFragment(inputFragment);
-
         findViewById(R.id.sourcemanager_continue).setOnClickListener(v -> {
-            Parser.isValid(inputFragment.getInput(), new Callback<Boolean>() {
-                @Override
-                public void onResult(Boolean result) {
-                    if(result){
-                        statusFragment = SourceStatusFragment.newInstance(inputFragment.getInput());
-                        statusFragment.setStateListener(SourceManagerActivity.this);
-                        setFragment(statusFragment);
-                    }
-                }
-
-                @Override
-                public void onError(RSSException exception) {
-
-                }
-            });
-
+            if(currentFragment.canContinue()){
+                nextFragment();
+            }
         });
     }
 
 
-    public void setFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.sourcemanager_frame, fragment);
-        fragmentTransaction.commit();
+    @Override
+    protected List<StageFragment> getStages() {
+        List<StageFragment> stages = new ArrayList<>();
+        stages.add(new SourceInputFragment());
+        stages.add(new SourceStatusFragment());
+        return stages;
+    }
+
+    @Override
+    protected int getFragmentFrame() {
+        return R.id.sourcemanager_frame;
     }
     public enum ManageType{
         CREATE, EDIT
@@ -101,11 +95,5 @@ public class SourceManagerActivity extends AppCompatActivity implements StateLis
         }
     }
 
-    @Override
-    public void allowFinish() {
-        PrimaryButton primaryButton = findViewById(R.id.sourcemanager_continue);
-        primaryButton.setText(getString(com.niilopoutanen.rss_feed.common.R.string.close));
-        primaryButton.setOnClickListener(v -> finish());
-    }
 
 }

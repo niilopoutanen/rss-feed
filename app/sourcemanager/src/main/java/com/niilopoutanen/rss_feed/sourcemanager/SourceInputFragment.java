@@ -15,19 +15,18 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss_feed.common.StageFragment;
+import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
 
-public class SourceInputFragment extends Fragment {
-    private StateListener stateListener;
+public class SourceInputFragment extends StageFragment {
     private final Source input = new Source();
+    private EditText url, name;
 
     public Source getInput(){
         return this.input;
     }
 
-    public void setStateListener(StateListener stateListener){
-        this.stateListener = stateListener;
-    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +38,8 @@ public class SourceInputFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_source_input, container, false);
-        EditText name = rootView.findViewById(R.id.sourceadd_feedName);
-        EditText url = rootView.findViewById(R.id.sourceadd_feedUrl);
+        name = rootView.findViewById(R.id.sourceadd_feedName);
+        url = rootView.findViewById(R.id.sourceadd_feedUrl);
         SwitchCompat visible = rootView.findViewById(R.id.switch_showInFeed);
 
         name.addTextChangedListener(new TextWatcher() {
@@ -71,5 +70,18 @@ public class SourceInputFragment extends Fragment {
 
         visible.setOnCheckedChangeListener((buttonView, isChecked) -> input.visible = isChecked);
         return rootView;
+    }
+
+    @Override
+    public boolean canContinue() {
+        if(url == null) return false;
+        if(url.getText().toString().isEmpty()) return false;
+        if(!Parser.isValid(input)) return false;
+        return true;
+    }
+
+    @Override
+    public Object getState() {
+        return input;
     }
 }
