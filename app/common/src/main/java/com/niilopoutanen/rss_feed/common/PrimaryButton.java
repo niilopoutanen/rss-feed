@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.common;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -71,6 +72,15 @@ public class PrimaryButton extends RelativeLayout {
     public void setText(String content){
         if(text != null && content != null && !content.isEmpty()){
             text.setText(content);
+        }
+    }
+
+    public void setLoading(boolean isLoading){
+        if(isLoading){
+            setBackgroundTintList(ColorStateList.valueOf(Color.rgb(20,20,20)));
+        }
+        else {
+            setBackgroundTintList(ColorStateList.valueOf(PreferencesManager.getAccentColor(getContext())));
         }
     }
 }

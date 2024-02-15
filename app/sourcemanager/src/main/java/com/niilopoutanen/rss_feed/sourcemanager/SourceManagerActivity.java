@@ -8,8 +8,9 @@ import android.view.animation.TranslateAnimation;
 import androidx.annotation.Nullable;
 
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
-import com.niilopoutanen.rss_feed.common.StageFragment;
-import com.niilopoutanen.rss_feed.common.StageHostActivity;
+import com.niilopoutanen.rss_feed.common.stages.StageBridge;
+import com.niilopoutanen.rss_feed.common.stages.StageFragment;
+import com.niilopoutanen.rss_feed.common.stages.StageHostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import app.rive.runtime.kotlin.core.Rive;
 
 public class SourceManagerActivity extends StageHostActivity {
     private ManageType type;
+    PrimaryButton primaryButton;
 
     public SourceManagerActivity() {}
     public SourceManagerActivity(ManageType type){
@@ -29,20 +31,19 @@ public class SourceManagerActivity extends StageHostActivity {
         super.onCreate(savedInstanceState);
         Rive.INSTANCE.init(this, RendererType.Rive);
         setContentView(R.layout.activity_sourcemanager);
+        primaryButton = findViewById(R.id.sourcemanager_continue);
 
         findViewById(R.id.sourcemanager_continue).setOnClickListener(v -> {
+            primaryButton.setLoading(true);
             currentFragment.canContinue(isAllowed -> {
                 if(isAllowed){
-                    runOnUiThread(this::nextFragment);
+                    runOnUiThread(() -> {
+                        nextFragment();
+                        primaryButton.setLoading(false);
+                    });
                 }
             });
         });
-    }
-
-    @Override
-    protected void nextFragment(){
-        super.nextFragment();
-        currentFragment.setLockListener(this::setContinueAllowed);
     }
 
     @Override
@@ -57,14 +58,11 @@ public class SourceManagerActivity extends StageHostActivity {
     protected int getFragmentFrame() {
         return R.id.sourcemanager_frame;
     }
-    public enum ManageType{
-        CREATE, EDIT
-    }
 
-    public void setContinueAllowed(boolean continueAllowed){
-        PrimaryButton primaryButton = findViewById(R.id.sourcemanager_continue);
+    @Override
+    public void onProgressLocked(boolean progressAllowed) {
         Animation animation;
-        if(!continueAllowed){
+        if(!progressAllowed){
             animation = new TranslateAnimation(
                     Animation.RELATIVE_TO_SELF, 0.0f,
                     Animation.RELATIVE_TO_SELF, 0.0f,
@@ -89,6 +87,25 @@ public class SourceManagerActivity extends StageHostActivity {
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         primaryButton.startAnimation(animation);
     }
+
+    @Override
+    public void onLoadingStateChange(boolean isLoading) {
+        PrimaryButton primaryButton = findViewById(R.id.sourcemanager_continue);
+        if(primaryButton != null){
+            if (isLoading) {
+                primaryButton.setText("Loading");
+            }
+            else{
+                primaryButton.setText("Continue");
+            }
+        }
+    }
+
+
+    public enum ManageType{
+        CREATE, EDIT
+    }
+
 
 
 }

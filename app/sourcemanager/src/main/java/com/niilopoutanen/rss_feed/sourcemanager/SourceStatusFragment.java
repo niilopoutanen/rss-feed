@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.niilopoutanen.rss_feed.common.StageFragment;
+import com.niilopoutanen.rss_feed.common.stages.StageFragment;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
 
@@ -26,7 +26,7 @@ public class SourceStatusFragment extends StageFragment {
     public void load(){
         if(data != null && data instanceof Source){
             Source input = (Source) data;
-            setProgressAllowed(false);
+            stageBridge.onProgressLocked(false);
             Executor executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
                 Parser parser = new Parser();
@@ -34,7 +34,7 @@ public class SourceStatusFragment extends StageFragment {
                 if(isAdded() && getActivity() != null){
                     getActivity().runOnUiThread(() -> {
                         Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
-                        setProgressAllowed(true);
+                        stageBridge.onProgressLocked(true);
                     });
                 }
             });

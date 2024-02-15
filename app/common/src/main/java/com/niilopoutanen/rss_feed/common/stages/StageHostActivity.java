@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed.common;
+package com.niilopoutanen.rss_feed.common.stages;
 
 import android.os.Bundle;
 
@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.niilopoutanen.rss_feed.common.stages.StageFragment;
+
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class StageHostActivity extends AppCompatActivity {
+public abstract class StageHostActivity extends AppCompatActivity implements StageBridge {
     protected StageFragment currentFragment;
     private int currentStage = 0;
 
@@ -38,7 +40,7 @@ public abstract class StageHostActivity extends AppCompatActivity {
                 next.setArguments(args);
             }
 
-
+            next.setStageBridge(this);
             setFragment(next);
             currentStage++;
             currentFragment = next;

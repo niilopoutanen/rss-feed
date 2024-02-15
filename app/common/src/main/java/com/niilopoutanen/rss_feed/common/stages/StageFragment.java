@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed.common;
+package com.niilopoutanen.rss_feed.common.stages;
 
 import android.os.Bundle;
 
@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 public abstract class StageFragment extends Fragment {
     protected Serializable data;
-    private Consumer<Boolean> lockListener;
+    protected StageBridge stageBridge;
     public StageFragment() {
 
     }
@@ -30,12 +30,7 @@ public abstract class StageFragment extends Fragment {
     public abstract void canContinue(Consumer<Boolean> result);
     public abstract Serializable getState();
 
-    public void setProgressAllowed(boolean progressAllowed){
-        if(lockListener != null){
-            lockListener.accept(progressAllowed);
-        }
-    }
-    public void setLockListener(Consumer<Boolean> lockListener){
-        this.lockListener = lockListener;
+    public void setStageBridge(StageBridge stageBridge){
+        this.stageBridge = stageBridge;
     }
 }
