@@ -35,11 +35,15 @@ public class SourceStatusFragment extends StageFragment {
                 parser.load(input.url);
                 if(isAdded() && getActivity() != null){
                     getActivity().runOnUiThread(() -> {
-                        Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
-                        stageBridge.onProgressLocked(true);
-                        setLoadingState(false);
+                        if(parser.source == null){
+                            showMessage(getActivity().getString(com.niilopoutanen.rss_feed.common.R.string.error_invalid_url), true);
+                        }
+                        else{
+                            showMessage("Found " + parser.posts.size() + " posts", true);
+                        }
                     });
                 }
+
             });
         }
 
@@ -66,6 +70,12 @@ public class SourceStatusFragment extends StageFragment {
             }
         }
     }
+
+    private void showMessage(String msg, boolean didSucceed){
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        stageBridge.onProgressLocked(true);
+        setLoadingState(false);
+    }
     @Override
     public void canContinue(Consumer<Boolean> result) {
         result.accept(false);
@@ -74,5 +84,10 @@ public class SourceStatusFragment extends StageFragment {
     @Override
     public Serializable getState() {
         return null;
+    }
+
+    @Override
+    public boolean canReturn() {
+        return true;
     }
 }

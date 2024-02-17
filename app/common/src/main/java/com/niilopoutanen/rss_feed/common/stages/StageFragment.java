@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.common.stages;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -25,10 +26,21 @@ public abstract class StageFragment extends Fragment {
         if(getArguments() != null){
             data = getArguments().getSerializable("data");
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                stageBridge.userInvokedReturn();
+                getParentFragmentManager().popBackStack();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     public abstract void canContinue(Consumer<Boolean> result);
     public abstract Serializable getState();
+    public abstract boolean canReturn();
+
 
     public void setStageBridge(StageBridge stageBridge){
         this.stageBridge = stageBridge;

@@ -88,19 +88,6 @@ public class SourceManagerActivity extends StageHostActivity {
         primaryButton.startAnimation(animation);
     }
 
-    @Override
-    public void onLoadingStateChange(boolean isLoading) {
-        PrimaryButton primaryButton = findViewById(R.id.sourcemanager_continue);
-        if(primaryButton != null){
-            if (isLoading) {
-                primaryButton.setText("Loading");
-            }
-            else{
-                primaryButton.setText("Continue");
-            }
-        }
-    }
-
 
     public enum ManageType{
         CREATE, EDIT

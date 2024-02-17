@@ -5,18 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.niilopoutanen.rss_feed.common.stages.StageFragment;
 
 import java.io.Serializable;
 import java.util.List;
 
 public abstract class StageHostActivity extends AppCompatActivity implements StageBridge {
     protected StageFragment currentFragment;
-    private int currentStage = 0;
+    private int currentStage = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +28,7 @@ public abstract class StageHostActivity extends AppCompatActivity implements Sta
     @IdRes
     protected abstract int getFragmentFrame();
     protected void nextFragment(){
+        currentStage++;
         StageFragment next = getStages().get(currentStage);
         if(next != null){
             if(currentFragment != null){
@@ -42,14 +40,20 @@ public abstract class StageHostActivity extends AppCompatActivity implements Sta
 
             next.setStageBridge(this);
             setFragment(next);
-            currentStage++;
             currentFragment = next;
         }
     }
-
-    public void setFragment(Fragment fragment) {
+    @Override
+    public void userInvokedReturn() {
+        currentStage--;
+        currentFragment = getStages().get(currentStage);
+    }
+    public void setFragment(StageFragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if(fragment.canReturn()){
+            fragmentTransaction.addToBackStack(null);
+        }
         fragmentTransaction.replace(getFragmentFrame(), fragment);
         fragmentTransaction.commit();
     }

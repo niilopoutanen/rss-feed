@@ -82,11 +82,6 @@ public class SourceInputFragment extends StageFragment {
                 showMessage(getString(com.niilopoutanen.rss_feed.common.R.string.error_empty_url));
                 return;
             }
-            else if(!Parser.isValid(input)){
-                result.accept(false);
-                showMessage(getString(com.niilopoutanen.rss_feed.common.R.string.error_invalid_url));
-                return;
-            }
             result.accept(true);
         });
     }
@@ -106,5 +101,10 @@ public class SourceInputFragment extends StageFragment {
     @Override
     public Serializable getState() {
         return input;
+    }
+
+    @Override
+    public boolean canReturn() {
+        return true;
     }
 }
