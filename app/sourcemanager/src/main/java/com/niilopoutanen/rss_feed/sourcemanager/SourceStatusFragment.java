@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +22,13 @@ import java.util.function.Consumer;
 
 public class SourceStatusFragment extends StageFragment {
     private TextView statusText;
-
+    private ProgressBar progressBar;
 
     public void load(){
         if(data != null && data instanceof Source){
             Source input = (Source) data;
             stageBridge.onProgressLocked(false);
+            setLoadingState(true);
             Executor executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
                 Parser parser = new Parser();
@@ -35,6 +37,7 @@ public class SourceStatusFragment extends StageFragment {
                     getActivity().runOnUiThread(() -> {
                         Toast.makeText(getContext(), "Found " + parser.posts.size() + " posts", Toast.LENGTH_SHORT).show();
                         stageBridge.onProgressLocked(true);
+                        setLoadingState(false);
                     });
                 }
             });
@@ -47,12 +50,22 @@ public class SourceStatusFragment extends StageFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_source_status, container, false);
         statusText = rootView.findViewById(R.id.source_status_text);
+        progressBar = rootView.findViewById(R.id.source_status_progress);
 
         load();
         return rootView;
     }
 
-
+    private void setLoadingState(boolean isLoading){
+        if(progressBar != null){
+            if(isLoading){
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            else {
+                progressBar.setVisibility(View.GONE);
+            }
+        }
+    }
     @Override
     public void canContinue(Consumer<Boolean> result) {
         result.accept(false);

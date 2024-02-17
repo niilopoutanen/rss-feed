@@ -8,7 +8,6 @@ import android.view.animation.TranslateAnimation;
 import androidx.annotation.Nullable;
 
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
-import com.niilopoutanen.rss_feed.common.stages.StageBridge;
 import com.niilopoutanen.rss_feed.common.stages.StageFragment;
 import com.niilopoutanen.rss_feed.common.stages.StageHostActivity;
 
@@ -34,14 +33,15 @@ public class SourceManagerActivity extends StageHostActivity {
         primaryButton = findViewById(R.id.sourcemanager_continue);
 
         findViewById(R.id.sourcemanager_continue).setOnClickListener(v -> {
-            primaryButton.setLoading(true);
+            primaryButton.setIsEnabled(false);
             currentFragment.canContinue(isAllowed -> {
-                if(isAllowed){
-                    runOnUiThread(() -> {
+                runOnUiThread(() -> {
+                    if(isAllowed){
                         nextFragment();
-                        primaryButton.setLoading(false);
-                    });
-                }
+                    }
+                    primaryButton.setIsEnabled(true);
+                });
+
             });
         });
     }

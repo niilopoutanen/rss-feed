@@ -1,23 +1,30 @@
 package com.niilopoutanen.rss_feed.common;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 
 
 public class PrimaryButton extends RelativeLayout {
     private TextView text;
+    private ProgressBar progressBar;
     public PrimaryButton(Context context) {
         super(context);
         init(null);
@@ -60,6 +67,15 @@ public class PrimaryButton extends RelativeLayout {
         text.setTextSize(14);
         text.setText(getContext().getString(R.string.continua));
 
+
+        progressBar = new ProgressBar(getContext());
+        int size = PreferencesManager.dpToPx(50, getContext());
+        RelativeLayout.LayoutParams progressParams = new RelativeLayout.LayoutParams(size, size);
+        progressParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        progressBar.setLayoutParams(progressParams);
+        progressBar.setVisibility(GONE);
+        progressBar.setIndeterminateTintList(ColorStateList.valueOf(getContext().getColor(R.color.textPrimary)));
+
         if(attrs != null){
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PrimaryButton);
             setText(a.getString(R.styleable.PrimaryButton_text));
@@ -67,6 +83,7 @@ public class PrimaryButton extends RelativeLayout {
             a.recycle();
         }
         addView(text);
+        addView(progressBar);
     }
 
     public void setText(String content){
@@ -75,12 +92,15 @@ public class PrimaryButton extends RelativeLayout {
         }
     }
 
-    public void setLoading(boolean isLoading){
-        if(isLoading){
-            setBackgroundTintList(ColorStateList.valueOf(Color.rgb(20,20,20)));
+    public void setIsEnabled(boolean isEnabled){
+        if(isEnabled){
+            progressBar.setVisibility(GONE);
+            text.setVisibility(VISIBLE);
         }
         else {
-            setBackgroundTintList(ColorStateList.valueOf(PreferencesManager.getAccentColor(getContext())));
+            progressBar.setVisibility(VISIBLE);
+            text.setVisibility(GONE);
         }
     }
+
 }

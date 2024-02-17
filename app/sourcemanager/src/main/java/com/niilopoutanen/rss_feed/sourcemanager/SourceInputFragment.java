@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.sourcemanager;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +26,7 @@ import java.util.function.Consumer;
 public class SourceInputFragment extends StageFragment {
     private final Source input = new Source();
     private EditText url, name;
+    private TextView notice;
 
 
     @Nullable
@@ -33,7 +36,7 @@ public class SourceInputFragment extends StageFragment {
         name = rootView.findViewById(R.id.sourceadd_feedName);
         url = rootView.findViewById(R.id.sourceadd_feedUrl);
         SwitchCompat visible = rootView.findViewById(R.id.switch_showInFeed);
-
+        notice = rootView.findViewById(R.id.sourceadd_notice);
         name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -71,18 +74,33 @@ public class SourceInputFragment extends StageFragment {
         executor.execute(() -> {
             if(url == null) {
                 result.accept(false);
+                showMessage(getString(com.niilopoutanen.rss_feed.common.R.string.error_empty_url));
                 return;
             }
             else if(url.getText().toString().isEmpty()){
                 result.accept(false);
+                showMessage(getString(com.niilopoutanen.rss_feed.common.R.string.error_empty_url));
                 return;
             }
             else if(!Parser.isValid(input)){
                 result.accept(false);
+                showMessage(getString(com.niilopoutanen.rss_feed.common.R.string.error_invalid_url));
                 return;
             }
             result.accept(true);
         });
+    }
+
+    private void showMessage(String msg){
+        Activity activity = getActivity();
+        if(activity == null) return;
+        if(notice == null) return;
+
+        activity.runOnUiThread(() -> {
+            notice.setVisibility(View.VISIBLE);
+            notice.setText(msg);
+        });
+
     }
 
     @Override
