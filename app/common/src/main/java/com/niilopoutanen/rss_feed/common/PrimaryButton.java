@@ -58,8 +58,11 @@ public class PrimaryButton extends RelativeLayout {
             });
         }
 
+        int padding = PreferencesManager.dpToPx(5, getContext());
+        setPadding(padding,padding,padding,padding);
+
         text = new TextView(getContext());
-        RelativeLayout.LayoutParams textParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, PreferencesManager.dpToPx(50, getContext()));
+        RelativeLayout.LayoutParams textParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, PreferencesManager.dpToPx(40, getContext()));
         textParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         text.setLayoutParams(textParams);
         text.setGravity(Gravity.CENTER);
@@ -69,7 +72,7 @@ public class PrimaryButton extends RelativeLayout {
 
 
         progressBar = new ProgressBar(getContext());
-        int size = PreferencesManager.dpToPx(50, getContext());
+        int size = PreferencesManager.dpToPx(40, getContext());
         RelativeLayout.LayoutParams progressParams = new RelativeLayout.LayoutParams(size, size);
         progressParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         progressBar.setLayoutParams(progressParams);
@@ -95,11 +98,11 @@ public class PrimaryButton extends RelativeLayout {
     public void setIsEnabled(boolean isEnabled){
         if(isEnabled){
             progressBar.setVisibility(GONE);
-            text.setVisibility(VISIBLE);
+            text.setAlpha(1f);
         }
         else {
             progressBar.setVisibility(VISIBLE);
-            text.setVisibility(GONE);
+            text.setAlpha(0f);
         }
     }
 
