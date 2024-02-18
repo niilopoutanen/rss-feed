@@ -157,6 +157,8 @@ public class FeedFragment extends Fragment {
                     insets.top,
                     recyclerView.getPaddingRight(),
                     recyclerView.getPaddingBottom());
+
+            swipeRefreshLayout.setProgressViewOffset(false, 0,insets.top);
             return WindowInsetsCompat.CONSUMED;
         });
 
