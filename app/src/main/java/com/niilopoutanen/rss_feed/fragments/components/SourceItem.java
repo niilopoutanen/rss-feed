@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,20 +19,20 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.activities.FeedActivity;
+import com.niilopoutanen.rss_feed.common.IconView;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.fragments.AddSourceFragment;
 import com.niilopoutanen.rss_feed.common.models.FeedResult;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
-import com.niilopoutanen.rss_feed.parser.WebUtils;
 import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.squareup.picasso.Picasso;
 
 public class SourceItem extends RecyclerView.ViewHolder {
     private final TextView title;
     private final TextView desc;
-    private final ImageView icon;
+    //private final ImageView icon;
+    private final IconView icon;
     private final RelativeLayout button;
     private final View container;
 
@@ -65,27 +64,21 @@ public class SourceItem extends RecyclerView.ViewHolder {
     public void bindData(Source source, FragmentManager manager) {
         title.setText(source.title);
         desc.setVisibility(View.GONE);
-        loadIcon(source.image);
+        icon.setResource(source.image);
+        icon.setName(source.title);
+
         initButton(source, manager);
     }
 
     public void bindData(FeedResult result) {
         title.setText(result.title);
         desc.setText(result.description);
-        loadIcon(result.visualUrl);
+        icon.setResource(result.visualUrl);
+        icon.setName(result.title);
+
         initButton(result);
     }
 
-
-    private void loadIcon(String iconUrl) {
-        if (iconUrl == null || iconUrl.isEmpty()) {
-            icon.setBackground(AppCompatResources.getDrawable(context, R.drawable.element_background));
-        }
-        int iconSize = PreferencesManager.dpToPx(60, context);
-        Picasso.get().load(iconUrl)
-                  .resize(iconSize, iconSize)
-                  .into(icon);
-    }
 
     private void initButton(Source source, FragmentManager manager) {
         Drawable edit = AppCompatResources.getDrawable(context, R.drawable.icon_edit);

@@ -10,7 +10,15 @@
     android:baselineAligned="false"
     android:background="@color/windowBg">
 
+    <com.niilopoutanen.rss_feed.common.IconView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/source_item_icon"/>
+
+
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
@@ -19,7 +27,6 @@
         app:cardBackgroundColor="@color/transparent"
         app:cardElevation="0dp">
         <ImageView
-            android:id="@+id/source_item_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"/>
     </androidx.cardview.widget.CardView>
