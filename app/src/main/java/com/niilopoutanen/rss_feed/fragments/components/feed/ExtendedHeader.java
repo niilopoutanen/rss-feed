@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.niilopoutanen.rss_feed.common.IconView;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.rss.Source;
 import com.squareup.picasso.Picasso;
@@ -41,7 +42,7 @@ public class ExtendedHeader extends FeedItem{
             Source source = (Source) data;
             TextView title = getContent().findViewById(R.id.extended_header_title);
             TextView desc = getContent().findViewById(R.id.extended_header_desc);
-            ImageView icon = getContent().findViewById(R.id.extended_header_icon);
+            IconView icon = getContent().findViewById(R.id.extended_header_icon);
 
             if(source.title != null && !source.title.isEmpty()){
                 title.setText(source.title);
@@ -57,29 +58,8 @@ public class ExtendedHeader extends FeedItem{
                 desc.setVisibility(View.GONE);
             }
 
-            if(source.image != null && !source.image.isEmpty()){
-                Target target = new Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        icon.setImageBitmap(bitmap);
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                        icon.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                    }
-                };
-                Picasso.get().load(source.image).into(target);
-            }
-            else{
-                icon.setVisibility(View.GONE);
-            }
-
+            icon.setResource(source.image);
+            icon.setName(source.title);
         }
     }
 }

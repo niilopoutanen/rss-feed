@@ -56,9 +56,7 @@ public class IconView extends CardView {
         if(icon == null) return;
         Picasso.get().load(url).into(icon);
 
-        // Clear placeholder text
-        removeView(name);
-        name = null;
+        onResourceSet();
     }
     public void setName(String nameStr){
         if(nameStr == null || nameStr.isEmpty()) return;
@@ -66,6 +64,14 @@ public class IconView extends CardView {
         if(name == null) return;
 
         name.setText(nameStr.substring(0,1));
+    }
+
+    private void onResourceSet(){
+        if(name != null){
+            removeView(name);
+            name = null;
+        }
+        setCardBackgroundColor(getContext().getColor(android.R.color.transparent));
     }
     private static double calculateShapeRadius(int width){
         double radiusPercentage = 22.50;
