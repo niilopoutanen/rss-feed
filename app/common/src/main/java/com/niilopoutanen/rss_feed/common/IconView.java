@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.squareup.picasso.Picasso;
 
@@ -46,6 +47,8 @@ public class IconView extends CardView {
         FrameLayout.LayoutParams textParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         textParams.gravity = Gravity.CENTER;
         name.setLayoutParams(textParams);
+        name.setTextColor(PreferencesManager.getAccentColor(getContext()));
+        name.setTypeface(ResourcesCompat.getFont(getContext(), R.font.inter_black));
         addView(name);
     }
 
@@ -59,7 +62,7 @@ public class IconView extends CardView {
         onResourceSet();
     }
     public void setName(String nameStr){
-        if(nameStr == null || nameStr.isEmpty()) return;
+        if(nameStr == null || nameStr.isEmpty() || name.length() == 0) return;
         if(icon == null || icon.getDrawable() != null) return;
         if(name == null) return;
 
