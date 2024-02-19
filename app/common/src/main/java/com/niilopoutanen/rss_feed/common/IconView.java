@@ -62,7 +62,7 @@ public class IconView extends CardView {
         onResourceSet();
     }
     public void setName(String nameStr){
-        if(nameStr == null || nameStr.isEmpty() || name.length() == 0) return;
+        if(nameStr == null || nameStr.isEmpty()) return;
         if(icon == null || icon.getDrawable() != null) return;
         if(name == null) return;
 

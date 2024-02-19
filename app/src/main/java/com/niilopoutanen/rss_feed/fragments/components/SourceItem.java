@@ -31,7 +31,6 @@ import com.niilopoutanen.rss_feed.common.PreferencesManager;
 public class SourceItem extends RecyclerView.ViewHolder {
     private final TextView title;
     private final TextView desc;
-    //private final ImageView icon;
     private final IconView icon;
     private final RelativeLayout button;
     private final View container;
