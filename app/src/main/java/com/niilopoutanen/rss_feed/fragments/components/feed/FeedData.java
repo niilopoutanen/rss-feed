@@ -56,7 +56,7 @@ public class FeedData implements Filterable{
             count = notices.size();
         }
         else{
-            count = filteredPosts.size();
+            count = posts.size();
         }
 
         int headerCount = 0;
@@ -110,8 +110,8 @@ public class FeedData implements Filterable{
             if(notices.size() > 0 && notices.size() > index){
                 return notices.get(index);
             }
-            else if(filteredPosts.size() > index){
-                return filteredPosts.get(index);
+            else if(posts.size() > index){
+                return posts.get(index);
             }
         }
 

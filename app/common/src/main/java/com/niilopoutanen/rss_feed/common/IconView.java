@@ -77,7 +77,7 @@ public class IconView extends CardView {
         setCardBackgroundColor(getContext().getColor(android.R.color.transparent));
     }
     private static double calculateShapeRadius(int width){
-        double radiusPercentage = 22.50;
+        double radiusPercentage = 25;
         return width * (radiusPercentage / 100.0);
     }
 
