@@ -3,11 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/feed_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/textPrimary"/>
+        android:textColor="@color/textPrimary"
+        android:text="@string/feed_header"
+        android:textSize="40sp"/>
+
+    <com.niilopoutanen.rss_feed.common.SearchBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/element_background"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/icon_search"
+            android:layout_marginRight="8dp"/>
+        <EditText
+            android:background="@color/transparent"
+            android:importantForAutofill="no"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Search"/>
+
+
+    </LinearLayout>-->
+
 </LinearLayout>
