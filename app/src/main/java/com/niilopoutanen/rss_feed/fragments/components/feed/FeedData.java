@@ -45,8 +45,7 @@ public class FeedData implements Filterable{
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredPosts.clear();
-                filteredPosts.addAll((List<Post>) results.values);
+                filteredPosts = (List<Post>) results.values;
                 Collections.sort(filteredPosts);
             }
         };
