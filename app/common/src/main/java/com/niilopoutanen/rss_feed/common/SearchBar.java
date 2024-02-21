@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.common;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,11 +12,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Space;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
-public class SearchBar extends LinearLayoutCompat {
+public class SearchBar extends LinearLayout {
     private EditText searchField;
     private View searchIcon, closeIcon;
     public SearchBar(Context context) {
@@ -51,6 +53,7 @@ public class SearchBar extends LinearLayoutCompat {
         searchField.setBackground(null);
         searchField.setPadding(0,0,0,0);
         searchField.setTextColor(context.getColor(R.color.textPrimary));
+        searchField.setHintTextColor(context.getColor(R.color.textSecondary));
 
         int iconSize = PreferencesManager.dpToPx(20, context);
         LayoutParams iconParams = new LayoutParams(iconSize, iconSize);
@@ -58,24 +61,36 @@ public class SearchBar extends LinearLayoutCompat {
         searchIcon = new View(context);
         searchIcon.setLayoutParams(iconParams);
         searchIcon.setBackgroundResource(R.drawable.icon_search);
+        searchIcon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textSecondary)));
 
         closeIcon = new View(context);
         closeIcon.setLayoutParams(iconParams);
         closeIcon.setBackgroundResource(R.drawable.icon_xmark);
+        closeIcon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textSecondary)));
         closeIcon.setVisibility(GONE);
         closeIcon.setOnClickListener(v -> clearFocus());
+
+        Space spacerLeft = new Space(context);
+        Space spacerRight = new Space(context);
+        spacerLeft.setLayoutParams(new LayoutParams(edgePadding, edgePadding));
+        spacerRight.setLayoutParams(new LayoutParams(edgePadding, edgePadding));
 
         searchField.setOnFocusChangeListener((v, hasFocus) -> {
             if(hasFocus){
                 closeIcon.setVisibility(VISIBLE);
+                spacerRight.setVisibility(VISIBLE);
             }
             else{
                 closeIcon.setVisibility(GONE);
+                spacerRight.setVisibility(GONE);
             }
         });
 
+
         addView(searchIcon);
+        addView(spacerLeft);
         addView(searchField);
+        addView(spacerRight);
         addView(closeIcon);
     }
 
