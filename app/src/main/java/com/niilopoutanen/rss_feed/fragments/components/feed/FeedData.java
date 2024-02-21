@@ -8,6 +8,7 @@ import com.niilopoutanen.rss_feed.rss.Source;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FeedData implements Filterable{
@@ -46,6 +47,7 @@ public class FeedData implements Filterable{
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 filteredPosts.clear();
                 filteredPosts.addAll((List<Post>) results.values);
+                Collections.sort(filteredPosts);
             }
         };
     }
