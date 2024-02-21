@@ -77,7 +77,7 @@ public class SearchBar extends LinearLayout {
         searchField.setPadding(0,0,0,0);
         searchField.setTextColor(getContext().getColor(R.color.textPrimary));
         searchField.setHintTextColor(getContext().getColor(R.color.textSecondary));
-        searchField.setOnFocusChangeListener((v, hasFocus) -> onFocusChanged(hasFocus));
+        //searchField.setOnFocusChangeListener((v, hasFocus) -> onFocusChanged(hasFocus));
         searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -127,26 +127,31 @@ public class SearchBar extends LinearLayout {
             @Override
             public void afterTextChanged(Editable s) {
                 queryHandler.accept(s.toString());
+                if(s.toString().length() != 0){
+                    onFocusChanged(true);
+                }
             }
         });
     }
     private void onFocusChanged(boolean hasFocus){
         if(closeToggle == null) return;
-        if(hasFocus){
-            closeToggle.setVisibility(VISIBLE);
+        if(!hasFocus){
+            closeToggle.setVisibility(GONE);
+            hideKeyboard();
         }
         else{
-            closeToggle.setVisibility(GONE);
+            closeToggle.setVisibility(VISIBLE);
         }
     }
     public void clearFocus(boolean reset){
         if(searchField == null) return;
 
+
         searchField.setFocusableInTouchMode(false);
         searchField.setFocusable(false);
         searchField.setFocusableInTouchMode(true);
         searchField.setFocusable(true);
-
+        onFocusChanged(false);
         if(reset){
             searchField.setText("");
             if(queryHandler != null){
@@ -154,6 +159,10 @@ public class SearchBar extends LinearLayout {
             }
         }
 
+        //hideKeyboard();
+    }
+
+    private void hideKeyboard(){
         InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchField.getWindowToken(), 0);
     }
