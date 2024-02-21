@@ -6,8 +6,11 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LayoutAnimationController;
@@ -19,6 +22,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
+
+import java.util.function.Consumer;
 
 public class SearchBar extends LinearLayout {
     private EditText searchField;
@@ -66,16 +71,26 @@ public class SearchBar extends LinearLayout {
         searchField.setHint("Search");
         searchField.setLayoutParams(fieldParams);
         searchField.setImportantForAutofill(IMPORTANT_FOR_AUTOFILL_NO);
+        searchField.setSingleLine(true);
         searchField.setBackground(null);
         searchField.setPadding(0,0,0,0);
         searchField.setTextColor(getContext().getColor(R.color.textPrimary));
         searchField.setHintTextColor(getContext().getColor(R.color.textSecondary));
         searchField.setOnFocusChangeListener((v, hasFocus) -> onFocusChanged(hasFocus));
+        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+                    clearFocus(false);
+                }
+                return false;
+            }
+        });
 
         int iconSize = PreferencesManager.dpToPx(20, getContext());
         MarginLayoutParams iconParams = new MarginLayoutParams(iconSize, iconSize);
         iconParams.rightMargin = gap;
-        
+
         View searchIcon = new View(getContext());
         searchIcon.setLayoutParams(iconParams);
         searchIcon.setBackgroundResource(R.drawable.icon_search);
@@ -90,7 +105,7 @@ public class SearchBar extends LinearLayout {
     private View toggle(int gap){
         closeToggle = new TextView(getContext());
         closeToggle.setText("Close");
-        closeToggle.setOnClickListener(v -> clearFocus());
+        closeToggle.setOnClickListener(v -> clearFocus(true));
         closeToggle.setVisibility(GONE);
         MarginLayoutParams toggleParams = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         toggleParams.leftMargin = gap;
@@ -98,6 +113,25 @@ public class SearchBar extends LinearLayout {
         return closeToggle;
     }
 
+    public void setQueryHandler(Consumer<String> queryHandler){
+        if(searchField == null) return;
+        searchField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                queryHandler.accept(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
     private void onFocusChanged(boolean hasFocus){
         if(closeToggle == null) return;
         if(hasFocus){
@@ -107,13 +141,17 @@ public class SearchBar extends LinearLayout {
             closeToggle.setVisibility(GONE);
         }
     }
-    public void clearFocus(){
+    public void clearFocus(boolean reset){
         if(searchField == null) return;
 
         searchField.setFocusableInTouchMode(false);
         searchField.setFocusable(false);
         searchField.setFocusableInTouchMode(true);
         searchField.setFocusable(true);
+
+        if(reset){
+            searchField.setText("");
+        }
 
         InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchField.getWindowToken(), 0);

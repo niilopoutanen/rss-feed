@@ -12,7 +12,7 @@ import java.util.List;
 
 public class FeedData implements Filterable{
     private List<Post> posts = new ArrayList<>();
-    private final List<Post> filteredPosts = new ArrayList<>();
+    private List<Post> filteredPosts = new ArrayList<>();
     private final List<Notice.NoticeData> notices = new ArrayList<>();
     private Source sourceHeader;
     private String header;
@@ -30,7 +30,7 @@ public class FeedData implements Filterable{
                 }
                 else{
                     for (Post post : posts) {
-                        if (post.title.contains(query)) {
+                        if (post.title.toLowerCase().contains(query.toString().toLowerCase())) {
                             filteredList.add(post);
                         }
                     }
@@ -56,7 +56,7 @@ public class FeedData implements Filterable{
             count = notices.size();
         }
         else{
-            count = posts.size();
+            count = filteredPosts.size();
         }
 
         int headerCount = 0;
@@ -65,12 +65,10 @@ public class FeedData implements Filterable{
         }
         return count + headerCount;
     }
-    public void addPost(Post post){
-        this.posts.add(post);
-    }
     public void setPosts(List<Post> posts){
         if(posts == null) return;
         this.posts = new ArrayList<>(posts);
+        this.filteredPosts = new ArrayList<>(this.posts);
         this.clearNotices();
     }
     public void clearPosts(){
@@ -110,8 +108,8 @@ public class FeedData implements Filterable{
             if(notices.size() > 0 && notices.size() > index){
                 return notices.get(index);
             }
-            else if(posts.size() > index){
-                return posts.get(index);
+            else if(filteredPosts.size() > index){
+                return filteredPosts.get(index);
             }
         }
 

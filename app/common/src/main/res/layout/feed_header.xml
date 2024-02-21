@@ -15,6 +15,7 @@
         android:textSize="40sp"/>
 
     <com.niilopoutanen.rss_feed.common.SearchBar
+        android:id="@+id/feed_searchbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"/>
