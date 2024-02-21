@@ -28,6 +28,7 @@ import java.util.function.Consumer;
 public class SearchBar extends LinearLayout {
     private EditText searchField;
     private TextView closeToggle;
+    private Consumer<String> queryHandler;
     public SearchBar(Context context) {
         super(context);
         init();
@@ -114,21 +115,18 @@ public class SearchBar extends LinearLayout {
     }
 
     public void setQueryHandler(Consumer<String> queryHandler){
+        this.queryHandler = queryHandler;
         if(searchField == null) return;
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                queryHandler.accept(s.toString());
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                queryHandler.accept(s.toString());
             }
         });
     }
@@ -151,6 +149,9 @@ public class SearchBar extends LinearLayout {
 
         if(reset){
             searchField.setText("");
+            if(queryHandler != null){
+                queryHandler.accept("");
+            }
         }
 
         InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
