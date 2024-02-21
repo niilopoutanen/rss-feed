@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.common;
 
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -9,17 +10,19 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Space;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 public class SearchBar extends LinearLayout {
     private EditText searchField;
-    private View searchIcon, closeIcon;
+    private TextView closeToggle;
     public SearchBar(Context context) {
         super(context);
         init();
@@ -37,63 +40,73 @@ public class SearchBar extends LinearLayout {
 
     private void init(){
         Context context = getContext();
-        setBackgroundResource(R.drawable.element_background);
-        int edgePadding = PreferencesManager.dpToPx(8, context);
-        setPadding(edgePadding,0,edgePadding,0);
-        setGravity(Gravity.CENTER_VERTICAL);
         setOrientation(HORIZONTAL);
-        setMinimumHeight(PreferencesManager.dpToPx(35, context));
+        setLayoutTransition(new LayoutTransition());
+        setGravity(Gravity.CENTER_VERTICAL);
+
+        int gap = PreferencesManager.dpToPx(8, context);
+        addView(bar(gap));
+        addView(toggle(gap));
+    }
+
+    private View bar(int gap){
+        LinearLayout searchBar = new LinearLayout(getContext());
+        searchBar.setBackgroundResource(R.drawable.element_background);
+        searchBar.setPadding(gap,0,gap,0);
+        searchBar.setGravity(Gravity.CENTER_VERTICAL);
+        searchBar.setOrientation(HORIZONTAL);
+        searchBar.setMinimumHeight(PreferencesManager.dpToPx(35, getContext()));
+        LinearLayout.LayoutParams barParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+        barParams.weight = 1;
+        searchBar.setLayoutParams(barParams);
 
         LayoutParams fieldParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
         fieldParams.weight = 1;
-        searchField = new EditText(context);
+        searchField = new EditText(getContext());
         searchField.setHint("Search");
         searchField.setLayoutParams(fieldParams);
         searchField.setImportantForAutofill(IMPORTANT_FOR_AUTOFILL_NO);
         searchField.setBackground(null);
         searchField.setPadding(0,0,0,0);
-        searchField.setTextColor(context.getColor(R.color.textPrimary));
-        searchField.setHintTextColor(context.getColor(R.color.textSecondary));
+        searchField.setTextColor(getContext().getColor(R.color.textPrimary));
+        searchField.setHintTextColor(getContext().getColor(R.color.textSecondary));
+        searchField.setOnFocusChangeListener((v, hasFocus) -> onFocusChanged(hasFocus));
 
-        int iconSize = PreferencesManager.dpToPx(20, context);
-        LayoutParams iconParams = new LayoutParams(iconSize, iconSize);
-
-        searchIcon = new View(context);
+        int iconSize = PreferencesManager.dpToPx(20, getContext());
+        MarginLayoutParams iconParams = new MarginLayoutParams(iconSize, iconSize);
+        iconParams.rightMargin = gap;
+        
+        View searchIcon = new View(getContext());
         searchIcon.setLayoutParams(iconParams);
         searchIcon.setBackgroundResource(R.drawable.icon_search);
-        searchIcon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textSecondary)));
+        searchIcon.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.textSecondary)));
 
-        closeIcon = new View(context);
-        closeIcon.setLayoutParams(iconParams);
-        closeIcon.setBackgroundResource(R.drawable.icon_xmark);
-        closeIcon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.textSecondary)));
-        closeIcon.setVisibility(GONE);
-        closeIcon.setOnClickListener(v -> clearFocus());
+        searchBar.addView(searchIcon);
+        searchBar.addView(searchField);
 
-        Space spacerLeft = new Space(context);
-        Space spacerRight = new Space(context);
-        spacerLeft.setLayoutParams(new LayoutParams(edgePadding, edgePadding));
-        spacerRight.setLayoutParams(new LayoutParams(edgePadding, edgePadding));
-
-        searchField.setOnFocusChangeListener((v, hasFocus) -> {
-            if(hasFocus){
-                closeIcon.setVisibility(VISIBLE);
-                spacerRight.setVisibility(VISIBLE);
-            }
-            else{
-                closeIcon.setVisibility(GONE);
-                spacerRight.setVisibility(GONE);
-            }
-        });
-
-
-        addView(searchIcon);
-        addView(spacerLeft);
-        addView(searchField);
-        addView(spacerRight);
-        addView(closeIcon);
+        return searchBar;
     }
 
+    private View toggle(int gap){
+        closeToggle = new TextView(getContext());
+        closeToggle.setText("Close");
+        closeToggle.setOnClickListener(v -> clearFocus());
+        closeToggle.setVisibility(GONE);
+        MarginLayoutParams toggleParams = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        toggleParams.leftMargin = gap;
+        closeToggle.setLayoutParams(toggleParams);
+        return closeToggle;
+    }
+
+    private void onFocusChanged(boolean hasFocus){
+        if(closeToggle == null) return;
+        if(hasFocus){
+            closeToggle.setVisibility(VISIBLE);
+        }
+        else{
+            closeToggle.setVisibility(GONE);
+        }
+    }
     public void clearFocus(){
         if(searchField == null) return;
 
