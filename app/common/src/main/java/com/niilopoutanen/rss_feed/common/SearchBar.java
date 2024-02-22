@@ -60,8 +60,7 @@ public class SearchBar extends LinearLayout {
         barParams.weight = 1;
         searchBar.setLayoutParams(barParams);
 
-        LayoutParams fieldParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
-        fieldParams.weight = 1;
+        LayoutParams fieldParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         searchField = new EditText(getContext());
         searchField.setHint("Search");
         searchField.setLayoutParams(fieldParams);
