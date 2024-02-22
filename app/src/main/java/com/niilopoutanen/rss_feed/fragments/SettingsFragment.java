@@ -34,6 +34,8 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWIND
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_SEARCH;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_SEARCH_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
@@ -86,9 +88,9 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    TextView themeSelected, fontSelected, launchwindowSelected, headertypeSelected, headerSizeSelected;
-    SwitchCompat articlesInBrowser, articleFullScreen, articleShowControls, articleShowCategories;
-    SwitchCompat imagecache, animateClicks, haptics, showChangelog;
+    TextView themeSelected, fontSelected, launchWindowSelected, headerTypeSelected, headerSizeSelected;
+    SwitchCompat articlesInBrowser, searchVisible, articleFullScreen, articleShowControls, articleShowCategories;
+    SwitchCompat imageCache, animateClicks, haptics, showChangelog;
     Slider fontSizeSlider;
     List<RelativeLayout> colorAccentButtons;
     private Context context;
@@ -194,9 +196,9 @@ public class SettingsFragment extends Fragment {
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
         articleShowControls = rootView.findViewById(R.id.switch_article_showcontrols);
         articleShowCategories = rootView.findViewById(R.id.switch_article_showcategories);
-
+        searchVisible = rootView.findViewById(R.id.switch_show_search);
         haptics = rootView.findViewById(R.id.switch_haptics);
-        imagecache = rootView.findViewById(R.id.switch_cache);
+        imageCache = rootView.findViewById(R.id.switch_cache);
         animateClicks = rootView.findViewById(R.id.switch_animateclicks);
         showChangelog = rootView.findViewById(R.id.switch_showchangelog);
         fontSizeSlider = rootView.findViewById(R.id.slider_fontsize);
@@ -217,14 +219,14 @@ public class SettingsFragment extends Fragment {
         });
 
 
-        launchwindowSelected = rootView.findViewById(R.id.launchwindow_selected);
+        launchWindowSelected = rootView.findViewById(R.id.launchwindow_selected);
         RelativeLayout launchWindowSettings = rootView.findViewById(R.id.settings_launchwindowsettings);
         launchWindowSettings.setOnClickListener(v -> {
             openDropDownSettings(LaunchWindow.class, getString(R.string.settings_launchwindow), getString(R.string.settings_launchwindow_additional));
             PreferencesManager.vibrate(v);
         });
 
-        headertypeSelected = rootView.findViewById(R.id.headertype_selected);
+        headerTypeSelected = rootView.findViewById(R.id.headertype_selected);
         RelativeLayout headerTypeSettings = rootView.findViewById(R.id.settings_headertypesettings);
         headerTypeSettings.setOnClickListener(v -> {
             openDropDownSettings(Preferences.HeaderType.class, getString(R.string.settings_headertype), "");
@@ -313,11 +315,15 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.saveBooleanPreference(SP_ARTICLE_SHOW_CATEGORIES, PREFS_UI, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
+        searchVisible.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            PreferencesManager.saveBooleanPreference(SP_SHOW_SEARCH, PREFS_UI, isChecked, context);
+            PreferencesManager.vibrate(buttonView);
+        });
         haptics.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
-        imagecache.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        imageCache.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
@@ -344,12 +350,10 @@ public class SettingsFragment extends Fragment {
         //material you
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
             rootView.findViewById(R.id.settings_colortile).setVisibility(View.GONE);
-            rootView.findViewById(R.id.settings_theme_separator).setVisibility(View.GONE);
         }
         //no dark theme support
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             rootView.findViewById(R.id.settings_themesettings).setVisibility(View.GONE);
-            rootView.findViewById(R.id.settings_theme_separator).setVisibility(View.GONE);
         }
     }
 
@@ -370,7 +374,7 @@ public class SettingsFragment extends Fragment {
         }
 
         LaunchWindow selectedWindow = PreferencesManager.getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
-        launchwindowSelected.setText(getResources().getStringArray(R.array.launch_windows)[selectedWindow.ordinal()]);
+        launchWindowSelected.setText(getResources().getStringArray(R.array.launch_windows)[selectedWindow.ordinal()]);
 
         Font selectedFont = PreferencesManager.getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
         fontSelected.setText(getResources().getStringArray(R.array.fonts)[selectedFont.ordinal()]);
@@ -379,7 +383,7 @@ public class SettingsFragment extends Fragment {
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
 
         Preferences.HeaderType selectedHeader = PreferencesManager.getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
-        headertypeSelected.setText(getResources().getStringArray(R.array.header_types)[selectedHeader.ordinal()]);
+        headerTypeSelected.setText(getResources().getStringArray(R.array.header_types)[selectedHeader.ordinal()]);
 
         Preferences.HeaderSize selectedHeaderSize = PreferencesManager.getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
         headerSizeSelected.setText(getResources().getStringArray(R.array.header_sizes)[selectedHeaderSize.ordinal()]);
@@ -392,9 +396,11 @@ public class SettingsFragment extends Fragment {
 
         articleShowCategories.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLE_SHOW_CATEGORIES, PREFS_UI, SP_ARTICLE_SHOW_CATEGORIES_DEFAULT, context));
 
+        searchVisible.setChecked(PreferencesManager.getBooleanPreference(SP_SHOW_SEARCH, PREFS_UI, SP_SHOW_SEARCH_DEFAULT, context));
+
         haptics.setChecked(PreferencesManager.getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context));
 
-        imagecache.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context));
+        imageCache.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGECACHE, PREFS_FUNCTIONALITY, SP_IMAGECACHE_DEFAULT, context));
 
         animateClicks.setChecked(PreferencesManager.getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context));
 

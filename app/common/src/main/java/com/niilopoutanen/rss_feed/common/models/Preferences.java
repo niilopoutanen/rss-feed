@@ -12,6 +12,8 @@ public class Preferences implements Serializable {
     public static final Font SP_FONT_DEFAULT = Font.INTER;
     public static final String SP_ARTICLESINBROWSER = "articles_openinbrowser";
     public static final boolean SP_ARTICLESINBROWSER_DEFAULT = false;
+    public static final String SP_SHOW_SEARCH = "show_search";
+    public static final boolean SP_SHOW_SEARCH_DEFAULT = true;
     public static final String SP_HAPTICS = "haptics";
     public static final boolean SP_HAPTICS_DEFAULT = true;
     public static final String SP_IMAGECACHE = "imagecache";
@@ -64,6 +66,7 @@ public class Preferences implements Serializable {
     public HeaderType s_headertype;
     public HeaderSize s_headersize;
     public boolean s_articlesinbrowser;
+    public boolean s_show_search;
     public boolean s_feedcard_authorvisible;
     public boolean s_feedcard_titlevisible;
     public boolean s_feedcard_descvisible;

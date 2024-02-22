@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+
 import java.util.function.Consumer;
 
 public class SearchBar extends LinearLayout {
@@ -40,6 +42,11 @@ public class SearchBar extends LinearLayout {
 
     private void init(){
         Context context = getContext();
+        boolean searchVisible = PreferencesManager.getBooleanPreference(Preferences.SP_SHOW_SEARCH, Preferences.PREFS_UI, Preferences.SP_SHOW_SEARCH_DEFAULT, context);
+        if(!searchVisible){
+            setVisibility(GONE);
+            return;
+        }
         setOrientation(HORIZONTAL);
         setLayoutTransition(new LayoutTransition());
         setGravity(Gravity.CENTER_VERTICAL);
@@ -62,7 +69,7 @@ public class SearchBar extends LinearLayout {
 
         LayoutParams fieldParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         searchField = new EditText(getContext());
-        searchField.setHint("Search");
+        searchField.setHint(getContext().getString(R.string.search));
         searchField.setLayoutParams(fieldParams);
         searchField.setImportantForAutofill(IMPORTANT_FOR_AUTOFILL_NO);
         searchField.setSingleLine(true);
@@ -97,7 +104,7 @@ public class SearchBar extends LinearLayout {
 
     private View toggle(int gap){
         closeToggle = new TextView(getContext());
-        closeToggle.setText("Close");
+        closeToggle.setText(R.string.close);
         closeToggle.setOnClickListener(v -> onStateUpdate(false, true));
         closeToggle.setVisibility(GONE);
         MarginLayoutParams toggleParams = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
