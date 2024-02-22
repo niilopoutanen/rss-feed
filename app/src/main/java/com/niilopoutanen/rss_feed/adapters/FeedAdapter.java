@@ -41,7 +41,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
         notifyDataSetChanged();
     }
     public void filter(String query){
-        data.getFilter().filter(query);
+        data.filter(query);
         notifyDataSetChanged();
     }
     public void setHeader(Source header){

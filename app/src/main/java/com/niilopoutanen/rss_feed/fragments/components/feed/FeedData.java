@@ -11,44 +11,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FeedData implements Filterable{
+public class FeedData{
     private List<Post> posts = new ArrayList<>();
     private List<Post> filteredPosts = new ArrayList<>();
     private final List<Notice.NoticeData> notices = new ArrayList<>();
     private Source sourceHeader;
     private String header;
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence query) {
-                FilterResults results = new FilterResults();
-                List<Post> filteredList = new ArrayList<>();
+    public void filter(String query){
+        List<Post> filteredList = new ArrayList<>();
 
-                if(query == null || query.toString().length() == 0){
-                    filteredList.addAll(posts);
+        if(query == null || query.length() == 0){
+            filteredList.addAll(posts);
+        }
+        else{
+            for (Post post : posts) {
+                if (post.title.toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(post);
                 }
-                else{
-                    for (Post post : posts) {
-                        if (post.title.toLowerCase().contains(query.toString().toLowerCase())) {
-                            filteredList.add(post);
-                        }
-                    }
-                }
-
-
-                results.values = filteredList;
-                results.count = filteredList.size();
-                return results;
             }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredPosts = (List<Post>) results.values;
-                Collections.sort(filteredPosts);
-            }
-        };
+        }
+        Collections.sort(filteredList);
+        filteredPosts = filteredList;
     }
 
     public int count(){
