@@ -3,9 +3,6 @@ package com.niilopoutanen.rss_feed.common;
 import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -13,15 +10,12 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.LinearLayoutCompat;
 
 import java.util.function.Consumer;
 
@@ -77,12 +71,11 @@ public class SearchBar extends LinearLayout {
         searchField.setPadding(0,0,0,0);
         searchField.setTextColor(getContext().getColor(R.color.textPrimary));
         searchField.setHintTextColor(getContext().getColor(R.color.textSecondary));
-        //searchField.setOnFocusChangeListener((v, hasFocus) -> onFocusChanged(hasFocus));
         searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
-                    clearFocus(false);
+                    onStateUpdate(false, false);
                 }
                 return false;
             }
@@ -106,7 +99,7 @@ public class SearchBar extends LinearLayout {
     private View toggle(int gap){
         closeToggle = new TextView(getContext());
         closeToggle.setText("Close");
-        closeToggle.setOnClickListener(v -> clearFocus(true));
+        closeToggle.setOnClickListener(v -> onStateUpdate(false, true));
         closeToggle.setVisibility(GONE);
         MarginLayoutParams toggleParams = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         toggleParams.leftMargin = gap;
@@ -128,38 +121,39 @@ public class SearchBar extends LinearLayout {
             public void afterTextChanged(Editable s) {
                 queryHandler.accept(s.toString());
                 if(s.toString().length() != 0){
-                    onFocusChanged(true);
+                    onStateUpdate(true, null);
+                }
+                else{
+                    onStateUpdate(false, false);
                 }
             }
         });
     }
-    private void onFocusChanged(boolean hasFocus){
-        if(closeToggle == null) return;
-        if(!hasFocus){
-            closeToggle.setVisibility(GONE);
+
+    private void onStateUpdate(Boolean toggleVisible, Boolean resetField){
+        if(toggleVisible != null){
+            if(toggleVisible){
+                closeToggle.setVisibility(VISIBLE);
+            }
+            else{
+                closeToggle.setVisibility(GONE);
+            }
+        }
+
+        if(resetField != null && resetField){
             hideKeyboard();
-        }
-        else{
-            closeToggle.setVisibility(VISIBLE);
-        }
-    }
-    public void clearFocus(boolean reset){
-        if(searchField == null) return;
+            if(searchField == null) return;
 
+            searchField.setFocusableInTouchMode(false);
+            searchField.setFocusable(false);
+            searchField.setFocusableInTouchMode(true);
+            searchField.setFocusable(true);
 
-        searchField.setFocusableInTouchMode(false);
-        searchField.setFocusable(false);
-        searchField.setFocusableInTouchMode(true);
-        searchField.setFocusable(true);
-        onFocusChanged(false);
-        if(reset){
             searchField.setText("");
             if(queryHandler != null){
                 queryHandler.accept("");
             }
         }
-
-        //hideKeyboard();
     }
 
     private void hideKeyboard(){
