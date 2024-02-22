@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.common.IconView;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.SearchBar;
 import com.niilopoutanen.rss_feed.rss.Source;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import java.util.function.Consumer;
 
 public class ExtendedHeader extends FeedItem{
     public ExtendedHeader(Context context) {
@@ -36,6 +39,10 @@ public class ExtendedHeader extends FeedItem{
         }
     }
 
+    public void setQueryHandler(Consumer<String> queryHandler){
+        SearchBar searchBar = getContent().findViewById(R.id.feed_searchbar);
+        searchBar.setQueryHandler(queryHandler);
+    }
     @Override
     public void bind(Object data) {
         if(data instanceof Source){

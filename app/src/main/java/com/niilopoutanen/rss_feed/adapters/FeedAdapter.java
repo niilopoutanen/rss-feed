@@ -57,7 +57,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
                 return new FeedItem.ViewHolder(header);
 
             case FeedData.Types.HEADER_EXTENDED:
-                return new FeedItem.ViewHolder(new ExtendedHeader(context));
+                ExtendedHeader extendedHeader = new ExtendedHeader(context);
+                extendedHeader.setQueryHandler(this::filter);
+                return new FeedItem.ViewHolder(extendedHeader);
 
             case FeedData.Types.POST:
                 return new FeedItem.ViewHolder(new FeedCard(context));
