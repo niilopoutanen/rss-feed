@@ -84,10 +84,13 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
 
@@ -118,12 +121,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -146,7 +143,29 @@
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
-        </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/settings_showsearch"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switch_show_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <TextView
@@ -158,11 +177,14 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/element_background"
             android:layout_marginBottom="10dp"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -203,13 +225,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:id="@+id/settings_theme_separator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <LinearLayout
                 android:id="@+id/settings_colortile"
@@ -328,12 +343,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:id="@+id/settings_headertypesettings"
@@ -372,12 +381,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:id="@+id/settings_headersizesettings"
@@ -415,7 +418,7 @@
                     android:rotation="180" />
 
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
             android:layout_width="wrap_content"
@@ -426,9 +429,12 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
 
@@ -455,12 +461,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:id="@+id/settings_launchwindowsettings"
@@ -499,12 +499,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -528,12 +522,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -558,12 +546,6 @@
             </RelativeLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -586,7 +568,7 @@
                     android:layout_alignParentRight="true"/>
 
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <TextView
@@ -598,10 +580,13 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
 
@@ -642,12 +627,6 @@
                     android:rotation="180" />
 
             </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -677,13 +656,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -704,13 +676,6 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -733,13 +698,6 @@
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -760,7 +718,7 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <TextView
@@ -772,13 +730,14 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
-
-
 
             <RelativeLayout
                 android:id="@+id/settings_import"
@@ -807,13 +766,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
             <RelativeLayout
                 android:id="@+id/settings_export"
                 android:layout_width="match_parent"
@@ -840,7 +792,7 @@
                     android:rotation="180" />
 
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
             android:layout_width="wrap_content"

@@ -1,24 +1,47 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
+import android.widget.Filter;
+import android.widget.Filterable;
+
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class FeedData {
+public class FeedData{
     private List<Post> posts = new ArrayList<>();
+    private List<Post> filteredPosts = new ArrayList<>();
     private final List<Notice.NoticeData> notices = new ArrayList<>();
     private Source sourceHeader;
     private String header;
+
+    public void filter(String query){
+        List<Post> filteredList = new ArrayList<>();
+
+        if(query == null || query.length() == 0){
+            filteredList.addAll(posts);
+        }
+        else{
+            for (Post post : posts) {
+                if (post.title.toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(post);
+                }
+            }
+        }
+        Collections.sort(filteredList);
+        filteredPosts = filteredList;
+    }
+
     public int count(){
         int count;
         if(notices.size() > 0){
             count = notices.size();
         }
         else{
-            count = posts.size();
+            count = filteredPosts.size();
         }
 
         int headerCount = 0;
@@ -27,12 +50,10 @@ public class FeedData {
         }
         return count + headerCount;
     }
-    public void addPost(Post post){
-        this.posts.add(post);
-    }
     public void setPosts(List<Post> posts){
         if(posts == null) return;
         this.posts = new ArrayList<>(posts);
+        this.filteredPosts = new ArrayList<>(this.posts);
         this.clearNotices();
     }
     public void clearPosts(){
@@ -72,8 +93,8 @@ public class FeedData {
             if(notices.size() > 0 && notices.size() > index){
                 return notices.get(index);
             }
-            else if(posts.size() > index){
-                return posts.get(index);
+            else if(filteredPosts.size() > index){
+                return filteredPosts.get(index);
             }
         }
 
@@ -98,6 +119,8 @@ public class FeedData {
 
         return -1;
     }
+
+
 
 
     public static class Types{

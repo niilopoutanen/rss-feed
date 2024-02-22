@@ -24,6 +24,7 @@
     <string name="imagefrom">Kuva lähteestä</string>
     <string name="imagesaved">Kuva tallennettu galleriaan</string>
     <string name="settings_theme">Teema</string>
+    <string name="settings_showsearch">Näytä hakukenttä</string>
     <string name="settings_theme_additional">Teema muuttuu, kun sovellus käynnistetään uudelleen seuraavan kerran.</string>
     <string name="settings_feedcardstyle">Syötteen kortin tyyli</string>
     <string name="accentcolor">Korostusväri</string>
