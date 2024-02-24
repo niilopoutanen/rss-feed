@@ -27,7 +27,6 @@
     <string name="settings_showsearch">Näytä hakukenttä</string>
     <string name="settings_theme_additional">Teema muuttuu, kun sovellus käynnistetään uudelleen seuraavan kerran.</string>
     <string name="settings_feedcardstyle">Syötteen kortin tyyli</string>
-    <string name="accentcolor">Korostusväri</string>
     <string name="settings_font">Fontti jota käytetään artikkeleissa</string>
     <string name="settings_launchwindow">Ikkuna joka avataan käynnistäessä</string>
     <string name="haptics">Värinä</string>
@@ -36,7 +35,6 @@
     <string name="articles_fullscreen">Lue artikkelit koko näytön-tilassa</string>
     <string name="cache_images">Tallenna kuvat välimuistiin</string>
     <string name="settingsheader_feed">Syöte</string>
-    <string name="settingsheader_colors">Värit</string>
     <string name="settingsheader_functionality">Toiminnallisuus</string>
     <string name="settingsheader_article">Artikkeli</string>
     <string name="author_visible">Julkaisija näkyvissä</string>
@@ -92,7 +90,6 @@
     </plurals>
     <string name="sendmail">Lähetä sähköpostia</string>
     <string name="emailquide">Kirjoita palautteesi tähän. Jätä valmiiksi täytetyt tiedot viestiin mukaan. (Viestin pohjalla olevat numerot)</string>
-    <string name="themechange_desc">Muutokset sovelluksen teemaan tulevat näkyviin kun avaat sovelluksen seuraavan kerran.</string>
     <string name="discover_header">Tutki</string>
     <string name="results">Tulokset</string>
     <string name="categories">Kategoriat</string>
@@ -100,7 +97,6 @@
     <string name="sourceadded">Lähde lisätty.</string>
     <string name="sourcealreadyadded">Lähde on jo lisätty.</string>
 
-    <string name="tryagain">Yritä uudelleen</string>
     <string name="donot_show_again">Älä näytä uudelleen</string>
     <string name="settings_fontsize">Fonttikoko</string>
     <string name="settings_launchwindow_additional">Valittu välilehti aukeaa kun käynnistät sovelluksen.</string>
@@ -114,9 +110,6 @@
     <string name="debug_terminate">Lopeta sovellusprosessi</string>
     <string name="article_show_categories">Näytä julkaisun kategoriat</string>
     <string name="update">Päivitä</string>
-    <string name="tooltip_post_no_article">Tässä julkaisussa ei ole artikkelia, vaan pelkästään yhteenveto.</string>
-    <string name="view_changelog">Katso versiohistoria</string>
-    <string name="changelog">Versiohistoria</string>
     <string name="import_sources">Tuo tilaukset</string>
     <string name="export_sources">Vie tilaukset</string>
     <string name="import_export">Tuo/Vie</string>

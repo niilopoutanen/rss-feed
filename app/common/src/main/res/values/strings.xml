@@ -41,7 +41,6 @@
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_additional">The theme changes when restarting the app for the next time.</string>
     <string name="settings_feedcardstyle">Feed card style</string>
-    <string name="accentcolor">Accent color</string>
     <string name="settings_font">Font used in articles</string>
     <string name="settings_launchwindow">Launch window</string>
     <string name="settings_showsearch">Show search bar</string>
@@ -56,7 +55,6 @@
 
 
     <string name="settingsheader_feed">Feed</string>
-    <string name="settingsheader_colors">Colors</string>
     <string name="settingsheader_functionality">Functionality</string>
     <string name="settingsheader_article">Article</string>
 
@@ -118,7 +116,6 @@
 
     <string name="sendmail">Send email</string>
     <string name="emailquide">Write your feedback here. Leave the app and android version info to the message.</string>
-    <string name="themechange_desc">Changes to the app theme will be visible when opening the app for the next time</string>
     <string name="discover_header">Discover</string>
     <string name="categories">Categories</string>
     <string name="results">Results</string>
@@ -126,7 +123,6 @@
     <string name="sourceadded">Source added.</string>
     <string name="sourcealreadyadded">Source already added.</string>
 
-    <string name="tryagain">Try again</string>
     <string name="donot_show_again">Do not show again</string>
     <string name="settings_fontsize">Font size</string>
     <string name="show_in_feed">Show in feed</string>
@@ -138,9 +134,6 @@
     <string name="debug_terminate">Terminate app process</string>
     <string name="article_show_categories">Show post categories</string>
     <string name="update">Update</string>
-    <string name="tooltip_post_no_article">This post does not have a article included, only the summary.</string>
-    <string name="view_changelog">View changelog</string>
-    <string name="changelog">Changelog</string>
     <string name="import_sources">Import sources</string>
     <string name="export_sources">Export sources</string>
     <string name="import_export">Import/Export</string>
