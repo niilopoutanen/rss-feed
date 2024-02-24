@@ -1,24 +1,16 @@
 package com.niilopoutanen.rss_feed.common;
 
 import static com.niilopoutanen.rss_feed.common.models.Preferences.*;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle.*;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.FeedCardStyle;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.Font.*;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderSize.*;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderType.*;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode.*;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -33,7 +25,6 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.common.models.Category;
-import com.niilopoutanen.rss_feed.common.models.Preferences;
 import java.text.DateFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -168,9 +159,6 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
-        if(lastVersionUsed == 23 || lastVersionUsed == 24){
-            return false;
-        }
         return currentVersion > lastVersionUsed;
     }
 
@@ -214,7 +202,6 @@ public class PreferencesManager {
 
         preferences.s_haptics = getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context);
         preferences.s_ThemeMode = getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
-        preferences.s_coloraccent = getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
         preferences.s_feedcardstyle = getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, context);
         preferences.s_font = getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
         preferences.s_launchwindow = getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);

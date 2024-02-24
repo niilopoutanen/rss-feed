@@ -44,8 +44,6 @@ public class Preferences implements Serializable {
     public static final boolean SP_ANIMATE_CLICKS_DEFAULT = true;
     public static final String SP_SHOW_CHANGELOG = "show_changelog";
     public static final boolean SP_SHOW_CHANGELOG_DEFAULT = true;
-    public static final String SP_COLORACCENT = "coloraccent";
-    public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.BLUE;
     public static final String SP_HEADERTYPE = "header_type";
     public static final HeaderType SP_HEADERTYPE_DEFAULT = HeaderType.FAT;
     public static final String SP_HEADERSIZE = "header_size";
@@ -59,7 +57,6 @@ public class Preferences implements Serializable {
 
     //saved data
     public ThemeMode s_ThemeMode;
-    public ColorAccent s_coloraccent;
     public FeedCardStyle s_feedcardstyle;
     public Font s_font;
     public LaunchWindow s_launchwindow;
@@ -103,10 +100,6 @@ public class Preferences implements Serializable {
 
     public enum FeedCardStyle {
         LARGE, SMALL, NONE
-    }
-
-    public enum ColorAccent {
-        BLUE, VIOLET, PINK, RED, ORANGE, YELLOW, GREEN
     }
 
     public enum HeaderType {
