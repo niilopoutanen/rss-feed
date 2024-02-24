@@ -42,6 +42,8 @@ public class SearchBar extends LinearLayout {
 
     private void init(){
         Context context = getContext();
+        if(context == null) return;
+
         boolean searchVisible = PreferencesManager.getBooleanPreference(Preferences.SP_SHOW_SEARCH, Preferences.PREFS_UI, Preferences.SP_SHOW_SEARCH_DEFAULT, context);
         if(!searchVisible){
             setVisibility(GONE);
@@ -77,14 +79,12 @@ public class SearchBar extends LinearLayout {
         searchField.setPadding(0,0,0,0);
         searchField.setTextColor(getContext().getColor(R.color.textPrimary));
         searchField.setHintTextColor(getContext().getColor(R.color.textSecondary));
-        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
-                    onStateUpdate(false, false);
-                }
-                return false;
+
+        searchField.setOnEditorActionListener((v, actionId, event) -> {
+            if(event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+                onStateUpdate(false, false);
             }
+            return false;
         });
 
         int iconSize = PreferencesManager.dpToPx(20, getContext());
