@@ -45,8 +45,8 @@
     <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
     <string name="feature1">Hakuominaisuus</string>
     <string name="feature1desc">Voit nyt hakea julkaisuja syötteestäsi!</string>
-    <string name="feature2">Paranneltu syöte</string>
-    <string name="feature2desc">Syötteen elementit saivat korjauksia ja pieniä ulkonäkömuutoksia</string>
+    <string name="feature2">Käyttöliittymän korjailua</string>
+    <string name="feature2desc">Pieniä käyttöliittymän korjauksia</string>
     <string name="feature3">Virhekorjauksia</string>
     <string name="feature3desc">Vähemmän sovelluksen kaatumisia ja virheitä</string>
 

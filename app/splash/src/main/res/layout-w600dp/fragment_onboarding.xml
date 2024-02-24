@@ -23,27 +23,26 @@
             app:fontFamily="@font/inter_black" />
     </RelativeLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-
-        <ScrollView
+        android:fillViewport="true">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintVertical_weight="1"
-            app:layout_constraintBottom_toTopOf="@+id/onboarding_version_do_not_show"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
                 <LinearLayout
                     android:id="@+id/onboarding_version_change_1"
                     android:layout_width="match_parent"
@@ -158,37 +157,38 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </ScrollView>
 
-
-        <TextView
-            android:id="@+id/onboarding_version_do_not_show"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="@string/donot_show_again"
-            app:fontFamily="@font/inter"
-            app:layout_constraintBottom_toTopOf="@+id/onboarding_version_continue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <RelativeLayout
-            android:id="@+id/onboarding_version_continue"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/button_background"
-            android:backgroundTint="?attr/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="660dp">
 
             <TextView
+                android:id="@+id/onboarding_version_do_not_show"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/continua"
-                android:textColor="@color/textPrimary"
-                android:textSize="14sp"
-                app:fontFamily="@font/inter_semibold" />
-        </RelativeLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/donot_show_again"
+                app:fontFamily="@font/inter"
+                app:layout_constraintBottom_toTopOf="@+id/onboarding_version_continue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <RelativeLayout
+                android:id="@+id/onboarding_version_continue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/button_background"
+                android:backgroundTint="?attr/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="660dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/continua"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="14sp"
+                    app:fontFamily="@font/inter_semibold" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

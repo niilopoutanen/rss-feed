@@ -105,11 +105,11 @@
     <string name="feature1">Search functionality</string>
     <string name="feature1desc">You can now search for posts in your feed!</string>
 
-    <string name="feature2">Enhanced feed</string>
-    <string name="feature2desc">Feed elements got a few UI tweaks and fixes</string>
+    <string name="feature2">UI tweaks</string>
+    <string name="feature2desc">Small UI fixes, including feed loading indicator placement in certain android devices</string>
 
     <string name="feature3">Bug fixes</string>
-    <string name="feature3desc">Less bugs and crashes, including feed load status in certain android devices</string>
+    <string name="feature3desc">Less bugs and crashes</string>
 
 
 
