@@ -91,7 +91,7 @@ public class SourceFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(sourcesRecyclerView);
 
 
-        RelativeLayout addBtn = rootView.findViewById(R.id.addNewButton);
+        LinearLayout addBtn = rootView.findViewById(R.id.addNewButton);
         addBtn.setOnClickListener(v -> openSourceDialog(null));
         return rootView;
     }

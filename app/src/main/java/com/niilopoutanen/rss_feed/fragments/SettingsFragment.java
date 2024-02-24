@@ -1,6 +1,5 @@
 package com.niilopoutanen.rss_feed.fragments;
 
-import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
@@ -16,8 +15,6 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SH
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CONTROLS;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_COLORACCENT;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_COLORACCENT_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE_DEFAULT;
