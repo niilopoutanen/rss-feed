@@ -62,7 +62,7 @@ public class FeedData{
     }
     public void addNotice(String title, String desc){
         if (title == null || desc == null) return;
-        
+
         for(Notice.NoticeData notice : notices){
             if(notice.title.equals(title)){
                 return;
