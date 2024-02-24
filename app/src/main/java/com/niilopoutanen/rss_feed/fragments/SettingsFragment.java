@@ -92,7 +92,6 @@ public class SettingsFragment extends Fragment {
     SwitchCompat articlesInBrowser, searchVisible, articleFullScreen, articleShowControls, articleShowCategories;
     SwitchCompat imageCache, animateClicks, haptics, showChangelog;
     Slider fontSizeSlider;
-    List<RelativeLayout> colorAccentButtons;
     private Context context;
 
     public SettingsFragment() {}
@@ -176,21 +175,6 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.vibrate(view);
         });
 
-        colorAccentButtons = Arrays.asList(
-                rootView.findViewById(R.id.checkboxblue_accentcolor),
-                rootView.findViewById(R.id.checkboxviolet_accentcolor),
-                rootView.findViewById(R.id.checkboxpink_accentcolor),
-                rootView.findViewById(R.id.checkboxred_accentcolor),
-                rootView.findViewById(R.id.checkboxorange_accentcolor),
-                rootView.findViewById(R.id.checkboxyellow_accentcolor),
-                rootView.findViewById(R.id.checkboxgreen_accentcolor)
-        );
-
-
-        for (int i = 0; i < colorAccentButtons.size(); i++) {
-            int finalI = i;
-            colorAccentButtons.get(i).setOnClickListener(v -> onColorAccentChange(colorAccentButtons.get(finalI), colorAccentButtons));
-        }
 
         articlesInBrowser = rootView.findViewById(R.id.switch_articleinbrowser);
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
@@ -347,17 +331,13 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        //material you
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
-            rootView.findViewById(R.id.settings_colortile).setVisibility(View.GONE);
-        }
         //no dark theme support
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             rootView.findViewById(R.id.settings_themesettings).setVisibility(View.GONE);
         }
     }
 
-    private <T extends Enum<T>> void openDropDownSettings(Class<?> type, String title, String additionalMessage) {
+    private void openDropDownSettings(Class<?> type, String title, String additionalMessage) {
         SettingsDropDownFragment dropDownFragment = SettingsDropDownFragment.newInstance(title, additionalMessage, type);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, dropDownFragment);
@@ -366,13 +346,6 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setSavedData() {
-
-        // Load saved ColorAccent enum value and check the corresponding button
-        ColorAccent savedAccent = PreferencesManager.getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
-        if (savedAccent.ordinal() < colorAccentButtons.size()) {
-            onColorAccentChange(colorAccentButtons.get(savedAccent.ordinal()), colorAccentButtons);
-        }
-
         LaunchWindow selectedWindow = PreferencesManager.getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
         launchWindowSelected.setText(getResources().getStringArray(R.array.launch_windows)[selectedWindow.ordinal()]);
 
@@ -408,57 +381,5 @@ public class SettingsFragment extends Fragment {
 
         fontSizeSlider.setValue(PreferencesManager.getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context));
 
-    }
-
-    private void onColorAccentChange(RelativeLayout button, List<RelativeLayout> buttonCollection) {
-        Drawable circle = AppCompatResources.getDrawable(context, R.drawable.icon_checkmark);
-
-        boolean isChecked = Boolean.parseBoolean(button.getTag().toString());
-        if (isChecked) {
-            return;
-        }
-
-        // Uncheck all other buttons
-        for (RelativeLayout otherButton : buttonCollection) {
-            if (otherButton == button) {
-                continue;
-            }
-            otherButton.setTag(false);
-            otherButton.removeAllViews();
-        }
-
-        // Check the selected button
-        button.setTag(true);
-        View view = new View(context);
-        view.setBackground(circle);
-        button.addView(view);
-
-        // Save the selected style
-        ColorAccent selectedColor;
-        int selectedIndex = buttonCollection.indexOf(button);
-        switch (selectedIndex) {
-            default:
-                selectedColor = ColorAccent.BLUE;
-                break;
-            case 1:
-                selectedColor = ColorAccent.VIOLET;
-                break;
-            case 2:
-                selectedColor = ColorAccent.PINK;
-                break;
-            case 3:
-                selectedColor = ColorAccent.RED;
-                break;
-            case 4:
-                selectedColor = ColorAccent.ORANGE;
-                break;
-            case 5:
-                selectedColor = ColorAccent.YELLOW;
-                break;
-            case 6:
-                selectedColor = ColorAccent.GREEN;
-                break;
-        }
-        PreferencesManager.saveEnumPreference(SP_COLORACCENT, PREFS_UI, selectedColor, context);
     }
 }

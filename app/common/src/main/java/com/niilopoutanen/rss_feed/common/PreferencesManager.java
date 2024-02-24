@@ -58,39 +58,8 @@ public class PreferencesManager {
         if (preferences == null) {
             preferences = PreferencesManager.loadPreferences(activity.getApplicationContext());
         }
-        //Accent color for devices that don't support dark mode
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            if (preferences.s_coloraccent == null) {
-                activity.setTheme((R.style.AccentBlue));
-                return;
-            }
-            switch (preferences.s_coloraccent) {
-                case BLUE:
-                    activity.setTheme(R.style.AccentBlue);
-                    break;
-                case VIOLET:
-                    activity.setTheme(R.style.AccentViolet);
-                    break;
-                case PINK:
-                    activity.setTheme(R.style.AccentPink);
-                    break;
-                case RED:
-                    activity.setTheme(R.style.AccentRed);
-                    break;
-                case ORANGE:
-                    activity.setTheme(R.style.AccentOrange);
-                    break;
-                case YELLOW:
-                    activity.setTheme(R.style.AccentYellow);
-                    break;
-                case GREEN:
-                    activity.setTheme(R.style.AccentGreen);
-                    break;
-            }
-        } else {
-            //> Android 10
-            activity.setTheme(R.style.RSSFeedStyle);
-        }
+        activity.setTheme(R.style.RSSFeedStyle);
+
 
         //Dark-Light theme for devices that support it
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

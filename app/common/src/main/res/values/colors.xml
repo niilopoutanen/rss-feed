@@ -19,10 +19,4 @@
     <color name="navbarBg">#f2f1f7</color>
 
     <color name="accentBlue">#0075FF</color>
-    <color name="accentViolet">#a446a3</color>
-    <color name="accentPink">#f7409d</color>
-    <color name="accentRed">#f74958</color>
-    <color name="accentOrange">#f6801f</color>
-    <color name="accentYellow">#fcb82a</color>
-    <color name="accentGreen">#4cd964</color>
 </resources>
