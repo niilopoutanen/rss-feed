@@ -3,11 +3,13 @@ package com.niilopoutanen.rss_feed.common;
 import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Canvas;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -95,6 +97,8 @@ public class SearchBar extends LinearLayout {
         searchIcon.setLayoutParams(iconParams);
         searchIcon.setBackgroundResource(R.drawable.icon_search);
         searchIcon.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.textSecondary)));
+        searchIcon.setOnClickListener(v -> showKeyboard());
+        searchBar.setOnClickListener(v -> showKeyboard());
 
         searchBar.addView(searchIcon);
         searchBar.addView(searchField);
@@ -148,14 +152,6 @@ public class SearchBar extends LinearLayout {
 
         if(resetField != null && resetField){
             hideKeyboard();
-            if(searchField == null) return;
-
-            searchField.setFocusableInTouchMode(false);
-            searchField.setFocusable(false);
-            searchField.setFocusableInTouchMode(true);
-            searchField.setFocusable(true);
-
-            searchField.setText("");
             if(queryHandler != null){
                 queryHandler.accept("");
             }
@@ -163,7 +159,17 @@ public class SearchBar extends LinearLayout {
     }
 
     private void hideKeyboard(){
+        if(searchField == null) return;
+        searchField.setText("");
+        searchField.clearFocus();
         InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchField.getWindowToken(), 0);
+    }
+
+    private void showKeyboard(){
+        if(searchField == null) return;
+        searchField.requestFocus();
+        InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(searchField, 0);
     }
 }
