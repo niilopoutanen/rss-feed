@@ -9,13 +9,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
@@ -37,6 +42,7 @@ public class ImageViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         PreferencesManager.setSavedTheme(this, PreferencesManager.loadPreferences(this));
         setContentView(R.layout.activity_image_view);
+        EdgeToEdge.enable(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -56,14 +62,11 @@ public class ImageViewActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-            }
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
 
             @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            public void onPrepareLoad(Drawable placeHolderDrawable) {}
 
-            }
         };
         if (PreferencesManager.loadPreferences(this).s_imagecache) {
             Picasso.get().load(url).into(target);
@@ -75,7 +78,14 @@ public class ImageViewActivity extends AppCompatActivity {
         LinearLayout saveBtn = findViewById(R.id.saveimg);
         saveBtn.setOnClickListener(v -> saveImage());
 
+        ViewCompat.setOnApplyWindowInsetsListener(saveBtn, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
 
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     /**
