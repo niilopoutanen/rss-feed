@@ -65,7 +65,6 @@ public class ArticleView extends WebView {
         Element head = document.head();
         head.append(getCSS());
 
-        setWebContentsDebuggingEnabled(true);
         loadDocument(document);
     }
 
@@ -282,6 +281,15 @@ public class ArticleView extends WebView {
         Elements images = document.select("img");
         for (Element image : images) {
             image.attr("onclick", "event.preventDefault(); Android.onImageClick(this.src);");
+            image.attr("onerror", "this.style.display='none'");
+        }
+        Elements iframes = document.select("iframe");
+        for(Element iframe : iframes){
+            if(iframe.hasAttr("data-src")){
+                String data = iframe.attr("data-src");
+                iframe.attr("src", data);
+                iframe.removeAttr("data-src");
+            }
         }
 
         super.loadDataWithBaseURL(null, document.html(), "text/html", "charset=utf-8", "");
