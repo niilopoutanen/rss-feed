@@ -200,6 +200,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initWebView(String html) {
+        if(html == null) return;
         Document document = Jsoup.parse(html);
 
         Elements h1Elements = document.select("h1");
