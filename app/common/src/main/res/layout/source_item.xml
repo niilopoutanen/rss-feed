@@ -10,19 +10,12 @@
     android:baselineAligned="false"
     android:background="@color/windowBg">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.niilopoutanen.rss_feed.common.IconView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginRight="10dp"
-        android:clipChildren="true"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/transparent"
-        app:cardElevation="0dp">
-        <ImageView
-            android:id="@+id/source_item_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"/>
-    </androidx.cardview.widget.CardView>
+        android:id="@+id/source_item_icon"/>
+
 
     <LinearLayout
         android:layout_width="0dp"

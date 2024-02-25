@@ -21,8 +21,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.SearchBar;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.parser.Parser;
@@ -50,9 +52,11 @@ public class FeedFragment extends Fragment {
     public static FeedFragment newInstance() {
         return new FeedFragment();
     }
-    public static FeedFragment newInstance(FEED_TYPE type) {
+    public static FeedFragment newInstance(int sourceId, Source source) {
         Bundle args = new Bundle();
-        args.putSerializable("type", type);
+        args.putInt("id", sourceId);
+        args.putSerializable("source", source);
+        args.putSerializable("type", FEED_TYPE.TYPE_SINGLE);
         FeedFragment fragment = new FeedFragment();
         fragment.setArguments(args);
         return fragment;
@@ -104,6 +108,10 @@ public class FeedFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             });
         });
+
+        Bundle params = new Bundle();
+        params.putString("source_count", String.valueOf(sources.size()));
+        FirebaseAnalytics.getInstance(context).logEvent("load_feed", params);
     }
 
     private void init() {
@@ -124,7 +132,7 @@ public class FeedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (type == FEED_TYPE.TYPE_SINGLE && getArguments() != null) {
-            int sourceId = getArguments().getInt("sourceId", 0);
+            int sourceId = getArguments().getInt("id", 0);
             if(sourceId != 0){
                 showSingle(sourceId);
                 return;
@@ -142,7 +150,6 @@ public class FeedFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.feed_container);
         swipeRefreshLayout = rootView.findViewById(R.id.recyclerview_refresher);
-
         ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             recyclerView.setPadding(
@@ -150,6 +157,8 @@ public class FeedFragment extends Fragment {
                     insets.top,
                     recyclerView.getPaddingRight(),
                     recyclerView.getPaddingBottom());
+
+            swipeRefreshLayout.setProgressViewOffset(false, 0,insets.top);
             return WindowInsetsCompat.CONSUMED;
         });
 
@@ -209,7 +218,6 @@ public class FeedFragment extends Fragment {
                 adapter.notify(context.getString(R.string.error_invalid_feed), context.getString(R.string.error_invalid_feed_msg));
                 break;
         }
-
         if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
     }
 

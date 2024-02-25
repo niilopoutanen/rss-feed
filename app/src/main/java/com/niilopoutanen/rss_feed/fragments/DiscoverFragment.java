@@ -153,24 +153,26 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         List<FeedResult> results = new ArrayList<>();
 
         try {
-            URL url;
-            String fileName;
+            List<String> categoryFiles = new ArrayList<>();
 
             switch (locale) {
                 case FI:
-                    fileName = "recommended-fi.json";
+                    categoryFiles.add("recommended-fi.json");
+                    categoryFiles.add("recommended.json");
                     break;
                 case EN:
                 default:
-                    fileName = "recommended.json";
+                    categoryFiles.add("recommended.json");
                     break;
             }
 
-            url = new URL(baseURL + fileName);
-            String result = WebUtils.connectRaw(url);
-            results = FeedResult.parseResult(new JSONObject(result));
-
-        } catch (Exception ignored) {
+            for (String fileName : categoryFiles) {
+                URL url = new URL(baseURL + fileName);
+                String result = WebUtils.connectRaw(url);
+                results.addAll(FeedResult.parseResult(new JSONObject(result)));
+            }
+        } catch (Exception e) {
+            FirebaseCrashlytics.getInstance().recordException(e);
         }
 
         return results;

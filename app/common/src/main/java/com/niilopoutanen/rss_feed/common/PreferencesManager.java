@@ -1,24 +1,16 @@
 package com.niilopoutanen.rss_feed.common;
 
 import static com.niilopoutanen.rss_feed.common.models.Preferences.*;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.ColorAccent;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle.*;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.FeedCardStyle;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.Font.*;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderSize.*;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderType.*;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode.*;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -33,8 +25,6 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.common.models.Category;
-import com.niilopoutanen.rss_feed.common.models.Preferences;
-
 import java.text.DateFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -59,39 +49,8 @@ public class PreferencesManager {
         if (preferences == null) {
             preferences = PreferencesManager.loadPreferences(activity.getApplicationContext());
         }
-        //Accent color for devices that don't support dark mode
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            if (preferences.s_coloraccent == null) {
-                activity.setTheme((R.style.AccentBlue));
-                return;
-            }
-            switch (preferences.s_coloraccent) {
-                case BLUE:
-                    activity.setTheme(R.style.AccentBlue);
-                    break;
-                case VIOLET:
-                    activity.setTheme(R.style.AccentViolet);
-                    break;
-                case PINK:
-                    activity.setTheme(R.style.AccentPink);
-                    break;
-                case RED:
-                    activity.setTheme(R.style.AccentRed);
-                    break;
-                case ORANGE:
-                    activity.setTheme(R.style.AccentOrange);
-                    break;
-                case YELLOW:
-                    activity.setTheme(R.style.AccentYellow);
-                    break;
-                case GREEN:
-                    activity.setTheme(R.style.AccentGreen);
-                    break;
-            }
-        } else {
-            //> Android 10
-            activity.setTheme(R.style.RSSFeedStyle);
-        }
+        activity.setTheme(R.style.RSSFeedStyle);
+
 
         //Dark-Light theme for devices that support it
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -200,7 +159,6 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
-
         return currentVersion > lastVersionUsed;
     }
 
@@ -244,11 +202,11 @@ public class PreferencesManager {
 
         preferences.s_haptics = getBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, SP_HAPTICS_DEFAULT, context);
         preferences.s_ThemeMode = getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
-        preferences.s_coloraccent = getEnumPreference(SP_COLORACCENT, PREFS_UI, ColorAccent.class, SP_COLORACCENT_DEFAULT, context);
         preferences.s_feedcardstyle = getEnumPreference(SP_FEEDCARD_STYLE, PREFS_UI, FeedCardStyle.class, SP_FEEDCARD_STYLE_DEFAULT, context);
         preferences.s_font = getEnumPreference(SP_FONT, PREFS_LANG, Font.class, SP_FONT_DEFAULT, context);
         preferences.s_launchwindow = getEnumPreference(SP_LAUNCHWINDOW, PREFS_FUNCTIONALITY, LaunchWindow.class, SP_LAUNCHWINDOW_DEFAULT, context);
         preferences.s_articlesinbrowser = getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context);
+        preferences.s_show_search = getBooleanPreference(SP_SHOW_SEARCH, PREFS_UI, SP_SHOW_SEARCH_DEFAULT, context);
         preferences.s_article_show_categories = getBooleanPreference(SP_ARTICLE_SHOW_CATEGORIES, PREFS_UI, SP_ARTICLE_SHOW_CATEGORIES_DEFAULT, context);
         preferences.s_articlefullscreen = getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context);
         preferences.s_article_show_controls = getBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, SP_ARTICLE_SHOW_CONTROLS_DEFAULT, context);

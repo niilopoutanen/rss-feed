@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context="com.niilopoutanen.rss_feed.fragments.SettingsFragment">
+    android:fillViewport="true">
 
     <LinearLayout
         android:id="@+id/settings_container"
@@ -35,12 +34,23 @@
             android:background="@drawable/element_background"
             android:layout_marginBottom="10dp"
             android:padding="10dp">
-            <View
+            <androidx.cardview.widget.CardView
                 android:id="@+id/settings_appicon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="10dp"
-                android:background="@mipmap/ic_launcher" />
+                app:cardCornerRadius="20dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000"/>
+                <View
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="-20dp"
+                    android:layout_marginTop="-20dp"
+                    android:background="@drawable/ic_launcher_foreground"/>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -74,10 +84,13 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
 
@@ -108,12 +121,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -136,7 +143,29 @@
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
-        </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/settings_showsearch"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switch_show_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <TextView
@@ -148,11 +177,14 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/element_background"
             android:layout_marginBottom="10dp"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -193,138 +225,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:id="@+id/settings_theme_separator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
-            <LinearLayout
-                android:id="@+id/settings_colortile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/accentcolor"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="6">
-
-                    <RelativeLayout
-                        android:id="@+id/checkboxblue_accentcolor"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentBlue"
-                        android:padding="7dp"
-                        android:tag="false" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/checkboxviolet_accentcolor"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentViolet"
-                        android:padding="7dp"
-                        android:tag="false" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/checkboxpink_accentcolor"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentPink"
-                        android:padding="7dp"
-                        android:tag="false" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/checkboxred_accentcolor"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentRed"
-                        android:padding="7dp"
-                        android:tag="false" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/checkboxorange_accentcolor"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentOrange"
-                        android:padding="7dp"
-                        android:tag="false" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/checkboxyellow_accentcolor"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentYellow"
-                        android:padding="7dp"
-                        android:tag="false" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/checkboxgreen_accentcolor"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/accentGreen"
-                        android:padding="5dp"
-                        android:tag="false" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
             <RelativeLayout
                 android:id="@+id/settings_headertypesettings"
                 android:layout_width="match_parent"
@@ -362,12 +262,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:id="@+id/settings_headersizesettings"
@@ -405,7 +299,7 @@
                     android:rotation="180" />
 
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
             android:layout_width="wrap_content"
@@ -416,9 +310,12 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
 
@@ -445,12 +342,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:id="@+id/settings_launchwindowsettings"
@@ -489,12 +380,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -518,12 +403,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -548,12 +427,6 @@
             </RelativeLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -576,7 +449,7 @@
                     android:layout_alignParentRight="true"/>
 
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <TextView
@@ -588,10 +461,13 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
 
@@ -632,12 +508,6 @@
                     android:rotation="180" />
 
             </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -667,13 +537,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -694,13 +557,6 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -723,13 +579,6 @@
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -750,7 +599,7 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <TextView
@@ -762,13 +611,14 @@
             android:textSize="13sp"
             app:fontFamily="@font/inter_medium" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:divider="@color/element_border"
+            app:dividerPadding="10dp"
+            app:showDividers="middle"
             android:background="@drawable/element_background"
             android:orientation="vertical">
-
-
 
             <RelativeLayout
                 android:id="@+id/settings_import"
@@ -797,13 +647,6 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/element_border" />
-
             <RelativeLayout
                 android:id="@+id/settings_export"
                 android:layout_width="match_parent"
@@ -830,7 +673,7 @@
                     android:rotation="180" />
 
             </RelativeLayout>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
             android:layout_width="wrap_content"

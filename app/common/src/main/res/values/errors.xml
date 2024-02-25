@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_invalid_url">The URL you provided is not valid.</string>
-    <string name="error_name_not_found">Autofill did not succeed for this source. Provide it manually.</string>
     <string name="error_adding_source">Error with adding source. Please try again.</string>
     <string name="error_notsupported">The post you tried to open is invalid and not working with this app. Open it in your browser.</string>
     <string name="error_invalid_image">This image is not valid, or does not exist anymore.</string>
@@ -17,7 +15,6 @@
     <string name="error_too_many_requests">Too many requests.</string>
     <string name="error_too_many_requests_msg">You have sent too many requests. Wait for a while and try again.</string>
 
-    <string name="error_empty_url">URL cannot be empty.</string>
     <string name="error_url">Error reading from url.</string>
     <string name="error_host">No internet connection or bad host url.</string>
     <string name="error_no_write_access">You have not granted write permissions to the app.</string>

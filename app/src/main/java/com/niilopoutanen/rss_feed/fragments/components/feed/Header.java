@@ -5,6 +5,9 @@ import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.SearchBar;
+
+import java.util.function.Consumer;
 
 public class Header extends FeedItem{
     public Header(Context context) {
@@ -21,6 +24,10 @@ public class Header extends FeedItem{
 
     }
 
+    public void setQueryHandler(Consumer<String> queryHandler){
+        SearchBar searchBar = getContent().findViewById(R.id.feed_searchbar);
+        searchBar.setQueryHandler(queryHandler);
+    }
     @Override
     public void bind(Object text) {
         if(text instanceof String){

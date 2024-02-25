@@ -72,7 +72,7 @@ public class AddSourceFragment extends Fragment {
     private void saveData() {
         showError("");
         Activity activity = (Activity) context;
-        progressBar.setVisibility(View.VISIBLE);
+        if(progressBar != null) progressBar.setVisibility(View.VISIBLE);
         Source userInput = new Source();
         userInput.title = feedName.getText().toString();
         userInput.url = feedUrl.getText().toString();
@@ -105,7 +105,7 @@ public class AddSourceFragment extends Fragment {
 
                 activity.runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
-                    closeFragment(null);
+                    closeFragment();
                 });
             } else {
                 activity.runOnUiThread(() -> {
@@ -150,7 +150,7 @@ public class AddSourceFragment extends Fragment {
         });
 
         LinearLayout returnBtn = rootView.findViewById(R.id.addsource_return);
-        returnBtn.setOnClickListener(view -> closeFragment(returnBtn));
+        returnBtn.setOnClickListener(view -> closeFragment());
         title = rootView.findViewById(R.id.addsource_title);
         addSourceButton = rootView.findViewById(R.id.addsource_continue);
 
@@ -201,10 +201,7 @@ public class AddSourceFragment extends Fragment {
         bottomContainer.addView(errorText, 0);
     }
 
-    private void closeFragment(View view) {
-        if (view != null) {
-            PreferencesManager.vibrate(view);
-        }
+    private void closeFragment() {
         if (isAdded()) {
             getParentFragmentManager().popBackStack();
         }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.SearchBar;
 import com.niilopoutanen.rss_feed.fragments.components.feed.ExtendedHeader;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedItem;
@@ -39,6 +40,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
         data.addNotice(title, desc);
         notifyDataSetChanged();
     }
+    public void filter(String query){
+        data.filter(query);
+        notifyDataSetChanged();
+    }
     public void setHeader(Source header){
         data.setHeader(header);
     }
@@ -47,10 +52,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
     public FeedItem.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
             case FeedData.Types.HEADER:
-                return new FeedItem.ViewHolder(new Header(context));
+                Header header = new Header(context);
+                header.setQueryHandler(this::filter);
+                return new FeedItem.ViewHolder(header);
 
             case FeedData.Types.HEADER_EXTENDED:
-                return new FeedItem.ViewHolder(new ExtendedHeader(context));
+                ExtendedHeader extendedHeader = new ExtendedHeader(context);
+                extendedHeader.setQueryHandler(this::filter);
+                return new FeedItem.ViewHolder(extendedHeader);
 
             case FeedData.Types.POST:
                 return new FeedItem.ViewHolder(new FeedCard(context));

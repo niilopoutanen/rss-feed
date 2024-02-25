@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -72,8 +73,8 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
-        setContentView(R.layout.activity_article);
-        articleLoader = findViewById(R.id.article_load);
+        setContentView(com.niilopoutanen.rss_feed.R.layout.activity_article);
+        articleLoader = findViewById(com.niilopoutanen.rss_feed.R.id.article_load);
 
         initializeBase();
 
@@ -107,7 +108,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
-        articleView = findViewById(R.id.articleview);
+        articleView = findViewById(com.niilopoutanen.rss_feed.R.id.articleview);
 
         if (preferences.s_articlefullscreen) {
             Window window = getWindow();
@@ -118,7 +119,7 @@ public class ArticleActivity extends AppCompatActivity {
 
 
         // Insets to bottom control
-        RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
+        RelativeLayout footerToggle = findViewById(com.niilopoutanen.rss_feed.R.id.article_footer_toggle);
         footerToggle.setOnClickListener(v -> showControls());
         ViewCompat.setOnApplyWindowInsetsListener(footerToggle, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -157,7 +158,13 @@ public class ArticleActivity extends AppCompatActivity {
 
         View openInBrowser = sheet.findViewById(R.id.article_open_in_browser);
         if (openInBrowser != null) openInBrowser.setOnClickListener(v -> {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(post.link)));
+            if(post.link != null && !post.link.isEmpty()){
+                Uri uri = Uri.parse(post.link);
+                if(uri != null){
+                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                }
+            }
+
             sheet.dismiss();
         });
 
@@ -193,6 +200,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initWebView(String html) {
+        if(html == null) return;
         Document document = Jsoup.parse(html);
 
         Elements h1Elements = document.select("h1");
@@ -240,7 +248,7 @@ public class ArticleActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
-        webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, screenHeight));
+        webView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, screenHeight));
 
 
         cancel.setOnClickListener(view -> {
@@ -253,7 +261,7 @@ public class ArticleActivity extends AppCompatActivity {
                 try {
                     URL host = new URL(url);
                     titleView.setText(host.getHost());
-                    webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    webView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
                 } catch (Exception e) {
                     titleView.setText(view.getTitle());

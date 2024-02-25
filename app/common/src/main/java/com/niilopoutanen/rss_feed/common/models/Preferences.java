@@ -12,6 +12,8 @@ public class Preferences implements Serializable {
     public static final Font SP_FONT_DEFAULT = Font.INTER;
     public static final String SP_ARTICLESINBROWSER = "articles_openinbrowser";
     public static final boolean SP_ARTICLESINBROWSER_DEFAULT = false;
+    public static final String SP_SHOW_SEARCH = "show_search";
+    public static final boolean SP_SHOW_SEARCH_DEFAULT = true;
     public static final String SP_HAPTICS = "haptics";
     public static final boolean SP_HAPTICS_DEFAULT = true;
     public static final String SP_IMAGECACHE = "imagecache";
@@ -42,8 +44,6 @@ public class Preferences implements Serializable {
     public static final boolean SP_ANIMATE_CLICKS_DEFAULT = true;
     public static final String SP_SHOW_CHANGELOG = "show_changelog";
     public static final boolean SP_SHOW_CHANGELOG_DEFAULT = true;
-    public static final String SP_COLORACCENT = "coloraccent";
-    public static final ColorAccent SP_COLORACCENT_DEFAULT = ColorAccent.BLUE;
     public static final String SP_HEADERTYPE = "header_type";
     public static final HeaderType SP_HEADERTYPE_DEFAULT = HeaderType.FAT;
     public static final String SP_HEADERSIZE = "header_size";
@@ -57,13 +57,13 @@ public class Preferences implements Serializable {
 
     //saved data
     public ThemeMode s_ThemeMode;
-    public ColorAccent s_coloraccent;
     public FeedCardStyle s_feedcardstyle;
     public Font s_font;
     public LaunchWindow s_launchwindow;
     public HeaderType s_headertype;
     public HeaderSize s_headersize;
     public boolean s_articlesinbrowser;
+    public boolean s_show_search;
     public boolean s_feedcard_authorvisible;
     public boolean s_feedcard_titlevisible;
     public boolean s_feedcard_descvisible;
@@ -100,10 +100,6 @@ public class Preferences implements Serializable {
 
     public enum FeedCardStyle {
         LARGE, SMALL, NONE
-    }
-
-    public enum ColorAccent {
-        BLUE, VIOLET, PINK, RED, ORANGE, YELLOW, GREEN
     }
 
     public enum HeaderType {

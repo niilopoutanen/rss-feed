@@ -15,8 +15,8 @@ android {
         resourceConfigurations += ["en", "fi"]
         minSdk 26
         targetSdk 34
-        versionCode 23
-        versionName "2.1"
+        versionCode 26
+        versionName "2.2"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -47,6 +47,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+    implementation ("androidx.webkit:webkit:1.10.0")
     implementation 'net.dankito.readability4j:readability4j:1.0.8'
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
     implementation 'com.google.firebase:firebase-analytics'

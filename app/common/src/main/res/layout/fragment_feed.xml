@@ -2,7 +2,9 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/recyclerview_refresher">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recyclerview_refresher"
+    app:barrierMargin="200dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feed_container"

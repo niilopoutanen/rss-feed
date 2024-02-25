@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_invalid_url">Antamasi URL-osoite ei kelpaa.</string>
-    <string name="error_name_not_found">Lähteen nimen automaattinen täyttö ei onnistunut. Kirjoita se manuaalisesti.</string>
     <string name="error_adding_source">Virhe lisätessä lähdettä. Yritä uudelleen.</string>
     <string name="error_notsupported">Avaamasi julkaisu on virheellinen, ja sitä ei pysty lukemaan tässä sovelluksessa. Avaa se selaimessasi.</string>
     <string name="error_invalid_image">Tämä kuva ei ole kelvollinen tai ei ole enään olemassa.</string>
@@ -17,7 +15,6 @@
     <string name="error_too_many_requests">Liian monta pyyntöä.</string>
     <string name="error_too_many_requests_msg">Olet lähettänyt liian monta latauspyyntöä. Odota hetki ja yritä uudelleen.</string>
 
-    <string name="error_empty_url">URL-osoite ei voi olla tyhjä.</string>
     <string name="error_url">Virhe lukiessa URL-osoitteesta.</string>
     <string name="error_host">Ei internet-yhteyttä tai virheellinen URL-osoite.</string>
     <string name="error_no_write_access">Et ole antanut sovellukselle lupaa tallentaa tiedostoja.</string>
