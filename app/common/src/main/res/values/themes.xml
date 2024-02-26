@@ -15,7 +15,7 @@
         <item name="android:fontFamily">@font/inter</item>
         <item name="fontFamily">@font/inter</item>
         <item name="android:textColorLink">?attr/colorAccent</item>
-        <item name="colorAccent">@color/accentBlue</item>
+        <item name="colorAccent">#0075FF</item>
         <item name="colorSecondaryContainer">@color/element</item>
 
         <!-- MaterialSwitch -->
