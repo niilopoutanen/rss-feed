@@ -20,15 +20,6 @@
     },
     {
         "language": "en",
-        "description": "Visit BBC News for up-to-the-minute news, breaking news, video, audio and feature stories. BBC News provides trusted World and UK news as well as local and regional perspectives.",
-        "title": "BBC News",
-        "feedId": "feed/https://feeds.bbci.co.uk/news/rss.xml",
-        "website": "https://www.bbc.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/BBC.jpg",
-        "coverUrl": "https://storage.googleapis.com/site-assets/uYunhGc6mnMcwnCnr6rDEvRhdZsfgW3FK1p4gMSHkiM_cover-1835b2f6a7e"
-    },
-    {
-        "language": "en",
         "description": "Reporting on the business of technology, startups, venture capital funding, and Silicon Valley.",
         "title": "TechCrunch",
         "feedId": "feed/https://techcrunch.com/feed/",
