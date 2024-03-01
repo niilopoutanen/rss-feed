@@ -148,4 +148,5 @@
     <string name="rssfeed_export_desc">Subscribed sources from RSS-Feed</string>
     <string name="settings_headersize">Header size</string>
     <string name="show_changelog">Show changelog</string>
+    <string name="full_title_visible">Always show full title</string>
 </resources>

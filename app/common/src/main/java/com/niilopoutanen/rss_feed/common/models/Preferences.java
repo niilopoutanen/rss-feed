@@ -34,6 +34,9 @@ public class Preferences implements Serializable {
     public static final boolean SP_FEEDCARD_AUTHORVISIBLE_DEFAULT = true;
     public static final String SP_FEEDCARD_TITLEVISIBLE = "feedcard_title_visible";
     public static final boolean SP_FEEDCARD_TITLEVISIBLE_DEFAULT = true;
+
+    public static final String SP_FEEDCARD_FULL_TITLEVISIBLE = "feedcard_full_title_visible";
+    public static final boolean SP_FEEDCARD_FULL_TITLEVISIBLE_DEFAULT = false;
     public static final String SP_FEEDCARD_DESCVISIBLE = "feedcard_description_visible";
     public static final boolean SP_FEEDCARD_DESCVISIBLE_DEFAULT = true;
     public static final String SP_FEEDCARD_DATEVISIBLE = "feedcard_date_visible";
@@ -66,6 +69,7 @@ public class Preferences implements Serializable {
     public boolean s_show_search;
     public boolean s_feedcard_authorvisible;
     public boolean s_feedcard_titlevisible;
+    public boolean s_feedcard_full_titlevisible;
     public boolean s_feedcard_descvisible;
     public boolean s_feedcard_datevisible;
     public boolean s_articlefullscreen;

@@ -58,6 +58,9 @@ public class FeedCard extends FeedItem{
 
             if (post.title != null && !post.title.isEmpty() && preferences.s_feedcard_titlevisible) {
                 title.setText(post.title);
+                if(preferences.s_feedcard_full_titlevisible){
+                    title.setMaxLines(Integer.MAX_VALUE);
+                }
             } else {
                 title.setVisibility(View.GONE);
             }
