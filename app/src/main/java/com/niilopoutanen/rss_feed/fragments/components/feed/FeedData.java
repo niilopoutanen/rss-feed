@@ -17,6 +17,7 @@ public class FeedData{
     private final List<Notice.NoticeData> notices = new ArrayList<>();
     private Source sourceHeader;
     private String header;
+    private boolean newestFirst = true;
 
     public void filter(String query){
         List<Post> filteredList = new ArrayList<>();
@@ -32,6 +33,9 @@ public class FeedData{
             }
         }
         Collections.sort(filteredList);
+        if(!newestFirst){
+            Collections.reverse(filteredList);
+        }
         filteredPosts = filteredList;
     }
 
@@ -50,10 +54,16 @@ public class FeedData{
         }
         return count + headerCount;
     }
+    public void setDirection(boolean newestFirst){
+        this.newestFirst = newestFirst;
+    }
     public void setPosts(List<Post> posts){
         if(posts == null) return;
         this.posts = new ArrayList<>(posts);
         this.filteredPosts = new ArrayList<>(this.posts);
+        if(!newestFirst){
+            Collections.reverse(filteredPosts);
+        }
         this.clearNotices();
     }
     public void clearPosts(){
