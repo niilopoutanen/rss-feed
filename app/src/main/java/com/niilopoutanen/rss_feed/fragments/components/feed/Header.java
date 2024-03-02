@@ -1,6 +1,8 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
+import android.os.Build;
+import android.view.ContextThemeWrapper;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -9,6 +11,8 @@ import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.SearchBar;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
 public class Header extends FeedItem{
@@ -40,9 +44,14 @@ public class Header extends FeedItem{
 
         RelativeLayout menuButton = getContent().findViewById(R.id.feed_dropdown);
         menuButton.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(context, v);
+            Context wrapper = new ContextThemeWrapper(context, R.style.RSSFeedStyle_PopupMenu);
+            PopupMenu popup = new PopupMenu(wrapper, v);
             popup.getMenuInflater().inflate(R.menu.feed_options, popup.getMenu());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                popup.setForceShowIcon(true);
+            }
             popup.show();
         });
     }
+
 }
