@@ -1,6 +1,8 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.common.R;
@@ -35,5 +37,12 @@ public class Header extends FeedItem{
             title.setText((String)text);
             PreferencesManager.setHeader(context, title);
         }
+
+        RelativeLayout menuButton = getContent().findViewById(R.id.feed_dropdown);
+        menuButton.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(context, v);
+            popup.getMenuInflater().inflate(R.menu.feed_options, popup.getMenu());
+            popup.show();
+        });
     }
 }
