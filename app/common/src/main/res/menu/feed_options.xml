@@ -4,9 +4,5 @@
     <item
         android:id="@+id/feed_menu_sorting"
         android:title="Sort by"
-        android:icon="@drawable/arrow"/>
-    <item
-        android:id="@+id/feed_menu_mark"
-        android:title="Mark as read"
-        android:icon="@drawable/icon_focus"/>
+        android:icon="@drawable/icon_calendar"/>
 </menu>
