@@ -39,7 +39,7 @@ public abstract class FeedItem {
     public abstract void bind(Object data);
 
     public void setMessageBridge(MessageBridge messageBridge){
-
+        this.messageBridge = messageBridge;
     }
     protected void setSpacing(){
         int margin = PreferencesManager.dpToPx(10, context);

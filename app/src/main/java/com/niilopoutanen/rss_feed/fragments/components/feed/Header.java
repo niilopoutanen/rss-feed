@@ -46,8 +46,8 @@ public class Header extends FeedItem{
                 if(item.getItemId() == R.id.feed_menu_sorting){
                     if(messageBridge != null){
                         messageBridge.onSortingChanged();
+                        return true;
                     }
-                    return true;
                 }
                 return false;
             });

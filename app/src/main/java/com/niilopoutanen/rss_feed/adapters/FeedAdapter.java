@@ -41,10 +41,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
         data.addNotice(title, desc);
         notifyDataSetChanged();
     }
-    public void filter(String query){
-        data.filter(query);
-        notifyDataSetChanged();
-    }
     public void setHeader(Source header){
         data.setHeader(header);
     }
@@ -54,12 +50,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
         switch (viewType){
             case FeedData.Types.HEADER:
                 Header header = new Header(context);
-                header.setMessageBridge(this);
+                header.setMessageBridge(FeedAdapter.this);
                 return new FeedItem.ViewHolder(new Header(context));
 
             case FeedData.Types.HEADER_EXTENDED:
                 ExtendedHeader extendedHeader = new ExtendedHeader(context);
-                extendedHeader.setMessageBridge(this);
+                extendedHeader.setMessageBridge(FeedAdapter.this);
                 return new FeedItem.ViewHolder(extendedHeader);
 
             case FeedData.Types.POST:
@@ -95,5 +91,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
     @Override
     public void onSortingChanged() {
         data.changeDirection();
+        notifyDataSetChanged();
     }
 }
