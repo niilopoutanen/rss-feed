@@ -57,6 +57,9 @@ public class FeedData{
     public void setDirection(boolean newestFirst){
         this.newestFirst = newestFirst;
     }
+    public void changeDirection(){
+        this.newestFirst = !newestFirst;
+    }
     public void setPosts(List<Post> posts){
         if(posts == null) return;
         this.posts = new ArrayList<>(posts);

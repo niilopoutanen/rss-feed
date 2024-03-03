@@ -2,19 +2,16 @@ package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.common.IconView;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.SearchBar;
 import com.niilopoutanen.rss_feed.rss.Source;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.function.Consumer;
 
@@ -37,11 +34,6 @@ public class ExtendedHeader extends FeedItem{
             browserIntent.setData(Uri.parse(source.home));
             context.startActivity(browserIntent);
         }
-    }
-
-    public void setQueryHandler(Consumer<String> queryHandler){
-        SearchBar searchBar = getContent().findViewById(R.id.feed_searchbar);
-        searchBar.setQueryHandler(queryHandler);
     }
     @Override
     public void bind(Object data) {
@@ -67,6 +59,11 @@ public class ExtendedHeader extends FeedItem{
 
             icon.setResource(source.image);
             icon.setName(source.title);
+
+            if(messageBridge != null){
+                SearchBar searchBar = getContent().findViewById(R.id.feed_searchbar);
+                searchBar.setQueryHandler(query -> messageBridge.onQueryChanged(query));
+            }
         }
     }
 }

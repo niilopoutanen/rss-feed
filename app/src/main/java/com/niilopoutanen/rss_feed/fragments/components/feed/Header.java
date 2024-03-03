@@ -11,10 +11,6 @@ import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.SearchBar;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.function.Consumer;
-
 public class Header extends FeedItem{
     public Header(Context context) {
         super(context);
@@ -30,10 +26,6 @@ public class Header extends FeedItem{
 
     }
 
-    public void setQueryHandler(Consumer<String> queryHandler){
-        SearchBar searchBar = getContent().findViewById(R.id.feed_searchbar);
-        searchBar.setQueryHandler(queryHandler);
-    }
     @Override
     public void bind(Object text) {
         if(text instanceof String){
@@ -50,8 +42,22 @@ public class Header extends FeedItem{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 popup.setForceShowIcon(true);
             }
+            popup.setOnMenuItemClickListener(item -> {
+                if(item.getItemId() == R.id.feed_menu_sorting){
+                    if(messageBridge != null){
+                        messageBridge.onSortingChanged();
+                    }
+                    return true;
+                }
+                return false;
+            });
             popup.show();
         });
+
+        if(messageBridge != null){
+            SearchBar searchBar = getContent().findViewById(R.id.feed_searchbar);
+            searchBar.setQueryHandler(query -> messageBridge.onQueryChanged(query));
+        }
     }
 
 }

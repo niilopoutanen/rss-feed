@@ -12,6 +12,7 @@ import com.niilopoutanen.rss_feed.fragments.components.feed.ExtendedHeader;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedItem;
 import com.niilopoutanen.rss_feed.fragments.components.feed.Header;
+import com.niilopoutanen.rss_feed.fragments.components.feed.MessageBridge;
 import com.niilopoutanen.rss_feed.fragments.components.feed.Notice;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedData;
 import com.niilopoutanen.rss_feed.rss.Post;
@@ -19,7 +20,7 @@ import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.List;
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> implements MessageBridge {
     private final Context context;
     private final FeedData data = new FeedData();
     public FeedAdapter(Context context){
@@ -53,12 +54,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
         switch (viewType){
             case FeedData.Types.HEADER:
                 Header header = new Header(context);
-                header.setQueryHandler(this::filter);
-                return new FeedItem.ViewHolder(header);
+                header.setMessageBridge(this);
+                return new FeedItem.ViewHolder(new Header(context));
 
             case FeedData.Types.HEADER_EXTENDED:
                 ExtendedHeader extendedHeader = new ExtendedHeader(context);
-                extendedHeader.setQueryHandler(this::filter);
+                extendedHeader.setMessageBridge(this);
                 return new FeedItem.ViewHolder(extendedHeader);
 
             case FeedData.Types.POST:
@@ -85,4 +86,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> {
         return data.getItemType(position);
     }
 
+    @Override
+    public void onQueryChanged(String query) {
+        data.filter(query);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSortingChanged() {
+        data.changeDirection();
+    }
 }
