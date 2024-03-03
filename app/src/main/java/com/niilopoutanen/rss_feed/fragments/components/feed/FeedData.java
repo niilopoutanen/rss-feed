@@ -32,13 +32,19 @@ public class FeedData{
                 }
             }
         }
-        Collections.sort(filteredList);
-        if(!newestFirst){
-            Collections.reverse(filteredList);
-        }
         filteredPosts = filteredList;
+        sort();
     }
 
+    private void sort(){
+        if(newestFirst){
+            Collections.sort(filteredPosts);
+        }
+        else{
+            Collections.sort(filteredPosts);
+            Collections.reverse(filteredPosts);
+        }
+    }
     public int count(){
         int count;
         if(notices.size() > 0){
@@ -54,11 +60,9 @@ public class FeedData{
         }
         return count + headerCount;
     }
-    public void setDirection(boolean newestFirst){
-        this.newestFirst = newestFirst;
-    }
     public void changeDirection(){
         this.newestFirst = !newestFirst;
+        sort();
     }
     public void setPosts(List<Post> posts){
         if(posts == null) return;

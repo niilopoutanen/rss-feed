@@ -51,7 +51,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
             case FeedData.Types.HEADER:
                 Header header = new Header(context);
                 header.setMessageBridge(FeedAdapter.this);
-                return new FeedItem.ViewHolder(new Header(context));
+                return new FeedItem.ViewHolder(header);
 
             case FeedData.Types.HEADER_EXTENDED:
                 ExtendedHeader extendedHeader = new ExtendedHeader(context);
