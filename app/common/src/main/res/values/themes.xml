@@ -33,4 +33,7 @@
         <item name="android:iconTint">@color/textPrimary</item>
     </style>
 
+    <style name="RSSFeedStyle.Splash" parent="RSSFeedStyle">
+        <item name="colorAccent">#8754C5</item>
+    </style>
 </resources>

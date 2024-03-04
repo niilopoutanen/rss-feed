@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.google.android.material.color.MaterialColors;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.common.models.Category;
 import java.text.DateFormat;
@@ -352,14 +354,29 @@ public class PreferencesManager {
     }
 
     /**
-     * Loads the accent color user has selected
+     * Loads the accent color from the current theme
      *
      * @return TypedValue object that can be used in code
      */
     public static int getAccentColor(Context context) {
+        return MaterialColors.getColor(context, androidx.appcompat.R.attr.colorAccent, Color.valueOf(0, 117, 255).toArgb());
+    }
+
+    /**
+     * Loads the accent color from the provided theme
+     *
+     * @param themeResId Resource id for the wanted theme color
+     * @return TypedValue object that can be used in code
+     */
+    public static int getAccentColor(Context context, int themeResId) {
+        Resources.Theme theme = context.getResources().newTheme();
+        theme.applyStyle(themeResId, true);
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorAccent, typedValue, true);
-        return typedValue.data;
+        if (theme.resolveAttribute(androidx.appcompat.R.attr.colorAccent, typedValue, true)) {
+            return typedValue.data;
+        } else {
+            return Color.valueOf(0, 117, 255).toArgb();
+        }
     }
 
     /**

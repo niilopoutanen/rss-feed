@@ -36,7 +36,7 @@ public class OnBoardingFragment extends SplashFragment {
 
     private void initVersion(View rootView){
         TextView whatsNew = rootView.findViewById(R.id.onboarding_version_title);
-        String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context) + "'> v" + PreferencesManager.getVersionName(context) + "</font>";
+        String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context, com.niilopoutanen.rss_feed.common.R.style.RSSFeedStyle_Splash) + "'> v" + PreferencesManager.getVersionName(context) + "</font>";
         String headerText = getString(com.niilopoutanen.rss_feed.common.R.string.whats_new_in, "<br>") + htmlVersion + "?";
         whatsNew.setText(Html.fromHtml(headerText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
