@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.squareup.picasso.Picasso;
 
 public class OnBoardingFragment extends SplashFragment {
     public OnBoardingFragment() {}
@@ -61,5 +63,9 @@ public class OnBoardingFragment extends SplashFragment {
             PreferencesManager.saveBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, false, context);
             super.cancel();
         });
+
+        String COVER_URL = "https://raw.githubusercontent.com/niilopoutanen/rss-feed/app-resources/release-card.png";
+        ImageView cover = rootView.findViewById(R.id.onboarding_cover);
+        Picasso.get().load(COVER_URL).into(cover);
     }
 }
