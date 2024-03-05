@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class OnBoardingFragment extends SplashFragment {
@@ -37,10 +39,10 @@ public class OnBoardingFragment extends SplashFragment {
     }
 
     private void initVersion(View rootView){
-        TextView whatsNew = rootView.findViewById(R.id.onboarding_version_title);
+        /*TextView whatsNew = rootView.findViewById(R.id.onboarding_version_title);
         String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context, com.niilopoutanen.rss_feed.common.R.style.RSSFeedStyle_Splash) + "'> v" + PreferencesManager.getVersionName(context) + "</font>";
         String headerText = getString(com.niilopoutanen.rss_feed.common.R.string.whats_new_in, "<br>") + htmlVersion + "?";
-        whatsNew.setText(Html.fromHtml(headerText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+        whatsNew.setText(Html.fromHtml(headerText, HtmlCompat.FROM_HTML_MODE_LEGACY));*/
 
         View continueButton = rootView.findViewById(R.id.onboarding_version_continue);
         continueButton.setOnClickListener(v -> {
@@ -66,6 +68,6 @@ public class OnBoardingFragment extends SplashFragment {
 
         String COVER_URL = "https://raw.githubusercontent.com/niilopoutanen/rss-feed/app-resources/release-card.png";
         ImageView cover = rootView.findViewById(R.id.onboarding_cover);
-        Picasso.get().load(COVER_URL).into(cover);
+        Picasso.get().load(COVER_URL).memoryPolicy(MemoryPolicy.NO_STORE).networkPolicy(NetworkPolicy.NO_STORE).into(cover);
     }
 }

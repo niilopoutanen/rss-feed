@@ -21,18 +21,6 @@
             android:minHeight="200dp"
             android:adjustViewBounds="true"/>
 
-        <TextView
-            android:id="@+id/onboarding_version_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="@string/whats_new"
-            android:textSize="30sp"
-            android:fontFamily="@font/inter_black"
-            app:fontFamily="@font/inter_black"
-            android:textColor="@color/textPrimary"/>
 
 
         <LinearLayout
