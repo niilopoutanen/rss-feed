@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.palette.graphics.Palette;
 
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
@@ -36,6 +39,7 @@ public class ImageViewActivity extends AppCompatActivity {
     String url;
     Bitmap bitmap;
     TouchImageView imageView;
+    RelativeLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,7 @@ public class ImageViewActivity extends AppCompatActivity {
             @Override
             public void onBitmapLoaded(Bitmap bm, Picasso.LoadedFrom from) {
                 bitmap = bm;
-                imageView.setImageBitmap(bitmap);
+                setImage(bm);
             }
 
             @Override
@@ -86,6 +90,8 @@ public class ImageViewActivity extends AppCompatActivity {
 
             return WindowInsetsCompat.CONSUMED;
         });
+
+        container = findViewById(R.id.imageview_container);
     }
 
     /**
@@ -150,6 +156,22 @@ public class ImageViewActivity extends AppCompatActivity {
         Toast.makeText(ImageViewActivity.this, getString(R.string.imagesaved), Toast.LENGTH_SHORT).show();
     }
 
+    private void setImage(Bitmap bm){
+        if(bm == null || imageView == null) return;
+        imageView.setImageBitmap(bm);
+
+        if(container == null) return;
+        Palette palette = Palette.from(bitmap).generate();
+        Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+        Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+        if(mutedSwatch == null || darkMutedSwatch == null) return;
+
+        int[] colors = {darkMutedSwatch.getRgb(), mutedSwatch.getRgb()};
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors);
+        gradientDrawable.setCornerRadius(0f);
+
+        container.setBackground(gradientDrawable);
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
