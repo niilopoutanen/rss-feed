@@ -27,6 +27,8 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGE_VIEWER_GRADIENT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGE_VIEWER_GRADIENT_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
@@ -48,6 +50,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,7 +89,7 @@ import java.util.List;
 public class SettingsFragment extends Fragment {
 
     TextView themeSelected, fontSelected, launchWindowSelected, headerTypeSelected, headerSizeSelected;
-    SwitchCompat articlesInBrowser, searchVisible, articleFullScreen, articleShowControls, articleShowCategories;
+    SwitchCompat articlesInBrowser, searchVisible, articleFullScreen, articleShowControls, articleShowCategories, imageViewerGradient;
     SwitchCompat imageCache, animateClicks, haptics, showChangelog;
     Slider fontSizeSlider;
     private Context context;
@@ -177,6 +180,7 @@ public class SettingsFragment extends Fragment {
         articleFullScreen = rootView.findViewById(R.id.switch_articlefullscreen);
         articleShowControls = rootView.findViewById(R.id.switch_article_showcontrols);
         articleShowCategories = rootView.findViewById(R.id.switch_article_showcategories);
+        imageViewerGradient = rootView.findViewById(R.id.switch_image_viewer_gradient);
         searchVisible = rootView.findViewById(R.id.switch_show_search);
         haptics = rootView.findViewById(R.id.switch_haptics);
         imageCache = rootView.findViewById(R.id.switch_cache);
@@ -296,6 +300,10 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.saveBooleanPreference(SP_ARTICLE_SHOW_CATEGORIES, PREFS_UI, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
+        imageViewerGradient.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            PreferencesManager.saveBooleanPreference(SP_IMAGE_VIEWER_GRADIENT, PREFS_UI, isChecked, context);
+            PreferencesManager.vibrate(buttonView);
+        });
         searchVisible.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_SHOW_SEARCH, PREFS_UI, isChecked, context);
             PreferencesManager.vibrate(buttonView);
@@ -365,6 +373,8 @@ public class SettingsFragment extends Fragment {
         articleShowControls.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLE_SHOW_CONTROLS, PREFS_UI, SP_ARTICLE_SHOW_CONTROLS_DEFAULT, context));
 
         articleShowCategories.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLE_SHOW_CATEGORIES, PREFS_UI, SP_ARTICLE_SHOW_CATEGORIES_DEFAULT, context));
+
+        imageViewerGradient.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGE_VIEWER_GRADIENT, PREFS_UI, SP_IMAGE_VIEWER_GRADIENT_DEFAULT, context));
 
         searchVisible.setChecked(PreferencesManager.getBooleanPreference(SP_SHOW_SEARCH, PREFS_UI, SP_SHOW_SEARCH_DEFAULT, context));
 

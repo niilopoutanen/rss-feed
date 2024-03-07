@@ -29,6 +29,7 @@ import androidx.palette.graphics.Palette;
 
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -163,7 +164,9 @@ public class ImageViewActivity extends AppCompatActivity {
     private void setImage(Bitmap bm) {
         if (bm == null || imageView == null) return;
         imageView.setImageBitmap(bm);
-        if (container == null) return;
+        if (container == null ) return;
+        Preferences preferences = PreferencesManager.loadPreferences(this);
+        if(!preferences.s_image_viewer_gradient) return;
 
         Palette palette = Palette.from(bm).generate();
         List<Palette.Swatch> swatches = palette.getSwatches();

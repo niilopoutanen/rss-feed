@@ -128,4 +128,5 @@
     <string name="settings_headersize">Otsikon koko</string>
     <string name="show_changelog">Näytä muutoshistoria</string>
     <string name="full_title_visible">Näytä aina koko otsikko</string>
+    <string name="show_image_viewer_gradient">Kuvaselaimen tausta</string>
 </resources>

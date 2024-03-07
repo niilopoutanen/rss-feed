@@ -149,4 +149,5 @@
     <string name="settings_headersize">Header size</string>
     <string name="show_changelog">Show changelog</string>
     <string name="full_title_visible">Always show full title</string>
+    <string name="show_image_viewer_gradient">Image viewer gradient</string>
 </resources>

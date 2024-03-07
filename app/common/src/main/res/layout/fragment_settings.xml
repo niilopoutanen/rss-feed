@@ -599,6 +599,27 @@
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/show_image_viewer_gradient"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/inter_semibold" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switch_image_viewer_gradient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

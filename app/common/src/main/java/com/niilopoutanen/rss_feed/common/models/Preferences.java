@@ -47,6 +47,8 @@ public class Preferences implements Serializable {
     public static final boolean SP_ANIMATE_CLICKS_DEFAULT = true;
     public static final String SP_SHOW_CHANGELOG = "show_changelog";
     public static final boolean SP_SHOW_CHANGELOG_DEFAULT = true;
+    public static final String SP_IMAGE_VIEWER_GRADIENT = "image_viewer_gradient";
+    public static final boolean SP_IMAGE_VIEWER_GRADIENT_DEFAULT = true;
     public static final String SP_HEADERTYPE = "header_type";
     public static final HeaderType SP_HEADERTYPE_DEFAULT = HeaderType.FAT;
     public static final String SP_HEADERSIZE = "header_size";
@@ -79,6 +81,7 @@ public class Preferences implements Serializable {
     public boolean s_imagecache;
     public boolean s_haptics;
     public boolean s_animateclicks;
+    public boolean s_image_viewer_gradient;
     public boolean s_showchangelog;
     public int s_fontsize;
     public DateStyle s_feedcard_datestyle;
