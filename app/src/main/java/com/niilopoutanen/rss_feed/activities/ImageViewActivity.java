@@ -35,6 +35,9 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ImageViewActivity extends AppCompatActivity {
 
@@ -58,7 +61,7 @@ public class ImageViewActivity extends AppCompatActivity {
                 return;
             }
         }
-
+        container = findViewById(R.id.imageview_container);
         imageView = findViewById(R.id.imageview);
         Target target = new Target() {
             @Override
@@ -93,7 +96,6 @@ public class ImageViewActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        container = findViewById(R.id.imageview_container);
     }
 
     /**
@@ -160,49 +162,37 @@ public class ImageViewActivity extends AppCompatActivity {
 
     private void setImage(Bitmap bm) {
         if (bm == null || imageView == null) return;
-
         imageView.setImageBitmap(bm);
-
         if (container == null) return;
 
-        Palette palette = Palette.from(bitmap).generate();
-        Palette.Swatch swatch2 = palette.getDarkMutedSwatch();
-        Palette.Swatch swatch1 = palette.getDarkVibrantSwatch();
-        if (swatch1 == null || swatch2 == null) {
-            swatch1 = palette.getMutedSwatch();
-            swatch2 = palette.getLightVibrantSwatch();
-            if (swatch1 == null || swatch2 == null) return;
+        Palette palette = Palette.from(bm).generate();
+        List<Palette.Swatch> swatches = palette.getSwatches();
+        swatches = new ArrayList<>(swatches);
+
+        // Shuffle for random colors
+        Collections.shuffle(swatches);
+        List<Palette.Swatch> selectedSwatches = swatches.subList(0, Math.min(2, swatches.size()));
+        int[] colors = new int[selectedSwatches.size()];
+        for (int i = 0; i < selectedSwatches.size(); i++) {
+            colors[i] = selectedSwatches.get(i).getRgb();
         }
-        
 
-        int[] colors = {swatch1.getRgb(), swatch2.getRgb()};
-
-        // Create a gradient drawable
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors);
         gradientDrawable.setCornerRadius(0f);
 
-        // Set initial alpha values to 0
         gradientDrawable.setAlpha(0);
-
-        // Set the gradient drawable as background for container
         container.setBackground(gradientDrawable);
 
-        // Apply fade-in animation to the gradient
         ValueAnimator fadeIn = ValueAnimator.ofInt(0, 255);
-        fadeIn.setDuration(1000); // Set your desired duration here (in milliseconds)
+        fadeIn.setDuration(800);
 
-        fadeIn.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                // Update the alpha value of the gradient colors
-                gradientDrawable.setAlpha((int) animation.getAnimatedValue());
-                container.setBackground(gradientDrawable);
-            }
+        fadeIn.addUpdateListener(animation -> {
+            gradientDrawable.setAlpha((int) animation.getAnimatedValue());
         });
 
-        // Start the fade-in animation
         fadeIn.start();
     }
+
 
 
     @Override
