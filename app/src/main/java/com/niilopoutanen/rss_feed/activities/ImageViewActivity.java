@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.activities;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -156,22 +158,53 @@ public class ImageViewActivity extends AppCompatActivity {
         Toast.makeText(ImageViewActivity.this, getString(R.string.imagesaved), Toast.LENGTH_SHORT).show();
     }
 
-    private void setImage(Bitmap bm){
-        if(bm == null || imageView == null) return;
+    private void setImage(Bitmap bm) {
+        if (bm == null || imageView == null) return;
+
         imageView.setImageBitmap(bm);
 
-        if(container == null) return;
-        Palette palette = Palette.from(bitmap).generate();
-        Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
-        Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-        if(mutedSwatch == null || darkMutedSwatch == null) return;
+        if (container == null) return;
 
-        int[] colors = {darkMutedSwatch.getRgb(), mutedSwatch.getRgb()};
+        Palette palette = Palette.from(bitmap).generate();
+        Palette.Swatch swatch2 = palette.getDarkMutedSwatch();
+        Palette.Swatch swatch1 = palette.getDarkVibrantSwatch();
+        if (swatch1 == null || swatch2 == null) {
+            swatch1 = palette.getMutedSwatch();
+            swatch2 = palette.getLightVibrantSwatch();
+            if (swatch1 == null || swatch2 == null) return;
+        }
+        
+
+        int[] colors = {swatch1.getRgb(), swatch2.getRgb()};
+
+        // Create a gradient drawable
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors);
         gradientDrawable.setCornerRadius(0f);
 
+        // Set initial alpha values to 0
+        gradientDrawable.setAlpha(0);
+
+        // Set the gradient drawable as background for container
         container.setBackground(gradientDrawable);
+
+        // Apply fade-in animation to the gradient
+        ValueAnimator fadeIn = ValueAnimator.ofInt(0, 255);
+        fadeIn.setDuration(1000); // Set your desired duration here (in milliseconds)
+
+        fadeIn.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                // Update the alpha value of the gradient colors
+                gradientDrawable.setAlpha((int) animation.getAnimatedValue());
+                container.setBackground(gradientDrawable);
+            }
+        });
+
+        // Start the fade-in animation
+        fadeIn.start();
     }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

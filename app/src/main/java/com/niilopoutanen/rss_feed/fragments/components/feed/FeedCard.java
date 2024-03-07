@@ -85,7 +85,7 @@ public class FeedCard extends FeedItem{
 
             if (post.image != null && !post.image.isEmpty() && preferences.s_feedcardstyle != Preferences.FeedCardStyle.NONE) {
                 RequestCreator requestCreator = Picasso.get().load(post.image)
-                        .resize(2048, 2048)
+                        .resize(2048, 0)
                         .onlyScaleDown();
                 if (!preferences.s_imagecache) {
                     requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
