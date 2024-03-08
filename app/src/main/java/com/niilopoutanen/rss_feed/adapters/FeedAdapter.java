@@ -7,8 +7,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.SearchBar;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.fragments.components.feed.ExtendedHeader;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedItem;
@@ -27,6 +29,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
     public FeedAdapter(Context context){
         this.context = context;
         data.setHeader(context.getString(R.string.feed_header));
+
+        Preferences preferences = PreferencesManager.loadPreferences(context);
+        if(preferences.s_remember_sorting){
+            boolean newestFirst = preferences.s_sorting_method != Preferences.SortingMode.OLDEST_FIRST;
+            data.setDirection(newestFirst);
+        }
     }
     public void update(List<Post> newPosts) {
         data.setPosts(newPosts);
@@ -92,13 +100,17 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
     @Override
     public void onSortingChanged() {
         data.changeDirection();
-
+        notifyDirection(data.getDirection());
         notifyDataSetChanged();
     }
 
     @Override
     public void onSortingChanged(boolean newestFirst) {
         data.setDirection(newestFirst);
+        notifyDirection(newestFirst);
+        notifyDataSetChanged();
+    }
+    private void notifyDirection(boolean newestFirst){
         String msg;
         if(newestFirst){
             msg = context.getString(R.string.sorted_new_first);
@@ -107,6 +119,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
             msg = context.getString(R.string.sorted_old_first);
         }
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-        notifyDataSetChanged();
+
+        Preferences.SortingMode sortingMode = Preferences.SortingMode.NEWEST_FIRST;
+        if(!newestFirst){
+            sortingMode = Preferences.SortingMode.OLDEST_FIRST;
+        }
+        PreferencesManager.saveEnumPreference(Preferences.SP_SORTING_MODE, Preferences.PREFS_FUNCTIONALITY, sortingMode, context);
     }
 }

@@ -180,6 +180,7 @@ public class FeedFragment extends Fragment {
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(rootView.getContext().getColor(R.color.element));
         swipeRefreshLayout.setOnRefreshListener(this::update);
 
+
         return rootView;
     }
 

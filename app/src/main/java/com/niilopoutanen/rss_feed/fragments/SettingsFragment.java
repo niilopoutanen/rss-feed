@@ -322,6 +322,10 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.saveBooleanPreference(SP_SHOW_SEARCH, PREFS_UI, isChecked, context);
             PreferencesManager.vibrate(buttonView);
         });
+        rememberSortingMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            PreferencesManager.saveBooleanPreference(SP_REMEMBER_SORTING, PREFS_FUNCTIONALITY, isChecked, context);
+            PreferencesManager.vibrate(buttonView);
+        });
         haptics.setOnCheckedChangeListener((buttonView, isChecked) -> {
             PreferencesManager.saveBooleanPreference(SP_HAPTICS, PREFS_FUNCTIONALITY, isChecked, context);
             PreferencesManager.vibrate(buttonView);
