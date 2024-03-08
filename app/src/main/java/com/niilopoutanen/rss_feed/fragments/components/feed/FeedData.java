@@ -60,6 +60,10 @@ public class FeedData{
         }
         return count + headerCount;
     }
+    public void setDirection(boolean newestFirst){
+        this.newestFirst = newestFirst;
+        sort();
+    }
     public void changeDirection(){
         this.newestFirst = !newestFirst;
         sort();

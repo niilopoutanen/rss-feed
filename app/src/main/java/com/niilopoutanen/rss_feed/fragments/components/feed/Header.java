@@ -43,9 +43,15 @@ public class Header extends FeedItem{
                 popup.setForceShowIcon(true);
             }
             popup.setOnMenuItemClickListener(item -> {
-                if(item.getItemId() == R.id.feed_menu_sorting){
+                if(item.getItemId() == R.id.feed_menu_sort_new){
                     if(messageBridge != null){
-                        messageBridge.onSortingChanged();
+                        messageBridge.onSortingChanged(true);
+                        return true;
+                    }
+                }
+                else if (item.getItemId() == R.id.feed_menu_sort_old){
+                    if(messageBridge != null){
+                        messageBridge.onSortingChanged(false);
                         return true;
                     }
                 }

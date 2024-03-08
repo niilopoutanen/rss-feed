@@ -129,4 +129,8 @@
     <string name="show_changelog">Näytä muutoshistoria</string>
     <string name="full_title_visible">Näytä aina koko otsikko</string>
     <string name="show_image_viewer_gradient">Kuvaselaimen tausta</string>
+    <string name="sort_by_newest">Lajittele uusin ensin</string>
+    <string name="sort_by_oldest">Lajittele vanhin ensin</string>
+    <string name="sorted_old_first">Nyt näytetään vanhin ensin</string>
+    <string name="sorted_new_first">Nyt näytetään uusin ensin</string>
 </resources>

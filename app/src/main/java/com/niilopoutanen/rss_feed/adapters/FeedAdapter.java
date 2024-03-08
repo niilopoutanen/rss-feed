@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.adapters;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -91,6 +92,21 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
     @Override
     public void onSortingChanged() {
         data.changeDirection();
+
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSortingChanged(boolean newestFirst) {
+        data.setDirection(newestFirst);
+        String msg;
+        if(newestFirst){
+            msg = context.getString(R.string.sorted_new_first);
+        }
+        else{
+            msg = context.getString(R.string.sorted_old_first);
+        }
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
         notifyDataSetChanged();
     }
 }

@@ -2,7 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/feed_menu_sorting"
-        android:title="Sort by"
-        android:icon="@drawable/icon_calendar"/>
+        android:id="@+id/feed_menu_sort_new"
+        android:title="@string/sort_by_newest"
+        android:icon="@drawable/icon_newest"/>
+
+    <item
+        android:id="@+id/feed_menu_sort_old"
+        android:title="@string/sort_by_oldest"
+        android:icon="@drawable/icon_oldest"/>
 </menu>

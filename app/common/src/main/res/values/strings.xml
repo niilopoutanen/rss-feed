@@ -150,4 +150,8 @@
     <string name="show_changelog">Show changelog</string>
     <string name="full_title_visible">Always show full title</string>
     <string name="show_image_viewer_gradient">Image viewer gradient</string>
+    <string name="sort_by_newest">Sort by newest</string>
+    <string name="sort_by_oldest">Sort by oldest</string>
+    <string name="sorted_old_first">Now showing oldest post first</string>
+    <string name="sorted_new_first">Now showing newest post first</string>
 </resources>
