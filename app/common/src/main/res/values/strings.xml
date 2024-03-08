@@ -98,6 +98,10 @@
         <item>Normal</item>
         <item>Large</item>
     </string-array>
+    <string-array name="sorting_modes">
+        <item>Newest first</item>
+        <item>Oldest first</item>
+    </string-array>
 
     <string name="whats_new_in">What\'s new %1$s in</string>
     <string name="whats_new">What\'s new?</string>
@@ -154,4 +158,6 @@
     <string name="sort_by_oldest">Sort by oldest</string>
     <string name="sorted_old_first">Now showing oldest post first</string>
     <string name="sorted_new_first">Now showing newest post first</string>
+    <string name="sorting_mode">Sorting mode</string>
+    <string name="remember_sorting">Remember sorting mode</string>
 </resources>

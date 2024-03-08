@@ -13,6 +13,8 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SORTING_MODE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SORTING_MODE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
@@ -120,6 +122,10 @@ public class SettingsDropDownFragment extends Fragment {
             Preferences.HeaderSize selected = PreferencesManager.getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
             return index == selected.ordinal();
         }
+        if (Preferences.SortingMode.class.equals(type)) {
+            Preferences.SortingMode selected = PreferencesManager.getEnumPreference(SP_SORTING_MODE, PREFS_FUNCTIONALITY, Preferences.SortingMode.class, SP_SORTING_MODE_DEFAULT, context);
+            return index == selected.ordinal();
+        }
         if (ThemeMode.class.equals(type)) {
             ThemeMode selected = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
             switch (selected) {
@@ -193,7 +199,21 @@ public class SettingsDropDownFragment extends Fragment {
                     closeFragment(view);
                 });
             }
-        } else if(Preferences.HeaderType.class.equals(type)){
+        }
+        else if (Preferences.SortingMode.class.equals(type)) {
+            String[] sortingModes = context.getResources().getStringArray(R.array.sorting_modes);
+            for (int i = 0; i < sortingModes.length; i++) {
+                boolean isLast = i == sortingModes.length - 1;
+                RelativeLayout item = addViews(sortingModes[i], verifySelected(i, Preferences.SortingMode.class), isLast, null);
+                final int index = i;
+
+                item.setOnClickListener(view -> {
+                    Preferences.SortingMode selectedSorting = Preferences.SortingMode.values()[index];
+                    PreferencesManager.saveEnumPreference(SP_SORTING_MODE, PREFS_FUNCTIONALITY, selectedSorting, context);
+                    closeFragment(view);
+                });
+            }
+        }else if(Preferences.HeaderType.class.equals(type)){
             String[] headerNames = context.getResources().getStringArray(R.array.header_types);
             for (int i = 0; i < headerNames.length; i++) {
                 boolean isLast = i == headerNames.length - 1;

@@ -79,6 +79,10 @@
         <item>Normaali</item>
         <item>Iso</item>
     </string-array>
+    <string-array name="sorting_modes">
+        <item>Uusin ensin</item>
+        <item>Vanhin ensin</item>
+    </string-array>
 
     <plurals name="minutes_ago">
         <item quantity="one">%d minuutti sitten</item>
@@ -133,4 +137,6 @@
     <string name="sort_by_oldest">Lajittele vanhin ensin</string>
     <string name="sorted_old_first">Nyt näytetään vanhin ensin</string>
     <string name="sorted_new_first">Nyt näytetään uusin ensin</string>
+    <string name="sorting_mode">Lajittelutapa</string>
+    <string name="remember_sorting">Muista lajittelutapa</string>
 </resources>

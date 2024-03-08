@@ -49,6 +49,10 @@ public class Preferences implements Serializable {
     public static final boolean SP_SHOW_CHANGELOG_DEFAULT = true;
     public static final String SP_IMAGE_VIEWER_GRADIENT = "image_viewer_gradient";
     public static final boolean SP_IMAGE_VIEWER_GRADIENT_DEFAULT = true;
+    public static final String SP_REMEMBER_SORTING = "remember_sorting";
+    public static final boolean SP_REMEMBER_SORTING_DEFAULT = false;
+    public static final String SP_SORTING_MODE = "sorting_mode";
+    public static final SortingMode SP_SORTING_MODE_DEFAULT = SortingMode.NEWEST_FIRST;
     public static final String SP_HEADERTYPE = "header_type";
     public static final HeaderType SP_HEADERTYPE_DEFAULT = HeaderType.FAT;
     public static final String SP_HEADERSIZE = "header_size";
@@ -82,6 +86,8 @@ public class Preferences implements Serializable {
     public boolean s_haptics;
     public boolean s_animateclicks;
     public boolean s_image_viewer_gradient;
+    public boolean s_remember_sorting;
+    public SortingMode s_sorting_method;
     public boolean s_showchangelog;
     public int s_fontsize;
     public DateStyle s_feedcard_datestyle;
@@ -114,5 +120,8 @@ public class Preferences implements Serializable {
     }
     public enum HeaderSize {
         SMALL, NORMAL, LARGE
+    }
+    public enum SortingMode{
+        NEWEST_FIRST, OLDEST_FIRST
     }
 }

@@ -31,10 +31,14 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGE_VIEW
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGE_VIEWER_GRADIENT_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_REMEMBER_SORTING;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_REMEMBER_SORTING_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_SEARCH;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_SEARCH_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SORTING_MODE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SORTING_MODE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
@@ -88,9 +92,11 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    TextView themeSelected, fontSelected, launchWindowSelected, headerTypeSelected, headerSizeSelected;
-    SwitchCompat articlesInBrowser, searchVisible, articleFullScreen, articleShowControls, articleShowCategories, imageViewerGradient;
-    SwitchCompat imageCache, animateClicks, haptics, showChangelog;
+    TextView themeSelected, fontSelected, launchWindowSelected, headerTypeSelected, headerSizeSelected, sortingModeSelected;
+    SwitchCompat articlesInBrowser,
+            searchVisible, articleFullScreen, articleShowControls,
+            articleShowCategories, imageViewerGradient, rememberSortingMode,
+            imageCache, animateClicks, haptics, showChangelog;
     Slider fontSizeSlider;
     private Context context;
 
@@ -181,6 +187,7 @@ public class SettingsFragment extends Fragment {
         articleShowControls = rootView.findViewById(R.id.switch_article_showcontrols);
         articleShowCategories = rootView.findViewById(R.id.switch_article_showcategories);
         imageViewerGradient = rootView.findViewById(R.id.switch_image_viewer_gradient);
+        rememberSortingMode = rootView.findViewById(R.id.switch_remember_sorting);
         searchVisible = rootView.findViewById(R.id.switch_show_search);
         haptics = rootView.findViewById(R.id.switch_haptics);
         imageCache = rootView.findViewById(R.id.switch_cache);
@@ -222,6 +229,13 @@ public class SettingsFragment extends Fragment {
         RelativeLayout headerSizeSettings = rootView.findViewById(R.id.settings_headersizesettings);
         headerSizeSettings.setOnClickListener(v -> {
             openDropDownSettings(Preferences.HeaderSize.class, context.getString(R.string.settings_headersize), "");
+            PreferencesManager.vibrate(v);
+        });
+
+        sortingModeSelected = rootView.findViewById(R.id.sorting_mode_selected);
+        RelativeLayout sortingModeSettings = rootView.findViewById(R.id.settings_sorting_mode);
+        sortingModeSettings.setOnClickListener(v -> {
+            openDropDownSettings(Preferences.SortingMode.class, context.getString(R.string.sorting_mode), "");
             PreferencesManager.vibrate(v);
         });
 
@@ -366,6 +380,9 @@ public class SettingsFragment extends Fragment {
         Preferences.HeaderSize selectedHeaderSize = PreferencesManager.getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
         headerSizeSelected.setText(getResources().getStringArray(R.array.header_sizes)[selectedHeaderSize.ordinal()]);
 
+        Preferences.SortingMode selectedSorting = PreferencesManager.getEnumPreference(SP_SORTING_MODE, PREFS_FUNCTIONALITY, Preferences.SortingMode.class, SP_SORTING_MODE_DEFAULT, context);
+        sortingModeSelected.setText(getResources().getStringArray(R.array.sorting_modes)[selectedSorting.ordinal()]);
+
         articlesInBrowser.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLESINBROWSER, PREFS_FUNCTIONALITY, SP_ARTICLESINBROWSER_DEFAULT, context));
 
         articleFullScreen.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLEFULLSCREEN, PREFS_FUNCTIONALITY, SP_ARTICLEFULLSCREEN_DEFAULT, context));
@@ -375,6 +392,8 @@ public class SettingsFragment extends Fragment {
         articleShowCategories.setChecked(PreferencesManager.getBooleanPreference(SP_ARTICLE_SHOW_CATEGORIES, PREFS_UI, SP_ARTICLE_SHOW_CATEGORIES_DEFAULT, context));
 
         imageViewerGradient.setChecked(PreferencesManager.getBooleanPreference(SP_IMAGE_VIEWER_GRADIENT, PREFS_UI, SP_IMAGE_VIEWER_GRADIENT_DEFAULT, context));
+
+        rememberSortingMode.setChecked(PreferencesManager.getBooleanPreference(SP_REMEMBER_SORTING, PREFS_FUNCTIONALITY, SP_REMEMBER_SORTING_DEFAULT, context));
 
         searchVisible.setChecked(PreferencesManager.getBooleanPreference(SP_SHOW_SEARCH, PREFS_UI, SP_SHOW_SEARCH_DEFAULT, context));
 
