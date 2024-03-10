@@ -65,7 +65,7 @@ public class ArticleActivity extends AppCompatActivity {
             return;
         }
         EdgeToEdge.enable(this);
-        preferences = (Preferences) extras.get("preferences");
+        preferences = PreferencesManager.loadPreferences(this);
         post = (Post) extras.get("post");
 
         if (savedInstanceState != null) {

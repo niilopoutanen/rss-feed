@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -35,13 +36,19 @@ public class FeedCard extends FeedItem{
     public void onClick(Object data) {
         if(data instanceof Post){
             Post clicked = (Post) data;
-            if (clicked.link != null) {
+            if(clicked.link == null){
+                Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(preferences.s_articlesinbrowser){
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse(clicked.link));
+                context.startActivity(browserIntent);
+            }
+            else{
                 Intent articleIntent = new Intent(context, ArticleActivity.class);
-                articleIntent.putExtra("preferences", preferences);
                 articleIntent.putExtra("post", clicked);
                 context.startActivity(articleIntent);
-            } else {
-                Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
             }
         }
     }

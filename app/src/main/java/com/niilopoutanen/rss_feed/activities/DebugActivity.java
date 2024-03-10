@@ -59,7 +59,6 @@ public class DebugActivity extends AppCompatActivity {
                       .setView(input)
                       .setPositiveButton("OK", (dialog, which) -> {
                           Intent articleIntent = new Intent(DebugActivity.this, ArticleActivity.class);
-                          articleIntent.putExtra("preferences", PreferencesManager.loadPreferences(DebugActivity.this));
                           Post post = new Post();
                           post.link = input.getText().toString();
                           articleIntent.putExtra("post", post);
