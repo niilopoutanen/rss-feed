@@ -39,10 +39,10 @@ public class OnBoardingFragment extends SplashFragment {
     }
 
     private void initVersion(View rootView){
-        /*TextView whatsNew = rootView.findViewById(R.id.onboarding_version_title);
-        String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context, com.niilopoutanen.rss_feed.common.R.style.RSSFeedStyle_Splash) + "'> v" + PreferencesManager.getVersionName(context) + "</font>";
+        TextView whatsNew = rootView.findViewById(R.id.onboarding_version_title);
+        String htmlVersion = "<font color='" + PreferencesManager.getAccentColor(context) + "'> v" + PreferencesManager.getVersionName(context) + "</font>";
         String headerText = getString(com.niilopoutanen.rss_feed.common.R.string.whats_new_in, "<br>") + htmlVersion + "?";
-        whatsNew.setText(Html.fromHtml(headerText, HtmlCompat.FROM_HTML_MODE_LEGACY));*/
+        whatsNew.setText(Html.fromHtml(headerText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         View continueButton = rootView.findViewById(R.id.onboarding_version_continue);
         continueButton.setOnClickListener(v -> {
@@ -65,9 +65,5 @@ public class OnBoardingFragment extends SplashFragment {
             PreferencesManager.saveBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, false, context);
             super.cancel();
         });
-
-        String COVER_URL = "https://raw.githubusercontent.com/niilopoutanen/rss-feed/app-resources/release-card.png";
-        ImageView cover = rootView.findViewById(R.id.onboarding_cover);
-        Picasso.get().load(COVER_URL).memoryPolicy(MemoryPolicy.NO_STORE).networkPolicy(NetworkPolicy.NO_STORE).into(cover);
     }
 }
