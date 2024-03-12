@@ -20,18 +20,34 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/extended_header_title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textPrimary"
-                app:fontFamily="@font/inter_bold"
-                android:textSize="25sp"
-                android:maxLines="2"
-                android:ellipsize="end"/>
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+                <TextView
+                    android:id="@+id/extended_header_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textPrimary"
+                    app:fontFamily="@font/inter_bold"
+                    android:textSize="25sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:layout_weight="1"/>
+
+                <View
+                    android:id="@+id/feed_dropdown"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icon_menu"
+                    android:backgroundTint="@color/textPrimary"
+                    android:rotation="90"/>
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/extended_header_desc"

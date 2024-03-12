@@ -17,23 +17,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <RelativeLayout
+    <View
         android:id="@+id/feed_dropdown"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/element_background"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/icon_menu"
+        android:backgroundTint="@color/textPrimary"
+        android:rotation="90"
         app:layout_constraintBottom_toTopOf="@+id/feed_searchbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/icon_menu"
-            android:backgroundTint="?attr/colorAccent" />
-    </RelativeLayout>
     <com.niilopoutanen.rss_feed.common.SearchBar
         android:id="@+id/feed_searchbar"
         android:layout_width="match_parent"

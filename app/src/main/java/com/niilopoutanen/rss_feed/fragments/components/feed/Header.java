@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.fragments.components.feed;
 import android.content.Context;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
+import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ public class Header extends FeedItem{
             PreferencesManager.setHeader(context, title);
         }
 
-        RelativeLayout menuButton = getContent().findViewById(R.id.feed_dropdown);
+        View menuButton = getContent().findViewById(R.id.feed_dropdown);
         menuButton.setOnClickListener(v -> {
             Context wrapper = new ContextThemeWrapper(context, R.style.RSSFeedStyle_PopupMenu);
             PopupMenu popup = new PopupMenu(wrapper, v);
