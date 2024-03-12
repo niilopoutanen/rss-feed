@@ -43,12 +43,12 @@
     <string name="date_visible">Päivämäärä näkyvissä</string>
     <string name="date_format">Päivämäärän muotoilu</string>
     <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
-    <string name="feature1">Hakuominaisuus</string>
-    <string name="feature1desc">Voit nyt hakea julkaisuja syötteestäsi!</string>
-    <string name="feature2">Käyttöliittymän korjailua</string>
-    <string name="feature2desc">Pieniä käyttöliittymän korjauksia</string>
-    <string name="feature3">Virhekorjauksia</string>
-    <string name="feature3desc">Vähemmän sovelluksen kaatumisia ja virheitä</string>
+    <string name="feature1">Syötteen lajittelu</string>
+    <string name="feature1desc">Voit nyt lajitella julkaisuja syötteessäsi uusimman tai vanhimman perusteella.</string>
+    <string name="feature2">Väritausta kuvissa</string>
+    <string name="feature2desc">Kun katsot kuvia artikkeleissa, niissä on nyt värillinen tausta kuvan väreihin pohjautuen.</string>
+    <string name="feature3">Kaatumiskorjauksia</string>
+    <string name="feature3desc">Muutama virhe sovelluksen kaatumiseen liittyen korjattu.</string>
 
 
     <string-array name="theme_modes">
@@ -78,6 +78,10 @@
         <item>Pieni</item>
         <item>Normaali</item>
         <item>Iso</item>
+    </string-array>
+    <string-array name="sorting_modes">
+        <item>Uusin ensin</item>
+        <item>Vanhin ensin</item>
     </string-array>
 
     <plurals name="minutes_ago">
@@ -127,4 +131,12 @@
     <string name="settings_headertype">Otsikon tyyli</string>
     <string name="settings_headersize">Otsikon koko</string>
     <string name="show_changelog">Näytä muutoshistoria</string>
+    <string name="full_title_visible">Näytä aina koko otsikko</string>
+    <string name="show_image_viewer_gradient">Kuvaselaimen tausta</string>
+    <string name="sort_by_newest">Lajittele uusin ensin</string>
+    <string name="sort_by_oldest">Lajittele vanhin ensin</string>
+    <string name="sorted_old_first">Nyt näytetään vanhin ensin</string>
+    <string name="sorted_new_first">Nyt näytetään uusin ensin</string>
+    <string name="sorting_mode">Lajittelutapa</string>
+    <string name="remember_sorting">Muista lajittelutapa</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="10dp"
@@ -10,38 +11,30 @@
         android:id="@+id/feed_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/textPrimary"
         android:text="@string/feed_header"
-        android:textSize="40sp"/>
+        android:textColor="@color/textPrimary"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/feed_dropdown"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/icon_menu"
+        android:backgroundTint="@color/textPrimary"
+        android:rotation="90"
+        app:layout_constraintBottom_toTopOf="@+id/feed_searchbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.niilopoutanen.rss_feed.common.SearchBar
         android:id="@+id/feed_searchbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feed_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/element_background"
-        android:gravity="center_vertical"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
-        <View
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/icon_search"
-            android:layout_marginRight="8dp"/>
-        <EditText
-            android:background="@color/transparent"
-            android:importantForAutofill="no"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="Search"/>
-
-
-    </LinearLayout>-->
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,12 +8,13 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
-import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 public abstract class FeedItem {
     private ViewGroup content;
+    protected MessageBridge messageBridge;
     protected Context context;
     protected Preferences preferences;
     public FeedItem( Context context) {
@@ -37,6 +38,9 @@ public abstract class FeedItem {
 
     public abstract void bind(Object data);
 
+    public void setMessageBridge(MessageBridge messageBridge){
+        this.messageBridge = messageBridge;
+    }
     protected void setSpacing(){
         int margin = PreferencesManager.dpToPx(10, context);
         int gap = PreferencesManager.dpToPx(20, context);

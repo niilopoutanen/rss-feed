@@ -3,13 +3,11 @@ package com.niilopoutanen.rss_feed.common;
 import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Canvas;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +24,6 @@ import java.util.function.Consumer;
 public class SearchBar extends LinearLayout {
     private EditText searchField;
     private TextView closeToggle;
-    private Consumer<String> queryHandler;
     public SearchBar(Context context) {
         super(context);
         init();
@@ -118,7 +115,6 @@ public class SearchBar extends LinearLayout {
     }
 
     public void setQueryHandler(Consumer<String> queryHandler){
-        this.queryHandler = queryHandler;
         if(searchField == null) return;
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -152,9 +148,6 @@ public class SearchBar extends LinearLayout {
 
         if(resetField != null && resetField){
             hideKeyboard();
-            if(queryHandler != null){
-                queryHandler.accept("");
-            }
         }
     }
 

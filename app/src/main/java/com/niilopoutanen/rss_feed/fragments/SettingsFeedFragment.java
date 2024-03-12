@@ -11,6 +11,8 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_D
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_FULL_TITLEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_FULL_TITLEVISIBLE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
@@ -37,9 +39,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
-import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,10 +49,7 @@ import java.util.List;
 public class SettingsFeedFragment extends Fragment {
 
     List<View> feedcardStyleButtons;
-    private SwitchCompat authorSwitch;
-    private SwitchCompat titleSwitch;
-    private SwitchCompat descSwitch;
-    private SwitchCompat dateSwitch;
+    private SwitchCompat authorSwitch, titleSwitch, fullTitleSwitch, descSwitch, dateSwitch;
     private Spinner dateSpinner;
     private Context context;
 
@@ -96,6 +95,7 @@ public class SettingsFeedFragment extends Fragment {
 
         authorSwitch = rootView.findViewById(R.id.switch_author);
         titleSwitch = rootView.findViewById(R.id.switch_title);
+        fullTitleSwitch = rootView.findViewById(R.id.switch_full_title);
         descSwitch = rootView.findViewById(R.id.switch_description);
         dateSwitch = rootView.findViewById(R.id.switch_date);
 
@@ -114,6 +114,7 @@ public class SettingsFeedFragment extends Fragment {
 
         authorSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, b, context));
         titleSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, b, context));
+        fullTitleSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_FULL_TITLEVISIBLE, PREFS_UI, isChecked, context));
         descSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, b, context));
         dateSwitch.setOnCheckedChangeListener((compoundButton, b) -> PreferencesManager.saveBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, b, context));
 
@@ -146,6 +147,9 @@ public class SettingsFeedFragment extends Fragment {
 
         boolean titleVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);
         titleSwitch.setChecked(titleVisible);
+
+        boolean fullTitleVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_FULL_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_FULL_TITLEVISIBLE_DEFAULT, context);
+        fullTitleSwitch.setChecked(fullTitleVisible);
 
         boolean descVisible = PreferencesManager.getBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, SP_FEEDCARD_DESCVISIBLE_DEFAULT, context);
         descSwitch.setChecked(descVisible);

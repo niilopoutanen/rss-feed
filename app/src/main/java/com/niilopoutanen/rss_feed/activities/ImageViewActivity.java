@@ -1,16 +1,19 @@
 package com.niilopoutanen.rss_feed.activities;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,21 +24,27 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.palette.graphics.Palette;
 
-import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ImageViewActivity extends AppCompatActivity {
 
     String url;
     Bitmap bitmap;
     TouchImageView imageView;
+    RelativeLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +61,13 @@ public class ImageViewActivity extends AppCompatActivity {
                 return;
             }
         }
-
+        container = findViewById(R.id.imageview_container);
         imageView = findViewById(R.id.imageview);
         Target target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bm, Picasso.LoadedFrom from) {
                 bitmap = bm;
-                imageView.setImageBitmap(bitmap);
+                setImage(bm);
             }
 
             @Override
@@ -86,6 +95,7 @@ public class ImageViewActivity extends AppCompatActivity {
 
             return WindowInsetsCompat.CONSUMED;
         });
+
     }
 
     /**
@@ -149,6 +159,43 @@ public class ImageViewActivity extends AppCompatActivity {
 
         Toast.makeText(ImageViewActivity.this, getString(R.string.imagesaved), Toast.LENGTH_SHORT).show();
     }
+
+    private void setImage(Bitmap bm) {
+        if (bm == null || imageView == null) return;
+        imageView.setImageBitmap(bm);
+        if (container == null ) return;
+        Preferences preferences = PreferencesManager.loadPreferences(this);
+        if(!preferences.s_image_viewer_gradient) return;
+
+        Palette palette = Palette.from(bm).generate();
+        List<Palette.Swatch> swatches = palette.getSwatches();
+        swatches = new ArrayList<>(swatches);
+
+        // Shuffle for random colors
+        Collections.shuffle(swatches);
+        List<Palette.Swatch> selectedSwatches = swatches.subList(0, Math.min(2, swatches.size()));
+        int[] colors = new int[selectedSwatches.size()];
+        for (int i = 0; i < selectedSwatches.size(); i++) {
+            colors[i] = selectedSwatches.get(i).getRgb();
+        }
+
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors);
+        gradientDrawable.setCornerRadius(0f);
+
+        gradientDrawable.setAlpha(0);
+        container.setBackground(gradientDrawable);
+
+        ValueAnimator fadeIn = ValueAnimator.ofInt(0, 255);
+        fadeIn.setDuration(800);
+
+        fadeIn.addUpdateListener(animation -> {
+            gradientDrawable.setAlpha((int) animation.getAnimatedValue());
+        });
+
+        fadeIn.start();
+    }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

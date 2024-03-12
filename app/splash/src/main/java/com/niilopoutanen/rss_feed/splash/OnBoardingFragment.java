@@ -3,7 +3,6 @@ package com.niilopoutanen.rss_feed.splash;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;

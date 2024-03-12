@@ -7,22 +7,24 @@
     android:fillViewport="true">
 
     <LinearLayout
-        android:padding="20dp"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal">
+
         <TextView
             android:id="@+id/onboarding_version_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="40dp"
             android:gravity="center"
             android:text="@string/whats_new"
+            android:textColor="@color/textPrimary"
             android:textSize="30sp"
-            app:fontFamily="@font/inter_black"
-            android:textColor="@color/textPrimary"/>
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            app:fontFamily="@font/inter_black" />
+
 
 
         <LinearLayout
@@ -30,6 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
             <View
@@ -68,6 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
             <View
@@ -106,6 +112,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
             <View

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RSS-Feed</string>
-    <string name="copyright" translatable="false">©2023 Niilo Poutanen</string>
+    <string name="copyright" translatable="false">©2024 Niilo Poutanen</string>
 
     <string name="feed_header">Feed</string>
     <string name="settings_header">Settings</string>
@@ -98,18 +98,22 @@
         <item>Normal</item>
         <item>Large</item>
     </string-array>
+    <string-array name="sorting_modes">
+        <item>Newest first</item>
+        <item>Oldest first</item>
+    </string-array>
 
     <string name="whats_new_in">What\'s new %1$s in</string>
     <string name="whats_new">What\'s new?</string>
 
-    <string name="feature1">Search functionality</string>
-    <string name="feature1desc">You can now search for posts in your feed!</string>
+    <string name="feature1">Sorting feed posts</string>
+    <string name="feature1desc">You can now sort the posts in your feed by newest or oldest!</string>
 
-    <string name="feature2">UI tweaks</string>
-    <string name="feature2desc">Small UI fixes, including feed loading indicator placement in certain android devices</string>
+    <string name="feature2">Colored background to images</string>
+    <string name="feature2desc">When viewing an image within an article, it now features a colored background based on the image.</string>
 
-    <string name="feature3">Bug fixes</string>
-    <string name="feature3desc">Less bugs and crashes</string>
+    <string name="feature3">Crash fixes</string>
+    <string name="feature3desc">A few issues leading to the app to crash were fixed.</string>
 
 
 
@@ -148,4 +152,12 @@
     <string name="rssfeed_export_desc">Subscribed sources from RSS-Feed</string>
     <string name="settings_headersize">Header size</string>
     <string name="show_changelog">Show changelog</string>
+    <string name="full_title_visible">Always show full title</string>
+    <string name="show_image_viewer_gradient">Image viewer gradient</string>
+    <string name="sort_by_newest">Sort by newest</string>
+    <string name="sort_by_oldest">Sort by oldest</string>
+    <string name="sorted_old_first">Now showing oldest post first</string>
+    <string name="sorted_new_first">Now showing newest post first</string>
+    <string name="sorting_mode">Sorting mode</string>
+    <string name="remember_sorting">Remember sorting mode</string>
 </resources>

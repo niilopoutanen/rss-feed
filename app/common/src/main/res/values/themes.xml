@@ -26,4 +26,10 @@
     <style name="RSSFeedStyle.NavActive" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/surface</item>
     </style>
+
+    <style name="RSSFeedStyle.PopupMenu" parent="Widget.Material3.PopupMenu">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:itemBackground">@color/element</item>
+        <item name="android:iconTint">@color/textPrimary</item>
+    </style>
 </resources>

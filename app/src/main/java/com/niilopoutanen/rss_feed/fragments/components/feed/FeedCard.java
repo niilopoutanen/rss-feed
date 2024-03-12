@@ -2,6 +2,7 @@ package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -13,10 +14,10 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 
 import com.niilopoutanen.rss_feed.activities.ArticleActivity;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.rss.Post;
-import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -35,13 +36,19 @@ public class FeedCard extends FeedItem{
     public void onClick(Object data) {
         if(data instanceof Post){
             Post clicked = (Post) data;
-            if (clicked.link != null) {
+            if(clicked.link == null){
+                Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(preferences.s_articlesinbrowser){
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse(clicked.link));
+                context.startActivity(browserIntent);
+            }
+            else{
                 Intent articleIntent = new Intent(context, ArticleActivity.class);
-                articleIntent.putExtra("preferences", preferences);
                 articleIntent.putExtra("post", clicked);
                 context.startActivity(articleIntent);
-            } else {
-                Toast.makeText(context, R.string.error_post_no_url, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -58,6 +65,9 @@ public class FeedCard extends FeedItem{
 
             if (post.title != null && !post.title.isEmpty() && preferences.s_feedcard_titlevisible) {
                 title.setText(post.title);
+                if(preferences.s_feedcard_full_titlevisible){
+                    title.setMaxLines(Integer.MAX_VALUE);
+                }
             } else {
                 title.setVisibility(View.GONE);
             }
@@ -81,7 +91,9 @@ public class FeedCard extends FeedItem{
             }
 
             if (post.image != null && !post.image.isEmpty() && preferences.s_feedcardstyle != Preferences.FeedCardStyle.NONE) {
-                RequestCreator requestCreator = Picasso.get().load(post.image);
+                RequestCreator requestCreator = Picasso.get().load(post.image)
+                        .resize(2048, 0)
+                        .onlyScaleDown();
                 if (!preferences.s_imagecache) {
                     requestCreator.networkPolicy(NetworkPolicy.NO_STORE);
                 }

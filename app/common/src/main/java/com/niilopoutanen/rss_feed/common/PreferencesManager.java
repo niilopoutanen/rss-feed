@@ -1,10 +1,68 @@
 package com.niilopoutanen.rss_feed.common;
 
-import static com.niilopoutanen.rss_feed.common.models.Preferences.*;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.FeedCardStyle;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderSize;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderType;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_LANG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_UI;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ANIMATE_CLICKS;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ANIMATE_CLICKS_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLEFULLSCREEN;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLEFULLSCREEN_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLESINBROWSER;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLESINBROWSER_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CATEGORIES_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CONTROLS;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_ARTICLE_SHOW_CONTROLS_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_AUTHORVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATESTYLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATESTYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DATEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_DESCVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_FULL_TITLEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_FULL_TITLEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_STYLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_TITLEVISIBLE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FEEDCARD_TITLEVISIBLE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HIDE_SOURCE_ALERT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HIDE_SOURCE_ALERT_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGE_VIEWER_GRADIENT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGE_VIEWER_GRADIENT_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_LAUNCHWINDOW_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_REMEMBER_SORTING;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_REMEMBER_SORTING_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_SEARCH;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_SEARCH_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SORTING_MODE;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SORTING_MODE_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFAULT;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_VERSION;
+import static com.niilopoutanen.rss_feed.common.models.Preferences.SortingMode;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
 
 import android.app.Activity;
@@ -12,6 +70,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -23,8 +82,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.google.android.material.color.MaterialColors;
 import com.niilopoutanen.rss_feed.common.models.Category;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+
 import java.text.DateFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -159,8 +220,6 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
-        if(lastVersionUsed == 26) return false;
-
         return currentVersion > lastVersionUsed;
     }
 
@@ -217,11 +276,15 @@ public class PreferencesManager {
         preferences.s_fontsize = getIntPreference(SP_FONTSIZE, PREFS_FUNCTIONALITY, SP_FONTSIZE_DEFAULT, context);
         preferences.s_animateclicks = getBooleanPreference(SP_ANIMATE_CLICKS, PREFS_FUNCTIONALITY, SP_ANIMATE_CLICKS_DEFAULT, context);
         preferences.s_showchangelog = getBooleanPreference(SP_SHOW_CHANGELOG, PREFS_FUNCTIONALITY, SP_SHOW_CHANGELOG_DEFAULT, context);
+        preferences.s_image_viewer_gradient = getBooleanPreference(SP_IMAGE_VIEWER_GRADIENT, PREFS_UI, SP_IMAGE_VIEWER_GRADIENT_DEFAULT, context);
+        preferences.s_remember_sorting = getBooleanPreference(SP_REMEMBER_SORTING, PREFS_FUNCTIONALITY, SP_REMEMBER_SORTING_DEFAULT, context);
+        preferences.s_sorting_method = getEnumPreference(SP_SORTING_MODE, PREFS_FUNCTIONALITY, SortingMode.class, SP_SORTING_MODE_DEFAULT, context);
         preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
         preferences.s_headersize = getEnumPreference(SP_HEADERSIZE, PREFS_UI, HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);
+        preferences.s_feedcard_full_titlevisible = getBooleanPreference(SP_FEEDCARD_FULL_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_FULL_TITLEVISIBLE_DEFAULT, context);
         preferences.s_feedcard_descvisible = getBooleanPreference(SP_FEEDCARD_DESCVISIBLE, PREFS_UI, SP_FEEDCARD_DESCVISIBLE_DEFAULT, context);
         preferences.s_feedcard_datevisible = getBooleanPreference(SP_FEEDCARD_DATEVISIBLE, PREFS_UI, SP_FEEDCARD_DATEVISIBLE_DEFAULT, context);
         preferences.s_feedcard_datestyle = getEnumPreference(SP_FEEDCARD_DATESTYLE, PREFS_LANG, DateStyle.class, SP_FEEDCARD_DATESTYLE_DEFAULT, context);
@@ -351,14 +414,29 @@ public class PreferencesManager {
     }
 
     /**
-     * Loads the accent color user has selected
+     * Loads the accent color from the current theme
      *
      * @return TypedValue object that can be used in code
      */
     public static int getAccentColor(Context context) {
+        return MaterialColors.getColor(context, androidx.appcompat.R.attr.colorAccent, Color.valueOf(0, 117, 255).toArgb());
+    }
+
+    /**
+     * Loads the accent color from the provided theme
+     *
+     * @param themeResId Resource id for the wanted theme color
+     * @return TypedValue object that can be used in code
+     */
+    public static int getAccentColor(Context context, int themeResId) {
+        Resources.Theme theme = context.getResources().newTheme();
+        theme.applyStyle(themeResId, true);
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorAccent, typedValue, true);
-        return typedValue.data;
+        if (theme.resolveAttribute(androidx.appcompat.R.attr.colorAccent, typedValue, true)) {
+            return typedValue.data;
+        } else {
+            return Color.valueOf(0, 117, 255).toArgb();
+        }
     }
 
     /**

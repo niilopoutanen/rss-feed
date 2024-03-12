@@ -1,11 +1,7 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
-import android.widget.Filter;
-import android.widget.Filterable;
-
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +13,7 @@ public class FeedData{
     private final List<Notice.NoticeData> notices = new ArrayList<>();
     private Source sourceHeader;
     private String header;
+    private boolean newestFirst = true;
 
     public void filter(String query){
         List<Post> filteredList = new ArrayList<>();
@@ -31,10 +28,19 @@ public class FeedData{
                 }
             }
         }
-        Collections.sort(filteredList);
         filteredPosts = filteredList;
+        sort();
     }
 
+    private void sort(){
+        if(newestFirst){
+            Collections.sort(filteredPosts);
+        }
+        else{
+            Collections.sort(filteredPosts);
+            Collections.reverse(filteredPosts);
+        }
+    }
     public int count(){
         int count;
         if(notices.size() > 0){
@@ -50,10 +56,24 @@ public class FeedData{
         }
         return count + headerCount;
     }
+    public void setDirection(boolean newestFirst){
+        this.newestFirst = newestFirst;
+        sort();
+    }
+    public void changeDirection(){
+        this.newestFirst = !newestFirst;
+        sort();
+    }
+    public boolean getDirection(){
+        return this.newestFirst;
+    }
     public void setPosts(List<Post> posts){
         if(posts == null) return;
         this.posts = new ArrayList<>(posts);
         this.filteredPosts = new ArrayList<>(this.posts);
+        if(!newestFirst){
+            Collections.reverse(filteredPosts);
+        }
         this.clearNotices();
     }
     public void clearPosts(){
