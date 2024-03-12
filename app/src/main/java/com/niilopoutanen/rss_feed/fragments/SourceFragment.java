@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,11 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
-import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.database.AppRepository;
-import com.niilopoutanen.rss_feed.common.models.Preferences;
-import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 public class SourceFragment extends Fragment {
 

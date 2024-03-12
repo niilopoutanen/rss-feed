@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -27,8 +26,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.palette.graphics.Palette;
 
-import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.NetworkPolicy;

@@ -1,11 +1,7 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
-import android.widget.Filter;
-import android.widget.Filterable;
-
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
-
 
 import java.util.ArrayList;
 import java.util.Collections;

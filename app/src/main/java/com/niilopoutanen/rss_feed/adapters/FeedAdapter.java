@@ -9,15 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.common.SearchBar;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.fragments.components.feed.ExtendedHeader;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedCard;
+import com.niilopoutanen.rss_feed.fragments.components.feed.FeedData;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedItem;
 import com.niilopoutanen.rss_feed.fragments.components.feed.Header;
 import com.niilopoutanen.rss_feed.fragments.components.feed.MessageBridge;
 import com.niilopoutanen.rss_feed.fragments.components.feed.Notice;
-import com.niilopoutanen.rss_feed.fragments.components.feed.FeedData;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
 
@@ -94,13 +93,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
     @Override
     public void onQueryChanged(String query) {
         data.filter(query);
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public void onSortingChanged() {
-        data.changeDirection();
-        notifyDirection(data.getDirection());
         notifyDataSetChanged();
     }
 

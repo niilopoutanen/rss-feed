@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -25,6 +24,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.activities.SearchActivity;
 import com.niilopoutanen.rss_feed.adapters.DiscoverCategoryAdapter;
 import com.niilopoutanen.rss_feed.adapters.DiscoverResultAdapter;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Category;
 import com.niilopoutanen.rss_feed.common.models.FeedResult;
@@ -32,7 +32,6 @@ import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.parser.Callback;
 import com.niilopoutanen.rss_feed.parser.RSSException;
 import com.niilopoutanen.rss_feed.parser.WebUtils;
-import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import org.json.JSONObject;
 

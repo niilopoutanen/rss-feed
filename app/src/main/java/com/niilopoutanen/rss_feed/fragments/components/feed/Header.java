@@ -5,11 +5,10 @@ import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.SearchBar;
 
 public class Header extends FeedItem{

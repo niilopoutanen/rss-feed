@@ -6,11 +6,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.fragments.FeedFragment;
-import com.niilopoutanen.rss_feed.common.models.Preferences;
-import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
+import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.fragments.FeedFragment;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 /**
  * Used when viewing a single feed source only.

@@ -3,7 +3,6 @@ package com.niilopoutanen.rss_feed.splash;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_SHOW_CHANGELOG;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,9 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 public class OnBoardingFragment extends SplashFragment {
     public OnBoardingFragment() {}

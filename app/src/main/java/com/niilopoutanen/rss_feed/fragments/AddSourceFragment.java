@@ -27,7 +27,6 @@ import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
-import com.niilopoutanen.rss_feed.common.PreferencesManager;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

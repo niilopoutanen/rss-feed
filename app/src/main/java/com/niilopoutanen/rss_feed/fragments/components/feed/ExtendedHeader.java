@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -15,8 +13,6 @@ import com.niilopoutanen.rss_feed.common.IconView;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.SearchBar;
 import com.niilopoutanen.rss_feed.rss.Source;
-
-import java.util.function.Consumer;
 
 public class ExtendedHeader extends FeedItem{
     public ExtendedHeader(Context context) {
