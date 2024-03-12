@@ -161,8 +161,7 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
-        return true;
-        //return currentVersion > lastVersionUsed;
+        return currentVersion > lastVersionUsed;
     }
 
     public static void setHeader(Context context, TextView header){
