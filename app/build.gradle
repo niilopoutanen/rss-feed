@@ -15,8 +15,8 @@ android {
         resourceConfigurations += ["en", "fi"]
         minSdk 26
         targetSdk 34
-        versionCode 28
-        versionName "2.3"
+        versionCode 29
+        versionName "2.3.1"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -50,7 +50,7 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
     implementation ("androidx.webkit:webkit:1.10.0")
     implementation 'net.dankito.readability4j:readability4j:1.0.8'
-    implementation platform('com.google.firebase:firebase-bom:32.7.3')
+    implementation platform('com.google.firebase:firebase-bom:32.7.4')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'

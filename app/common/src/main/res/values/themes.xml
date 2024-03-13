@@ -1,5 +1,4 @@
 <resources>
-    <!-- Base application theme. -->
     <style name="RSSFeedStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">?attr/colorAccent</item>
 
