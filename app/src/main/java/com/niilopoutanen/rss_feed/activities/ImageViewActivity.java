@@ -26,6 +26,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.palette.graphics.Palette;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
@@ -83,6 +84,9 @@ public class ImageViewActivity extends AppCompatActivity {
             Picasso.get().load(url).networkPolicy(NetworkPolicy.NO_STORE).into(target);
         }
 
+        Bundle params = new Bundle();
+        params.putString("url", url);
+        FirebaseAnalytics.getInstance(this).logEvent("view_image", params);
 
         LinearLayout saveBtn = findViewById(R.id.saveimg);
         saveBtn.setOnClickListener(v -> saveImage());
