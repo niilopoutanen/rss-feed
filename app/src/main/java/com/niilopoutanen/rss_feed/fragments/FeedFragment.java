@@ -101,12 +101,12 @@ public class FeedFragment extends Fragment {
     }
     public void update() {
         if (!isValid(sources)) return;
-        if(appViewModel == null) return;
         swipeRefreshLayout.setRefreshing(true);
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             List<Post> posts = Parser.loadMultiple(sources);
             ((Activity) context).runOnUiThread(() -> {
+                appViewModel.setPosts(posts);
                 adapter.update(posts);
                 swipeRefreshLayout.setRefreshing(false);
             });
