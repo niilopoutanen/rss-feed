@@ -11,11 +11,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.database.compatibility.SourceMigration;
 import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
@@ -26,8 +28,9 @@ import com.niilopoutanen.rss_feed.splash.SplashActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Preferences preferences;
+    private Preferences preferences;
     private Fragment currentFragment;
+    private AppViewModel appViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
         }
+
+        appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
 
 
         // Navigation bar init
