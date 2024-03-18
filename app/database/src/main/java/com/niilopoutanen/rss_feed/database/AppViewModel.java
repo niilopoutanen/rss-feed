@@ -22,7 +22,7 @@ public class AppViewModel extends AndroidViewModel {
     }
 
 
-    LiveData<List<Source>> getSources() {
+    public LiveData<List<Source>> getSources() {
         return sources;
     }
 }

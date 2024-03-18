@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -26,6 +28,7 @@ import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
@@ -43,6 +46,7 @@ public class FeedFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
     private List<Source> sources = new ArrayList<>();
+    private AppViewModel appViewModel;
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
 
     public FeedFragment() {}
@@ -97,6 +101,7 @@ public class FeedFragment extends Fragment {
     }
     public void update() {
         if (!isValid(sources)) return;
+        if(appViewModel == null) return;
         swipeRefreshLayout.setRefreshing(true);
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
@@ -118,10 +123,16 @@ public class FeedFragment extends Fragment {
         }
 
         if (type == FEED_TYPE.TYPE_MULTI) {
+            appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+            appViewModel.getSources().observe(getViewLifecycleOwner(), sources -> {
+                FeedFragment.this.sources = sources;
+                update();
+            });
+            /*
             repository.getAllSources().observe(this.getViewLifecycleOwner(), sources -> {
                 this.sources = sources;
                 update();
-            });
+            });*/
         }
     }
 
