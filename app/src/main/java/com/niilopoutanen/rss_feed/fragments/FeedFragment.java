@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,12 +104,19 @@ public class FeedFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(true);
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
+            if(appViewModel.getPostCache() != null){
+                adapter.update(appViewModel.getPostCache());
+            }
             List<Post> posts = Parser.loadMultiple(sources);
-            ((Activity) context).runOnUiThread(() -> {
-                appViewModel.setPosts(posts);
-                adapter.update(posts);
-                swipeRefreshLayout.setRefreshing(false);
-            });
+            if(appViewModel.isCacheOutdated(posts)){
+                Log.d("Cache", "Cache outdated, updating");
+                ((Activity) context).runOnUiThread(() -> {
+                    appViewModel.setPostCache(posts);
+                    adapter.update(posts);
+                    swipeRefreshLayout.setRefreshing(false);
+                });
+            }
+
         });
 
         Bundle params = new Bundle();
