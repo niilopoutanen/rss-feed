@@ -30,6 +30,9 @@ public class AppViewModel extends AndroidViewModel {
     public LiveData<List<Source>> getSources() {
         return sources;
     }
+    public void updateSource(Source source){
+        appRepository.insert(source);
+    }
     public void setPostCache(List<Post> posts){
         if(posts == null || posts.isEmpty()) return;
         this.posts = posts;
