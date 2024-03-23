@@ -113,10 +113,9 @@ public class FeedFragment extends Fragment {
                 ((Activity) context).runOnUiThread(() -> {
                     appViewModel.setPostCache(posts);
                     adapter.update(posts);
-                    swipeRefreshLayout.setRefreshing(false);
                 });
             }
-
+            swipeRefreshLayout.setRefreshing(false);
         });
 
         Bundle params = new Bundle();
