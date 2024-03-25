@@ -43,7 +43,7 @@ public class FeedData{
     }
     public int count(){
         int count;
-        if(notices.size() > 0){
+        if(!notices.isEmpty()){
             count = notices.size();
         }
         else{
@@ -112,7 +112,7 @@ public class FeedData{
         }
         else{
             index--;
-            if(notices.size() > 0 && notices.size() > index){
+            if(!notices.isEmpty() && notices.size() > index){
                 return notices.get(index);
             }
             else if(filteredPosts.size() > index){

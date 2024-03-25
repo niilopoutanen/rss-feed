@@ -45,6 +45,8 @@ public class AppViewModel extends AndroidViewModel {
 
     public boolean isCacheOutdated(List<Post> newList) {
         if (newList == null || posts == null) return true;
+        if(newList.isEmpty() || posts.isEmpty()) return true;
+        
         List<Post> l1 = new ArrayList<>(newList);
         List<Post> l2 = new ArrayList<>(posts);
 
