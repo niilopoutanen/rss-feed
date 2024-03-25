@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -26,6 +28,7 @@ import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
@@ -43,6 +46,7 @@ public class FeedFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedAdapter adapter;
     private List<Source> sources = new ArrayList<>();
+    private AppViewModel appViewModel;
     private FEED_TYPE type = FEED_TYPE.TYPE_MULTI;
 
     public FeedFragment() {}
@@ -100,11 +104,17 @@ public class FeedFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(true);
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
+            if(appViewModel.getPostCache() != null){
+                adapter.update(appViewModel.getPostCache());
+            }
             List<Post> posts = Parser.loadMultiple(sources);
-            ((Activity) context).runOnUiThread(() -> {
-                adapter.update(posts);
-                swipeRefreshLayout.setRefreshing(false);
-            });
+            if(appViewModel.isCacheOutdated(posts)){
+                ((Activity) context).runOnUiThread(() -> {
+                    appViewModel.setPostCache(posts);
+                    adapter.update(posts);
+                });
+            }
+            swipeRefreshLayout.setRefreshing(false);
         });
 
         Bundle params = new Bundle();
@@ -116,12 +126,18 @@ public class FeedFragment extends Fragment {
         if(repository == null){
             repository = new AppRepository(context);
         }
+        appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
 
         if (type == FEED_TYPE.TYPE_MULTI) {
+            appViewModel.getSources().observe(getViewLifecycleOwner(), sources -> {
+                FeedFragment.this.sources = sources;
+                update();
+            });
+            /*
             repository.getAllSources().observe(this.getViewLifecycleOwner(), sources -> {
                 this.sources = sources;
                 update();
-            });
+            });*/
         }
     }
 

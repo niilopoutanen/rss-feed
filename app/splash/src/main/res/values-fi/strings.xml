@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
+    <string name="whats_new">Mitä uutta?</string>
+
+    <string name="feature1">Välimuisti</string>
+    <string name="feature1desc">Data pysyy nyt välimuistissa käyttäessä sovellusta, joka parantaa akun kulutusta ja sovelluksen nopeutta.</string>
+
+    <string name="feature2">Väritausta kuvissa</string>
+    <string name="feature2desc">Korjattu virhe Android 11-laitteilla. Sori siitä!</string>
+
+    <string name="feature3">Kaatumiskorjauksia</string>
+    <string name="feature3desc">Muutama virhe sovelluksen kaatumiseen liittyen korjattu.</string>
+</resources>

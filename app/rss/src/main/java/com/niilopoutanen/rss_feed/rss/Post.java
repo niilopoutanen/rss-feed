@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(tableName = "post", foreignKeys = {@ForeignKey(entity = Source.class, parentColumns = "id", childColumns = "sourceId", onDelete = ForeignKey.CASCADE)})
 public class Post implements Comparable<Post>, Serializable {
@@ -59,5 +60,28 @@ public class Post implements Comparable<Post>, Serializable {
         } else {
             return post.pubDate.compareTo(pubDate);
         }
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, link);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        if(!title.equals(post.title)){
+            return false;
+        }
+        if(!description.equals(post.description)){
+            return false;
+        }
+        if(!link.equals(post.link)){
+            return false;
+        }
+
+        return true;
     }
 }
