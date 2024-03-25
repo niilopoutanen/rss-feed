@@ -126,9 +126,9 @@ public class FeedFragment extends Fragment {
         if(repository == null){
             repository = new AppRepository(context);
         }
+        appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
 
         if (type == FEED_TYPE.TYPE_MULTI) {
-            appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
             appViewModel.getSources().observe(getViewLifecycleOwner(), sources -> {
                 FeedFragment.this.sources = sources;
                 update();

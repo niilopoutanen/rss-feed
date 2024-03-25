@@ -4,10 +4,10 @@
     <string name="whats_new">What\'s new?</string>
 
     <string name="feature1">App cache</string>
-    <string name="feature1desc">Data, such as posts and sources stays in cache when using app, which improves battery life and performance.</string>
+    <string name="feature1desc">Data, such as posts and sources, now remains in cache when using the app, which enhancesbattery life and performance.</string>
 
-    <string name="feature2">Colored background to images</string>
-    <string name="feature2desc">When viewing an image within an article, it now features a colored background based on the image.</string>
+    <string name="feature2">Major crash fix</string>
+    <string name="feature2desc">Fixed a repeating crash on Android 11 devices when using dark mode. Sorry about that!</string>
 
     <string name="feature3">Crash fixes</string>
     <string name="feature3desc">A few issues leading to the app to crash were fixed.</string>
