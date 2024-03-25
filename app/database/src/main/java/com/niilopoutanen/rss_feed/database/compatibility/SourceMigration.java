@@ -2,7 +2,6 @@ package com.niilopoutanen.rss_feed.database.compatibility;
 
 import android.content.Context;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.rss.Source;
 
@@ -49,7 +48,7 @@ public class SourceMigration {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            e.printStackTrace();
         }
 
         return oldData;

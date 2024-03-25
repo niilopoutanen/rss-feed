@@ -19,11 +19,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
@@ -34,7 +37,7 @@ import java.util.concurrent.Executors;
 public class AddSourceFragment extends Fragment {
 
     private Source source;
-
+    private AppViewModel appViewModel;
     private EditText feedUrl, feedName;
     private MaterialSwitch showInFeed;
     private TextView title;
@@ -118,8 +121,14 @@ public class AddSourceFragment extends Fragment {
     private void save(Source source) {
         source.trim();
 
-        AppRepository repository = new AppRepository(context);
-        repository.insert(source);
+        Bundle params = new Bundle();
+        params.putString("url", source.url);
+        params.putString("source_name", source.title);
+        FirebaseAnalytics.getInstance(context).logEvent("add_source", params);
+
+        if(appViewModel != null){
+            appViewModel.updateSource(source);
+        }
     }
 
     @Override
@@ -139,6 +148,8 @@ public class AddSourceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_source, container, false);
         if(context == null) context = rootView.getContext();
+
+        appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.addsource_header), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -186,7 +197,7 @@ public class AddSourceFragment extends Fragment {
             }
         }
 
-        if (errorMessage.equals("")) {
+        if (errorMessage.isEmpty()) {
             return;
         }
 

@@ -15,8 +15,8 @@ android {
         resourceConfigurations += ["en", "fi"]
         minSdk 26
         targetSdk 34
-        versionCode 28
-        versionName "2.3"
+        versionCode 29
+        versionName "2.3.1"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -36,6 +36,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
@@ -43,6 +46,7 @@ dependencies {
     implementation project(':app:common')
     implementation project(':app:rss')
     implementation project(':app:parser')
+    implementation project(':app:database')
     def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
@@ -50,16 +54,16 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
     implementation ("androidx.webkit:webkit:1.10.0")
     implementation 'net.dankito.readability4j:readability4j:1.0.8'
-    implementation platform('com.google.firebase:firebase-bom:32.7.3')
+    implementation platform('com.google.firebase:firebase-bom:32.7.4')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'org.jsoup:jsoup:1.16.2'
+    implementation 'org.jsoup:jsoup:1.17.2'
 
     implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
     implementation "androidx.core:core-splashscreen:1.0.1"
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

@@ -26,6 +26,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.palette.graphics.Palette;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
@@ -83,14 +84,18 @@ public class ImageViewActivity extends AppCompatActivity {
             Picasso.get().load(url).networkPolicy(NetworkPolicy.NO_STORE).into(target);
         }
 
+        Bundle params = new Bundle();
+        params.putString("url", url);
+        FirebaseAnalytics.getInstance(this).logEvent("view_image", params);
 
         LinearLayout saveBtn = findViewById(R.id.saveimg);
-        saveBtn.setOnClickListener(v -> saveImage());
+        saveBtn.setOnClickListener(v -> fetchFile());
 
         ViewCompat.setOnApplyWindowInsetsListener(saveBtn, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.bottomMargin = insets.bottom;
+
+            mlp.bottomMargin = Math.max(PreferencesManager.dpToPx(10, this), insets.bottom);
             v.setLayoutParams(mlp);
 
             return WindowInsetsCompat.CONSUMED;
@@ -101,7 +106,7 @@ public class ImageViewActivity extends AppCompatActivity {
     /**
      * Loads the bitmap from internet
      */
-    private void saveImage() {
+    private void fetchFile() {
         String filename = String.format("%s %s", getString(R.string.imagefrom), getString(R.string.app_name));
         try {
             URL imgUrl = new URL(url);
@@ -148,7 +153,7 @@ public class ImageViewActivity extends AppCompatActivity {
     }
 
     /**
-     * Saves a bitmap to user's gallery
+     * Saves a loaded bitmap to user's gallery
      */
     private void saveToGallery(Bitmap image, String filename) {
         String filepath = MediaStore.Images.Media.insertImage(getContentResolver(), image, filename, null);
@@ -202,7 +207,7 @@ public class ImageViewActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                saveImage();
+                fetchFile();
             } else {
                 Toast.makeText(this, getString(R.string.error_no_write_access), Toast.LENGTH_SHORT).show();
             }
