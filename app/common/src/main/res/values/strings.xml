@@ -103,17 +103,7 @@
         <item>Oldest first</item>
     </string-array>
 
-    <string name="whats_new_in">What\'s new %1$s in</string>
-    <string name="whats_new">What\'s new?</string>
 
-    <string name="feature1">Sorting feed posts</string>
-    <string name="feature1desc">You can now sort the posts in your feed by newest or oldest!</string>
-
-    <string name="feature2">Colored background to images</string>
-    <string name="feature2desc">When viewing an image within an article, it now features a colored background based on the image.</string>
-
-    <string name="feature3">Crash fixes</string>
-    <string name="feature3desc">A few issues leading to the app to crash were fixed.</string>
 
 
 

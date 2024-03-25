@@ -109,7 +109,6 @@ public class FeedFragment extends Fragment {
             }
             List<Post> posts = Parser.loadMultiple(sources);
             if(appViewModel.isCacheOutdated(posts)){
-                Log.d("Cache", "Cache outdated, updating");
                 ((Activity) context).runOnUiThread(() -> {
                     appViewModel.setPostCache(posts);
                     adapter.update(posts);
