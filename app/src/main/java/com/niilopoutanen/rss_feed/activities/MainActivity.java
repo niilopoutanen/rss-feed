@@ -13,7 +13,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
         }
-        MobileAds.initialize(this);
         appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
 
 
