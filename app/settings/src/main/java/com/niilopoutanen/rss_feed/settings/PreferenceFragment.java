@@ -13,7 +13,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.niilopoutanen.rss_feed.database.AppViewModel;
 
-public class PreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class PreferenceFragment extends PreferenceFragmentCompat{
     AppViewModel appViewModel;
 
     @NonNull
@@ -25,27 +25,9 @@ public class PreferenceFragment extends PreferenceFragmentCompat implements Shar
 
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-
-
-        SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-        if(sharedPreferences != null){
-            sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-        if(sharedPreferences != null){
-            sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        String value = sharedPreferences.getString(key, null);
-
+        setPreferencesFromResource(R.xml.settings, rootKey);
+        getPreferenceManager().setPreferenceDataStore(new PreferenceStore(this));
 
     }
+
 }
