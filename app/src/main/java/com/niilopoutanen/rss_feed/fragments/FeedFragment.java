@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -207,7 +206,7 @@ public class FeedFragment extends Fragment {
     }
 
     private boolean isValid(List<Source> sources) {
-        if (sources.size() == 0) {
+        if (sources.isEmpty()) {
             showError(0);
             return false;
         }
