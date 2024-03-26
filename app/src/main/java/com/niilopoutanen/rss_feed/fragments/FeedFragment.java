@@ -107,7 +107,15 @@ public class FeedFragment extends Fragment {
             if(appViewModel.getPostCache() != null){
                 adapter.update(appViewModel.getPostCache());
             }
-            List<Post> posts = Parser.loadMultiple(sources);
+            List<Post> posts;
+            if(type == FEED_TYPE.TYPE_SINGLE){
+                Parser parser = new Parser();
+                parser.load(sources.get(0).url);
+                posts = new ArrayList<>(parser.posts);
+            }
+            else{
+                posts = Parser.loadMultiple(sources);
+            }
             if(appViewModel.isCacheOutdated(posts)){
                 ((Activity) context).runOnUiThread(() -> {
                     appViewModel.setPostCache(posts);
