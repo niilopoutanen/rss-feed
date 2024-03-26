@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/app/database" />
             <option value="$PROJECT_DIR$/app/parser" />
             <option value="$PROJECT_DIR$/app/rss" />
+            <option value="$PROJECT_DIR$/app/settings" />
             <option value="$PROJECT_DIR$/app/splash" />
           </set>
         </option>
