@@ -5,9 +5,21 @@
     <Preference/>
     <Preference/>
     <Preference/>
-    <SwitchPreferenceCompat
-        app:key="showSearchBar"
-        app:title="Show search bar"/>
+
+    <PreferenceCategory
+        android:summary="Feed"
+        android:layout="@layout/settings_category">
+        <SwitchPreferenceCompat
+            app:key="showSearchBar"
+            app:title="Show search bar"
+            android:layout="@layout/settings_switch"/>
+
+        <SwitchPreferenceCompat
+            app:key="showSearchBar"
+            app:title="Show search bar"
+            android:layout="@layout/settings_switch"/>
+    </PreferenceCategory>
+
 
 
 </androidx.preference.PreferenceScreen>

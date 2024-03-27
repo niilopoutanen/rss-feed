@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/element_background"
+        android:clickable="false"
+        android:focusable="false"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <!--  Overriding android ids results automatic persistence / setting of title -->
+        <TextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@android:id/widget_frame"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/textPrimary"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            tools:text="Sending usage data" />
+
+        <LinearLayout
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@android:id/widget_frame"
+            android:orientation="horizontal" />
+
+    </RelativeLayout>
+</LinearLayout>
