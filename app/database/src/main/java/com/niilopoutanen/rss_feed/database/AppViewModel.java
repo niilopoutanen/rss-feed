@@ -11,11 +11,13 @@ import com.niilopoutanen.rss_feed.rss.Source;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class AppViewModel extends AndroidViewModel {
     private final AppRepository appRepository;
 
     private final LiveData<List<Source>> sources;
+    private Preferences preferences;
     private List<Post> posts;
 
     public AppViewModel(Application application){
@@ -30,6 +32,12 @@ public class AppViewModel extends AndroidViewModel {
     }
     public void updateSource(Source source){
         appRepository.insert(source);
+    }
+    public void setPreferences(Preferences preferences){
+        this.preferences = preferences;
+    }
+    public Preferences getPreferences(){
+        return this.preferences;
     }
     public void setPostCache(List<Post> posts){
         if(posts == null || posts.isEmpty()) return;
