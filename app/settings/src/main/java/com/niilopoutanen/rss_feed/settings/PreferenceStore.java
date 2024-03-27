@@ -32,7 +32,7 @@ public class PreferenceStore extends PreferenceDataStore {
     @Override
     public boolean getBoolean(String key, boolean defValue) {
         try {
-            Field field = appViewModel.getPreferences().getClass().getField(key);
+            Field field = Preferences.getClass().getField(key);
             return field.getBoolean(appViewModel.getPreferences());
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();

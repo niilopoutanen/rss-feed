@@ -23,6 +23,7 @@ import com.niilopoutanen.rss_feed.fragments.DiscoverFragment;
 import com.niilopoutanen.rss_feed.fragments.FeedFragment;
 import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
+import com.niilopoutanen.rss_feed.settings.PreferenceFragment;
 import com.niilopoutanen.rss_feed.splash.SplashActivity;
 
 
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentFragment == null) {
             switch (preferences.s_launchwindow) {
                 case SETTINGS:
-                    currentFragment = SettingsFragment.newInstance();
+                    currentFragment = new PreferenceFragment();
                     bottomNav.setSelectedItemId(R.id.nav_settings);
                     break;
                 case FEED:
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
             preferences = PreferencesManager.loadPreferences(MainActivity.this);
             if (itemId == R.id.nav_settings) {
-                currentFragment = SettingsFragment.newInstance();
+                currentFragment = new PreferenceFragment();
             } else if (itemId == R.id.nav_feed) {
                 currentFragment = FeedFragment.newInstance();
             } else if (itemId == R.id.nav_content) {

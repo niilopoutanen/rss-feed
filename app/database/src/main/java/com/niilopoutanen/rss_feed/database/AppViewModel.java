@@ -7,11 +7,11 @@ import androidx.lifecycle.LiveData;
 
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
+import com.niilopoutanen.rss_feed.settings.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 public class AppViewModel extends AndroidViewModel {
     private final AppRepository appRepository;
