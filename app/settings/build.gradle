@@ -28,5 +28,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.preference:preference:1.2.1'
     implementation project(':app:database')
+    implementation project(':app:rss')
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

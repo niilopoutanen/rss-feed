@@ -1,16 +1,13 @@
 package com.niilopoutanen.rss_feed.settings;
 
-import android.app.Application;
-
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.preference.PreferenceDataStore;
 
 import com.niilopoutanen.rss_feed.database.AppViewModel;
+import com.niilopoutanen.rss_feed.rss.Preferences;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PreferenceStore extends PreferenceDataStore {
 
@@ -22,7 +19,7 @@ public class PreferenceStore extends PreferenceDataStore {
     @Override
     public void putBoolean(String key, boolean value) {
         try {
-            Field field = appViewModel.getPreferences().getClass().getField(key);
+            Field field = Preferences.class.getField(key);
             field.setBoolean(appViewModel.getPreferences(), value);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace(); // Handle the exception according to your needs
@@ -32,7 +29,7 @@ public class PreferenceStore extends PreferenceDataStore {
     @Override
     public boolean getBoolean(String key, boolean defValue) {
         try {
-            Field field = Preferences.getClass().getField(key);
+            Field field = Preferences.class.getField(key);
             return field.getBoolean(appViewModel.getPreferences());
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();

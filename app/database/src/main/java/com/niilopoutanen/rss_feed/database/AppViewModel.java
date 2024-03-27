@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.rss.Preferences;
 import com.niilopoutanen.rss_feed.rss.Source;
-import com.niilopoutanen.rss_feed.settings.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +37,9 @@ public class AppViewModel extends AndroidViewModel {
         this.preferences = preferences;
     }
     public Preferences getPreferences(){
+        if(this.preferences == null){
+            this.preferences = new Preferences();
+        }
         return this.preferences;
     }
     public void setPostCache(List<Post> posts){
