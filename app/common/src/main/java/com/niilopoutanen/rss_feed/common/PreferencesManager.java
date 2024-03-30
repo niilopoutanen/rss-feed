@@ -220,6 +220,9 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
+        if(lastVersionUsed == 29 && currentVersion == 30){
+            return false; // skip
+        }
         return currentVersion > lastVersionUsed;
     }
 

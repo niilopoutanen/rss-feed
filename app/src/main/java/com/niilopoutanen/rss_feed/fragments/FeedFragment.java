@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +106,15 @@ public class FeedFragment extends Fragment {
             if(appViewModel.getPostCache() != null){
                 adapter.update(appViewModel.getPostCache());
             }
-            List<Post> posts = Parser.loadMultiple(sources);
+            List<Post> posts;
+            if(type == FEED_TYPE.TYPE_SINGLE){
+                Parser parser = new Parser();
+                parser.load(sources.get(0).url);
+                posts = new ArrayList<>(parser.posts);
+            }
+            else{
+                posts = Parser.loadMultiple(sources);
+            }
             if(appViewModel.isCacheOutdated(posts)){
                 ((Activity) context).runOnUiThread(() -> {
                     appViewModel.setPostCache(posts);
@@ -199,7 +206,7 @@ public class FeedFragment extends Fragment {
     }
 
     private boolean isValid(List<Source> sources) {
-        if (sources.size() == 0) {
+        if (sources.isEmpty()) {
             showError(0);
             return false;
         }

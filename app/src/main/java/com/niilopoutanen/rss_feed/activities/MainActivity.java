@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
         }
-
         appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
 
 

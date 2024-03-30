@@ -15,8 +15,8 @@ android {
         resourceConfigurations += ["en", "fi"]
         minSdk 26
         targetSdk 34
-        versionCode 29
-        versionName "2.3.1"
+        versionCode 30
+        versionName "2.3.1.1"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -47,25 +47,26 @@ dependencies {
     implementation project(':app:rss')
     implementation project(':app:parser')
     implementation project(':app:database')
+
     def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+    implementation 'net.dankito.readability4j:readability4j:1.0.8'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'org.jsoup:jsoup:1.17.2'
+    implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
+
+    implementation "androidx.core:core-splashscreen:1.0.1"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.palette:palette:1.0.0'
     implementation ("androidx.webkit:webkit:1.10.0")
-    implementation 'net.dankito.readability4j:readability4j:1.0.8'
-    implementation platform('com.google.firebase:firebase-bom:32.7.4')
+
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation platform('com.google.firebase:firebase-bom:32.8.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'org.jsoup:jsoup:1.17.2'
-
-    implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
-    implementation "androidx.core:core-splashscreen:1.0.1"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
 }

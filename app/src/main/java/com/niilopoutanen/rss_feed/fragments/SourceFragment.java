@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,11 +23,8 @@ import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
-import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.rss.Source;
-
-import java.util.List;
 
 public class SourceFragment extends Fragment {
 

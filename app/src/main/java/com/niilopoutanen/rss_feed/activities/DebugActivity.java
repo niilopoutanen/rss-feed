@@ -73,7 +73,5 @@ public class DebugActivity extends AppCompatActivity {
             Intent onBoardingIntent = new Intent(DebugActivity.this, SplashActivity.class);
             startActivity(onBoardingIntent);
         });
-
-
     }
 }

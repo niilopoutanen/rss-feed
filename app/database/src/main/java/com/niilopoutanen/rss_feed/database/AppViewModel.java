@@ -10,9 +10,7 @@ import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AppViewModel extends AndroidViewModel {
     private final AppRepository appRepository;
@@ -54,8 +52,11 @@ public class AppViewModel extends AndroidViewModel {
         Collections.sort(l2);
 
         for(int i = 0; i < l1.size(); i++){
-            if(!l1.get(i).equals(l2.get(i))){
-                return true; // If the post at same index is different, cache is outdated
+            Post post1 = l1.get(i);
+            Post post2 = l2.get(i);
+            if(post1 == null || post2 == null) return true;
+            if(!post1.equals(post2)){
+                return true;
             }
         }
         return false; // If all posts match, cache is not outdated.
