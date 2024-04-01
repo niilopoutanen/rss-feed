@@ -72,12 +72,16 @@ public class Post implements Comparable<Post>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
+        if(title == null || post.title == null) return false;
         if(!title.equals(post.title)){
             return false;
         }
+        if(description == null || post.description == null) return false;
         if(!description.equals(post.description)){
             return false;
         }
+
+        if(link == null || post.link == null) return false;
         if(!link.equals(post.link)){
             return false;
         }
