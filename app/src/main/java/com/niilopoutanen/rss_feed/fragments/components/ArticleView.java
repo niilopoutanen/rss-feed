@@ -13,6 +13,8 @@ import com.niilopoutanen.rss_feed.activities.ImageViewActivity;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.rss.Post;
+import com.niilopoutanen.rss_feed.rss.Source;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -40,22 +42,28 @@ public class ArticleView extends WebView {
     private void init() {
         WebSettings webSettings = getSettings();
         webSettings.setJavaScriptEnabled(true);
+        setWebContentsDebuggingEnabled(true);
         addJavascriptInterface(this, "Android");
     }
 
-    public void loadDocument(Document document, List<String> categories) {
-        if (PreferencesManager.loadPreferences(context).s_article_show_categories && categories.size() > 0) {
+    public void loadDocument(Document document, Post post) {
+        if (PreferencesManager.loadPreferences(context).s_article_show_categories && !post.getCategories().isEmpty()) {
             Element container = new Element("div");
             container.id("rssfeed-categories");
 
-            for (String category : categories) {
+            for (String category : post.getCategories()) {
                 container.appendChild(createCategory(category));
             }
             Elements titles = document.select("h1");
-            if (titles.size() > 0) {
+            if (!titles.isEmpty()) {
                 Element title = titles.first();
                 if (title != null) {
                     title.after(createSection(null, container));
+
+                    Element author = new Element("p");
+                    author.text(post.author);
+                    author.addClass("author");
+                    title.after(author);
                 }
             } else {
                 document.prependChild(createSection(null, container));
@@ -124,8 +132,14 @@ public class ArticleView extends WebView {
                             "    }\n" +
                             "\n" +
                             "    h1{\n" +
-                            "        margin-bottom: 5px;\n" +
+                            "        margin-bottom: 0px;\n" +
                             "        font-size: 1.6rem;\n" +
+                            "    }\n" +
+                            "    p.author{\n" +
+                            "        margin-top: 3px;\n" +
+                            "        margin-bottom: 15px;\n" +
+                            "        font-size: 1rem;\n" +
+                            "        color: '$TEXTSECONDARY';\n" +
                             "    }\n" +
                             "\n" +
                             "    table {\n" +

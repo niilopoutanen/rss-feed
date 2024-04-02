@@ -225,7 +225,7 @@ public class ArticleActivity extends AppCompatActivity {
                 });
             }
         });
-        articleView.loadDocument(document, post.getCategories());
+        articleView.loadDocument(document, post);
     }
 
 
