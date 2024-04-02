@@ -18,7 +18,7 @@
         android:visibility="gone"
         android:id="@+id/season_resource"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="@+id/frame_container" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_menu"

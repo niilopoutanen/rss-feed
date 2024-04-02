@@ -124,9 +124,10 @@ public class MainActivity extends AppCompatActivity {
         if (SeasonTheming.isSeason()){
             FrameLayout seasonContainer = findViewById(R.id.season_resource);
             ImageView graphic = SeasonTheming.inflate(this);
-
-            seasonContainer.addView(graphic);
-            seasonContainer.setVisibility(View.VISIBLE);
+            if(graphic != null){
+                seasonContainer.addView(graphic);
+                seasonContainer.setVisibility(View.VISIBLE);
+            }
         }
 
     }
