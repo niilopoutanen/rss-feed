@@ -7,4 +7,10 @@
 <p align="center">
   <a href="https://play.google.com/store/apps/details?id=com.niilopoutanen.rss_feed">Download on Google Play</a>
 </p>
+
+<br>
+<h4 align="center">Contact:</h4>
+<p align="center">
+  <a href="mailto:niilo.poutanen@gmail.com">niilo.poutanen@gmail.com</a>
+</p>
 <br>
