@@ -1,16 +1,27 @@
 package com.niilopoutanen.rss_feed.common;
 
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.squareup.picasso.Picasso;
+
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SeasonTheming {
 
-    public boolean isSeason() {
+    private final static String baseUrl = "https://raw.githubusercontent.com/niilopoutanen/rss-feed/app-resources/seasons/";
+
+
+    public static boolean isSeason() {
         Date today = Date.from(Instant.now());
 
         Map<Date, Date> seasons = getSeasons(Calendar.getInstance().get(Calendar.YEAR));
@@ -23,12 +34,25 @@ public class SeasonTheming {
             }
         }
 
-        return false;
+        return true;
     }
 
+    private static String getActiveSeasonName(){
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        switch (currentMonth) {
+            case Calendar.DECEMBER:
+                return "christmas.png";
+            case Calendar.OCTOBER:
+            case Calendar.NOVEMBER:
+                return "halloween.png";
+            case Calendar.MARCH:
+                return "easter.png";
+            default:
+                return "easter.png";
+        }
+    }
 
-
-    public Map<Date, Date> getSeasons(int year) {
+    public static Map<Date, Date> getSeasons(int year) {
         Map<Date, Date> seasons = new HashMap<>();
 
         Calendar calendar = Calendar.getInstance();
@@ -64,5 +88,15 @@ public class SeasonTheming {
         seasons.put(halloweenStart, halloweenEnd);
 
         return seasons;
+    }
+
+    public static ImageView inflate(Context context){
+        FrameLayout.LayoutParams imageParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ImageView resource = new ImageView(context);
+        resource.setAdjustViewBounds(true);
+        resource.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        resource.setLayoutParams(imageParams);
+        Picasso.get().load(baseUrl + getActiveSeasonName()).into(resource);
+        return resource;
     }
 }

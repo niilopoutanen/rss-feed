@@ -3,10 +3,15 @@ package com.niilopoutanen.rss_feed.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -16,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.navigation.NavigationBarView;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.common.SeasonTheming;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.database.compatibility.SourceMigration;
@@ -112,6 +118,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             getWindow().setNavigationBarColor(getColor(R.color.navbarBg));
+        }
+
+
+        if (SeasonTheming.isSeason()){
+            FrameLayout seasonContainer = findViewById(R.id.season_resource);
+            ImageView graphic = SeasonTheming.inflate(this);
+
+            seasonContainer.addView(graphic);
+            seasonContainer.setVisibility(View.VISIBLE);
         }
 
     }
