@@ -25,7 +25,7 @@ public class SeasonTheming {
     private static final Date halloweenDate;
     private static final Date easterDate;
     private static final Date newYearsDate;
-
+    private static final Date stPatricksDate;
     static {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -38,6 +38,9 @@ public class SeasonTheming {
 
         calendar.set(year, Calendar.DECEMBER, 31);
         newYearsDate = calendar.getTime();
+
+        calendar.set(year, Calendar.MARCH, 17);
+        stPatricksDate = calendar.getTime();
         
         easterDate = calculateEaster(year);
     }
@@ -51,10 +54,14 @@ public class SeasonTheming {
         Date today = Date.from(Instant.now());
         if (today.equals(christmasDate)) {
             return "christmas.png";
-        } else if (today.equals(halloweenDate) || today.after(halloweenDate) && today.before(christmasDate)) {
+        } else if (today.equals(halloweenDate)) {
             return "halloween.png";
         } else if (today.equals(easterDate)) {
             return "easter.png";
+        } else if(today.equals(newYearsDate)){
+            return "newyear.png";
+        } else if(today.equals(stPatricksDate)){
+            return "st.patricks.png";
         } else {
             return null;
         }
