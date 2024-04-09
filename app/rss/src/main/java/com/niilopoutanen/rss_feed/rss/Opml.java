@@ -68,7 +68,9 @@ public class Opml {
                 source.title = title;
                 source.url = url;
                 source.description = description;
-                sources.add(source);
+                if(source.url != null && !source.url.isEmpty()){
+                    sources.add(source);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
