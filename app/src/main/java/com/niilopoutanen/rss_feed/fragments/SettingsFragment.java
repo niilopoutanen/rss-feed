@@ -79,12 +79,15 @@ import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.rss.Opml;
 import com.niilopoutanen.rss_feed.rss.Source;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SettingsFragment extends Fragment {
 
@@ -268,18 +271,29 @@ public class SettingsFragment extends Fragment {
 
         ActivityResultLauncher<Intent> filePickerResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {
-                try {
-                    List<Source> sources = Opml.loadData(result, context);
-                    if (sources != null && !sources.isEmpty()) {
-                        AppRepository repository = new AppRepository(context);
-                        for (Source source : sources) {
-                            repository.insert(source);
+                Toast.makeText(context, context.getString(R.string.import_starting), Toast.LENGTH_LONG).show();
+
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(() -> {
+                    try {
+                        List<Source> sources = Opml.loadData(result, context);
+                        if (sources != null && !sources.isEmpty()) {
+                            AppRepository repository = new AppRepository(context);
+                            for (Source source : sources) {
+                                if(source.image == null || source.image.isEmpty()){
+                                    source.image = IconFinder.get(source.url);
+                                }
+                                repository.insert(source);
+                            }
+                            ((Activity)context).runOnUiThread(() -> {
+                                Toast.makeText(context, context.getResources().getQuantityString(R.plurals.imported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
+                            });
                         }
-                        Toast.makeText(context, context.getResources().getQuantityString(R.plurals.imported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        FirebaseCrashlytics.getInstance().recordException(e);
                     }
-                } catch (IOException e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                }
+                });
+
 
             }
         });
