@@ -63,14 +63,24 @@ public class StatusView extends LinearLayoutCompat {
             addToLayout(status);
             statusQueue.remove(0);
         }
-        else if(!eventQueue.isEmpty()){
+        if(!eventQueue.isEmpty()){
             eventQueue.get(0).run();
             eventQueue.remove(0);
         }
-        else if(!finalEventQueue.isEmpty()){
-            finalEventQueue.get(0).run();
-            finalEventQueue.remove(0);
+        if(statusQueue.isEmpty()){
+            //Run remaining base events first;
+            for(Runnable event: eventQueue){
+                event.run();
+            }
+            eventQueue.clear();
+
+            //Run all final events when done;
+            for(Runnable event: finalEventQueue){
+                event.run();
+            }
+            finalEventQueue.clear();
         }
+
         queueHandler.postDelayed(this::processQueue, ADD_STATUS_DELAY);
     }
     private void addToLayout(Status status){
