@@ -79,6 +79,7 @@ import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.manager.ImportActivity;
 import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.rss.Opml;
 import com.niilopoutanen.rss_feed.rss.Source;
@@ -300,10 +301,8 @@ public class SettingsFragment extends Fragment {
 
         RelativeLayout imp = rootView.findViewById(R.id.settings_import);
         imp.setOnClickListener(v -> {
-            Intent filePicker = new Intent(Intent.ACTION_GET_CONTENT);
-            filePicker.setType("*/*");
-            filePicker = Intent.createChooser(filePicker, context.getString(R.string.select_file_import));
-            filePickerResult.launch(filePicker);
+            Intent importIntent = new Intent(context, ImportActivity.class);
+            startActivity(importIntent);
         });
 
         setSavedData();
