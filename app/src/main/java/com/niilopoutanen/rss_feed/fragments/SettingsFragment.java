@@ -269,36 +269,6 @@ public class SettingsFragment extends Fragment {
             });
         });
 
-
-        ActivityResultLauncher<Intent> filePickerResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                Toast.makeText(context, context.getString(R.string.import_starting), Toast.LENGTH_LONG).show();
-
-                Executor executor = Executors.newSingleThreadExecutor();
-                executor.execute(() -> {
-                    try {
-                        List<Source> sources = Opml.loadData(result, context);
-                        if (sources != null && !sources.isEmpty()) {
-                            AppRepository repository = new AppRepository(context);
-                            for (Source source : sources) {
-                                if(source.image == null || source.image.isEmpty()){
-                                    source.image = IconFinder.get(source.url);
-                                }
-                                repository.insert(source);
-                            }
-                            ((Activity)context).runOnUiThread(() -> {
-                                Toast.makeText(context, context.getResources().getQuantityString(R.plurals.imported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
-                            });
-                        }
-                    } catch (IOException e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
-                    }
-                });
-
-
-            }
-        });
-
         RelativeLayout imp = rootView.findViewById(R.id.settings_import);
         imp.setOnClickListener(v -> {
             Intent importIntent = new Intent(context, ImportActivity.class);

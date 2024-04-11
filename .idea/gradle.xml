@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app/common" />
             <option value="$PROJECT_DIR$/app/database" />
+            <option value="$PROJECT_DIR$/app/manager" />
             <option value="$PROJECT_DIR$/app/parser" />
             <option value="$PROJECT_DIR$/app/rss" />
             <option value="$PROJECT_DIR$/app/splash" />

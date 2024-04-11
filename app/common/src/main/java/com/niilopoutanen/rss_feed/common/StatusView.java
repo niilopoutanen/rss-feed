@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.common;
 
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -15,8 +16,8 @@ import java.util.List;
 
 
 public class StatusView extends LinearLayoutCompat {
-    private List<String> statusQueue = new ArrayList<>();
-    private Handler queueHandler = new Handler();
+    private final List<Status> statusQueue = new ArrayList<>();
+    private final Handler queueHandler = new Handler();
     private final int ADD_STATUS_DELAY = 1000;
     public StatusView(@NonNull Context context) {
         super(context);
@@ -29,28 +30,64 @@ public class StatusView extends LinearLayoutCompat {
     }
     private void init(){
         setOrientation(VERTICAL);
+        setLayoutTransition(new LayoutTransition());
         queueHandler.postDelayed(this::processQueue, ADD_STATUS_DELAY);
     }
 
-    public void addStatus(String status){
+    public void clearMessages(){
+        removeAllViews();
+    }
+    public void addStatus(String msg){
+        Status status = new Status(msg, Status.Type.PROCESSING);
+        statusQueue.add(status);
+    }
+    public void addStatus(String msg, Status.Type type){
+        Status status = new Status(msg, type);
+        statusQueue.add(status);
+    }
+    public void addStatus(Status status){
         statusQueue.add(status);
     }
 
     private void processQueue() {
         if (!statusQueue.isEmpty()) {
-            String status = statusQueue.get(0);
+            Status status = statusQueue.get(0);
             addToLayout(status);
             statusQueue.remove(0);
         }
         queueHandler.postDelayed(this::processQueue, ADD_STATUS_DELAY);
     }
-    private void addToLayout(String status){
+    private void addToLayout(Status status){
         TextView statusText = new TextView(getContext());
-        statusText.setText(status + "...");
+
+        String msg = status.msg;
+        if(status.type == Status.Type.PROCESSING){
+            msg += "...";
+        }
+        else if(status.type == Status.Type.SUCCESS){
+            msg += " ✅";
+        }
+        else if(status.type == Status.Type.FAILURE){
+            msg += " ❌";
+        }
+        statusText.setText(msg);
+
         statusText.setTextColor(getContext().getColor(R.color.textSecondary));
         statusText.setGravity(Gravity.CENTER_HORIZONTAL);
         statusText.setTextSize(17);
         statusText.setTypeface(getContext().getResources().getFont(R.font.inter_medium));
         super.addView(statusText);
+    }
+
+    public static class Status{
+        public enum Type{
+            SUCCESS, FAILURE, PROCESSING
+        }
+        public final String msg;
+        public final Type type;
+        public Status(String msg, Type type){
+            this.msg = msg;
+            this.type = type;
+        }
     }
 }
