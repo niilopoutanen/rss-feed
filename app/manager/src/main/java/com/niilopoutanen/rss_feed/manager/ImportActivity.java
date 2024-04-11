@@ -53,9 +53,13 @@ public class ImportActivity extends AppCompatActivity {
                             });
                         }
                     } catch (IOException e) {
+                        statusView.addStatus(getString(com.niilopoutanen.rss_feed.common.R.string.error_adding_source), StatusView.Status.Type.FAILURE);
                         FirebaseCrashlytics.getInstance().recordException(e);
                     }
                 });
+            }
+            else if (result.getResultCode() == Activity.RESULT_CANCELED){
+                statusView.clearMessages();
             }
         });
 

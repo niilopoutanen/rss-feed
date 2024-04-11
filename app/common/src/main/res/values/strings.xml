@@ -137,6 +137,10 @@
         <item quantity="one">Imported %d source</item>
         <item quantity="other">Imported %d sources</item>
     </plurals>
+    <plurals name="skipped_sources">
+        <item quantity="one">%d source was not imported due to invalid data</item>
+        <item quantity="other">%d sources were not imported due to invalid data</item>
+    </plurals>
     <string name="select_file_import">Select a file to import</string>
     <string name="save_sources">Save sources</string>
     <string name="rssfeed_sources">RSS-Feed sources</string>
