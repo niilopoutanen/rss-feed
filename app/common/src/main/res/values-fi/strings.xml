@@ -117,6 +117,10 @@
         <item quantity="one">Tuotiin %d lähde</item>
         <item quantity="other">Tuotiin %d lähdettä</item>
     </plurals>
+    <plurals name="skipped_sources">
+        <item quantity="one">%d lähde ohitettiin virheellisten tietojen takia</item>
+        <item quantity="other">%d lähdettä ohitettiin virheellisten tietojen takia</item>
+    </plurals>
     <string name="import_starting">Aloitetaan tuonti. Älä sulje sovellusta.</string>
     <string name="select_file_import">Valitse tuotava tiedosto</string>
     <string name="save_sources">Tallenna lähteet</string>
@@ -133,4 +137,5 @@
     <string name="sorted_new_first">Nyt näytetään uusin ensin</string>
     <string name="sorting_mode">Lajittelutapa</string>
     <string name="remember_sorting">Muista lajittelutapa</string>
+    <string name="clear_sources">Tyhjennä kaikki lähteet</string>
 </resources>

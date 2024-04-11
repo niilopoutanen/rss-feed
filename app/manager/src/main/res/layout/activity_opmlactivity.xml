@@ -61,4 +61,10 @@
         android:layout_marginTop="40dp"/>
 
 
+    <com.niilopoutanen.rss_feed.common.PrimaryButton
+        android:id="@+id/activity_import_primary_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:enabled="false"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

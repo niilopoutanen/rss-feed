@@ -155,4 +155,5 @@
     <string name="sorted_new_first">Now showing newest post first</string>
     <string name="sorting_mode">Sorting mode</string>
     <string name="remember_sorting">Remember sorting mode</string>
+    <string name="clear_sources">Clear all sources</string>
 </resources>

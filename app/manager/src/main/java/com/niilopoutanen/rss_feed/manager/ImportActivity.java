@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.niilopoutanen.rss_feed.common.PrimaryButton;
 import com.niilopoutanen.rss_feed.common.StatusView;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.rss.Opml;
@@ -32,7 +33,8 @@ public class ImportActivity extends AppCompatActivity {
 
 
         statusView = findViewById(R.id.activity_import_status_view);
-
+        PrimaryButton primaryButton = findViewById(R.id.activity_import_primary_button);
+        primaryButton.setOnClickListener(v -> finish());
 
         ActivityResultLauncher<Intent> fileHandler = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {
@@ -50,6 +52,7 @@ public class ImportActivity extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 statusView.addStatus(getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.imported_sources, sources.size(), sources.size()),
                                         StatusView.Status.Type.SUCCESS);
+                                primaryButton.setIsEnabled(true);
                             });
                         }
                     } catch (IOException e) {
