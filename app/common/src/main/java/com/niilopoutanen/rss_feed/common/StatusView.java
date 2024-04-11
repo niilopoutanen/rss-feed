@@ -17,6 +17,8 @@ import java.util.List;
 
 public class StatusView extends LinearLayoutCompat {
     private final List<Status> statusQueue = new ArrayList<>();
+    private final List<Runnable> eventQueue = new ArrayList<>();
+    private final List<Runnable> finalEventQueue = new ArrayList<>();
     private final Handler queueHandler = new Handler();
     private final int ADD_STATUS_DELAY = 1000;
     public StatusView(@NonNull Context context) {
@@ -49,11 +51,25 @@ public class StatusView extends LinearLayoutCompat {
         statusQueue.add(status);
     }
 
+    public void addQueueEvent(Runnable event){
+        eventQueue.add(event);
+    }
+    public void addFinalEvent(Runnable event){
+        finalEventQueue.add(event);
+    }
     private void processQueue() {
         if (!statusQueue.isEmpty()) {
             Status status = statusQueue.get(0);
             addToLayout(status);
             statusQueue.remove(0);
+        }
+        else if(!eventQueue.isEmpty()){
+            eventQueue.get(0).run();
+            eventQueue.remove(0);
+        }
+        else if(!finalEventQueue.isEmpty()){
+            finalEventQueue.get(0).run();
+            finalEventQueue.remove(0);
         }
         queueHandler.postDelayed(this::processQueue, ADD_STATUS_DELAY);
     }

@@ -52,7 +52,7 @@ public class ImportActivity extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 statusView.addStatus(getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.imported_sources, sources.size(), sources.size()),
                                         StatusView.Status.Type.SUCCESS);
-                                primaryButton.setIsEnabled(true);
+                                statusView.addFinalEvent(() -> primaryButton.setIsEnabled(true));
                             });
                         }
                     } catch (IOException e) {
