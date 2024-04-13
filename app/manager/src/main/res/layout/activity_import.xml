@@ -28,11 +28,15 @@
             android:backgroundTint="@color/textPrimary"/>
 
         <TextView
+            android:id="@+id/activity_import_file_picker_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_file_import"
             android:textSize="18sp"
             android:fontFamily="@font/inter_medium"
+            android:ellipsize="end"
+            android:maxLength="30"
+            android:maxLines="1"
             app:fontFamily="@font/inter_medium"
             android:textColor="@color/textPrimary"/>
     </LinearLayout>
