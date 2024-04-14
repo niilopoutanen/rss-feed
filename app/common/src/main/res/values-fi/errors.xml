@@ -21,4 +21,6 @@
     <string name="error_no_email_found">Sähköpostisovellusta ei löydetty. Lähetä palautetta osoitteeseen niilo.poutanen@gmail.com</string>
     <string name="error_post_no_url">Artikkelia ei voi avata. Julkaisuun ei ole lisättyä URL-osoitetta.</string>
 
+    <string name="error_export_sources">Virhe tallentaessa lähteitä.</string>
+    <string name="error_import_no_sources">Tiedostosta ei löytynyt yhtään lähdettä. Yritä toista tiedostoa.</string>
 </resources>

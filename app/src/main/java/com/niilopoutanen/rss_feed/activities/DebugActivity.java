@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.activities;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,15 +11,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.crashlytics.internal.common.AppData;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.database.AppDatabase;
+import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.splash.SplashActivity;
 
 import java.sql.Date;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class DebugActivity extends AppCompatActivity {
     @Override
@@ -72,6 +78,16 @@ public class DebugActivity extends AppCompatActivity {
         findViewById(R.id.debug_showchangelog).setOnClickListener(v -> {
             Intent onBoardingIntent = new Intent(DebugActivity.this, SplashActivity.class);
             startActivity(onBoardingIntent);
+        });
+
+
+        findViewById(R.id.debug_clearsources).setOnClickListener(v -> {
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                AppDatabase appDatabase = AppDatabase.getInstance(DebugActivity.this);
+                appDatabase.sourceDao().deleteAll();
+            });
+
         });
     }
 }

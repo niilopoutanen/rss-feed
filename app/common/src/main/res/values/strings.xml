@@ -137,7 +137,16 @@
         <item quantity="one">Imported %d source</item>
         <item quantity="other">Imported %d sources</item>
     </plurals>
-    <string name="select_file_import">Select file to import</string>
+    <plurals name="exported_sources">
+        <item quantity="one">Exported %d source</item>
+        <item quantity="other">Exported %d sources</item>
+    </plurals>
+    <plurals name="skipped_sources">
+        <item quantity="one">%d source was not imported due to invalid data</item>
+        <item quantity="other">%d sources were not imported due to invalid data</item>
+    </plurals>
+    <string name="select_file_import">Select a file to import</string>
+    <string name="loading_icons">Loading icons</string>
     <string name="save_sources">Save sources</string>
     <string name="rssfeed_sources">RSS-Feed sources</string>
     <string name="rssfeed_export_desc">Subscribed sources from RSS-Feed</string>
@@ -151,4 +160,5 @@
     <string name="sorted_new_first">Now showing newest post first</string>
     <string name="sorting_mode">Sorting mode</string>
     <string name="remember_sorting">Remember sorting mode</string>
+    <string name="clear_sources">Clear all sources</string>
 </resources>

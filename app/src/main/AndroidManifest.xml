@@ -30,7 +30,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".splash.SplashActivity"
+        <activity
+            android:name=".manager.ImportActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".splash.SplashActivity"
             android:exported="false"/>
         <activity
             android:name=".activities.DebugActivity"
