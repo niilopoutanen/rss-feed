@@ -54,7 +54,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation 'net.dankito.readability4j:readability4j:1.0.8'
-    implementation 'com.squareup.picasso:picasso:2.80000'
+    implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'org.jsoup:jsoup:1.17.2'
     implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
 
