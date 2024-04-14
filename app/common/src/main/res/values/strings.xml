@@ -142,6 +142,7 @@
         <item quantity="other">%d sources were not imported due to invalid data</item>
     </plurals>
     <string name="select_file_import">Select a file to import</string>
+    <string name="loading_icons">Loading icons</string>
     <string name="save_sources">Save sources</string>
     <string name="rssfeed_sources">RSS-Feed sources</string>
     <string name="rssfeed_export_desc">Subscribed sources from RSS-Feed</string>

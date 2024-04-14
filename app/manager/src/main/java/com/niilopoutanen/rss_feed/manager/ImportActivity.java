@@ -19,6 +19,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
 import com.niilopoutanen.rss_feed.common.StatusView;
 import com.niilopoutanen.rss_feed.database.AppRepository;
+import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.rss.Opml;
 import com.niilopoutanen.rss_feed.rss.Source;
 
@@ -55,7 +56,11 @@ public class ImportActivity extends AppCompatActivity {
                         List<Source> sources = Opml.loadData(result, this);
                         if (sources != null && !sources.isEmpty()) {
                             AppRepository repository = new AppRepository(this);
+                            statusView.addStatus(getString(com.niilopoutanen.rss_feed.common.R.string.loading_icons));
                             for (Source source : sources) {
+                                if(source.image == null || source.image.isEmpty()){
+                                    source.image = IconFinder.get(source.url);
+                                }
                                 repository.insert(source);
                             }
                             runOnUiThread(() -> {
