@@ -44,7 +44,6 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFA
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -57,11 +56,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -72,7 +72,6 @@ import androidx.lifecycle.Observer;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
@@ -80,15 +79,12 @@ import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.manager.ImportActivity;
-import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.rss.Opml;
 import com.niilopoutanen.rss_feed.rss.Source;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class SettingsFragment extends Fragment {
 
@@ -99,6 +95,8 @@ public class SettingsFragment extends Fragment {
             imageCache, animateClicks, haptics, showChangelog;
     Slider fontSizeSlider;
     private Context context;
+    private ActivityResultLauncher<Intent> createDocumentLauncher;
+
 
     public SettingsFragment() {}
 
@@ -112,6 +110,38 @@ public class SettingsFragment extends Fragment {
 
         setEnterTransition(new MaterialFadeThrough());
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
+
+
+        createDocumentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == Activity.RESULT_OK){
+                    AppRepository repository = new AppRepository(context);
+                    repository.getAllSources().observe(SettingsFragment.this.getViewLifecycleOwner(), new Observer<List<Source>>() {
+                        @Override
+                        public void onChanged(List<Source> sources) {
+                            String content = Opml.encode(sources);
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            if (uri != null) {
+                                try {
+                                    OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
+                                    if (outputStream != null) {
+                                        outputStream.write(content.getBytes());
+                                        outputStream.close();
+                                    }
+                                } catch (IOException e) {
+                                    Toast.makeText(context, R.string.error_export_sources, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            Toast.makeText(context, getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.exported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
+                            repository.getAllSources().removeObserver(this);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
@@ -239,35 +269,21 @@ public class SettingsFragment extends Fragment {
             PreferencesManager.vibrate(v);
         });
 
+
+
+
         RelativeLayout export = rootView.findViewById(R.id.settings_export);
         export.setOnClickListener(v -> {
-            AppRepository repository = new AppRepository(context);
-            repository.getAllSources().observe(SettingsFragment.this.getViewLifecycleOwner(), new Observer<List<Source>>() {
-                @Override
-                public void onChanged(List<Source> sources) {
-                    String content = Opml.encode(sources);
-                    File file = Opml.cacheFile(context.getString(R.string.rssfeed_sources), content, context);
-                    if (file == null) {
-                        return;
-                    }
-                    Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
-
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_STREAM, uri);
-                    intent.putExtra(Intent.EXTRA_TITLE, context.getString(R.string.rssfeed_sources));
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                    intent.setClipData(new ClipData(
-                            context.getString(R.string.rssfeed_export_desc),
-                            new String[]{"text/plain"},
-                            new ClipData.Item(uri)
-                    ));
-                    startActivity(Intent.createChooser(intent, context.getString(R.string.save_sources)));
-                    repository.getAllSources().removeObserver(this);
-                }
-            });
+            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TITLE, context.getString(R.string.rssfeed_sources));
+            if(createDocumentLauncher != null){
+                createDocumentLauncher.launch(intent);
+            }
         });
+
+
 
         RelativeLayout imp = rootView.findViewById(R.id.settings_import);
         imp.setOnClickListener(v -> {

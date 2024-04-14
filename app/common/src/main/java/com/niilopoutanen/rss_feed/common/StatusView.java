@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import java.util.ArrayList;
@@ -41,6 +42,16 @@ public class StatusView extends LinearLayoutCompat {
     }
     public void addStatus(String msg){
         Status status = new Status(msg, Status.Type.PROCESSING);
+        statusQueue.add(status);
+    }
+    public void addStatus(@StringRes int stringID){
+        String msg = getContext().getString(stringID);
+        Status status = new Status(msg, Status.Type.PROCESSING);
+        statusQueue.add(status);
+    }
+    public void addStatus(@StringRes int stringID, Status.Type type){
+        String msg = getContext().getString(stringID);
+        Status status = new Status(msg, type);
         statusQueue.add(status);
     }
     public void addStatus(String msg, Status.Type type){

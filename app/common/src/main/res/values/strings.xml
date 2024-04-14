@@ -137,6 +137,10 @@
         <item quantity="one">Imported %d source</item>
         <item quantity="other">Imported %d sources</item>
     </plurals>
+    <plurals name="exported_sources">
+        <item quantity="one">Exported %d source</item>
+        <item quantity="other">Exported %d sources</item>
+    </plurals>
     <plurals name="skipped_sources">
         <item quantity="one">%d source was not imported due to invalid data</item>
         <item quantity="other">%d sources were not imported due to invalid data</item>

@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/activity_import_file_picker"
         tools:layout_editor_absoluteX="10dp"
-        android:layout_marginTop="40dp"/>
+        android:layout_margin="40dp"/>
 
 
     <com.niilopoutanen.rss_feed.common.PrimaryButton
