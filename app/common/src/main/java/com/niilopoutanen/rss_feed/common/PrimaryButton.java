@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.common;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -38,19 +39,18 @@ public class PrimaryButton extends RelativeLayout {
     private void init(AttributeSet attrs){
         setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_background));
         setBackgroundTintList(ColorStateList.valueOf(PreferencesManager.getAccentColor(getContext())));
-        if (PreferencesManager.loadPreferences(getContext()).s_animateclicks){
-            setOnTouchListener((view, event) -> {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_down));
-                } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_up));
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_up));
-                    view.performClick();
-                }
-                return true;
-            });
-        }
+        
+        setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_down));
+            } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+                startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_up));
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_up));
+                view.performClick();
+            }
+            return true;
+        });
 
         int padding = PreferencesManager.dpToPx(5, getContext());
         setPadding(padding,padding,padding,padding);
@@ -63,6 +63,7 @@ public class PrimaryButton extends RelativeLayout {
         text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.inter_bold));
         text.setTextSize(14);
         text.setText(getContext().getString(R.string.continua));
+        text.setTextColor(Color.parseColor("#FFFFFF"));
 
 
         progressBar = new ProgressBar(getContext());

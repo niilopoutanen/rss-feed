@@ -72,6 +72,7 @@ import androidx.lifecycle.Observer;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
@@ -122,23 +123,26 @@ public class SettingsFragment extends Fragment {
                         public void onChanged(List<Source> sources) {
                             String content = Opml.encode(sources);
                             Intent data = result.getData();
-                            Uri uri = data.getData();
-                            if (uri != null) {
-                                try {
-                                    OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
-                                    if (outputStream != null) {
-                                        outputStream.write(content.getBytes());
-                                        outputStream.close();
-                                    }
-                                } catch (IOException e) {
-                                    Toast.makeText(context, R.string.error_export_sources, Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                            if (data == null) return;
 
-                            Toast.makeText(context, getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.exported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
-                            repository.getAllSources().removeObserver(this);
+                            Uri uri = data.getData();
+                            if (uri == null) return;
+
+                            try {
+                                OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
+                                if (outputStream != null) {
+                                    outputStream.write(content.getBytes());
+                                    outputStream.close();
+                                    Toast.makeText(context, getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.exported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
+                                    repository.getAllSources().removeObserver(this);
+                                }
+                            } catch (IOException e) {
+                                Toast.makeText(context, R.string.error_export_sources, Toast.LENGTH_SHORT).show();
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                            }
                         }
                     });
+
                 }
             }
         });
