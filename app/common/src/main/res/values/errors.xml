@@ -21,4 +21,6 @@
     <string name="error_no_email_found">No email app was found. Send feedback to niilo.poutanen@gmail.com</string>
     <string name="error_post_no_url">Unable to open article. This post has no URL attached to it.</string>
 
+    <string name="error_export_sources">Error exporting sources.</string>
+    <string name="error_import_no_sources">No sources were found in the file. Please try another one.</string>
 </resources>

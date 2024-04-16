@@ -83,6 +83,12 @@ public class AddSourceFragment extends Fragment {
                 Parser parser = new Parser();
                 parser.load(userInput.url);
 
+                if(parser.source == null){
+                    activity.runOnUiThread(() -> {
+                        showError(context.getString(R.string.error_adding_source));
+                    });
+                    return;
+                }
                 //set id if it exists
                 if(source != null){
                     parser.source.id = source.id;

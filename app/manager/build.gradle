@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.niilopoutanen.rss_feed.database'
+    namespace 'com.niilopoutanen.rss_feed.manager'
     compileSdk 34
 
     defaultConfig {
@@ -22,11 +22,15 @@ android {
 }
 
 dependencies {
-    def room_version = "2.6.1"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation project(':app:common')
     implementation project(':app:rss')
+    implementation project(':app:database')
+
+    implementation platform('com.google.firebase:firebase-bom:32.8.1')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation project(':app:parser')
 }

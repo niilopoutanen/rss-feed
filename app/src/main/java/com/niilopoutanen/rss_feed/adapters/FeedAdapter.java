@@ -1,5 +1,6 @@
 package com.niilopoutanen.rss_feed.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -38,13 +39,20 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
         }
     }
     public void update(List<Post> newPosts) {
-        data.setPosts(newPosts);
-        notifyDataSetChanged();
+        if(context == null) return;
+        ((Activity)context).runOnUiThread(() -> {
+            data.setPosts(newPosts);
+            notifyDataSetChanged();
+        });
+
     }
 
     public void update() {
-        data.clearNotices();
-        notifyDataSetChanged();
+        if(context == null) return;
+        ((Activity)context).runOnUiThread(() -> {
+            data.clearNotices();
+            notifyDataSetChanged();
+        });
     }
 
     public void notify(String title, String desc) {

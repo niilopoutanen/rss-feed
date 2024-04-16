@@ -68,7 +68,9 @@ public class Opml {
                 source.title = title;
                 source.url = url;
                 source.description = description;
-                sources.add(source);
+                if(source.url != null && !source.url.isEmpty()){
+                    sources.add(source);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,18 +124,15 @@ public class Opml {
 
             BufferedReader reader = null;
             StringBuilder builder = new StringBuilder();
-            try
-            {
-                reader = new BufferedReader(new InputStreamReader(context.getContentResolver().openInputStream(uri)));
+            reader = new BufferedReader(new InputStreamReader(context.getContentResolver().openInputStream(uri)));
 
-                String line = "";
-                while ((line = reader.readLine()) != null)
-                {
-                    builder.append(line);
-                }
-                reader.close();
+            String line = "";
+            while ((line = reader.readLine()) != null)
+            {
+                builder.append(line);
             }
-            catch (IOException e) {e.printStackTrace();}
+            reader.close();
+
             String content = builder.toString();
 
             return decode(content);
