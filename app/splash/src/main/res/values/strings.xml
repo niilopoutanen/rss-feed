@@ -8,6 +8,8 @@
 
     <string name="feature2">Bug fixes</string>
     <string name="feature2desc">Minor bug fixes.</string>
+
+    <string name="feature3">-</string>
     <string name="feature3desc">-</string>
 
 </resources>
