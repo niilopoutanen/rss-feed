@@ -171,24 +171,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <RelativeLayout
+            <com.niilopoutanen.rss_feed.common.PrimaryButton
                 android:id="@+id/onboarding_version_continue"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/button_background"
-                android:backgroundTint="?attr/colorAccent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="660dp">
+                android:layout_height="wrap_content"
+                app:text="@string/continua"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/continua"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="14sp"
-                    app:fontFamily="@font/inter_semibold" />
-            </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>

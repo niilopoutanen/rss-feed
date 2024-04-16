@@ -163,21 +163,11 @@
             android:gravity="center"
             app:fontFamily="@font/inter"/>
 
-        <RelativeLayout
+        <com.niilopoutanen.rss_feed.common.PrimaryButton
             android:id="@+id/onboarding_version_continue"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/button_background"
-            android:backgroundTint="?attr/colorAccent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/continua"
-                android:layout_centerInParent="true"
-                app:fontFamily="@font/inter_semibold"
-                android:textColor="@color/textPrimary"
-                android:textSize="14sp"/>
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            app:text="@string/continua"/>
 
     </LinearLayout>
 
