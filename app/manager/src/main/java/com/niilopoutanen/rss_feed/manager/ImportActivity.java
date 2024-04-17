@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.common.PrimaryButton;
 import com.niilopoutanen.rss_feed.common.StatusView;
@@ -68,7 +69,11 @@ public class ImportActivity extends AppCompatActivity {
                                 statusView.addStatus(getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.imported_sources, sources.size(), sources.size()),
                                         StatusView.Status.Type.SUCCESS);
                                 statusView.addFinalEvent(() -> primaryButton.setIsEnabled(true));
+                                Bundle params = new Bundle();
+                                params.putString("source_count", String.valueOf(sources.size()));
+                                FirebaseAnalytics.getInstance(ImportActivity.this).logEvent("import_sources", params);
                             });
+
                         }
                         else{
                             statusView.addStatus(com.niilopoutanen.rss_feed.common.R.string.error_import_no_sources, StatusView.Status.Type.FAILURE);

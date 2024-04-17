@@ -80,7 +80,7 @@ public class PrimaryButton extends RelativeLayout {
 
             setIsEnabled(a.getBoolean(R.styleable.PrimaryButton_enabled, true));
             setIsLoading(a.getBoolean(R.styleable.PrimaryButton_loading, false));
-
+            setIsSecondary(a.getBoolean(R.styleable.PrimaryButton_isSecondary, false));
             a.recycle();
         }
         addView(text);
@@ -109,6 +109,13 @@ public class PrimaryButton extends RelativeLayout {
         else {
             progressBar.setVisibility(GONE);
             text.setAlpha(1f);
+        }
+    }
+
+    public void setIsSecondary(boolean isSecondary){
+        if(isSecondary){
+            ColorStateList colorStateList = ColorStateList.valueOf(getContext().getColor(R.color.surface));
+            setBackgroundTintList(colorStateList);
         }
     }
 
