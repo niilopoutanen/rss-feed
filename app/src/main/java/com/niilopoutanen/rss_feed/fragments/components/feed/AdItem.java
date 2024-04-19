@@ -1,5 +1,7 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
+import static com.google.android.gms.ads.nativead.NativeAdOptions.ADCHOICES_TOP_RIGHT;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.BitmapDrawable;
@@ -60,6 +62,7 @@ public class AdItem extends FeedItem{
         NativeAdOptions nativeAdOptions = new NativeAdOptions.Builder()
                   .setMediaAspectRatio(NativeAdOptions.NATIVE_MEDIA_ASPECT_RATIO_LANDSCAPE)
                   .setRequestMultipleImages(false)
+                  .setAdChoicesPlacement(ADCHOICES_TOP_RIGHT)
                   .build();
         final AdLoader adLoader = new AdLoader.Builder(this.context, "ca-app-pub-2347063544693669/5674529662")
                 .forNativeAd(this::displayNativeAd)
