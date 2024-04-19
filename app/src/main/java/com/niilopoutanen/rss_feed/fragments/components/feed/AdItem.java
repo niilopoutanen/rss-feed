@@ -1,11 +1,14 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.palette.graphics.Palette;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -75,8 +78,18 @@ public class AdItem extends FeedItem{
         MediaContent mediaContent = nativeAd.getMediaContent();
         if(mediaContent != null){
             image.setImageDrawable(mediaContent.getMainImage());
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) mediaContent.getMainImage();
+            if(bitmapDrawable == null) return;
+
+            Palette palette = Palette.from(bitmapDrawable.getBitmap()).generate();
+            Palette.Swatch main = palette.getDominantSwatch();
+            if(main == null) return;
+
+            ConstraintLayout bottomView = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_bottom_container);
+            bottomView.setBackgroundColor(main.getRgb());
 
         }
+
 
 
     }
