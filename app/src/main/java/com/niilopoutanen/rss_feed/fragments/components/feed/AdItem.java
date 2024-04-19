@@ -57,6 +57,10 @@ public class AdItem extends FeedItem{
 
         adView.setHeadlineView(title);
         adView.setIconView(icon);
+        NativeAdOptions nativeAdOptions = new NativeAdOptions.Builder()
+                  .setMediaAspectRatio(NativeAdOptions.NATIVE_MEDIA_ASPECT_RATIO_LANDSCAPE)
+                  .setRequestMultipleImages(false)
+                  .build();
         final AdLoader adLoader = new AdLoader.Builder(this.context, "ca-app-pub-2347063544693669/5674529662")
                 .forNativeAd(this::displayNativeAd)
                 .withAdListener(new AdListener() {
@@ -65,7 +69,7 @@ public class AdItem extends FeedItem{
                         super.onAdFailedToLoad(loadAdError);
                     }
                 })
-                .withNativeAdOptions(new NativeAdOptions.Builder().build())
+                .withNativeAdOptions(nativeAdOptions)
                 .build();
 
         adLoader.loadAd(new AdRequest.Builder().build());
