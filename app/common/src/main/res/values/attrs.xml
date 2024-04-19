@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PrimaryButton">
+        <attr name="text" format="string"/>
+        <attr name="enabled" format="boolean"/>
+        <attr name="loading" format="boolean"/>
+        <attr name="isSecondary" format="boolean"/>
+    </declare-styleable>
+</resources>

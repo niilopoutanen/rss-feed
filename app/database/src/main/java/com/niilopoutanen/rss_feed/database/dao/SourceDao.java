@@ -3,6 +3,7 @@ package com.niilopoutanen.rss_feed.database.dao;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.DeleteTable;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -28,4 +29,7 @@ public interface SourceDao {
 
     @Update
     void update(Source source);
+
+    @Query("DELETE FROM source")
+    void deleteAll();
 }

@@ -117,6 +117,15 @@
         <item quantity="one">Tuotiin %d lähde</item>
         <item quantity="other">Tuotiin %d lähdettä</item>
     </plurals>
+    <plurals name="exported_sources">
+        <item quantity="one">Vietiin %d lähde</item>
+        <item quantity="other">Vietiin %d lähdettä</item>
+    </plurals>
+    <plurals name="skipped_sources">
+        <item quantity="one">%d lähde ohitettiin virheellisten tietojen takia</item>
+        <item quantity="other">%d lähdettä ohitettiin virheellisten tietojen takia</item>
+    </plurals>
+    <string name="import_starting">Aloitetaan tuonti. Älä sulje sovellusta.</string>
     <string name="select_file_import">Valitse tuotava tiedosto</string>
     <string name="save_sources">Tallenna lähteet</string>
     <string name="rssfeed_sources">RSS-Syötteen lähteet</string>
@@ -126,10 +135,12 @@
     <string name="show_changelog">Näytä muutoshistoria</string>
     <string name="full_title_visible">Näytä aina koko otsikko</string>
     <string name="show_image_viewer_gradient">Kuvaselaimen tausta</string>
+    <string name="loading_icons">Ladataan kuvakkeita</string>
     <string name="sort_by_newest">Lajittele uusin ensin</string>
     <string name="sort_by_oldest">Lajittele vanhin ensin</string>
     <string name="sorted_old_first">Nyt näytetään vanhin ensin</string>
     <string name="sorted_new_first">Nyt näytetään uusin ensin</string>
     <string name="sorting_mode">Lajittelutapa</string>
     <string name="remember_sorting">Muista lajittelutapa</string>
+    <string name="clear_sources">Tyhjennä kaikki lähteet</string>
 </resources>

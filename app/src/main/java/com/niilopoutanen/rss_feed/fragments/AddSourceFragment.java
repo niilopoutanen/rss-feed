@@ -25,7 +25,6 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.common.R;
-import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.parser.Parser;
@@ -84,6 +83,12 @@ public class AddSourceFragment extends Fragment {
                 Parser parser = new Parser();
                 parser.load(userInput.url);
 
+                if(parser.source == null){
+                    activity.runOnUiThread(() -> {
+                        showError(context.getString(R.string.error_adding_source));
+                    });
+                    return;
+                }
                 //set id if it exists
                 if(source != null){
                     parser.source.id = source.id;

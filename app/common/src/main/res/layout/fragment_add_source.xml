@@ -150,23 +150,12 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <RelativeLayout
+        <com.niilopoutanen.rss_feed.common.PrimaryButton
             android:id="@+id/addsource_continue"
             android:layout_width="match_parent"
-            android:backgroundTint="?attr/colorAccent"
-            android:background="@drawable/button_background"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/add"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                app:fontFamily="@font/inter_medium" />
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:text="@string/add"/>
     </LinearLayout>
 
 

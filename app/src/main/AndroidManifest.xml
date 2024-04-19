@@ -28,6 +28,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2347063544693669~5488479794"/>
+      
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -38,7 +39,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".splash.SplashActivity"
+        <activity
+            android:name=".manager.ImportActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".splash.SplashActivity"
             android:exported="false"/>
         <activity
             android:name=".activities.DebugActivity"

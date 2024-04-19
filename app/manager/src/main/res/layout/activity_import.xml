@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ImportActivity"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/activity_import_file_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activity_import_title"
+        tools:layout_editor_absoluteX="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/element_background"
+        android:padding="15dp"
+        android:gravity="center"
+        android:layout_margin="30dp">
+
+        <View
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:background="@drawable/icon_file"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/activity_import_file_picker_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_file_import"
+            android:textSize="18sp"
+            android:fontFamily="@font/inter_medium"
+            android:ellipsize="end"
+            android:maxLength="30"
+            android:maxLines="1"
+            app:fontFamily="@font/inter_medium"
+            android:textColor="@color/textPrimary"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/import_sources"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/inter_bold"
+        app:fontFamily="@font/inter_bold"
+        android:textColor="@color/textPrimary"
+        android:textSize="35sp"
+        android:id="@+id/activity_import_title"/>
+
+
+    <com.niilopoutanen.rss_feed.common.StatusView
+        android:id="@+id/activity_import_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activity_import_file_picker"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="40dp"/>
+
+
+    <com.niilopoutanen.rss_feed.common.PrimaryButton
+        android:id="@+id/activity_import_primary_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:enabled="false"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
