@@ -100,9 +100,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 1){
-            return FeedData.Types.AD;
-        }
         return data.getItemType(position);
     }
 
