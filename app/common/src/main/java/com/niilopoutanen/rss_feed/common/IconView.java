@@ -1,6 +1,8 @@
 package com.niilopoutanen.rss_feed.common;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -54,6 +56,13 @@ public class IconView extends CardView {
 
 
 
+    public void setResource(Drawable drawable){
+        if(drawable == null) return;
+        if(icon == null) return;
+        icon.setBackground(drawable);
+
+        onResourceSet();
+    }
     public void setResource(String url){
         if(url == null || url.isEmpty()) return;
         if(icon == null) return;

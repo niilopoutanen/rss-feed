@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/element_background"
-    android:padding="10dp">
+    android:id="@+id/ad_view">
 
-    <TextView
-        android:id="@+id/ad_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="temp title"
-        android:textSize="20sp"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ad_card"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:cardCornerRadius="12dp"
+        android:clipToPadding="true"
+        app:cardBackgroundColor="#99c6e4">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ad_image"
+            android:scaleType="centerCrop"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="10dp"
+            android:background="#33FFFFFF">
 
-    <TextView
-        android:id="@+id/ad_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ad_title"
-        android:text="temp desc"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.niilopoutanen.rss_feed.common.IconView
+                android:id="@+id/ad_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/ad_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="temp title"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/ad_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/ad_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="temp desc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ad_icon"
+                app:layout_constraintTop_toBottomOf="@+id/ad_title"
+                app:layout_constraintVertical_bias="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</com.google.android.gms.ads.nativead.NativeAdView>
