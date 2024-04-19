@@ -5,6 +5,7 @@ import static com.google.android.gms.ads.nativead.NativeAdOptions.ADCHOICES_TOP_
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -80,6 +81,7 @@ public class AdItem extends FeedItem{
 
 
     private void displayNativeAd(NativeAd nativeAd){
+        container.setVisibility(View.VISIBLE);
         title.setText(nativeAd.getHeadline());
         desc.setText(nativeAd.getBody());
         cta.setText(nativeAd.getCallToAction());

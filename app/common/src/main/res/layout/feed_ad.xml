@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:cardCornerRadius="12dp"
-        android:clipToPadding="true">
+        android:clipToPadding="true"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="match_parent"
