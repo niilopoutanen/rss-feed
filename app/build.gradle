@@ -15,8 +15,8 @@ android {
         resourceConfigurations += ["en", "fi"]
         minSdk 26
         targetSdk 34
-        versionCode 34
-        versionName "2.3.4"
+        versionCode 35
+        versionName "2.4"
         ndk {
             debugSymbolLevel 'FULL'
         }

@@ -13,6 +13,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
+import com.niilopoutanen.rss_feed.fragments.components.feed.AdItem;
 import com.niilopoutanen.rss_feed.fragments.components.feed.ExtendedHeader;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedCard;
 import com.niilopoutanen.rss_feed.fragments.components.feed.FeedData;
@@ -79,6 +80,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
             case FeedData.Types.POST:
                 return new FeedItem.ViewHolder(new FeedCard(context));
 
+            case FeedData.Types.AD:
+                return new FeedItem.ViewHolder(new AdItem(context));
             case FeedData.Types.NOTICE:
             default:
                 return new FeedItem.ViewHolder(new Notice(context));
@@ -97,6 +100,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItem.ViewHolder> imple
 
     @Override
     public int getItemViewType(int position) {
+        if(position == 1){
+            return FeedData.Types.AD;
+        }
         return data.getItemType(position);
     }
 
