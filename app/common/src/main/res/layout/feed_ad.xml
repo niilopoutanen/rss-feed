@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:cardCornerRadius="12dp"
-        android:clipToPadding="true"
-        app:cardBackgroundColor="#99c6e4">
+        android:clipToPadding="true">
+
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:id="@+id/ad_image"
             android:scaleType="centerCrop"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ad_bottom_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_gravity="bottom"
             android:padding="10dp"
             android:background="#33FFFFFF">
@@ -35,26 +35,63 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:layout_marginLeft="10dp"
                 android:id="@+id/ad_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="temp title"
+                android:textColor="@color/textPrimary"
                 android:textSize="20sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@+id/ad_cta_button"
                 app:layout_constraintStart_toEndOf="@+id/ad_icon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"/>
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:layout_marginLeft="10dp"
                 android:id="@+id/ad_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="temp desc"
+                android:textColor="@color/textSecondary"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ad_cta_button"
                 app:layout_constraintStart_toEndOf="@id/ad_icon"
                 app:layout_constraintTop_toBottomOf="@+id/ad_title"
-                app:layout_constraintVertical_bias="0.5" />
+                app:layout_constraintHorizontal_bias="0"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+
+            <LinearLayout
+                android:id="@+id/ad_cta_button"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/element_background"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/ad_cta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="@string/continua"
+                    android:textColor="@color/textPrimary"
+                    app:fontFamily="@font/inter_medium" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

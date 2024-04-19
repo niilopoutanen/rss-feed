@@ -1,8 +1,10 @@
 package com.niilopoutanen.rss_feed.fragments.components.feed;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,13 +21,14 @@ import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import com.niilopoutanen.rss_feed.common.IconView;
+import com.niilopoutanen.rss_feed.common.R;
 
 import java.util.List;
 
 public class AdItem extends FeedItem{
     NativeAdView adView;
     CardView container;
-    TextView title, desc;
+    TextView title, desc, cta;
     IconView icon;
     ImageView image;
     public AdItem(Context context) {
@@ -34,7 +37,7 @@ public class AdItem extends FeedItem{
 
     @Override
     public int getLayoutResource() {
-        return com.niilopoutanen.rss_feed.common.R.layout.feed_ad;
+        return R.layout.feed_ad;
     }
 
     @Override
@@ -44,16 +47,17 @@ public class AdItem extends FeedItem{
 
     @Override
     public void bind(Object data) {
-        adView = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_view);
-        container = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_card);
-        title = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_title);
-        desc = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_desc);
-        icon = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_icon);
-        image = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_image);
+        adView = getContent().findViewById(R.id.ad_view);
+        container = getContent().findViewById(R.id.ad_card);
+        title = getContent().findViewById(R.id.ad_title);
+        desc = getContent().findViewById(R.id.ad_desc);
+        cta = getContent().findViewById(R.id.ad_cta);
+        icon = getContent().findViewById(R.id.ad_icon);
+        image = getContent().findViewById(R.id.ad_image);
 
         adView.setHeadlineView(title);
         adView.setIconView(icon);
-        final AdLoader adLoader = new AdLoader.Builder(this.context, "ca-app-pub-3940256099942544/2247696110")
+        final AdLoader adLoader = new AdLoader.Builder(this.context, "ca-app-pub-2347063544693669/5674529662")
                 .forNativeAd(this::displayNativeAd)
                 .withAdListener(new AdListener() {
                     @Override
@@ -71,6 +75,7 @@ public class AdItem extends FeedItem{
     private void displayNativeAd(NativeAd nativeAd){
         title.setText(nativeAd.getHeadline());
         desc.setText(nativeAd.getBody());
+        cta.setText(nativeAd.getCallToAction());
         if(nativeAd.getIcon() != null){
             icon.setResource(nativeAd.getIcon().getDrawable());
         }
@@ -82,11 +87,16 @@ public class AdItem extends FeedItem{
             if(bitmapDrawable == null) return;
 
             Palette palette = Palette.from(bitmapDrawable.getBitmap()).generate();
-            Palette.Swatch main = palette.getDominantSwatch();
-            if(main == null) return;
+            Palette.Swatch dominant = palette.getDominantSwatch();
+            Palette.Swatch vibrant = palette.getVibrantSwatch();
+            if(dominant == null) return;
 
-            ConstraintLayout bottomView = getContent().findViewById(com.niilopoutanen.rss_feed.common.R.id.ad_bottom_container);
-            bottomView.setBackgroundColor(main.getRgb());
+            ConstraintLayout bottomView = getContent().findViewById(R.id.ad_bottom_container);
+            bottomView.setBackgroundColor(dominant.getRgb());
+
+            if(vibrant == null) return;
+            LinearLayout ctaButton = getContent().findViewById(R.id.ad_cta_button);
+            ctaButton.setBackgroundTintList(ColorStateList.valueOf(vibrant.getRgb()));
 
         }
 
