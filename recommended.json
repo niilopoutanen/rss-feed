@@ -9,6 +9,15 @@
         "coverUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_cover-18651c8c2c2",
         "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5mac.jpg"
     },
+        {
+        "description": "Google news, Pixel, Android, Home, Chrome OS, more",
+        "language": "en",
+        "title": "9to5Google",
+        "feedId": "feed/http://9to5google.com/feed/",
+        "website": "https://9to5google.com/",
+        "coverUrl": "https://storage.googleapis.com/site-assets/xdIUrEbP12sOnXRcQduBabXEDP4CMQoUSpEAdLo7P-w_cover-182d0015216",
+        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5google.jpg"
+    },
     {
         "language": "en",
         "description": "Live news, investigations, opinion, photos and video by the journalists of The New York Times from more than 150 countries around the world.",
