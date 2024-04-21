@@ -1,6 +1,7 @@
 package com.niilopoutanen.rss_feed.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,6 +24,7 @@ import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.database.AppViewModel;
+import com.niilopoutanen.rss_feed.manager.SourceManageActivity;
 import com.niilopoutanen.rss_feed.rss.Source;
 
 public class SourceFragment extends Fragment {
@@ -96,10 +97,14 @@ public class SourceFragment extends Fragment {
     }
 
     public void openSourceDialog(Source source) {
+        Intent manageIntent = new Intent(context, SourceManageActivity.class);
+        manageIntent.putExtra("source", source);
+        startActivity(manageIntent);
+        /*
         AddSourceFragment addSourceFragment = AddSourceFragment.newInstance(source);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
         transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.commit();*/
     }
 }

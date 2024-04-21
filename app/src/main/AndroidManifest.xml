@@ -39,6 +39,9 @@
         </provider>
 
         <activity
+            android:name=".manager.SourceManageActivity"
+            android:exported="false"/>
+        <activity
             android:name=".manager.ImportActivity"
             android:exported="false"/>
         <activity
