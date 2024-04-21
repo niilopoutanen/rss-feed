@@ -20,6 +20,7 @@
         android:textColor="@color/textPrimary"/>
 
     <com.niilopoutanen.rss_feed.common.StatusView
+        android:id="@+id/source_status_view"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
