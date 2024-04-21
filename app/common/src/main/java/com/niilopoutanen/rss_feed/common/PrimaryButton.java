@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -90,6 +91,11 @@ public class PrimaryButton extends RelativeLayout {
     public void setText(String content){
         if(text != null && content != null && !content.isEmpty()){
             text.setText(content);
+        }
+    }
+    public void setText(@StringRes int stringRes){
+        if(text != null){
+            text.setText(getContext().getString(stringRes));
         }
     }
 

@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".SourceManageActivity"
-    android:padding="10dp">
+    android:paddingTop="40dp"
+    android:paddingHorizontal="10dp"
+    android:paddingBottom="10dp">
 
 
     <fragment

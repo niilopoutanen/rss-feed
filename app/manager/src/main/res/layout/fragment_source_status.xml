@@ -6,17 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".SourceStatusFragment">
 
-
     <TextView
-        android:id="@+id/textview_second"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Fragment 2 desc"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/addsource"
+        android:textSize="30sp"
+        android:fontFamily="@font/inter_bold"
+        app:fontFamily="@font/inter_bold"
+        android:textColor="@color/textPrimary"/>
+
+    <com.niilopoutanen.rss_feed.common.StatusView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.niilopoutanen.rss_feed.common.PrimaryButton
         android:id="@+id/source_manager_next"
