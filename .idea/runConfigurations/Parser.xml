@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Parser" type="JUnit" factoryName="JUnit">
+    <module name="RSS-Feed.app.parser.unitTest" />
+    <option name="PACKAGE_NAME" value="com.niilopoutanen.rss_feed" />
+    <option name="MAIN_CLASS_NAME" value="com.niilopoutanen.rss_feed.ParserTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -11,6 +11,24 @@ import java.util.List;
 public class FeedFinder {
     private URL url;
     private URL result;
+    public static boolean isValidFeed(String url){
+        if(url == null || url.isEmpty()){
+            return false;
+        }
+        try{
+            FeedFinder feedFinder = new FeedFinder();
+            feedFinder.find(url);
+            URL result = feedFinder.getResult();
+            if(result == null || result.toString().isEmpty()){
+                return false;
+            }
+        }
+        catch (RSSException r){
+            return false;
+        }
+
+        return true;
+    }
     public URL find(String urlStr) throws RSSException {
         this.url = WebUtils.formatUrl(urlStr);
 
