@@ -31,7 +31,7 @@ public class SourceInputFragment extends Fragment {
 
         binding.buttonFirst.setOnClickListener(v ->
                   NavHostFragment.findNavController(SourceInputFragment.this)
-                            .navigate(R.id.action_SourceInputFragment_to_SecondFragment)
+                            .navigate(R.id.action_SourceInputFragment_to_SourceStatusFragment)
         );
     }
 

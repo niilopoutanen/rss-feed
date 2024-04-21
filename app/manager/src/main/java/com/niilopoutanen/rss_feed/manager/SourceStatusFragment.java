@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.niilopoutanen.rss_feed.manager.databinding.FragmentSecondBinding;
+import com.niilopoutanen.rss_feed.manager.databinding.FragmentSourceStatusBinding;
 
-public class SecondFragment extends Fragment {
+public class SourceStatusFragment extends Fragment {
 
-    private FragmentSecondBinding binding;
+    private FragmentSourceStatusBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,7 +21,7 @@ public class SecondFragment extends Fragment {
               Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentSourceStatusBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -30,8 +30,8 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.buttonSecond.setOnClickListener(v ->
-                  NavHostFragment.findNavController(SecondFragment.this)
-                            .navigate(R.id.action_SecondFragment_to_SourceInputFragment)
+                  NavHostFragment.findNavController(SourceStatusFragment.this)
+                            .navigate(R.id.action_SourceStatusFragment_to_SourceInputFragment)
         );
     }
 

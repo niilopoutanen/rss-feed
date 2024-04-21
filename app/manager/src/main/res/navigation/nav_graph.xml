@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_source_input">
 
         <action
-            android:id="@+id/action_SourceInputFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_SourceInputFragment_to_SourceStatusFragment"
+            app:destination="@id/SourceStatusFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.niilopoutanen.rss_feed.manager.SecondFragment"
+        android:id="@+id/SourceStatusFragment"
+        android:name="com.niilopoutanen.rss_feed.manager.SourceStatusFragment"
         android:label="Fragment 2"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_source_status">
 
         <action
-            android:id="@+id/action_SecondFragment_to_SourceInputFragment"
+            android:id="@+id/action_SourceStatusFragment_to_SourceInputFragment"
             app:destination="@id/SourceInputFragment" />
     </fragment>
 </navigation>
