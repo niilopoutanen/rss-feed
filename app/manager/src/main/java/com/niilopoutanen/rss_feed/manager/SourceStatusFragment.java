@@ -16,10 +16,7 @@ public class SourceStatusFragment extends Fragment {
     private FragmentSourceStatusBinding binding;
 
     @Override
-    public View onCreateView(
-              @NonNull LayoutInflater inflater, ViewGroup container,
-              Bundle savedInstanceState
-    ) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentSourceStatusBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -29,10 +26,7 @@ public class SourceStatusFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(v ->
-                  NavHostFragment.findNavController(SourceStatusFragment.this)
-                            .navigate(R.id.action_SourceStatusFragment_to_SourceInputFragment)
-        );
+        binding.sourceManagerNext.setOnClickListener(v -> requireActivity().finish());
     }
 
     @Override

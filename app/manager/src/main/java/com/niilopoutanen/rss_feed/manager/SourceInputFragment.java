@@ -29,7 +29,8 @@ public class SourceInputFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(v ->
+
+        binding.sourceManagerNext.setOnClickListener(v ->
                   NavHostFragment.findNavController(SourceInputFragment.this)
                             .navigate(R.id.action_SourceInputFragment_to_SourceStatusFragment)
         );

@@ -100,11 +100,5 @@ public class SourceFragment extends Fragment {
         Intent manageIntent = new Intent(context, SourceManageActivity.class);
         manageIntent.putExtra("source", source);
         startActivity(manageIntent);
-        /*
-        AddSourceFragment addSourceFragment = AddSourceFragment.newInstance(source);
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, addSourceFragment, "source_fragment");
-        transaction.addToBackStack(null);
-        transaction.commit();*/
     }
 }
