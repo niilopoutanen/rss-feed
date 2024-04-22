@@ -48,6 +48,7 @@ dependencies {
     implementation project(':app:parser')
     implementation project(':app:database')
     implementation project(':app:manager')
+    implementation project(':app:resources')
 
     def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"

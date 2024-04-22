@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.niilopoutanen.rss_feed.resources.R;
 
 import androidx.annotation.Nullable;
 

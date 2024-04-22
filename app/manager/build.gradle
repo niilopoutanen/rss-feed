@@ -34,4 +34,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
     implementation project(':app:parser')
+    implementation project(':app:resources')
 }

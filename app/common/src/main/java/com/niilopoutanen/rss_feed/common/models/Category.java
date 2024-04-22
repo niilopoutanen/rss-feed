@@ -1,9 +1,9 @@
 package com.niilopoutanen.rss_feed.common.models;
 
-import com.niilopoutanen.rss_feed.common.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.niilopoutanen.rss_feed.resources.R;
 
 public class Category {
     public static final String CATEGORY_RECOMMENDED = "$RSSFEED_RECOMMENDED";

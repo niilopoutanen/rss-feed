@@ -14,7 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.crashlytics.internal.common.AppData;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.rss.Post;

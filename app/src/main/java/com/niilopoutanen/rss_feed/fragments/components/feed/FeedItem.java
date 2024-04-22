@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 
 public abstract class FeedItem {

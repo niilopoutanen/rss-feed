@@ -76,7 +76,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.niilopoutanen.rss_feed.BuildConfig;
 import com.niilopoutanen.rss_feed.activities.DebugActivity;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.manager.ImportActivity;
@@ -133,7 +133,7 @@ public class SettingsFragment extends Fragment {
                                 if (outputStream != null) {
                                     outputStream.write(content.getBytes());
                                     outputStream.close();
-                                    Toast.makeText(context, getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.exported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, getResources().getQuantityString(com.niilopoutanen.rss_feed.resources.R.plurals.exported_sources, sources.size(), sources.size()), Toast.LENGTH_SHORT).show();
                                     repository.getAllSources().removeObserver(this);
                                 }
                             } catch (IOException e) {

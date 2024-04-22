@@ -15,7 +15,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.common.models.Category;
 
 import java.util.List;
@@ -59,13 +59,13 @@ public class DiscoverCategoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         container.setOnClickListener(onClickListener);
 
         if (category.isActive()) {
-            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.element_active)));
-            itemTitle.setTextColor(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textInverted));
-            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textInverted)));
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.resources.R.color.element_active)));
+            itemTitle.setTextColor(context.getColor(com.niilopoutanen.rss_feed.resources.R.color.textInverted));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.resources.R.color.textInverted)));
         } else {
-            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.element)));
-            itemTitle.setTextColor(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textPrimary));
-            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.common.R.color.textPrimary)));
+            container.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.resources.R.color.element)));
+            itemTitle.setTextColor(context.getColor(com.niilopoutanen.rss_feed.resources.R.color.textPrimary));
+            icon.setBackgroundTintList(ColorStateList.valueOf(context.getColor(com.niilopoutanen.rss_feed.resources.R.color.textPrimary)));
         }
 
 

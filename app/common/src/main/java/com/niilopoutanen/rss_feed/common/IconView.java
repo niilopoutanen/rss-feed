@@ -14,6 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.squareup.picasso.Picasso;
+import com.niilopoutanen.rss_feed.resources.R;
+
 
 public class IconView extends CardView {
     private ImageView icon;

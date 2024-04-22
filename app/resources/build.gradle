@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.niilopoutanen.rss_feed.splash'
+    namespace 'com.niilopoutanen.rss_feed.resources'
     compileSdk 34
 
     defaultConfig {
@@ -13,7 +13,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -23,9 +22,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.squareup.picasso:picasso:2.8'
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
-    implementation project(':app:common')
-    implementation project(':app:resources')
 }

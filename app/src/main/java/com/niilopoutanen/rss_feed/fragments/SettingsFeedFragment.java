@@ -40,7 +40,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 
 import java.util.Arrays;
@@ -99,7 +99,7 @@ public class SettingsFeedFragment extends Fragment {
         descSwitch = rootView.findViewById(R.id.switch_description);
         dateSwitch = rootView.findViewById(R.id.switch_date);
 
-        String[] dateModes = context.getResources().getStringArray(com.niilopoutanen.rss_feed.common.R.array.date_modes);
+        String[] dateModes = context.getResources().getStringArray(com.niilopoutanen.rss_feed.resources.R.array.date_modes);
         dateSpinner = rootView.findViewById(R.id.spinner_date);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, dateModes);
         adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -162,9 +162,9 @@ public class SettingsFeedFragment extends Fragment {
     }
 
     private void onCardStyleChange(View button, List<View> buttonCollection) {
-        Drawable checkedDrawable = AppCompatResources.getDrawable(context, com.niilopoutanen.rss_feed.common.R.drawable.checkbox_checked);
+        Drawable checkedDrawable = AppCompatResources.getDrawable(context, com.niilopoutanen.rss_feed.resources.R.drawable.checkbox_checked);
 
-        Drawable uncheckedDrawable = AppCompatResources.getDrawable(context, com.niilopoutanen.rss_feed.common.R.drawable.checkbox_unchecked);
+        Drawable uncheckedDrawable = AppCompatResources.getDrawable(context, com.niilopoutanen.rss_feed.resources.R.drawable.checkbox_unchecked);
 
         boolean isChecked = Boolean.parseBoolean(button.getTag().toString());
         if (isChecked) {

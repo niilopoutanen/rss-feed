@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.niilopoutanen.rss_feed.resources.R;
 
 public class PrimaryButton extends RelativeLayout {
     private TextView text;

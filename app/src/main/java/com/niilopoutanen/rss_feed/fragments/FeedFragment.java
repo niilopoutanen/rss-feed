@@ -25,7 +25,7 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.adapters.FeedAdapter;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.parser.Parser;
