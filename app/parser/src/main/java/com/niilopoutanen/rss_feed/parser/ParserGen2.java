@@ -4,12 +4,10 @@ import android.graphics.Path;
 
 import androidx.annotation.NonNull;
 
-import com.niilopoutanen.rss_feed.common.models.StatusBridge;
 import com.niilopoutanen.rss_feed.parser.parsers.AtomParser;
 import com.niilopoutanen.rss_feed.parser.parsers.RssParser;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
-import com.niilopoutanen.rss_feed.common.R;
 
 
 import org.jsoup.nodes.Document;
@@ -32,9 +30,10 @@ import java.util.regex.Pattern;
 public class ParserGen2 {
     Source source;
     List<Post> posts;
-    private final StatusBridge statusBridge;
+    //private final StatusBridge statusBridge;
 
     public ParserGen2(){
+        /*
         this.statusBridge = new StatusBridge() {
             @Override
             public void onProgress(String msg) {}
@@ -53,17 +52,17 @@ public class ParserGen2 {
 
             @Override
             public void onFailure(int stringRes) {}
-        };
+        };*/
     }
-    public ParserGen2(@NonNull StatusBridge statusBridge){
+    /*public ParserGen2(@NonNull StatusBridge statusBridge){
         this.statusBridge = statusBridge;
-    }
+    }*/
 
     public void get(String url){
         if(url == null || url.isEmpty()) return;
-        statusBridge.onProgress(R.string.status_url_check);
+        //statusBridge.onProgress(R.string.status_url_check);
         if(!FeedFinder.isValidFeed(url)) {
-            statusBridge.onFailure(R.string.error_url);
+            //statusBridge.onFailure(R.string.error_url);
             return;
         }
 
@@ -72,7 +71,7 @@ public class ParserGen2 {
             parse(document);
         }
         else{
-            statusBridge.onFailure(R.string.error_url_empty);
+            //statusBridge.onFailure(R.string.error_url_empty);
         }
     }
 
@@ -90,7 +89,7 @@ public class ParserGen2 {
             posts = atomParser.getPosts();
         }
         else{
-            statusBridge.onFailure(R.string.error_feed_format);
+            //statusBridge.onFailure(R.string.error_feed_format);
         }
     }
 
