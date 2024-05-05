@@ -1,4 +1,4 @@
-package com.niilopoutanen.rss_feed.common.models;
+package com.niilopoutanen.rss_feed.parser;
 
 import androidx.annotation.StringRes;
 
