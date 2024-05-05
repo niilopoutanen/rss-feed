@@ -72,8 +72,8 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         PreferencesManager.setSavedTheme(this, preferences);
-        setContentView(com.niilopoutanen.rss_feed.R.layout.activity_article);
-        articleLoader = findViewById(com.niilopoutanen.rss_feed.R.id.article_load);
+        setContentView(R.layout.activity_article);
+        articleLoader = findViewById(R.id.article_load);
 
         initializeBase();
 
@@ -107,7 +107,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeBase() {
-        articleView = findViewById(com.niilopoutanen.rss_feed.R.id.articleview);
+        articleView = findViewById(R.id.articleview);
 
         if (preferences.s_articlefullscreen) {
             Window window = getWindow();
@@ -118,7 +118,7 @@ public class ArticleActivity extends AppCompatActivity {
 
 
         // Insets to bottom control
-        RelativeLayout footerToggle = findViewById(com.niilopoutanen.rss_feed.R.id.article_footer_toggle);
+        RelativeLayout footerToggle = findViewById(R.id.article_footer_toggle);
         footerToggle.setOnClickListener(v -> showControls());
         ViewCompat.setOnApplyWindowInsetsListener(footerToggle, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
