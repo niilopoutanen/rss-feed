@@ -45,11 +45,11 @@ public class OnBoardingFragment extends SplashFragment {
         });
         continueButton.setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                continueButton.startAnimation(AnimationUtils.loadAnimation(context, com.niilopoutanen.rss_feed.common.R.anim.scale_down));
+                continueButton.startAnimation(AnimationUtils.loadAnimation(context, com.niilopoutanen.rss_feed.resources.R.anim.scale_down));
             } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-                continueButton.startAnimation(AnimationUtils.loadAnimation(context, com.niilopoutanen.rss_feed.common.R.anim.scale_up));
+                continueButton.startAnimation(AnimationUtils.loadAnimation(context, com.niilopoutanen.rss_feed.resources.R.anim.scale_up));
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                continueButton.startAnimation(AnimationUtils.loadAnimation(context, com.niilopoutanen.rss_feed.common.R.anim.scale_up));
+                continueButton.startAnimation(AnimationUtils.loadAnimation(context, com.niilopoutanen.rss_feed.resources.R.anim.scale_up));
                 view.performClick();
             }
             return true;

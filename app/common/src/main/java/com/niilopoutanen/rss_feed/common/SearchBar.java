@@ -18,7 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.niilopoutanen.rss_feed.common.models.Preferences;
-
+import com.niilopoutanen.rss_feed.resources.R;
 import java.util.function.Consumer;
 
 public class SearchBar extends LinearLayout {

@@ -8,7 +8,7 @@ import com.niilopoutanen.rss_feed.parser.parsers.AtomParser;
 import com.niilopoutanen.rss_feed.parser.parsers.RssParser;
 import com.niilopoutanen.rss_feed.rss.Post;
 import com.niilopoutanen.rss_feed.rss.Source;
-
+import com.niilopoutanen.rss_feed.resources.R;
 import org.jsoup.nodes.Document;
 
 import java.net.URL;

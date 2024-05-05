@@ -18,3 +18,4 @@ misc.xml
 deploymentTargetDropDown.xml
 /app/release
 /app/google-services.json
+.idea/deploymentTargetSelector.xml

@@ -41,7 +41,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 
 public class SettingsDropDownFragment extends Fragment {

@@ -16,7 +16,7 @@ import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.manager.databinding.FragmentSourceStatusBinding;
 import com.niilopoutanen.rss_feed.parser.Parser;
 import com.niilopoutanen.rss_feed.rss.Source;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -52,13 +52,13 @@ public class SourceStatusFragment extends Fragment {
 
     private void onResult(boolean isSuccess){
         if(!isSuccess){
-            binding.sourceManagerNext.setText(com.niilopoutanen.rss_feed.common.R.string.error_adding_source);
+            binding.sourceManagerNext.setText(com.niilopoutanen.rss_feed.resources.R.string.error_adding_source);
             binding.sourceManagerNext.setOnClickListener(v ->
                       NavHostFragment.findNavController(SourceStatusFragment.this)
                         .navigate(com.niilopoutanen.rss_feed.manager.R.id.action_SourceStatusFragment_to_SourceInputFragment));
         }
         else{
-            binding.sourceManagerNext.setText(com.niilopoutanen.rss_feed.common.R.string.continua);
+            binding.sourceManagerNext.setText(com.niilopoutanen.rss_feed.resources.R.string.continua);
             binding.sourceManagerNext.setOnClickListener(v -> requireActivity().finish());
         }
     }

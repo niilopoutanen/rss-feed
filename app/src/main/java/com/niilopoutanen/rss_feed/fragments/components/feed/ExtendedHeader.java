@@ -10,7 +10,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.niilopoutanen.rss_feed.common.IconView;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.common.SearchBar;
 import com.niilopoutanen.rss_feed.rss.Source;
 

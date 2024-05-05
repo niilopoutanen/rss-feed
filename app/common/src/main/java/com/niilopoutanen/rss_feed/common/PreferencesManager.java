@@ -64,7 +64,7 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_THEME_DEFA
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_VERSION;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SortingMode;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.ThemeMode;
-
+import com.niilopoutanen.rss_feed.resources.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;

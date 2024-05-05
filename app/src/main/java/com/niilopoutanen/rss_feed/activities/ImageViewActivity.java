@@ -28,7 +28,7 @@ import androidx.palette.graphics.Palette;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 import com.niilopoutanen.rss_feed.common.models.Preferences;
 import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.NetworkPolicy;

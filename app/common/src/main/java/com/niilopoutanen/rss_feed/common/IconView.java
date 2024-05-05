@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
-
+import com.niilopoutanen.rss_feed.resources.R;
 import com.squareup.picasso.Picasso;
 
 public class IconView extends CardView {

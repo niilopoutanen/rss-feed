@@ -50,7 +50,7 @@ public class ImportActivity extends AppCompatActivity {
             if (result.getResultCode() == Activity.RESULT_OK) {
                 statusView.clearMessages();
                 onFileSelected(result);
-                statusView.addStatus(getString(com.niilopoutanen.rss_feed.common.R.string.import_starting));
+                statusView.addStatus(getString(com.niilopoutanen.rss_feed.resources.R.string.import_starting));
 
                 Executor executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
@@ -58,7 +58,7 @@ public class ImportActivity extends AppCompatActivity {
                         List<Source> sources = Opml.loadData(result, this);
                         if (sources != null && !sources.isEmpty()) {
                             AppRepository repository = new AppRepository(this);
-                            statusView.addStatus(com.niilopoutanen.rss_feed.common.R.string.loading_icons);
+                            statusView.addStatus(com.niilopoutanen.rss_feed.resources.R.string.loading_icons);
                             for (Source source : sources) {
                                 if(source.image == null || source.image.isEmpty()){
                                     source.image = IconFinder.get(source.url);
@@ -66,7 +66,7 @@ public class ImportActivity extends AppCompatActivity {
                                 repository.insert(source);
                             }
                             runOnUiThread(() -> {
-                                statusView.addStatus(getResources().getQuantityString(com.niilopoutanen.rss_feed.common.R.plurals.imported_sources, sources.size(), sources.size()),
+                                statusView.addStatus(getResources().getQuantityString(com.niilopoutanen.rss_feed.resources.R.plurals.imported_sources, sources.size(), sources.size()),
                                         StatusView.Status.Type.SUCCESS);
                                 statusView.addFinalEvent(() -> primaryButton.setIsEnabled(true));
                                 Bundle params = new Bundle();
@@ -76,11 +76,11 @@ public class ImportActivity extends AppCompatActivity {
 
                         }
                         else{
-                            statusView.addStatus(com.niilopoutanen.rss_feed.common.R.string.error_import_no_sources, StatusView.Status.Type.FAILURE);
+                            statusView.addStatus(com.niilopoutanen.rss_feed.resources.R.string.error_import_no_sources, StatusView.Status.Type.FAILURE);
                             reloadFilePicker();
                         }
                     } catch (IOException e) {
-                        statusView.addStatus(com.niilopoutanen.rss_feed.common.R.string.error_adding_source, StatusView.Status.Type.FAILURE);
+                        statusView.addStatus(com.niilopoutanen.rss_feed.resources.R.string.error_adding_source, StatusView.Status.Type.FAILURE);
                         FirebaseCrashlytics.getInstance().recordException(e);
                         reloadFilePicker();
                     }
@@ -139,11 +139,11 @@ public class ImportActivity extends AppCompatActivity {
     private void reloadFilePicker(){
         runOnUiThread(() -> {
             TextView pickerTitle = filePickButton.findViewById(R.id.activity_import_file_picker_name);
-            pickerTitle.setText(getString(com.niilopoutanen.rss_feed.common.R.string.select_file_import));
+            pickerTitle.setText(getString(com.niilopoutanen.rss_feed.resources.R.string.select_file_import));
             filePickButton.setOnClickListener(v -> {
                 Intent filePicker = new Intent(Intent.ACTION_GET_CONTENT);
                 filePicker.setType("*/*");
-                filePicker = Intent.createChooser(filePicker, getString(com.niilopoutanen.rss_feed.common.R.string.select_file_import));
+                filePicker = Intent.createChooser(filePicker, getString(com.niilopoutanen.rss_feed.resources.R.string.select_file_import));
                 if(fileHandler != null){
                     fileHandler.launch(filePicker);
                 }

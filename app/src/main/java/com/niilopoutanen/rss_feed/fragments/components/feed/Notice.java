@@ -3,7 +3,7 @@ package com.niilopoutanen.rss_feed.fragments.components.feed;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.resources.R;
 
 public class Notice extends FeedItem{
     public Notice(Context context) {
