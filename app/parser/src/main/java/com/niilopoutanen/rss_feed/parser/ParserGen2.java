@@ -27,8 +27,8 @@ import java.util.regex.Pattern;
 
 
 public class ParserGen2 {
-    Source source;
-    List<Post> posts;
+    public Source source;
+    public List<Post> posts;
     private final StatusBridge statusBridge;
 
     public ParserGen2(){
@@ -65,6 +65,7 @@ public class ParserGen2 {
             return;
         }
 
+        statusBridge.onProgress(R.string.status_connecting_url);
         Document document = WebUtils.connect(url);
         if(document != null){
             parse(document);

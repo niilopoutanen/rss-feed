@@ -11,12 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.LinearLayoutCompat;
+
+import com.niilopoutanen.rss_feed.parser.StatusBridge;
 import com.niilopoutanen.rss_feed.resources.R;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class StatusView extends LinearLayoutCompat {
+public class StatusView extends LinearLayoutCompat implements StatusBridge {
     private final List<Status> statusQueue = new ArrayList<>();
     private final List<Runnable> eventQueue = new ArrayList<>();
     private final List<Runnable> finalEventQueue = new ArrayList<>();
@@ -114,6 +116,36 @@ public class StatusView extends LinearLayoutCompat {
         statusText.setTextSize(17);
         statusText.setTypeface(getContext().getResources().getFont(R.font.inter_medium));
         super.addView(statusText);
+    }
+
+    @Override
+    public void onProgress(String msg) {
+        addStatus(msg, Status.Type.PROCESSING);
+    }
+
+    @Override
+    public void onProgress(int stringRes) {
+        addStatus(getContext().getString(stringRes), Status.Type.PROCESSING);
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        addStatus(msg, Status.Type.SUCCESS);
+    }
+
+    @Override
+    public void onSuccess(int stringRes) {
+        addStatus(getContext().getString(stringRes), Status.Type.SUCCESS);
+    }
+
+    @Override
+    public void onFailure(String msg) {
+        addStatus(msg, Status.Type.FAILURE);
+    }
+
+    @Override
+    public void onFailure(int stringRes) {
+        addStatus(getContext().getString(stringRes), Status.Type.FAILURE);
     }
 
     public static class Status{

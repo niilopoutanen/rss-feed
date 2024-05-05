@@ -15,6 +15,7 @@ import com.niilopoutanen.rss_feed.common.StatusView;
 import com.niilopoutanen.rss_feed.database.AppRepository;
 import com.niilopoutanen.rss_feed.manager.databinding.FragmentSourceStatusBinding;
 import com.niilopoutanen.rss_feed.parser.Parser;
+import com.niilopoutanen.rss_feed.parser.ParserGen2;
 import com.niilopoutanen.rss_feed.rss.Source;
 import com.niilopoutanen.rss_feed.resources.R;
 
@@ -84,8 +85,8 @@ public class SourceStatusFragment extends Fragment {
                 return;
             }
 
-            Parser parser = new Parser();
-            parser.load(source.url);
+            ParserGen2 parser = new ParserGen2(binding.sourceStatusView);
+            parser.get(source.url);
 
             source = parser.source;
             requireActivity().runOnUiThread(() -> {
