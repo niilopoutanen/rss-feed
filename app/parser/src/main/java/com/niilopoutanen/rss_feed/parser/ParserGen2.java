@@ -76,6 +76,7 @@ public class ParserGen2 {
     }
 
     private void parse(@NonNull Document document){
+        statusBridge.onProgress(R.string.status_parsing);
         if(WebUtils.isRss(document)){
             RssParser rssParser = new RssParser();
             rssParser.parse(document);

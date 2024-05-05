@@ -2,4 +2,5 @@
 <resources>
     <string name="status_url_check">Checking if URL is valid</string>
     <string name="status_connecting_url">Connecting to URL</string>
+    <string name="status_parsing">Parsing document</string>
 </resources>

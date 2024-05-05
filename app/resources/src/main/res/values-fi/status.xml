@@ -2,4 +2,5 @@
 <resources>
     <string name="status_url_check">Tarkistetaan kelpaako URL</string>
     <string name="status_connecting_url">Yhdistetään URL-osoitteeseen</string>
+    <string name="status_parsing">Käsitellään dokumenttia</string>
 </resources>
