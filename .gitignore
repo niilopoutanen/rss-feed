@@ -3,6 +3,8 @@
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/other.xml
+/.idea/deploymentTargetSelector.xml
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
