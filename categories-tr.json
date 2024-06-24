@@ -1,0 +1,47 @@
+[
+    {
+        "name": "Haberler",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/news.jpg",
+        "query": "Haberler"
+    },
+    {
+        "name": "Teknoloji",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/tech.jpg",
+        "query": "Teknoloji"
+    },
+    {
+        "name": "Spor Dalları",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/sports.jpg",
+        "query": "Sports"
+    },
+    {
+        "name": "Arabalar",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/cars.jpg",
+        "query": "Cars"
+    },
+    {
+        "name": "Siyaset",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/politics.jpg",
+        "query": "Siyaset"
+    },
+    {
+        "name": "Filmler",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/movies.jpg",
+        "query": "Movies"
+    },
+    {
+        "name": "Bilim",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/science.jpg",
+        "query": "Bilim"
+    },
+    {
+        "name": "Hisse senetleri",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/stocks.jpg",
+        "query": "Stocks"
+    },
+    {
+        "name": "Oyun",
+        "img": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/categoryimages/gaming.jpg",
+        "query": "Oyun"
+    }
+]

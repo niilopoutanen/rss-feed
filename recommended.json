@@ -1,104 +1,104 @@
 {
-"results": [
-    {
-        "description": "News and reviews for Apple products, apps, and rumors. We provide breaking coverage for the iPhone, iPad, and all things Mac!",
-        "language": "en",
-        "title": "9to5mac",
-        "feedId": "feed/http://9to5mac.com/feed/",
-        "website": "https://9to5mac.com/",
-        "coverUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_cover-18651c8c2c2",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5mac.jpg"
-    },
+    "results": [
         {
-        "description": "Google news, Pixel, Android, Home, Chrome OS, more",
-        "language": "en",
-        "title": "9to5Google",
-        "feedId": "feed/http://9to5google.com/feed/",
-        "website": "https://9to5google.com/",
-        "coverUrl": "https://storage.googleapis.com/site-assets/xdIUrEbP12sOnXRcQduBabXEDP4CMQoUSpEAdLo7P-w_cover-182d0015216",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5google.jpg"
-    },
-    {
-        "language": "en",
-        "description": "Live news, investigations, opinion, photos and video by the journalists of The New York Times from more than 150 countries around the world.",
-        "title": "The New York Times",
-        "feedId": "feed/https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-        "website": "https://nytimes.com",
-        "coverUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_cover-170f4ed8fad",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/New%20York%20Times.jpg"
-    },
-    {
-        "language": "en",
-        "description": "Reporting on the business of technology, startups, venture capital funding, and Silicon Valley.",
-        "title": "TechCrunch",
-        "feedId": "feed/https://techcrunch.com/feed/",
-        "website": "https://www.techcrunch.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/TechCrunch.jpg"
-    },
-    {
-        "language": "en",
-        "description": "The latest news and headlines from Yahoo! News. Get breaking news stories and in-depth coverage with videos and photos.",
-        "title": "Yahoo News",
-        "feedId": "feed/http://news.yahoo.com/rss",
-        "website": "https://news.yahoo.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Yahoo.jpg",
-        "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
-    },
-    {
-        "language": "en",
-        "description": "Latest US news, world news, sports, business, opinion, analysis and reviews from the Guardian, the world's leading liberal voice",
-        "title": "The Guardian",
-        "feedId": "feed/https://www.theguardian.com/us/rss",
-        "website": "https://www.theguardian.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Guardian.jpg"
-    },
-    {
-        "language": "en",
-        "description": "The Verge is about technology and how it makes us feel.",
-        "title": "The Verge",
-        "feedId": "feed/https://www.theverge.com/rss/frontpage",
-        "website": "https://www.theverge.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Verge.jpg"
-    },
-    {
-        "language": "en",
-        "description": "Breaking the biggest stories in celebrity and entertainment news. Only on TMZ",
-        "title": "TMZ",
-        "feedId": "feed/https://www.tmz.com/rss.xml",
-        "website": "https://www.tmz.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/TMZ.jpg"
-    },
-    {
-        "language": "en",
-        "description": "The latest news, analysis, research and events from Automotive World, the world's leading independent automotive publishing and events company.",
-        "title": "Automotive World",
-        "feedId": "feed/https://www.automotiveworld.com/feed/",
-        "website": "https://www.automotiveworld.com",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Automotive%20World.jpg"
-    },
-    {
-        "language": "en",
-        "description": "The latest in technology",
-        "title": "WIRED",
-        "feedId": "feed/https://www.wired.com/feed/rss",
-        "website": "https://www.wired.com/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/WIRED.jpg"
-    },
-    {
-        "language": "en",
-        "description": "Journalism That Matters. Music That Inspires.",
-        "title": "Rolling Stone",
-        "feedId": "feed/https://www.rollingstone.com/feed/",
-        "website": "https://www.rollingstone.com/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Rolling%20Stone.jpg"
-    },
-    {
-        "language": "en",
-        "description": "The FIA is the governing body of motor sport and promotes safe, sustainable and accessible mobility for all road users across the world.",
-        "title": "FIA",
-        "feedId": "feed/https://www.fia.com/rss/news",
-        "website": "https://www.fia.com/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/FIA.jpg"
-    }
-]
+            "description": "News and reviews for Apple products, apps, and rumors. We provide breaking coverage for the iPhone, iPad, and all things Mac!",
+            "language": "en",
+            "title": "9to5mac",
+            "feedId": "feed/http://9to5mac.com/feed/",
+            "website": "https://9to5mac.com/",
+            "coverUrl": "https://storage.googleapis.com/site-assets/BmoAzSEWHFzR01wyxBZAhNEo11Vy8oDR1qKDe-tKVEQ_cover-18651c8c2c2",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5mac.jpg"
+        },
+        {
+            "description": "Google news, Pixel, Android, Home, Chrome OS, more",
+            "language": "en",
+            "title": "9to5Google",
+            "feedId": "feed/http://9to5google.com/feed/",
+            "website": "https://9to5google.com/",
+            "coverUrl": "https://storage.googleapis.com/site-assets/xdIUrEbP12sOnXRcQduBabXEDP4CMQoUSpEAdLo7P-w_cover-182d0015216",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/9to5google.jpg"
+        },
+        {
+            "language": "en",
+            "description": "Live news, investigations, opinion, photos and video by the journalists of The New York Times from more than 150 countries around the world.",
+            "title": "The New York Times",
+            "feedId": "feed/https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+            "website": "https://nytimes.com",
+            "coverUrl": "https://storage.googleapis.com/site-assets/2IAKmisI-skG5eJD6FDanzV4JS35tHTM1ILbuVimBro_cover-170f4ed8fad",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/New%20York%20Times.jpg"
+        },
+        {
+            "language": "en",
+            "description": "Reporting on the business of technology, startups, venture capital funding, and Silicon Valley.",
+            "title": "TechCrunch",
+            "feedId": "feed/https://techcrunch.com/feed/",
+            "website": "https://www.techcrunch.com",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/TechCrunch.jpg"
+        },
+        {
+            "language": "en",
+            "description": "The latest news and headlines from Yahoo! News. Get breaking news stories and in-depth coverage with videos and photos.",
+            "title": "Yahoo News",
+            "feedId": "feed/http://news.yahoo.com/rss",
+            "website": "https://news.yahoo.com",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Yahoo.jpg",
+            "coverUrl": "https://storage.googleapis.com/site-assets/U43yQtocz9j0g8DqctN2n1T_HphZ9Wi6hciGimQiEZw_cover-17e6c4378e1"
+        },
+        {
+            "language": "en",
+            "description": "Latest US news, world news, sports, business, opinion, analysis and reviews from the Guardian, the world's leading liberal voice",
+            "title": "The Guardian",
+            "feedId": "feed/https://www.theguardian.com/us/rss",
+            "website": "https://www.theguardian.com",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Guardian.jpg"
+        },
+        {
+            "language": "en",
+            "description": "The Verge is about technology and how it makes us feel.",
+            "title": "The Verge",
+            "feedId": "feed/https://www.theverge.com/rss/frontpage",
+            "website": "https://www.theverge.com",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/The%20Verge.jpg"
+        },
+        {
+            "language": "en",
+            "description": "Breaking the biggest stories in celebrity and entertainment news. Only on TMZ",
+            "title": "TMZ",
+            "feedId": "feed/https://www.tmz.com/rss.xml",
+            "website": "https://www.tmz.com",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/TMZ.jpg"
+        },
+        {
+            "language": "en",
+            "description": "The latest news, analysis, research and events from Automotive World, the world's leading independent automotive publishing and events company.",
+            "title": "Automotive World",
+            "feedId": "feed/https://www.automotiveworld.com/feed/",
+            "website": "https://www.automotiveworld.com",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Automotive%20World.jpg"
+        },
+        {
+            "language": "en",
+            "description": "The latest in technology",
+            "title": "WIRED",
+            "feedId": "feed/https://www.wired.com/feed/rss",
+            "website": "https://www.wired.com/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/WIRED.jpg"
+        },
+        {
+            "language": "en",
+            "description": "Journalism That Matters. Music That Inspires.",
+            "title": "Rolling Stone",
+            "feedId": "feed/https://www.rollingstone.com/feed/",
+            "website": "https://www.rollingstone.com/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Rolling%20Stone.jpg"
+        },
+        {
+            "language": "en",
+            "description": "The FIA is the governing body of motor sport and promotes safe, sustainable and accessible mobility for all road users across the world.",
+            "title": "FIA",
+            "feedId": "feed/https://www.fia.com/rss/news",
+            "website": "https://www.fia.com/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/FIA.jpg"
+        }
+    ]
 }

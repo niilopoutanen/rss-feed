@@ -1,52 +1,52 @@
 {
-"results": [
-    {
-        "description": "Iltalehti, kaikki tuoreet uutiset yhdestä osoitteesta kellon ympäri!",
-        "language": "fi",
-        "title": "Iltalehti",
-        "feedId": "feed/https://www.iltalehti.fi/rss/uutiset.xml",
-        "website": "https://www.iltalehti.fi/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Iltalehti.jpg"
-    },
-    {
-        "description": "Lue uutisia Suomesta ja maailmalta heti tuoreeltaan. IS seuraa uutistilannetta ympäri vuorokauden.",
-        "language": "fi",
-        "title": "Ilta-Sanomat",
-        "feedId": "feed/https://www.is.fi/rss/tuoreimmat.xml",
-        "website": "https://www.is.fi/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Ilta-Sanomat.jpg"
-    },
-    {
-        "description": "Yle Uutiset toimittaa kotimaan tuoreimmat uutiset",
-        "language": "fi",
-        "title": "Yle uutiset",
-        "feedId": "feed/https://feeds.yle.fi/uutiset/v1/majorHeadlines/YLE_UUTISET.rss",
-        "website": "https://www.yle.fi/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Yle.jpg"
-    },
-    {
-        "description": "Tärkeimmät ajankohtaiset talousuutiset, pörssikurssit ja kattavat sijoittajapalvelut löydät Kauppalehdestä.",
-        "language": "fi",
-        "title": "Kauppalehti",
-        "feedId": "feed/https://feeds.kauppalehti.fi/rss/main",
-        "website": "https://www.kauppalehti.fi/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Kauppalehti.jpg"
-    },
-    {
-        "description": "Tuoreimmat uutiset. Näkökulmia yhteiskuntaan, kulttuuriin, hyvinvointiin ja tieteeseen.",
-        "language": "fi",
-        "title": "Helsingin Sanomat",
-        "feedId": "feed/https://www.hs.fi/rss/teasers/etusivu.xml",
-        "website": "https://www.hs.fi/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Helsingin%20Sanomat.jpg"
-    },
-    {
-        "description": "Traficom on palveleva liikenteen ja viestinnän lupa-, rekisteri- ja valvontaviranomainen.",
-        "language": "fi",
-        "title": "Traficom",
-        "feedId": "feed/https://www.traficom.fi/feed/rss/fi",
-        "website": "https://www.traficom.fi/",
-        "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Traficom.jpg"
-    }
-]
+    "results": [
+        {
+            "description": "Iltalehti, kaikki tuoreet uutiset yhdestä osoitteesta kellon ympäri!",
+            "language": "fi",
+            "title": "Iltalehti",
+            "feedId": "feed/https://www.iltalehti.fi/rss/uutiset.xml",
+            "website": "https://www.iltalehti.fi/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Iltalehti.jpg"
+        },
+        {
+            "description": "Lue uutisia Suomesta ja maailmalta heti tuoreeltaan. IS seuraa uutistilannetta ympäri vuorokauden.",
+            "language": "fi",
+            "title": "Ilta-Sanomat",
+            "feedId": "feed/https://www.is.fi/rss/tuoreimmat.xml",
+            "website": "https://www.is.fi/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Ilta-Sanomat.jpg"
+        },
+        {
+            "description": "Yle Uutiset toimittaa kotimaan tuoreimmat uutiset",
+            "language": "fi",
+            "title": "Yle uutiset",
+            "feedId": "feed/https://feeds.yle.fi/uutiset/v1/majorHeadlines/YLE_UUTISET.rss",
+            "website": "https://www.yle.fi/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Yle.jpg"
+        },
+        {
+            "description": "Tärkeimmät ajankohtaiset talousuutiset, pörssikurssit ja kattavat sijoittajapalvelut löydät Kauppalehdestä.",
+            "language": "fi",
+            "title": "Kauppalehti",
+            "feedId": "feed/https://feeds.kauppalehti.fi/rss/main",
+            "website": "https://www.kauppalehti.fi/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Kauppalehti.jpg"
+        },
+        {
+            "description": "Tuoreimmat uutiset. Näkökulmia yhteiskuntaan, kulttuuriin, hyvinvointiin ja tieteeseen.",
+            "language": "fi",
+            "title": "Helsingin Sanomat",
+            "feedId": "feed/https://www.hs.fi/rss/teasers/etusivu.xml",
+            "website": "https://www.hs.fi/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Helsingin%20Sanomat.jpg"
+        },
+        {
+            "description": "Traficom on palveleva liikenteen ja viestinnän lupa-, rekisteri- ja valvontaviranomainen.",
+            "language": "fi",
+            "title": "Traficom",
+            "feedId": "feed/https://www.traficom.fi/feed/rss/fi",
+            "website": "https://www.traficom.fi/",
+            "visualUrl": "https://raw.githubusercontent.com/niilopoutanen/RSS-Feed/app-resources/recommended-icons/Traficom.jpg"
+        }
+    ]
 }
