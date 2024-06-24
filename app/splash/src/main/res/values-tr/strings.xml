@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="whats_new_in">Yenilikler neler %1$s</string>
+    <string name="whats_new">Yenilikler neler?</string>
+
+    <string name="feature1">Yeni diller</string>
+    <string name="feature1desc">Artık uygulamada Türkçe destekleniyor.</string>
+
+    <string name="feature2">-</string>
+    <string name="feature2desc">-</string>
+
+    <string name="feature3">-</string>
+    <string name="feature3desc">-</string>
+
+</resources>

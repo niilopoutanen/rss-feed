@@ -31,6 +31,8 @@ import com.niilopoutanen.rss_feed.fragments.SettingsFragment;
 import com.niilopoutanen.rss_feed.fragments.SourceFragment;
 import com.niilopoutanen.rss_feed.splash.SplashActivity;
 
+import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         PreferencesManager.setSavedTheme(this, preferences);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
+        String locale = Locale.getDefault().getLanguage();
         // Restore the state of the currently opened fragment
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
