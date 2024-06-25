@@ -22,3 +22,17 @@
 #-renamesourcefileattribute SourceFile
 
 -dontwarn org.slf4j.impl.StaticLoggerBinder
+
+-keep class com.niilopoutanen.rss_feed.database.AppRepository { *; }
+-keep class com.niilopoutanen.rss_feed.database.AppViewModel { *; }
+-keep class com.niilopoutanen.rss_feed.database.DatabaseThread { *; }
+-keep class com.niilopoutanen.rss_feed.database.compatibility.SourceMigration { *; }
+-keep class com.niilopoutanen.rss_feed.database.dao.SourceDao { *; }
+-keep class com.niilopoutanen.rss_feed.manager.ImportActivity { *; }
+
+-dontwarn com.niilopoutanen.rss_feed.database.AppRepository
+-dontwarn com.niilopoutanen.rss_feed.database.AppViewModel
+-dontwarn com.niilopoutanen.rss_feed.database.DatabaseThread
+-dontwarn com.niilopoutanen.rss_feed.database.compatibility.SourceMigration
+-dontwarn com.niilopoutanen.rss_feed.database.dao.SourceDao
+-dontwarn com.niilopoutanen.rss_feed.manager.ImportActivity
