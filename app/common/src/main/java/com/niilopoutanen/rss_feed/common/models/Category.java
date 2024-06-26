@@ -41,6 +41,21 @@ public class Category {
         categoriesFI.add(new Category("Videopelit", R.drawable.icon_controller, "Gaming"));
     }
 
+    public static final List<Category> categoriesTR = new ArrayList<>();
+
+    static {
+        categoriesTR.add(new Category("Tavsiye edilen", R.drawable.icon_star, CATEGORY_RECOMMENDED));
+        categoriesTR.add(new Category("Haberler", R.drawable.icon_news, "Haberler"));
+        categoriesTR.add(new Category("Teknoloji", R.drawable.icon_mouse, "Teknoloji"));
+        categoriesTR.add(new Category("Spor Dalları", R.drawable.icon_baseball, "Sports"));
+        categoriesTR.add(new Category("Arabalar", R.drawable.icon_car, "Cars"));
+        categoriesTR.add(new Category("Siyaset", R.drawable.icon_briefcase, "Siyaset"));
+        categoriesTR.add(new Category("Filmler", R.drawable.icon_movies, "Movies"));
+        categoriesTR.add(new Category("Bilim", R.drawable.icon_microscope, "Bilim"));
+        categoriesTR.add(new Category("Hisse senetleri", R.drawable.icon_graph, "Stocks"));
+        categoriesTR.add(new Category("Oyun", R.drawable.icon_controller, "Oyun"));
+    }
+
     private final String name;
     private final int iconId;
     private final String query;
@@ -80,12 +95,14 @@ public class Category {
                 return categoriesFI;
             case EN:
                 return categories;
+            case TR:
+                return categoriesTR;
         }
         return null;
     }
 
     public enum Country {
-        FI, EN
+        FI, EN, TR
     }
 }
 

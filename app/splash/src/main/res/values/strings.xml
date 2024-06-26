@@ -3,11 +3,11 @@
     <string name="whats_new_in">What\'s new %1$s in</string>
     <string name="whats_new">What\'s new?</string>
 
-    <string name="feature1">Import &amp; Export</string>
-    <string name="feature1desc">Improved user experience when importing or exporting OPML files.</string>
+    <string name="feature1">New languages</string>
+    <string name="feature1desc">Turkish is now supported in the app.</string>
 
-    <string name="feature2">Bug fixes</string>
-    <string name="feature2desc">Minor bug fixes.</string>
+    <string name="feature2">-</string>
+    <string name="feature2desc">-</string>
 
     <string name="feature3">-</string>
     <string name="feature3desc">-</string>

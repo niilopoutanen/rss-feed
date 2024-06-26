@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_adding_source">Kaynak eklenirken hata oluştu. Lütfen tekrar deneyin.</string>
+    <string name="error_notsupported">Açmaya çalıştığınız gönderi geçersiz ve bu uygulamayla çalışmıyor. Tarayıcınızda açın.</string>
+    <string name="error_invalid_image">Bu resim geçerli değil veya artık mevcut değil.</string>
+    <string name="error_invalid_feed">RSS beslemesi URL\'si geçersiz.</string>
+    <string name="error_invalid_feed_msg">Yayıncının RSS beslemesi güncelliğini kaybetmiş olabilir veya URL değişmiş olabilir. Besleme açılamadı.</string>
+
+    <string name="error_no_internet">İnternet bağlantısı mevcut değil.</string>
+    <string name="error_no_internet_msg">Feed yüklenemiyor. İnternete bağlanın ve tekrar deneyin.</string>
+
+    <string name="error_no_sources">Kaynak eklenmedi.</string>
+    <string name="error_no_sources_msg">Feed\'inize henüz herhangi bir kaynak eklemediniz. Biraz eklemek için içerik veya keşfet sekmesine gidin.</string>
+
+    <string name="error_too_many_requests">Çok fazla istek.</string>
+    <string name="error_too_many_requests_msg">Çok fazla istek gönderdiniz. Bir süre bekleyip tekrar deneyin.</string>
+
+    <string name="error_url">URL\'den okuma hatası.</string>
+    <string name="error_host">İnternet bağlantısı yok veya ana bilgisayar URL\'si bozuk.</string>
+    <string name="error_no_write_access">Uygulamaya yazma izni vermediniz.</string>
+    <string name="error_no_email_found">Hiçbir e-posta uygulaması bulunamadı. Niilo.poutanen@gmail.com adresine geri bildirim gönderin</string>
+    <string name="error_post_no_url">Makale açılamıyor. Bu yayına eklenmiş bir URL yok.</string>
+
+    <string name="error_export_sources">Kaynaklar dışa aktarılırken hata oluştu.</string>
+    <string name="error_import_no_sources">Dosyada kaynak bulunamadı. Lütfen başka bir tane deneyin.</string>
+</resources>

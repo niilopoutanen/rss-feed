@@ -3,11 +3,11 @@
     <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
     <string name="whats_new">Mitä uutta?</string>
 
-    <string name="feature1">Tuo &amp; Vie</string>
-    <string name="feature1desc">Parannettu käyttökokemus OPML-tiedostoja käyttäessä.</string>
+    <string name="feature1">Uusia kieliä</string>
+    <string name="feature1desc">Turkki on nyt tuettu kieli sovelluksessa</string>
 
-    <string name="feature2">Virhekorjauksia</string>
-    <string name="feature2desc">Pieniä virhekorjauksia.</string>
+    <string name="feature2">-</string>
+    <string name="feature2desc">-</string>
 
     <string name="feature3">-</string>
     <string name="feature3desc">-</string>

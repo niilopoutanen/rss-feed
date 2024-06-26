@@ -3,6 +3,9 @@
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/appInsightsSettings.xml
+/.idea/other.xml
+/.idea/deploymentTargetSelector.xml
 /.idea/modules.xml
 /.idea/other.xml
 /.idea/deploymentTargetSelector.xml

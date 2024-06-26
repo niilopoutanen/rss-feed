@@ -1,0 +1,163 @@
+<resources>
+    <string name="app_name">RSS-Okuyucu</string>
+
+    <string name="feed_header">Akış</string>
+    <string name="settings_header">Ayarlar</string>
+    <string name="feedsettings_header">Akışı özelleştir</string>
+    <string name="content_header">İçerik</string>
+
+    <string name="add">Ekle</string>
+    <string name="continua">Devam et</string>
+    <string name="cancel">İptal</string>
+    <string name="close">Kapat</string>
+    <string name="goback">Geri dön</string>
+    <string name="save">Kaydet</string>
+    <string name="share">Paylaş</string>
+    <string name="sharepost">Yazıyı paylaş</string>
+
+    <string name="addsource">Kaynak ekle</string>
+    <string name="updatesource">Kaynağı güncelle</string>
+    <string name="sourceremoved">Kaynak silindi</string>
+
+    <string name="feed_name">Kaynak adı</string>
+    <string name="feed_name_autofill">Opsiyonel: boş bırakırsanız otomatik doldurulacak</string>
+    <string name="feed_url">Kaynak URL</string>
+
+
+
+    <plurals name="minutes_ago">
+        <item quantity="one">%d dakika önce</item>
+        <item quantity="other">%d dakika önce</item>
+    </plurals>
+    <plurals name="hours_ago">
+        <item quantity="one">%d saat önce</item>
+        <item quantity="other">%d saat önce</item>
+    </plurals>
+    <string name="justnow">Şimdi</string>
+    <string name="imagefrom">Nereye kaydedilsin</string>
+    <string name="imagesaved">Resim galeriye kaydedildi</string>
+
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_additional">Uygulamayı yeniden başlattığında tema değişir.</string>
+    <string name="settings_feedcardstyle">Kaynak kart stili</string>
+    <string name="settings_font">Makale içerisindeki yazı tipi</string>
+    <string name="settings_launchwindow">İlk açılışta gösterilecek yer</string>
+    <string name="settings_showsearch">Arama çubuğunu göster</string>
+    <string name="settings_headertype">Başlık stili</string>
+    <string name="settings_launchwindow_additional">Uygulama başlatıldığında seçilen pencere açılır.</string>
+    <string name="haptics">Dokunsal geri bildirim</string>
+
+    <string name="view_in_browser">Tarayıcıda görüntüle</string>
+    <string name="open_articles_in_browser">Yazıları tarayıcı ile aç</string>
+    <string name="articles_fullscreen">Yazıları tam ekranda görüntüle</string>
+    <string name="cache_images">Resimleri önbelleğe al</string>
+
+
+    <string name="settingsheader_feed">Akış</string>
+    <string name="settingsheader_functionality">İşlevsellik</string>
+    <string name="settingsheader_article">Makale</string>
+
+    <string name="author_visible">Yazar</string>
+    <string name="title_visible">Başlık</string>
+    <string name="description_visible">Açıklama</string>
+    <string name="date_visible">Tarih</string>
+    <string name="date_format">Tarih formatı</string>
+
+    <string-array name="theme_modes">
+        <item>Aydınlık</item>
+        <item>Karanlık</item>
+        <item>Sistem</item>
+    </string-array>
+    <string-array name="fonts">
+        <item>Inter</item>
+        <item>Roboto Serif</item>
+        <item>Roboto Mono</item>
+        <item>Poppins</item>
+    </string-array>
+    <string-array name="launch_windows">
+        <item>Ayarlar</item>
+        <item>Akış</item>
+        <item>İçerik</item>
+        <item>Keşfet</item>
+    </string-array>
+    <string-array name="date_modes">
+        <item>Tarih ve Saat</item>
+        <item>Tarih</item>
+        <item>Saat/dakika önce</item>
+        <item>Saat</item>
+    </string-array>
+    <string-array name="header_types">
+        <item>Çok kalın</item>
+        <item>Kalın</item>
+        <item>Orta</item>
+        <item>İnce</item>
+    </string-array>
+    <string-array name="header_sizes">
+        <item>Küçük</item>
+        <item>Normal</item>
+        <item>Büyük</item>
+    </string-array>
+    <string-array name="sorting_modes">
+        <item>Önce yeniler</item>
+        <item>Önce eskiler</item>
+    </string-array>
+
+
+
+
+
+
+    <string name="sendmail">E-Posta gönder</string>
+    <string name="emailquide">Geri bildirimlerinizi buradan yazın. Uygulama ve android sürüm bilgisini eklemeyi unutmayın.</string>
+    <string name="discover_header">Keşfet</string>
+    <string name="categories">Kategoriler</string>
+    <string name="results">Sonuçlar</string>
+    <string name="search">Ara</string>
+    <string name="sourceadded">Kaynak eklendi.</string>
+    <string name="sourcealreadyadded">Kaynak zaten eklenmiş.</string>
+
+    <string name="donot_show_again">Tekrar gösterme</string>
+    <string name="settings_fontsize">Yazı boyutu</string>
+    <string name="show_in_feed">Akışta göster</string>
+    <string name="animate_clicks">Dokununca animasyon çıksın</string>
+    <string name="article_show_controls">Alt menü</string>
+    <string name="article_focusmode">Odak modu</string>
+    <string name="debug_tools">Hata ayıklama</string>
+    <string name="article_open_with_url">URL ile makale olarak oku</string>
+    <string name="debug_terminate">Uygulama sürecini sonlandır</string>
+    <string name="article_show_categories">Yazı kategorilerini göster</string>
+    <string name="update">Güncelle</string>
+    <string name="import_sources">Kaynakları içe aktar</string>
+    <string name="export_sources">Kaynakları dışa aktar</string>
+    <string name="import_export">İçe/Dışa Aktar</string>
+    <string name="import_export_desc">OPML olarak içe aktar</string>
+    <string name="import_starting">İçe aktarma başladı. Uygulamayı kapatma.</string>
+    <plurals name="imported_sources">
+        <item quantity="one">%d Kaynak içe aktarıldı</item>
+        <item quantity="other">%d Kaynak içe aktarıldı</item>
+    </plurals>
+    <plurals name="exported_sources">
+        <item quantity="one">%d Kaynak dışa aktarıldı</item>
+        <item quantity="other">%d Kaynak dışa aktarıldı</item>
+    </plurals>
+    <plurals name="skipped_sources">
+        <item quantity="one">Geçersiz kaynak nedeniyle %d içe aktarılmadı</item>
+        <item quantity="other">Geçersiz kaynaklar nedeniyle %d içe aktarılmadı</item>
+    </plurals>
+    <string name="select_file_import">İçe aktarılacak bir dosya seçin</string>
+    <string name="loading_icons">İkonlar yükleniyor</string>
+    <string name="save_sources">Kaynakları kaydet</string>
+    <string name="rssfeed_sources">RSS kaynakları</string>
+    <string name="rssfeed_export_desc">RSS ile abone olunan kaynaklar</string>
+    <string name="settings_headersize">Başlık boyutu</string>
+    <string name="show_changelog">Güncelleme notları</string>
+    <string name="full_title_visible">Her zaman tam başlığı göster</string>
+    <string name="show_image_viewer_gradient">Resimleri gradyanlı göster</string>
+    <string name="sort_by_newest">Yeniden eskiye göre sırala</string>
+    <string name="sort_by_oldest">Eskiden yeniye göre sırala</string>
+    <string name="sorted_old_first">Artık en eski gönderi ilk önce gösteriliyor</string>
+    <string name="sorted_new_first">Artık en yeni gönderi ilk önce gösteriliyor</string>
+    <string name="sorting_mode">Sıralama</string>
+    <string name="remember_sorting">Sıralamayı hatırla</string>
+    <string name="clear_sources">Tüm kaynakları kaldır</string>
+</resources>

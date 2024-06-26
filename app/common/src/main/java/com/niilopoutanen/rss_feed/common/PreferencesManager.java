@@ -73,6 +73,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.LocaleList;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
@@ -150,11 +151,15 @@ public class PreferencesManager {
     }
 
     public static Category.Country getUserLocale() {
-        String locale = Locale.getDefault().getLanguage();
+        String locale = LocaleList.getDefault().get(0).toString();
         Category.Country userLocale;
-        if ("fi".equals(locale)) {
+        if (locale.startsWith("fi")) {
             userLocale = Category.Country.FI;
-        } else {
+        }
+        else if (locale.startsWith("tr")) {
+            userLocale = Category.Country.TR;
+        }
+        else {
             userLocale = Category.Country.EN;
         }
         return userLocale;
@@ -220,6 +225,9 @@ public class PreferencesManager {
     public static boolean isFirstLaunch(Context context) {
         int currentVersion = getVersionCode(context);
         int lastVersionUsed = getLastVersionUsed(context);
+        if(lastVersionUsed == 35){
+            return false;
+        }
         return currentVersion > lastVersionUsed;
     }
 
