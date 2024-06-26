@@ -39,7 +39,9 @@ public class PrimaryButton extends RelativeLayout {
     private void init(AttributeSet attrs){
         setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_background));
         setBackgroundTintList(ColorStateList.valueOf(PreferencesManager.getAccentColor(getContext())));
-        
+        int horizontalPadding = PreferencesManager.dpToPx(10, getContext());
+        setPadding(horizontalPadding,0,horizontalPadding,0);
+
         setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_down));
@@ -61,7 +63,7 @@ public class PrimaryButton extends RelativeLayout {
         text.setLayoutParams(textParams);
         text.setGravity(Gravity.CENTER);
         text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.inter_bold));
-        text.setTextSize(14);
+        text.setTextSize(18);
         text.setText(getContext().getString(R.string.continua));
         text.setTextColor(Color.parseColor("#FFFFFF"));
 
@@ -80,7 +82,7 @@ public class PrimaryButton extends RelativeLayout {
 
             setIsEnabled(a.getBoolean(R.styleable.PrimaryButton_enabled, true));
             setIsLoading(a.getBoolean(R.styleable.PrimaryButton_loading, false));
-
+            setIsSecondary(a.getBoolean(R.styleable.PrimaryButton_isSecondary, false));
             a.recycle();
         }
         addView(text);
@@ -109,6 +111,13 @@ public class PrimaryButton extends RelativeLayout {
         else {
             progressBar.setVisibility(GONE);
             text.setAlpha(1f);
+        }
+    }
+
+    public void setIsSecondary(boolean isSecondary){
+        if(isSecondary){
+            ColorStateList colorStateList = ColorStateList.valueOf(getContext().getColor(R.color.surface));
+            setBackgroundTintList(colorStateList);
         }
     }
 

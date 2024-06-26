@@ -150,6 +150,7 @@ public class FeedData{
         public static final int HEADER_EXTENDED = 1;
         public static final int POST = 2;
         public static final int NOTICE = 3;
+        public static final int AD = 4;
     }
 }
 

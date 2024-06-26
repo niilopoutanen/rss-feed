@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -111,11 +112,12 @@ public class MainActivity extends AppCompatActivity {
             return false; // Event has not been consumed
         });
 
+        ViewGroup root = findViewById(R.id.activity_main_root);
         int orientation = getResources().getConfiguration().orientation;
-        ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, windowInsets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             bottomNav.setPadding(insets.left, 0, insets.right, insets.bottom);
-            return WindowInsetsCompat.CONSUMED;
+            return windowInsets;
         });
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
