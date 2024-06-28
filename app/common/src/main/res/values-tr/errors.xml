@@ -16,11 +16,13 @@
     <string name="error_too_many_requests_msg">Çok fazla istek gönderdiniz. Bir süre bekleyip tekrar deneyin.</string>
 
     <string name="error_url">URL\'den okuma hatası.</string>
+    <string name="error_url_empty">Verilen URL\'den hiçbir şey bulunamadı.</string>
     <string name="error_host">İnternet bağlantısı yok veya ana bilgisayar URL\'si bozuk.</string>
     <string name="error_no_write_access">Uygulamaya yazma izni vermediniz.</string>
     <string name="error_no_email_found">Hiçbir e-posta uygulaması bulunamadı. Niilo.poutanen@gmail.com adresine geri bildirim gönderin</string>
     <string name="error_post_no_url">Makale açılamıyor. Bu yayına eklenmiş bir URL yok.</string>
 
+    <string name="error_feed_format">Geçerli bir RSS biçimi algılanmadı.</string>
     <string name="error_export_sources">Kaynaklar dışa aktarılırken hata oluştu.</string>
     <string name="error_import_no_sources">Dosyada kaynak bulunamadı. Lütfen başka bir tane deneyin.</string>
 </resources>

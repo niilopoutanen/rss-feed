@@ -16,7 +16,7 @@ android {
         minSdk 26
         targetSdk 34
         versionCode 36
-        versionName "2.3.5.1"
+        versionName "2.3.6"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -25,7 +25,7 @@ android {
     buildTypes {
         release {
             debuggable false
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseCrashlytics {
                 mappingFileUploadEnabled true
