@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Новостная лента</string>
+
+    <string name="feed_header">Лента</string>
+
+    <string name="settings_header">Настройки</string>
+
+    <string name="feedsettings_header">Настройка ленты</string>
+
+    <string name="content_header">Содержание</string>
+
+    <string name="add">Добавить</string>
+
+    <string name="continua">Продолжить</string>
+
+    <string name="cancel">Отмена</string>
+
+    <string name="close">Закрыть</string>
+
+    <string name="goback">Вернуться</string>
+
+    <string name="save">Сохранить</string>
+
+    <string name="share">Поделиться</string>
+
+    <string name="sharepost">Поделиться публикацией</string>
+
+    <string name="addsource">Добавить источник</string>
+
+    <string name="updatesource">Обновить источник</string>
+
+    <string name="sourceremoved">Источник удален</string>
+
+    <string name="feed_name">Название ленты</string>
+
+    <string name="feed_name_autofill">Необязательно: оставьте имя пустым для автозаполнения</string>
+
+    <string name="feed_url">URL-адрес ленты</string>
+
+    <plurals name="minutes_ago">
+        <item quantity="one">%d минуту назад</item>
+        <item quantity="few">%d минуты назад</item>
+        <item quantity="many">%d минут назад</item>
+        <item quantity="other">%d минут назад</item>
+    </plurals>
+
+    <plurals name="hours_ago">
+        <item quantity="one">%d час назад</item>
+        <item quantity="few">%d часа назад</item>
+        <item quantity="many">%d часов назад</item>
+        <item quantity="other">%d часов назад</item>
+    </plurals>
+
+    <string name="justnow">Прямо сейчас</string>
+
+    <string name="imagefrom">Изображение из</string>
+
+    <string name="imagesaved">Изображение сохранено в галерее</string>
+
+    <string name="settings_theme">Тема</string>
+
+    <string name="settings_theme_additional">Тема изменится при следующем перезапуске приложения.</string>
+
+    <string name="settings_feedcardstyle">Стиль карточки ленты</string>
+
+    <string name="settings_font">Шрифт, используемый в статьях</string>
+
+    <string name="settings_launchwindow">Окно запуска</string>
+
+    <string name="settings_showsearch">Показать панель поиска</string>
+
+    <string name="settings_headertype">Стиль заголовка</string>
+
+    <string name="settings_launchwindow_additional">Выбранное окно открывается при запуске приложения.</string>
+
+    <string name="haptics">Гаптика</string>
+
+    <string name="view_in_browser">Посмотреть в браузере</string>
+
+    <string name="open_articles_in_browser">Открытие статей в браузере</string>
+
+    <string name="articles_fullscreen">Просмотр статей в полноэкранном режиме</string>
+
+    <string name="cache_images">Кэшировать изображения на диск</string>
+
+    <string name="settingsheader_feed">Лента</string>
+
+    <string name="settingsheader_functionality">Функциональность</string>
+
+    <string name="settingsheader_article">Статья</string>
+
+    <string name="author_visible">Автор виден</string>
+
+    <string name="title_visible">Название видно</string>
+
+    <string name="description_visible">Описание видно</string>
+
+    <string name="date_visible">Дата видна</string>
+
+    <string name="date_format">Формат даты</string>
+
+    <string-array name="theme_modes">
+
+        <item>Светлый</item>
+
+        <item>Темный</item>
+
+        <item>Следуйте системе</item>
+
+    </string-array>
+
+    <string-array name="fonts">
+
+        <item>Inter</item>
+
+        <item>Roboto Serif</item>
+
+        <item>Roboto Mono</item>
+
+        <item>Poppins</item>
+
+    </string-array>
+
+    <string-array name="launch_windows">
+
+        <item>Настройки</item>
+
+        <item>Лента</item>
+
+        <item>Содержание</item>
+
+        <item>Обнаружить</item>
+
+    </string-array>
+
+    <string-array name="date_modes">
+
+        <item>Длинный</item>
+
+        <item>Короткий</item>
+
+        <item>Время с</item>
+
+        <item>Только время</item>
+
+    </string-array>
+
+    <string-array name="header_types">
+
+        <item>Тяжелый</item>
+
+        <item>Жирный</item>
+
+        <item>Средний</item>
+
+        <item>Светлый</item>
+
+    </string-array>
+
+    <string-array name="header_sizes">
+
+        <item>Маленький</item>
+
+        <item>Нормальный</item>
+
+        <item>Большой</item>
+
+    </string-array>
+
+    <string-array name="sorting_modes">
+
+        <item>Сначала новые</item>
+
+        <item>Сначала старые</item>
+
+    </string-array>
+
+    <string name="sendmail">Отправить письмо</string>
+
+    <string name="emailquide">Напишите свой отзыв здесь. Оставьте в сообщении информацию о приложении и версии Android.</string>
+
+    <string name="discover_header">Обнаружить</string>
+
+    <string name="categories">Категории</string>
+
+    <string name="results">Результаты</string>
+
+    <string name="search">Поиск</string>
+
+    <string name="sourceadded">Источник добавлен.</string>
+
+    <string name="sourcealreadyadded">Источник уже добавлен.</string>
+
+    <string name="donot_show_again">Не показывать снова</string>
+
+    <string name="settings_fontsize">Размер шрифта</string>
+
+    <string name="show_in_feed">Показать в ленте</string>
+
+    <string name="animate_clicks">Анимация элементов, по которым щелкают мышью</string>
+
+    <string name="article_show_controls">Показать нижние элементы управления</string>
+
+    <string name="article_focusmode">Переключить режим фокусировки</string>
+
+    <string name="debug_tools">Инструменты отладки</string>
+
+    <string name="article_open_with_url">Открыть ArticleView с URL-адресом</string>
+
+    <string name="debug_terminate">Завершить процесс приложения</string>
+
+    <string name="article_show_categories">Показать категории сообщений</string>
+
+    <string name="update">Обновить</string>
+
+    <string name="import_sources">Импортировать источники</string>
+
+    <string name="export_sources">Экспортировать источники</string>
+
+    <string name="import_export">Импорт/экспорт</string>
+
+    <string name="import_export_desc">Импортируйте или экспортируйте свои источники в другие приложения. Для передачи данных используется формат OMPL.</string>
+
+    <string name="import_starting">Начинаем импорт. Не закрывайте приложение.</string>
+
+    <plurals name="imported_sources">
+        <item quantity="one">Импортирован %d источник</item>
+        <item quantity="few">Импортировано %d источника</item>
+        <item quantity="many">Импортировано %d источников</item>
+        <item quantity="other">Импортировано %d источников</item>
+    </plurals>
+
+    <plurals name="exported_sources">
+        <item quantity="one">Экспортирован %d источник</item>
+        <item quantity="few">Экспортировано %d источника</item>
+        <item quantity="many">Экспортировано %d источников</item>
+        <item quantity="other">Экспортировано %d источников</item>
+    </plurals>
+
+    <plurals name="skipped_sources">
+        <item quantity="one">%d источник не был импортирован из-за неверных данных</item>
+        <item quantity="few">%d источника не были импортированы из-за неверных данных</item>
+        <item quantity="many">%d источников не были импортированы из-за неверных данных</item>
+        <item quantity="other">%d источников не были импортированы из-за неверных данных</item>
+    </plurals>
+
+    <string name="select_file_import">Выберите файл для импорта</string>
+
+    <string name="loading_icons">Загрузка значков</string>
+
+    <string name="save_sources">Сохранить источники</string>
+
+    <string name="rssfeed_sources">Источники RSS-каналов</string>
+
+    <string name="rssfeed_export_desc">Подписные источники из RSS-канала</string>
+
+    <string name="settings_headersize">Размер заголовка</string>
+
+    <string name="show_changelog">Показать журнал изменений</string>
+
+    <string name="full_title_visible">Всегда показывать полное название</string>
+
+    <string name="show_image_viewer_gradient">Градиент просмотра изображений</string>
+
+    <string name="sort_by_newest">Сортировать по новейшим</string>
+
+    <string name="sort_by_oldest">Сортировать по старым</string>
+
+    <string name="sorted_old_first">Теперь сначала показывается самое старое сообщение</string>
+
+    <string name="sorted_new_first">Теперь сначала показывается самое новое сообщение</string>
+
+    <string name="sorting_mode">Режим сортировки</string>
+
+    <string name="remember_sorting">Помните о режиме сортировки</string>
+
+    <string name="clear_sources">Очистить все источники</string>
+
+</resources>

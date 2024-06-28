@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="error_adding_source">Ошибка при добавлении источника. Попробуйте еще раз.</string>
+
+    <string name="error_notsupported">Сообщение, которое вы пытались открыть, недействительно и не работает с этим приложением. Откройте его в своем браузере.</string>
+
+    <string name="error_invalid_image">Это изображение недействительно или больше не существует.</string>
+
+    <string name="error_invalid_feed">URL-адрес RSS-канала недействителен.</string>
+
+    <string name="error_invalid_feed_msg">Возможно, RSS-канал издателя устарел или URL-адрес изменился. Не удалось открыть канал.</string>
+
+    <string name="error_no_internet">Нет подключения к Интернету.</string>
+
+    <string name="error_no_internet_msg">Невозможно загрузить ленту. Подключитесь к Интернету и повторите попытку.</string>
+
+    <string name="error_no_sources">Источники не добавлены.</string>
+
+    <string name="error_no_sources_msg">Вы еще не добавили ни одного источника в свою ленту. Перейдите на вкладку «Содержимое» или «Обнаружение», чтобы добавить их.</string>
+
+    <string name="error_too_many_requests">Слишком много запросов.</string>
+
+    <string name="error_too_many_requests_msg">Вы отправили слишком много запросов. Подождите некоторое время и повторите попытку.</string>
+
+    <string name="error_url">Ошибка чтения с URL.</string>
+
+    <string name="error_url_empty">По данному URL ничего не найдено.</string>
+
+    <string name="error_host">Нет подключения к Интернету или неправильный URL-адрес хоста.</string>
+
+    <string name="error_no_write_access">Вы не предоставили приложению разрешения на запись.</string>
+
+    <string name="error_no_email_found">Приложение электронной почты не найдено. Отправьте отзыв на адрес niilo.poutanen\@gmail.com</string>
+
+    <string name="error_post_no_url">Невозможно открыть статью. К этому сообщению не прикреплен URL-адрес.</string>
+
+    <string name="error_feed_format">Действительный формат RSS не обнаружен.</string>
+
+    <string name="error_export_sources">Ошибка экспорта источников.</string>
+
+    <string name="error_import_no_sources">В файле не найдены источники. Попробуйте другой.</string>
+
+</resources>
