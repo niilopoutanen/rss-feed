@@ -3,12 +3,12 @@
     <string name="whats_new_in">Mitä uutta %1$s versiossa</string>
     <string name="whats_new">Mitä uutta?</string>
 
-    <string name="feature1">Versiopäivityksiä</string>
-    <string name="feature1desc">Sovelluksen paketit päivitetty uusimpiin versioihin, tarjoten paremman tietoturvan.</string>
+    <string name="feature1">Material 3 Expressive</string>
+    <string name="feature1desc">Uusimmat Material 3 - tyylit</string>
 
-    <string name="feature2">-</string>
-    <string name="feature2desc">-</string>
+    <string name="feature2">Versiopäivityksiä</string>
+    <string name="feature2desc">Sovelluksen paketit päivitetty uusimpiin versioihin, tarjoten paremman tietoturvan.</string>
 
-    <string name="feature3">-</string>
-    <string name="feature3desc">-</string>
+    <string name="feature3">Käännösmuutoksia</string>
+    <string name="feature3desc">Muutama kieli poistettu (Turkki ja Venäjä)</string>
 </resources>

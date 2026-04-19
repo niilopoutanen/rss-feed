@@ -142,6 +142,7 @@
         </RelativeLayout>
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/sourceadd_bottomlayout"
         android:layout_width="match_parent"
@@ -150,22 +151,42 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <com.niilopoutanen.rss_feed.common.PrimaryButton
-            android:id="@+id/addsource_continue"
+        <com.google.android.material.button.MaterialButtonGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:text="@string/add"/>
+            style="@style/Widget.Material3.MaterialButtonGroup.Connected"
+            android:layout_marginTop="10dp">
+            <Button
+                android:id="@+id/addsource_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add"/>
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/removesource"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remove"/>
+        </com.google.android.material.button.MaterialButtonGroup>
+
     </LinearLayout>
 
 
-    <ProgressBar
+    <com.google.android.material.loadingindicator.LoadingIndicator
         android:visibility="gone"
         android:id="@+id/addsource_progress"
+        style="@style/Widget.Material3.LoadingIndicator.Contained"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="?attr/colorAccent"
+        app:containerColor="@color/element"
+        app:indicatorColor="?attr/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -21,10 +22,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.loadingindicator.LoadingIndicator;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.niilopoutanen.rss_feed.common.R;
+import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.AppViewModel;
 import com.niilopoutanen.rss_feed.parser.IconFinder;
 import com.niilopoutanen.rss_feed.parser.Parser;
@@ -41,8 +44,9 @@ public class AddSourceFragment extends Fragment {
     private MaterialSwitch showInFeed;
     private TextView title;
     private LinearLayout bottomContainer;
-    private ProgressBar progressBar;
-    private View addSourceButton;
+    private LoadingIndicator progressBar;
+    private Button addSourceButton;
+    private Button removeSourceButton;
     private Context context;
 
 
@@ -66,8 +70,8 @@ public class AddSourceFragment extends Fragment {
         showInFeed.setChecked(source.visible);
         title.setText(context.getString(R.string.updatesource));
 
-        TextView buttonText = (TextView) ((RelativeLayout) addSourceButton).getChildAt(0);
-        buttonText.setText(context.getString(R.string.update));
+        addSourceButton.setText(context.getString(R.string.update));
+        removeSourceButton.setVisibility(View.VISIBLE);
     }
 
     private void saveData() {
@@ -110,10 +114,7 @@ public class AddSourceFragment extends Fragment {
 
                 save(source);
 
-                activity.runOnUiThread(() -> {
-                    progressBar.setVisibility(View.GONE);
-                    closeFragment();
-                });
+                activity.runOnUiThread(this::closeFragment);
             } else {
                 activity.runOnUiThread(() -> {
                     showError(context.getString(R.string.error_adding_source));
@@ -136,6 +137,15 @@ public class AddSourceFragment extends Fragment {
         }
     }
 
+    private void remove(){
+        if(source == null) return;
+        if(appViewModel != null){
+            progressBar.setVisibility(View.VISIBLE);
+            appViewModel.removesource(source);
+            Activity activity = (Activity) context;
+            activity.runOnUiThread(this::closeFragment);
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,6 +178,7 @@ public class AddSourceFragment extends Fragment {
         returnBtn.setOnClickListener(view -> closeFragment());
         title = rootView.findViewById(R.id.addsource_title);
         addSourceButton = rootView.findViewById(R.id.addsource_continue);
+        removeSourceButton = rootView.findViewById(R.id.removesource);
 
         bottomContainer = rootView.findViewById(R.id.sourceadd_bottomlayout);
         progressBar = rootView.findViewById(R.id.addsource_progress);
@@ -179,17 +190,7 @@ public class AddSourceFragment extends Fragment {
         loadData();
 
         addSourceButton.setOnClickListener(view -> saveData());
-        addSourceButton.setOnTouchListener((view, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                addSourceButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_down));
-            } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-                addSourceButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_up));
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                addSourceButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_up));
-                view.performClick();
-            }
-            return true;
-        });
+        removeSourceButton.setOnClickListener(view -> remove());
         return rootView;
     }
 

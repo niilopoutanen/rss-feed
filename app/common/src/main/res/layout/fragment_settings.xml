@@ -22,7 +22,7 @@
             android:layout_marginTop="0dp"
             android:text="@string/settings_header"
             android:textColor="@color/textPrimary"
-            android:textSize="35sp"
+            android:textSize="30sp"
             app:fontFamily="@font/inter_black" />
 
 
@@ -281,80 +281,9 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/settings_headertypesettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:minHeight="50dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/settings_headertype"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold" />
-
-                <TextView
-                    android:id="@+id/headertype_selected"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_toLeftOf="@id/headertype_arrow"
-                    android:textColor="@color/textSecondary" />
-
-                <View
-                    android:id="@+id/headertype_arrow"
-                    android:layout_width="9dp"
-                    android:layout_height="17dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/arrow"
-                    android:backgroundTint="@color/white"
-                    android:rotation="180" />
-
-            </RelativeLayout>
 
 
-            <RelativeLayout
-                android:id="@+id/settings_headersizesettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:minHeight="50dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/settings_headersize"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="15sp"
-                    app:fontFamily="@font/inter_semibold" />
-
-                <TextView
-                    android:id="@+id/headersize_selected"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_toLeftOf="@id/headersize_arrow"
-                    android:textColor="@color/textSecondary" />
-
-                <View
-                    android:id="@+id/headersize_arrow"
-                    android:layout_width="9dp"
-                    android:layout_height="17dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/arrow"
-                    android:backgroundTint="@color/white"
-                    android:rotation="180" />
-
-            </RelativeLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
@@ -776,7 +705,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/element_background"
+                android:background="@drawable/m3_expressive_leaf"
                 android:padding="10dp">
 
                 <View
@@ -790,7 +719,7 @@
                 android:id="@+id/settings_createIssue"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/element_background"
+                android:background="@drawable/m3_expressive_leaf"
                 android:padding="10dp">
 
                 <View

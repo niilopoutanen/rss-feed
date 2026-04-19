@@ -21,10 +21,7 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE_D
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS_DEFAULT;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE_DEFAULT;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE_DEFAULT;
+
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGE_VIEWER_GRADIENT;
@@ -163,7 +160,6 @@ public class SettingsFragment extends Fragment {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        PreferencesManager.setHeader(context, rootView.findViewById(R.id.settings_header));
 
         String versionText = "v" + BuildConfig.VERSION_NAME;
         ((TextView) rootView.findViewById(R.id.settings_version)).setText(versionText);
@@ -249,20 +245,6 @@ public class SettingsFragment extends Fragment {
         RelativeLayout launchWindowSettings = rootView.findViewById(R.id.settings_launchwindowsettings);
         launchWindowSettings.setOnClickListener(v -> {
             openDropDownSettings(LaunchWindow.class, getString(R.string.settings_launchwindow), getString(R.string.settings_launchwindow_additional));
-            PreferencesManager.vibrate(v);
-        });
-
-        headerTypeSelected = rootView.findViewById(R.id.headertype_selected);
-        RelativeLayout headerTypeSettings = rootView.findViewById(R.id.settings_headertypesettings);
-        headerTypeSettings.setOnClickListener(v -> {
-            openDropDownSettings(Preferences.HeaderType.class, getString(R.string.settings_headertype), "");
-            PreferencesManager.vibrate(v);
-        });
-
-        headerSizeSelected = rootView.findViewById(R.id.headersize_selected);
-        RelativeLayout headerSizeSettings = rootView.findViewById(R.id.settings_headersizesettings);
-        headerSizeSettings.setOnClickListener(v -> {
-            openDropDownSettings(Preferences.HeaderSize.class, context.getString(R.string.settings_headersize), "");
             PreferencesManager.vibrate(v);
         });
 
@@ -376,12 +358,6 @@ public class SettingsFragment extends Fragment {
 
         ThemeMode selectedTheme = PreferencesManager.getEnumPreference(SP_THEME, PREFS_UI, ThemeMode.class, SP_THEME_DEFAULT, context);
         themeSelected.setText(getResources().getStringArray(R.array.theme_modes)[selectedTheme.ordinal()]);
-
-        Preferences.HeaderType selectedHeader = PreferencesManager.getEnumPreference(SP_HEADERTYPE, PREFS_UI, Preferences.HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
-        headerTypeSelected.setText(getResources().getStringArray(R.array.header_types)[selectedHeader.ordinal()]);
-
-        Preferences.HeaderSize selectedHeaderSize = PreferencesManager.getEnumPreference(SP_HEADERSIZE, PREFS_UI, Preferences.HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
-        headerSizeSelected.setText(getResources().getStringArray(R.array.header_sizes)[selectedHeaderSize.ordinal()]);
 
         Preferences.SortingMode selectedSorting = PreferencesManager.getEnumPreference(SP_SORTING_MODE, PREFS_FUNCTIONALITY, Preferences.SortingMode.class, SP_SORTING_MODE_DEFAULT, context);
         sortingModeSelected.setText(getResources().getStringArray(R.array.sorting_modes)[selectedSorting.ordinal()]);

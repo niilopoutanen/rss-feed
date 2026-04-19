@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.niilopoutanen.rss_feed.fragments.components.ArticleView
         android:id="@+id/articleview"
@@ -31,10 +32,13 @@
     </RelativeLayout>
 
 
-    <ProgressBar
+    <com.google.android.material.loadingindicator.LoadingIndicator
         android:id="@+id/article_load"
+        style="@style/Widget.Material3.LoadingIndicator.Contained"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:indeterminateTint="?attr/colorAccent" />
+        android:indeterminateTint="?attr/colorAccent"
+        app:containerColor="@color/element"
+        app:indicatorColor="?attr/colorAccent"/>
 </RelativeLayout>

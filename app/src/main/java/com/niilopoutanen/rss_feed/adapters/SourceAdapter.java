@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.niilopoutanen.rss_feed.common.PreferencesManager;
 import com.niilopoutanen.rss_feed.common.R;
 import com.niilopoutanen.rss_feed.database.AppDatabase;
 import com.niilopoutanen.rss_feed.database.DatabaseThread;
@@ -34,6 +35,9 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context;
     private Source tempSource;
     private final FragmentManager manager;
+
+    private final int TYPE_HEADER = 0;
+    private final int TYPE_ITEM = 1;
 
     private final Runnable undoDelete = new Runnable() {
         @Override
@@ -60,7 +64,18 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return SourceItem.create(parent);
+        if(viewType == TYPE_HEADER){
+            TextView headerText = new TextView(context);
+            headerText.setText(context.getText(R.string.content_header));
+            headerText.setTextSize(30);
+            headerText.setTextColor(context.getColor(R.color.textPrimary));
+            headerText.setTypeface(ResourcesCompat.getFont(context, R.font.inter_black));
+            return new RecyclerView.ViewHolder(headerText) {};
+        }
+        else{
+            return SourceItem.create(parent);
+
+        }
     }
 
     public void updateSources(List<Source> sources) {
@@ -70,10 +85,10 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (sources == null) {
+        if (sources == null || position == 0) {
             return;
         }
-        Source source = sources.get(position);
+        Source source = sources.get(position - 1);
         if (holder instanceof SourceItem) {
             SourceItem sourceItem = (SourceItem) holder;
             sourceItem.bindData(source, manager);
@@ -84,18 +99,25 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         if (sources == null) {
-            return 0;
+            return 1;
         }
-        return sources.size();
+        return sources.size() + 1;
     }
 
 
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0) return TYPE_HEADER;
+        else return TYPE_ITEM;
+    }
+
     public void removeItem(int position, DatabaseThread<Source> thread) {
+        if (position == 0) return;
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Source target = sources.get(position);
+                Source target = sources.get(position - 1);
                 AppDatabase database = AppDatabase.getInstance(context);
                 database.sourceDao().delete(target);
                 thread.complete(target);
@@ -115,10 +137,21 @@ public class SourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
-
+        @Override
+        public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            int position = viewHolder.getBindingAdapterPosition();
+            if (position == 0) {
+                return 0; // disable swipe for header
+            }
+            return super.getSwipeDirs(recyclerView, viewHolder);
+        }
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            int position = viewHolder.getAdapterPosition();
+            int position = viewHolder.getBindingAdapterPosition();
+            if (position == 0) {
+                notifyItemChanged(position); // reset swipe
+                return;
+            }
             removeItem(position, result -> tempSource = result);
 
             Snackbar snackbar = Snackbar.make(recyclerView, context.getString(R.string.sourceremoved), Snackbar.LENGTH_LONG);

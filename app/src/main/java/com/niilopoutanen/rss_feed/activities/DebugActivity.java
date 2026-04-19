@@ -39,8 +39,6 @@ public class DebugActivity extends AppCompatActivity {
     private void initControls() {
         LinearLayout container = findViewById(R.id.debug_container);
 
-        PreferencesManager.setHeader(this, findViewById(R.id.debug_header));
-
         findViewById(R.id.debug_terminate).setOnClickListener(v -> finishAffinity());
 
 

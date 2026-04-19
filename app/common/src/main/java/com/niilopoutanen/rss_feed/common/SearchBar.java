@@ -53,17 +53,19 @@ public class SearchBar extends LinearLayout {
         setGravity(Gravity.CENTER_VERTICAL);
 
         int gap = PreferencesManager.dpToPx(8, context);
-        addView(bar(gap));
+        int padding = PreferencesManager.dpToPx(20, context);
+
+        addView(bar(gap, padding));
         addView(toggle(gap));
     }
 
-    private View bar(int gap){
+    private View bar(int gap, int padding){
         LinearLayout searchBar = new LinearLayout(getContext());
-        searchBar.setBackgroundResource(R.drawable.element_background);
-        searchBar.setPadding(gap,0,gap,0);
+        searchBar.setBackgroundResource(R.drawable.searchbar_background);
+        searchBar.setPadding(padding,0,padding,0);
         searchBar.setGravity(Gravity.CENTER_VERTICAL);
         searchBar.setOrientation(HORIZONTAL);
-        searchBar.setMinimumHeight(PreferencesManager.dpToPx(35, getContext()));
+        searchBar.setMinimumHeight(PreferencesManager.dpToPx(50, getContext()));
         LinearLayout.LayoutParams barParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
         barParams.weight = 1;
         searchBar.setLayoutParams(barParams);
@@ -78,6 +80,7 @@ public class SearchBar extends LinearLayout {
         searchField.setPadding(0,0,0,0);
         searchField.setTextColor(getContext().getColor(R.color.textPrimary));
         searchField.setHintTextColor(getContext().getColor(R.color.textSecondary));
+        searchField.setTextSize(15);
 
         searchField.setOnEditorActionListener((v, actionId, event) -> {
             if(event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
@@ -86,7 +89,7 @@ public class SearchBar extends LinearLayout {
             return false;
         });
 
-        int iconSize = PreferencesManager.dpToPx(20, getContext());
+        int iconSize = PreferencesManager.dpToPx(15, getContext());
         MarginLayoutParams iconParams = new MarginLayoutParams(iconSize, iconSize);
         iconParams.rightMargin = gap;
 

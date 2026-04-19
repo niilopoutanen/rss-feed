@@ -3,13 +3,13 @@
     <string name="whats_new_in">What\'s new %1$s in</string>
     <string name="whats_new">What\'s new?</string>
 
-    <string name="feature1">Version updates</string>
-    <string name="feature1desc">Updated app dependencies for latest security fixes.</string>
+    <string name="feature1">Material 3 Expressive</string>
+    <string name="feature1desc">Support for new Material 3 styles.</string>
 
-    <string name="feature2">-</string>
-    <string name="feature2desc">-</string>
+    <string name="feature2">Version updates</string>
+    <string name="feature2desc">Updated dependencies to latest versions</string>
 
-    <string name="feature3">-</string>
-    <string name="feature3desc">-</string>
+    <string name="feature3">Removed Turkish and Russian translations</string>
+    <string name="feature3desc">The languages need a maintainer. If you wish for them to return, contribute on Github!</string>
 
 </resources>

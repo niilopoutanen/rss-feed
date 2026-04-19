@@ -10,8 +10,11 @@
     <string name="cancel">Peruuta</string>
     <string name="close">Sulje</string>
     <string name="goback">Takaisin</string>
+    <string name="remove">Poista</string>
     <string name="save">Tallenna</string>
     <string name="share">Jaa</string>
+    <style name="remove">Poista</style>
+
     <string name="sharepost">Jaa julkaisu</string>
     <string name="addsource">Lisää lähde</string>
     <string name="updatesource">Päivitä lähde</string>

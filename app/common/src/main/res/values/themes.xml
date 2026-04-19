@@ -1,5 +1,5 @@
 <resources>
-    <style name="RSSFeedStyle" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="RSSFeedStyle" parent="Theme.Material3Expressive.DayNight.NoActionBar">
         <item name="colorPrimary">?attr/colorAccent</item>
 
         <item name="android:statusBarColor">@color/windowBg</item>
@@ -20,15 +20,25 @@
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">#CBC9D1</item>
+
+        <item name="popupMenuStyle">@style/RSSFeedStyle.PopupMenu</item>
     </style>
 
     <style name="RSSFeedStyle.NavActive" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/surface</item>
     </style>
 
-    <style name="RSSFeedStyle.PopupMenu" parent="Widget.Material3.PopupMenu">
-        <item name="android:textColor">@color/textPrimary</item>
-        <item name="android:itemBackground">@color/element</item>
-        <item name="android:iconTint">@color/textPrimary</item>
+    <style name="RSSFeedStyle.PopupMenu" parent="Widget.Material3.PopupMenu.Overflow">
+        <item name="iconTint">@color/textPrimary</item>
+        <item name="popupMenuBackground">@drawable/element_background</item>
+    </style>
+
+    <style name="RSSFeedStyle.FAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorContainer">@color/element</item>
+        <item name="colorOnContainer">?attr/colorAccent</item>
     </style>
 </resources>

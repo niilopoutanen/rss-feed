@@ -1,5 +1,5 @@
 <resources>
-    <style name="RSSFeedStyle" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="RSSFeedStyle" parent="Theme.Material3Expressive.DayNight.NoActionBar">
         <item name="colorPrimary">?attr/colorAccent</item>
 
         <item name="android:statusBarColor">@color/windowBg</item>
@@ -20,5 +20,14 @@
         <!-- MaterialSwitch -->
         <item name="colorSurfaceVariant">@color/surface</item>
         <item name="colorOutline">@color/surface_border</item>
+    </style>
+
+    <style name="RSSFeedStyle.FAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorContainer">@android:color/system_accent1_100</item>
+        <item name="colorOnContainer">@android:color/system_accent1_400</item>
     </style>
 </resources>

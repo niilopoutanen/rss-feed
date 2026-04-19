@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         preferences = PreferencesManager.loadPreferences(this);
         PreferencesManager.setSavedTheme(this, preferences);
         EdgeToEdge.enable(this);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         setContentView(R.layout.activity_main);
         String locale = Locale.getDefault().getLanguage();
         // Restore the state of the currently opened fragment
@@ -150,7 +153,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EdgeToEdge.enable(this);
+    }
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {

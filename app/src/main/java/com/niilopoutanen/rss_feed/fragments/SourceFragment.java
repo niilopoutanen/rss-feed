@@ -1,12 +1,15 @@
 package com.niilopoutanen.rss_feed.fragments;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.niilopoutanen.rss_feed.adapters.SourceAdapter;
 import com.niilopoutanen.rss_feed.common.PreferencesManager;
@@ -67,34 +71,50 @@ public class SourceFragment extends Fragment {
                 adapter.updateSources(sources);
             }
         });
+        FloatingActionButton addBtn = rootView.findViewById(R.id.addNewButton);
 
 
-        ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.sources_container), (v, windowInsets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.sources_recyclerview), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
+            Insets cameraInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets gestureInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures());
+
+            int defaultPadding = PreferencesManager.dpToPx(10, context);
+            int rightMax = maxOf(insets.right, cameraInsets.right, gestureInsets.right, defaultPadding);
+            int bottomMax = maxOf(insets.bottom, cameraInsets.bottom, gestureInsets.bottom);
+
+            v.setPadding(maxOf(insets.left, defaultPadding, cameraInsets.left), maxOf(insets.top, cameraInsets.top, gestureInsets.top), maxOf(insets.right, defaultPadding, cameraInsets.right), 0);
+
+
+            ViewGroup.MarginLayoutParams fabMlb = (ViewGroup.MarginLayoutParams) addBtn.getLayoutParams();
+            fabMlb.rightMargin = rightMax;
+            fabMlb.bottomMargin = bottomMax;
+
             return WindowInsetsCompat.CONSUMED;
         });
 
-        PreferencesManager.setHeader(context, rootView.findViewById(R.id.sources_header));
         sourcesRecyclerView = rootView.findViewById(R.id.sources_recyclerview);
 
         adapter = new SourceAdapter(null, sourcesRecyclerView, getParentFragmentManager());
         sourcesRecyclerView.setAdapter(adapter);
         sourcesRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        sourcesRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
+        //sourcesRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
 
         startPostponedEnterTransition();
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(adapter.new SwipeToDeleteCallback(getContext()));
         itemTouchHelper.attachToRecyclerView(sourcesRecyclerView);
 
 
-        LinearLayout addBtn = rootView.findViewById(R.id.addNewButton);
         addBtn.setOnClickListener(v -> openSourceDialog(null));
         return rootView;
     }
-
+    private int maxOf(int... values) {
+        int max = Integer.MIN_VALUE;
+        for (int v : values) {
+            if (v > max) max = v;
+        }
+        return max;
+    }
     public void openSourceDialog(Source source) {
         AddSourceFragment addSourceFragment = AddSourceFragment.newInstance(source);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

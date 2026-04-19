@@ -31,6 +31,9 @@ public class AppViewModel extends AndroidViewModel {
     public void updateSource(Source source){
         appRepository.insert(source);
     }
+    public void removesource(Source source){
+        appRepository.remove(source);
+    }
     public void setPostCache(List<Post> posts){
         if(posts == null || posts.isEmpty()) return;
         this.posts = posts;
@@ -50,6 +53,8 @@ public class AppViewModel extends AndroidViewModel {
 
         Collections.sort(l1);
         Collections.sort(l2);
+
+        if (l1.size() != l2.size()) return true;
 
         for(int i = 0; i < l1.size(); i++){
             Post post1 = l1.get(i);

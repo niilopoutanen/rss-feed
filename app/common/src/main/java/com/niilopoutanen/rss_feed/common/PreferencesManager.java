@@ -3,8 +3,6 @@ package com.niilopoutanen.rss_feed.common;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.DateStyle;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.FeedCardStyle;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.Font;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderSize;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.HeaderType;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.LaunchWindow;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_FUNCTIONALITY;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.PREFS_LANG;
@@ -39,10 +37,7 @@ import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONTSIZE_D
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_FONT_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HAPTICS_DEFAULT;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERSIZE_DEFAULT;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE;
-import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HEADERTYPE_DEFAULT;
+
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HIDE_SOURCE_ALERT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_HIDE_SOURCE_ALERT_DEFAULT;
 import static com.niilopoutanen.rss_feed.common.models.Preferences.SP_IMAGECACHE;
@@ -156,9 +151,6 @@ public class PreferencesManager {
         if (locale.startsWith("fi")) {
             userLocale = Category.Country.FI;
         }
-        else if (locale.startsWith("tr")) {
-            userLocale = Category.Country.TR;
-        }
         else {
             userLocale = Category.Country.EN;
         }
@@ -231,36 +223,7 @@ public class PreferencesManager {
         return currentVersion > lastVersionUsed;
     }
 
-    public static void setHeader(Context context, TextView header){
-        Preferences preferences = loadPreferences(context);
-        switch (preferences.s_headertype){
-            case FAT:
-                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_black));
-                break;
-            case BOLD:
-                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_bold));
-                break;
-            case MEDIUM:
-                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_medium));
-                break;
-            case LIGHT:
-                header.setTypeface(ResourcesCompat.getFont(context, R.font.inter_regular));
-                break;
-        }
-        switch (preferences.s_headersize){
-            case SMALL:
-                header.setTextSize(20);
-                break;
 
-            case NORMAL:
-                header.setTextSize(30);
-                break;
-
-            case LARGE:
-                header.setTextSize(40);
-                break;
-        }
-    }
     /**
      * Loads the saved preferences from disk
      *
@@ -287,8 +250,6 @@ public class PreferencesManager {
         preferences.s_image_viewer_gradient = getBooleanPreference(SP_IMAGE_VIEWER_GRADIENT, PREFS_UI, SP_IMAGE_VIEWER_GRADIENT_DEFAULT, context);
         preferences.s_remember_sorting = getBooleanPreference(SP_REMEMBER_SORTING, PREFS_FUNCTIONALITY, SP_REMEMBER_SORTING_DEFAULT, context);
         preferences.s_sorting_method = getEnumPreference(SP_SORTING_MODE, PREFS_FUNCTIONALITY, SortingMode.class, SP_SORTING_MODE_DEFAULT, context);
-        preferences.s_headertype = getEnumPreference(SP_HEADERTYPE, PREFS_UI, HeaderType.class, SP_HEADERTYPE_DEFAULT, context);
-        preferences.s_headersize = getEnumPreference(SP_HEADERSIZE, PREFS_UI, HeaderSize.class, SP_HEADERSIZE_DEFAULT, context);
 
         preferences.s_feedcard_authorvisible = getBooleanPreference(SP_FEEDCARD_AUTHORVISIBLE, PREFS_UI, SP_FEEDCARD_AUTHORVISIBLE_DEFAULT, context);
         preferences.s_feedcard_titlevisible = getBooleanPreference(SP_FEEDCARD_TITLEVISIBLE, PREFS_UI, SP_FEEDCARD_TITLEVISIBLE_DEFAULT, context);

@@ -53,10 +53,6 @@ public class Preferences implements Serializable {
     public static final boolean SP_REMEMBER_SORTING_DEFAULT = false;
     public static final String SP_SORTING_MODE = "sorting_mode";
     public static final SortingMode SP_SORTING_MODE_DEFAULT = SortingMode.NEWEST_FIRST;
-    public static final String SP_HEADERTYPE = "header_type";
-    public static final HeaderType SP_HEADERTYPE_DEFAULT = HeaderType.FAT;
-    public static final String SP_HEADERSIZE = "header_size";
-    public static final HeaderSize SP_HEADERSIZE_DEFAULT = HeaderSize.NORMAL;
     public static final String SP_FONTSIZE = "font_size";
     public static final int SP_FONTSIZE_DEFAULT = 15;
     public static final String SP_VERSION = "version";
@@ -69,8 +65,6 @@ public class Preferences implements Serializable {
     public FeedCardStyle s_feedcardstyle;
     public Font s_font;
     public LaunchWindow s_launchwindow;
-    public HeaderType s_headertype;
-    public HeaderSize s_headersize;
     public boolean s_articlesinbrowser;
     public boolean s_show_search;
     public boolean s_feedcard_authorvisible;
@@ -113,13 +107,6 @@ public class Preferences implements Serializable {
 
     public enum FeedCardStyle {
         LARGE, SMALL, NONE
-    }
-
-    public enum HeaderType {
-        FAT, BOLD, MEDIUM, LIGHT
-    }
-    public enum HeaderSize {
-        SMALL, NORMAL, LARGE
     }
     public enum SortingMode{
         NEWEST_FIRST, OLDEST_FIRST

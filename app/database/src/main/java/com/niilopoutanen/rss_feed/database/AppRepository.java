@@ -39,4 +39,10 @@ public class AppRepository {
             sourceDao.insert(source);
         });
     }
+
+    public void remove(Source source){
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            sourceDao.delete(source);
+        });
+    }
 }

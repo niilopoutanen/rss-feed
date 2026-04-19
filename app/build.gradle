@@ -7,16 +7,16 @@ plugins {
 
 android {
     namespace 'com.niilopoutanen.rss_feed'
-    compileSdk 35
+    compileSdk 36
     ndkVersion "25.2.9519653"
 
     defaultConfig {
         applicationId "com.niilopoutanen.rss_feed"
-        resourceConfigurations += ["en", "fi", "tr", "ru"]
+        resourceConfigurations += ["en", "fi"]
         minSdk 26
-        targetSdk 35
-        versionCode 37
-        versionName "2.3.7"
+        targetSdk 36
+        versionCode 38
+        versionName "2.4.0"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -49,25 +49,24 @@ dependencies {
     implementation project(':app:database')
     implementation project(':app:manager')
 
-    def room_version = "2.6.1"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:2.8.4"
+    annotationProcessor "androidx.room:room-compiler:2.7.2"
 
     implementation 'net.dankito.readability4j:readability4j:1.0.8'
     implementation 'com.squareup.picasso:picasso:2.8'
-    implementation 'org.jsoup:jsoup:1.17.2'
-    implementation 'com.github.MikeOrtiz:TouchImageView:3.6'
+    implementation 'org.jsoup:jsoup:1.22.1'
+    implementation 'com.github.MikeOrtiz:TouchImageView:3.7.1'
 
-    implementation "androidx.core:core-splashscreen:1.0.1"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.core:core-splashscreen:1.2.0"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation ("androidx.webkit:webkit:1.11.0")
+    implementation ("androidx.webkit:webkit:1.15.0")
 
-    implementation 'com.google.android.gms:play-services-ads:23.1.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation platform('com.google.firebase:firebase-bom:33.1.1')
+    implementation 'com.google.android.gms:play-services-ads:25.2.0'
+    implementation 'com.google.android.material:material:1.14.0-beta01'
+    implementation platform('com.google.firebase:firebase-bom:34.12.0')
 
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-perf'

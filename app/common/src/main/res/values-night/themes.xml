@@ -1,5 +1,5 @@
 <resources>
-    <style name="RSSFeedStyle" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="RSSFeedStyle" parent="Theme.Material3Expressive.Dark.NoActionBar">
         <item name="colorPrimary">?attr/colorAccent</item>
 
         <item name="android:statusBarColor">@color/windowBg</item>
