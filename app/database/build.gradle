@@ -23,9 +23,9 @@ android {
 
 dependencies {
     implementation "androidx.room:room-runtime:2.7.2"
-    annotationProcessor "androidx.room:room-compiler:2.7.2"
+    annotationProcessor "androidx.room:room-compiler:2.8.4"
 
     implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'com.google.android.material:material:1.14.0-alpha03'
+    implementation 'com.google.android.material:material:1.14.0-beta01'
     implementation project(':app:rss')
 }

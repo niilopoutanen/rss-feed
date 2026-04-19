@@ -49,24 +49,24 @@ dependencies {
     implementation project(':app:database')
     implementation project(':app:manager')
 
-    implementation "androidx.room:room-runtime:2.7.2"
+    implementation "androidx.room:room-runtime:2.8.4"
     annotationProcessor "androidx.room:room-compiler:2.7.2"
 
     implementation 'net.dankito.readability4j:readability4j:1.0.8'
     implementation 'com.squareup.picasso:picasso:2.8'
-    implementation 'org.jsoup:jsoup:1.21.1'
+    implementation 'org.jsoup:jsoup:1.22.1'
     implementation 'com.github.MikeOrtiz:TouchImageView:3.7.1'
 
-    implementation "androidx.core:core-splashscreen:1.0.1"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation "androidx.core:core-splashscreen:1.2.0"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation ("androidx.webkit:webkit:1.14.0")
+    implementation ("androidx.webkit:webkit:1.15.0")
 
-    implementation 'com.google.android.gms:play-services-ads:24.5.0'
-    implementation 'com.google.android.material:material:1.14.0-alpha03'
-    implementation platform('com.google.firebase:firebase-bom:34.0.0')
+    implementation 'com.google.android.gms:play-services-ads:25.2.0'
+    implementation 'com.google.android.material:material:1.14.0-beta01'
+    implementation platform('com.google.firebase:firebase-bom:34.12.0')
 
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-perf'
